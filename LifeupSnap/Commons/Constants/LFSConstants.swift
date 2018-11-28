@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct LFSConstants {
+public struct LFSConstants {
     //MARK: StoryboardID
-    struct LFSStoryboardID {
-        struct Snap {
-            static let lfsSnapViewController = "LFSSnapViewControllerIdentifier"
+    public struct LFSStoryboardID {
+        public struct Snap {
+            public static let lfsSnapViewController = "LFSSnapViewControllerIdentifier"
         }
     }
 }
