@@ -9,12 +9,6 @@
 import UIKit
 
 class LFSViewUtils: NSObject {
-    static func callViewController(withStoryboardName name: LFSStoryBoardName, andStoryboardId storyboardId: String) -> UIViewController? {
-        let storyboard = UIStoryboard(name: name.rawValue, bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: storyboardId)
-        return viewController
-    }
-    
     static func addSubView(withBase viewController: UIViewController, and childController: UIViewController, by view: UIView) {
         view.frame = CGRect(x: 0, y: 0, width: childController.view.bounds.width, height: childController.view.bounds.height)
         viewController.addChildViewController(childController)
