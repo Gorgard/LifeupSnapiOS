@@ -11,7 +11,7 @@ import UIKit
 public class LifeupSnap: NSObject {
     public static let shared: LifeupSnap = LifeupSnap()
     
-    public weak var delegate: LFSSnapDelegate?
+    public weak var delegate: LFSSnapDelegate? = nil
     
     public lazy var viewController: UIViewController = {
         let bundle = Bundle(for: LFSSnapViewController.self)
