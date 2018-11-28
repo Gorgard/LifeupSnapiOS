@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "LifeupSnap"
-  s.version      = "0.0.4"
+  s.version      = "0.0.5"
   s.summary      = "LifeupSnap iOS"
   s.homepage     = 'http://lifeuptest.life'
   s.license      = 'Lifeup co.,Ltd'
@@ -18,8 +18,13 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'LifeupSnap' do |ss|
-    ss.source_files  = 'LifeupSnap/Controllers/Snap/Snap/*.swift',
-		       'LifeupSnap/Protocols/ViewModels/Snap/Snap/*.swift',
-		       'LifeupSnap/Commons/Constants/LFSConstants.swift'
+    ss.source_files  = 'LifeupSnap/Protocols/**/*.swift',
+			'LifeupSnap/Designs/**/*.xib',
+			'LifeupSnap/Commons/**/*.swift',
+			'LifeupSnap/Controllers/**/*.swift',
+			'LifeupSnap/ViewModels/**/*.swift',
+			'LifeupSnap/Enums/**/*.swift',
+			'LifeupSnap/Models/**/*.swift'
+
   end
 end
