@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "LifeupSnap"
-  s.version      = "0.0.9"
+  s.version      = "0.1.0"
   s.summary      = "LifeupSnap iOS"
   s.homepage     = 'http://lifeuptest.life'
   s.license      = 'Lifeup co.,Ltd'
