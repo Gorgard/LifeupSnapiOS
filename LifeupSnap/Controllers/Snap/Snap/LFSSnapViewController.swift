@@ -9,14 +9,14 @@
 import UIKit
 
 public class LFSSnapViewController: UIViewController {
-    @IBOutlet private weak var captureView: UIView!
-    @IBOutlet private weak var coverSnapView: UIView!
-    @IBOutlet private weak var lineInCoverSnapView: UIView!
-    @IBOutlet private weak var snapView: UIView!
-    @IBOutlet private weak var snapButton: UIButton!
-    @IBOutlet private weak var flipButton: UIButton!
-    @IBOutlet private weak var flashButton: UIButton!
-    @IBOutlet private weak var closeButton: UIButton!
+    @IBOutlet weak var captureView: UIView!
+    @IBOutlet weak var coverSnapView: UIView!
+    @IBOutlet weak var lineInCoverSnapView: UIView!
+    @IBOutlet weak var snapView: UIView!
+    @IBOutlet weak var snapButton: UIButton!
+    @IBOutlet weak var flipButton: UIButton!
+    @IBOutlet weak var flashButton: UIButton!
+    @IBOutlet weak var closeButton: UIButton!
     
     private var pageViewController: UIPageViewController!
     private var viewModel: LFSSnapViewModel!
