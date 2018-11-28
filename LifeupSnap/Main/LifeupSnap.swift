@@ -11,13 +11,11 @@ import UIKit
 public class LifeupSnap: NSObject {
     public static let shared: LifeupSnap = LifeupSnap()
     
-    public weak var delegate: LFSSnapDelegate?
-    
-    public lazy var viewController: UIViewController = {
+    public func loadViewController(delegate: LFSSnapDelegate) -> LFSSnapViewController {
         let bundle = Bundle(for: LFSSnapViewController.self)
         let lfsSnapViewController = LFSSnapViewController(nibName: LFSConstants.LFSNibID.Snap.lfsSnapViewController, bundle: bundle)
-        lfsSnapViewController.delegate = self.delegate
+        lfsSnapViewController.delegate = delegate
         
         return lfsSnapViewController
-    }()
+    }
 }

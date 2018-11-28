@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LFSSnapViewController: UIViewController {
+public class LFSSnapViewController: UIViewController {
     @IBOutlet weak var coverSnapView: UIView!
     @IBOutlet weak var lineInCoverSnapView: UIView!
     @IBOutlet weak var snapView: UIView!
@@ -17,12 +17,12 @@ class LFSSnapViewController: UIViewController {
     
     weak var delegate: LFSSnapDelegate?
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
     }
     
-    override func didReceiveMemoryWarning() {
+    override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
