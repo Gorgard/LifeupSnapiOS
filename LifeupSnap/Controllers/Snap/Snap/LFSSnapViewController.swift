@@ -15,7 +15,7 @@ public class LFSSnapViewController: UIViewController {
     @IBOutlet weak var snapButton: UIButton!
     @IBOutlet weak var flipButton: UIButton!
     
-    weak var delegate: LFSSnapDelegate?
+    public weak var delegate: LFSSnapDelegate?
     
     override public func viewDidLoad() {
         super.viewDidLoad()
