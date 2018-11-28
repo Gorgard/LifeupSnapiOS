@@ -75,14 +75,14 @@ extension LFSSnapViewModel: PageViewPresentable {
 
 //MARK: Helpers
 extension LFSSnapViewModel {
-    private func viewControllerAtIndex(_ index: Int) -> UIViewController? {
+    fileprivate func viewControllerAtIndex(_ index: Int) -> UIViewController? {
         if viewControllers.count == 0 || index >= viewControllers.count {
             return nil
         }
         return viewControllers[index]
     }
     
-    private func indexOfViewController(_ viewController: UIViewController) -> Int {
+    fileprivate func indexOfViewController(_ viewController: UIViewController) -> Int {
         return viewControllers.index(of: viewController) ?? NSNotFound
     }
 }
