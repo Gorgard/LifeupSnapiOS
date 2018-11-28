@@ -18,7 +18,8 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'LifeupSnap' do |ss|
-    ss.source_files  = 'LifeupSnap/Controllers/Snap/*.swift',
-		       'LifeupSnap/Protocols/ViewModels/Snap/Snap/*.swift'
+    ss.source_files  = 'LifeupSnap/Controllers/Snap/Snap/*.swift',
+		       'LifeupSnap/Protocols/ViewModels/Snap/Snap/*.swift',
+		       'LifeupSnap/Commons/Constants/LFSConstants.swift
   end
 end
