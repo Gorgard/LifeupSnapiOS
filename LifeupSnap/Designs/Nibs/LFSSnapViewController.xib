@@ -13,7 +13,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSSnapViewController" customModule="LifeupSnap" customModuleProvider="target">
             <connections>
+                <outlet property="captureView" destination="SX6-aB-iLb" id="sLx-WH-8qe"/>
+                <outlet property="closeButton" destination="hX8-Ph-ab1" id="Nr4-vz-3yM"/>
                 <outlet property="coverSnapView" destination="3MN-Kd-aRL" id="zSs-A3-cD3"/>
+                <outlet property="flashButton" destination="PsR-7F-MkC" id="RJj-Bt-EQ5"/>
                 <outlet property="flipButton" destination="LRo-yH-kAO" id="gqH-vq-JH4"/>
                 <outlet property="lineInCoverSnapView" destination="Vzi-m7-hGo" id="SaZ-qk-5z7"/>
                 <outlet property="snapButton" destination="376-SO-c4d" id="bad-4v-Oew"/>
@@ -40,6 +43,9 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="376-SO-c4d">
                                                     <rect key="frame" x="0.0" y="0.0" width="68" height="68"/>
+                                                    <connections>
+                                                        <action selector="onTappedSnap:" destination="-1" eventType="touchUpInside" id="DAS-gx-OmG"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -80,6 +86,23 @@
                             <state key="normal" title="Flip">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
+                            <connections>
+                                <action selector="onTappedFlip:" destination="-1" eventType="touchUpInside" id="zvi-X2-iHX"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PsR-7F-MkC">
+                            <rect key="frame" x="20" y="25" width="50" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="50" id="EWG-wZ-dfc"/>
+                                <constraint firstAttribute="height" constant="50" id="w2l-1K-PiS"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <state key="normal" title="Flash">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="onTappedFlash:" destination="-1" eventType="touchUpInside" id="991-Fd-k2B"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -87,18 +110,57 @@
                         <constraint firstAttribute="trailing" secondItem="LRo-yH-kAO" secondAttribute="trailing" constant="20" id="05S-o6-Q0M"/>
                         <constraint firstItem="LRo-yH-kAO" firstAttribute="centerY" secondItem="376-SO-c4d" secondAttribute="centerY" id="7mr-rc-1ol"/>
                         <constraint firstItem="3MN-Kd-aRL" firstAttribute="centerY" secondItem="vDY-2S-bKE" secondAttribute="centerY" id="BVA-fW-2hx"/>
+                        <constraint firstItem="PsR-7F-MkC" firstAttribute="leading" secondItem="vDY-2S-bKE" secondAttribute="leading" constant="20" id="UFN-s7-8b7"/>
                         <constraint firstItem="3MN-Kd-aRL" firstAttribute="centerX" secondItem="vDY-2S-bKE" secondAttribute="centerX" id="fzg-Qj-kLu"/>
+                        <constraint firstItem="PsR-7F-MkC" firstAttribute="centerY" secondItem="376-SO-c4d" secondAttribute="centerY" id="q6w-gW-5hC"/>
                     </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yqG-Ck-ejo">
+                    <rect key="frame" x="0.0" y="20" width="375" height="66.5"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hX8-Ph-ab1">
+                            <rect key="frame" x="10" y="13" width="41" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="41" id="mgd-Ov-BWD"/>
+                                <constraint firstAttribute="height" constant="40" id="t24-k1-72E"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                            <state key="normal" title="Close">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="onTappedClose:" destination="-1" eventType="touchUpInside" id="luz-zs-hTt"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="hX8-Ph-ab1" firstAttribute="leading" secondItem="yqG-Ck-ejo" secondAttribute="leading" constant="10" id="ZrK-Yz-2zm"/>
+                        <constraint firstItem="hX8-Ph-ab1" firstAttribute="centerY" secondItem="yqG-Ck-ejo" secondAttribute="centerY" id="srO-vi-SeP"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SX6-aB-iLb">
+                    <rect key="frame" x="0.0" y="86.5" width="375" height="480.5"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="SX6-aB-iLb" secondAttribute="trailing" id="0de-IJ-XGV"/>
+                <constraint firstItem="SX6-aB-iLb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="7qS-EM-2e9"/>
                 <constraint firstItem="vDY-2S-bKE" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="9Qb-1U-4D6"/>
                 <constraint firstItem="vDY-2S-bKE" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="FPC-On-rnJ"/>
+                <constraint firstItem="yqG-Ck-ejo" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="IEQ-qd-TVM"/>
                 <constraint firstItem="vDY-2S-bKE" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="JaL-yQ-Lwv"/>
+                <constraint firstItem="yqG-Ck-ejo" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="TAL-C1-fkL"/>
+                <constraint firstItem="SX6-aB-iLb" firstAttribute="top" secondItem="yqG-Ck-ejo" secondAttribute="bottom" id="Up0-wk-ZxL"/>
+                <constraint firstItem="yqG-Ck-ejo" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.1" id="ZKU-hT-u4x"/>
                 <constraint firstItem="vDY-2S-bKE" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.15" id="dXj-s4-wJB"/>
+                <constraint firstItem="vDY-2S-bKE" firstAttribute="top" secondItem="SX6-aB-iLb" secondAttribute="bottom" id="ocP-i7-Bsj"/>
+                <constraint firstItem="yqG-Ck-ejo" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="wuY-sQ-gQq"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="34.5" y="53.5"/>
         </view>
     </objects>
 </document>

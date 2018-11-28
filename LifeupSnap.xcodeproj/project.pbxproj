@@ -29,6 +29,9 @@
 		437225D521AE818F00130213 /* LFSEditingPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 437225D321AE818F00130213 /* LFSEditingPhotoViewController.xib */; };
 		437225D921AE81C000130213 /* LFSEditingVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225D721AE81C000130213 /* LFSEditingVideoViewController.swift */; };
 		437225DA21AE81C000130213 /* LFSEditingVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 437225D821AE81C000130213 /* LFSEditingVideoViewController.xib */; };
+		437225DD21AE874200130213 /* LFSSnapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225DC21AE874200130213 /* LFSSnapViewModel.swift */; };
+		437225E121AE878B00130213 /* LFSSnapViewModelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225E021AE878B00130213 /* LFSSnapViewModelProtocols.swift */; };
+		437225E321AE8B2F00130213 /* PageViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225E221AE8B2F00130213 /* PageViewPresentable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +70,9 @@
 		437225D321AE818F00130213 /* LFSEditingPhotoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSEditingPhotoViewController.xib; sourceTree = "<group>"; };
 		437225D721AE81C000130213 /* LFSEditingVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEditingVideoViewController.swift; sourceTree = "<group>"; };
 		437225D821AE81C000130213 /* LFSEditingVideoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSEditingVideoViewController.xib; sourceTree = "<group>"; };
+		437225DC21AE874200130213 /* LFSSnapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnapViewModel.swift; sourceTree = "<group>"; };
+		437225E021AE878B00130213 /* LFSSnapViewModelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnapViewModelProtocols.swift; sourceTree = "<group>"; };
+		437225E221AE8B2F00130213 /* PageViewPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewPresentable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +139,7 @@
 		4372252B21AE2B3300130213 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				437225DB21AE873500130213 /* Snap */,
 				4372254721AE47FE00130213 /* Base */,
 			);
 			path = ViewModels;
@@ -205,24 +212,18 @@
 		4372254A21AE484100130213 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				437225DE21AE876000130213 /* ViewModels */,
 				437225A121AE5BF900130213 /* Base */,
 				4372255021AE488500130213 /* Views */,
-				4372254B21AE484D00130213 /* ViewModels */,
 			);
 			path = Protocols;
-			sourceTree = "<group>";
-		};
-		4372254B21AE484D00130213 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		4372255021AE488500130213 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				4372255221AE489D00130213 /* LFSViewPresentable.swift */,
+				437225E221AE8B2F00130213 /* PageViewPresentable.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -302,6 +303,30 @@
 				437225D721AE81C000130213 /* LFSEditingVideoViewController.swift */,
 			);
 			path = "Editing Video";
+			sourceTree = "<group>";
+		};
+		437225DB21AE873500130213 /* Snap */ = {
+			isa = PBXGroup;
+			children = (
+				437225DC21AE874200130213 /* LFSSnapViewModel.swift */,
+			);
+			path = Snap;
+			sourceTree = "<group>";
+		};
+		437225DE21AE876000130213 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				437225DF21AE876900130213 /* Snap */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		437225DF21AE876900130213 /* Snap */ = {
+			isa = PBXGroup;
+			children = (
+				437225E021AE878B00130213 /* LFSSnapViewModelProtocols.swift */,
+			);
+			path = Snap;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -420,6 +445,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				437225E321AE8B2F00130213 /* PageViewPresentable.swift in Sources */,
 				437225D421AE818F00130213 /* LFSEditingPhotoViewController.swift in Sources */,
 				437225C121AE808900130213 /* LFSSquareCaptureViewController.swift in Sources */,
 				4372255321AE489D00130213 /* LFSViewPresentable.swift in Sources */,
@@ -430,8 +456,10 @@
 				4372254921AE482600130213 /* LFSViewModel.swift in Sources */,
 				437225BD21AE803600130213 /* LFSOriginalCaptureViewController.swift in Sources */,
 				437225D921AE81C000130213 /* LFSEditingVideoViewController.swift in Sources */,
+				437225E121AE878B00130213 /* LFSSnapViewModelProtocols.swift in Sources */,
 				4372253F21AE314B00130213 /* LFSViewUtils.swift in Sources */,
 				437225C921AE80FF00130213 /* LFSVideoCaptureViewController.swift in Sources */,
+				437225DD21AE874200130213 /* LFSSnapViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
