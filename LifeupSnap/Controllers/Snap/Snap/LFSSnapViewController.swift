@@ -1,5 +1,5 @@
 //
-//  SnapViewController.swift
+//  LFSSnapViewController.swift
 //  LifeupSnap
 //
 //  Created by lifeup on 28/11/2561 BE.
@@ -15,16 +15,27 @@ public class LFSSnapViewController: UIViewController {
     @IBOutlet weak var snapButton: UIButton!
     @IBOutlet weak var flipButton: UIButton!
     
+    public weak var delegate: LFSSnapDelegate?
+    
+    public init() {
+        let bundle = Bundle(for: LFSSnapViewController.self)
+        super.init(nibName: LFSConstants.LFSNibID.Snap.lfsSnapViewController, bundle: bundle)
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
     }
-
+    
     override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     fileprivate func setupViews() {
         coverSnapView.layer.cornerRadius = coverSnapView.bounds.size.height / 2
         lineInCoverSnapView.layer.cornerRadius = lineInCoverSnapView.bounds.size.height / 2

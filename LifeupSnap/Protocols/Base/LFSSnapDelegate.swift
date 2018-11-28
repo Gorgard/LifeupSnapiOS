@@ -1,5 +1,5 @@
 //
-//  LFSStoryBoardName.swift
+//  LFSSnapDelegate.swift
 //  LifeupSnap
 //
 //  Created by lifeup on 28/11/2561 BE.
@@ -8,6 +8,5 @@
 
 import Foundation
 
-enum LFSStoryBoardName: String {
-    case snap = "Snap"
+public protocol LFSSnapDelegate: class {
 }
