@@ -13,7 +13,7 @@ internal class LFSSnapViewModel: LFSViewModel {
     
     internal var viewControllers: [UIViewController]!
     
-    internal var receivedFirstPage: ((_ viewController: UIViewController) -> Void)?
+    open var receivedFirstPage: ((_ viewController: UIViewController) -> Void)?
     
     init(delegate: LFSSnapViewModelDelegate) {
         super.init()

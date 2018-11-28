@@ -18,10 +18,10 @@ public class LFSSnapViewController: UIViewController {
     @IBOutlet weak var flashButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
     
-    internal var pageViewController: UIPageViewController!
+    open var pageViewController: UIPageViewController!
     internal var viewModel: LFSSnapViewModel!
     
-    public weak var delegate: LFSSnapDelegate?
+    open weak var delegate: LFSSnapDelegate?
     
     public init() {
         let bundle = Bundle(for: LFSSnapViewController.self)
