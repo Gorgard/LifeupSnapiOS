@@ -17,7 +17,6 @@
 		437225A021AE559500130213 /* LFSSnapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372259F21AE559500130213 /* LFSSnapDelegate.swift */; };
 		437225AA21AE61CE00130213 /* LFSSnapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225A821AE61CE00130213 /* LFSSnapViewController.swift */; };
 		437225AB21AE61CE00130213 /* LFSSnapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 437225A921AE61CE00130213 /* LFSSnapViewController.xib */; };
-		437225B221AE796600130213 /* LFSSnap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225B121AE796600130213 /* LFSSnap.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +43,6 @@
 		4372259F21AE559500130213 /* LFSSnapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnapDelegate.swift; sourceTree = "<group>"; };
 		437225A821AE61CE00130213 /* LFSSnapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnapViewController.swift; sourceTree = "<group>"; };
 		437225A921AE61CE00130213 /* LFSSnapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSSnapViewController.xib; sourceTree = "<group>"; };
-		437225B121AE796600130213 /* LFSSnap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnap.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +90,6 @@
 				4372252F21AE2B3300130213 /* Commons */,
 				4372252C21AE2B3300130213 /* Controllers */,
 				4372253021AE2B3600130213 /* Designs */,
-				437225AE21AE6C5A00130213 /* Main */,
 				437225AC21AE62F100130213 /* Models */,
 				4372254A21AE484100130213 /* Protocols */,
 				4372252B21AE2B3300130213 /* ViewModels */,
@@ -223,14 +220,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		437225AE21AE6C5A00130213 /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				437225B121AE796600130213 /* LFSSnap.swift */,
-			);
-			path = Main;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -347,7 +336,6 @@
 				437225AA21AE61CE00130213 /* LFSSnapViewController.swift in Sources */,
 				4372254921AE482600130213 /* LFSViewModel.swift in Sources */,
 				4372253F21AE314B00130213 /* LFSViewUtils.swift in Sources */,
-				437225B221AE796600130213 /* LFSSnap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

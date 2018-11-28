@@ -17,6 +17,14 @@ public class LFSSnapViewController: UIViewController {
     
     public weak var delegate: LFSSnapDelegate?
     
+    public init() {
+        super.init(nibName: LFSConstants.LFSNibID.Snap.lfsSnapViewController, bundle: Bundle(for: LFSSnapViewController.self))
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
