@@ -17,7 +17,7 @@
 		437225A021AE559500130213 /* LFSSnapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372259F21AE559500130213 /* LFSSnapDelegate.swift */; };
 		437225AA21AE61CE00130213 /* LFSSnapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225A821AE61CE00130213 /* LFSSnapViewController.swift */; };
 		437225AB21AE61CE00130213 /* LFSSnapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 437225A921AE61CE00130213 /* LFSSnapViewController.xib */; };
-		437225B021AE6C7900130213 /* LifeupSnap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225AF21AE6C7900130213 /* LifeupSnap.swift */; };
+		437225B221AE796600130213 /* LFSSnap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225B121AE796600130213 /* LFSSnap.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +44,7 @@
 		4372259F21AE559500130213 /* LFSSnapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnapDelegate.swift; sourceTree = "<group>"; };
 		437225A821AE61CE00130213 /* LFSSnapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnapViewController.swift; sourceTree = "<group>"; };
 		437225A921AE61CE00130213 /* LFSSnapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSSnapViewController.xib; sourceTree = "<group>"; };
-		437225AF21AE6C7900130213 /* LifeupSnap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeupSnap.swift; sourceTree = "<group>"; };
+		437225B121AE796600130213 /* LFSSnap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnap.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,7 +226,7 @@
 		437225AE21AE6C5A00130213 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				437225AF21AE6C7900130213 /* LifeupSnap.swift */,
+				437225B121AE796600130213 /* LFSSnap.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -341,13 +341,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				437225B021AE6C7900130213 /* LifeupSnap.swift in Sources */,
 				4372255321AE489D00130213 /* LFSViewPresentable.swift in Sources */,
 				4372253921AE2BA300130213 /* LFSConstants.swift in Sources */,
 				437225A021AE559500130213 /* LFSSnapDelegate.swift in Sources */,
 				437225AA21AE61CE00130213 /* LFSSnapViewController.swift in Sources */,
 				4372254921AE482600130213 /* LFSViewModel.swift in Sources */,
 				4372253F21AE314B00130213 /* LFSViewUtils.swift in Sources */,
+				437225B221AE796600130213 /* LFSSnap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
