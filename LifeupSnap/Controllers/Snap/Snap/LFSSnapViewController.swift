@@ -1,5 +1,5 @@
 //
-//  BaseSnapViewController.swift
+//  SnapViewController.swift
 //  LifeupSnap
 //
 //  Created by lifeup on 28/11/2561 BE.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class BaseSnapViewController: UIViewController {
+public class LFSSnapViewController: UIViewController {
     @IBOutlet weak var coverSnapView: UIView!
     @IBOutlet weak var lineInCoverSnapView: UIView!
     @IBOutlet weak var snapView: UIView!

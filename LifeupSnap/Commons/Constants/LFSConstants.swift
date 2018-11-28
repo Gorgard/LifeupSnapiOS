@@ -12,7 +12,7 @@ struct LFSConstants {
     //MARK: StoryboardID
     struct LFSStoryboardID {
         struct Snap {
-            static let baseSnapViewController = "BaseSnapViewControllerIdentifier"
+            static let lfsSnapViewController = "LFSSnapViewControllerIdentifier"
         }
     }
 }
