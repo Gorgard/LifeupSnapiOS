@@ -10,9 +10,9 @@ import Foundation
 
 public struct LFSConstants {
     //MARK: StoryboardID
-    public struct LFSStoryboardID {
+    public struct LFSNibID {
         public struct Snap {
-            public static let lfsSnapViewController = "LFSSnapViewControllerIdentifier"
+            public static let lfsSnapViewController = "LFSSnapViewController"
         }
     }
 }
