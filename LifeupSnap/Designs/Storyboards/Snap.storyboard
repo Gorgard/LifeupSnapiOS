@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Base Snap View Controller-->
+        <!--Snap View Controller-->
         <scene sceneID="TU8-6w-cjo">
             <objects>
-                <viewController storyboardIdentifier="BaseSnapViewControllerIdentifier" id="AeU-1V-3ez" customClass="BaseSnapViewController" customModule="LifeupSnap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LFSSnapViewControllerIdentifier" id="AeU-1V-3ez" customClass="LFSSnapViewController" customModule="LifeupSnap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4bJ-8L-c4X">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -104,7 +104,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WrB-Fz-JMe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="809" y="67"/>
+            <point key="canvasLocation" x="876" y="67"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="k9d-Qv-fJR">
