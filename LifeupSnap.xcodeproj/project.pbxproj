@@ -12,8 +12,12 @@
 		431A139A21AD46C1005730E0 /* LifeupSnap.h in Headers */ = {isa = PBXBuildFile; fileRef = 431A138C21AD46C1005730E0 /* LifeupSnap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4372253321AE2B4500130213 /* Snap.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4372253221AE2B4500130213 /* Snap.storyboard */; };
 		4372253921AE2BA300130213 /* LFSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372253821AE2BA300130213 /* LFSConstants.swift */; };
-		4372253B21AE2DFC00130213 /* BaseSnapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372253A21AE2DFC00130213 /* BaseSnapViewController.swift */; };
+		4372253B21AE2DFC00130213 /* LFSSnapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372253A21AE2DFC00130213 /* LFSSnapViewController.swift */; };
 		4372253F21AE314B00130213 /* LFSViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372253E21AE314B00130213 /* LFSViewUtils.swift */; };
+		4372254421AE47C600130213 /* LFSStartSnapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372254321AE47C600130213 /* LFSStartSnapViewController.swift */; };
+		4372254921AE482600130213 /* LFSViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372254821AE482600130213 /* LFSViewModel.swift */; };
+		4372255321AE489D00130213 /* LFSViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372255221AE489D00130213 /* LFSViewPresentable.swift */; };
+		4372255821AE4A9400130213 /* LFSStoryBoardName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372255721AE4A9400130213 /* LFSStoryBoardName.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,8 +39,12 @@
 		431A139921AD46C1005730E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4372253221AE2B4500130213 /* Snap.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Snap.storyboard; sourceTree = "<group>"; };
 		4372253821AE2BA300130213 /* LFSConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSConstants.swift; sourceTree = "<group>"; };
-		4372253A21AE2DFC00130213 /* BaseSnapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSnapViewController.swift; sourceTree = "<group>"; };
+		4372253A21AE2DFC00130213 /* LFSSnapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnapViewController.swift; sourceTree = "<group>"; };
 		4372253E21AE314B00130213 /* LFSViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSViewUtils.swift; sourceTree = "<group>"; };
+		4372254321AE47C600130213 /* LFSStartSnapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSStartSnapViewController.swift; sourceTree = "<group>"; };
+		4372254821AE482600130213 /* LFSViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSViewModel.swift; sourceTree = "<group>"; };
+		4372255221AE489D00130213 /* LFSViewPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSViewPresentable.swift; sourceTree = "<group>"; };
+		4372255721AE4A9400130213 /* LFSStoryBoardName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSStoryBoardName.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +87,7 @@
 		431A138B21AD46C1005730E0 /* LifeupSnap */ = {
 			isa = PBXGroup;
 			children = (
+				4372254A21AE484100130213 /* Protocols */,
 				4372253021AE2B3600130213 /* Designs */,
 				4372252F21AE2B3300130213 /* Commons */,
 				4372252C21AE2B3300130213 /* Controllers */,
@@ -103,6 +112,7 @@
 		4372252B21AE2B3300130213 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				4372254521AE47ED00130213 /* Snap */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -118,6 +128,7 @@
 		4372252D21AE2B3300130213 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
+				4372255621AE4A8500130213 /* Views */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -157,17 +168,18 @@
 		4372253421AE2B4F00130213 /* Snap */ = {
 			isa = PBXGroup;
 			children = (
-				4372253521AE2B6200130213 /* Base */,
+				4372254221AE47B300130213 /* Start */,
+				4372253521AE2B6200130213 /* Snap */,
 			);
 			path = Snap;
 			sourceTree = "<group>";
 		};
-		4372253521AE2B6200130213 /* Base */ = {
+		4372253521AE2B6200130213 /* Snap */ = {
 			isa = PBXGroup;
 			children = (
-				4372253A21AE2DFC00130213 /* BaseSnapViewController.swift */,
+				4372253A21AE2DFC00130213 /* LFSSnapViewController.swift */,
 			);
-			path = Base;
+			path = Snap;
 			sourceTree = "<group>";
 		};
 		4372253C21AE313000130213 /* Uitls */ = {
@@ -184,6 +196,86 @@
 				4372253821AE2BA300130213 /* LFSConstants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		4372254221AE47B300130213 /* Start */ = {
+			isa = PBXGroup;
+			children = (
+				4372254321AE47C600130213 /* LFSStartSnapViewController.swift */,
+			);
+			path = Start;
+			sourceTree = "<group>";
+		};
+		4372254521AE47ED00130213 /* Snap */ = {
+			isa = PBXGroup;
+			children = (
+				4372254721AE47FE00130213 /* Base */,
+				4372254621AE47F200130213 /* Start */,
+			);
+			path = Snap;
+			sourceTree = "<group>";
+		};
+		4372254621AE47F200130213 /* Start */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Start;
+			sourceTree = "<group>";
+		};
+		4372254721AE47FE00130213 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				4372254821AE482600130213 /* LFSViewModel.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		4372254A21AE484100130213 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				4372255021AE488500130213 /* Views */,
+				4372254B21AE484D00130213 /* ViewModels */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		4372254B21AE484D00130213 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				4372254C21AE485300130213 /* Snap */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		4372254C21AE485300130213 /* Snap */ = {
+			isa = PBXGroup;
+			children = (
+				4372254D21AE485800130213 /* Snap */,
+			);
+			path = Snap;
+			sourceTree = "<group>";
+		};
+		4372254D21AE485800130213 /* Snap */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Snap;
+			sourceTree = "<group>";
+		};
+		4372255021AE488500130213 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4372255221AE489D00130213 /* LFSViewPresentable.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4372255621AE4A8500130213 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4372255721AE4A9400130213 /* LFSStoryBoardName.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -296,9 +388,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4372255321AE489D00130213 /* LFSViewPresentable.swift in Sources */,
 				4372253921AE2BA300130213 /* LFSConstants.swift in Sources */,
+				4372254421AE47C600130213 /* LFSStartSnapViewController.swift in Sources */,
+				4372254921AE482600130213 /* LFSViewModel.swift in Sources */,
 				4372253F21AE314B00130213 /* LFSViewUtils.swift in Sources */,
-				4372253B21AE2DFC00130213 /* BaseSnapViewController.swift in Sources */,
+				4372255821AE4A9400130213 /* LFSStoryBoardName.swift in Sources */,
+				4372253B21AE2DFC00130213 /* LFSSnapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
