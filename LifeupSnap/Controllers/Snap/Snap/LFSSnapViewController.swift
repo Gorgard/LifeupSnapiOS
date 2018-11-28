@@ -8,21 +8,30 @@
 
 import UIKit
 
-class LFSSnapViewController: UIViewController {
+public class LFSSnapViewController: UIViewController {
     @IBOutlet weak var coverSnapView: UIView!
     @IBOutlet weak var lineInCoverSnapView: UIView!
     @IBOutlet weak var snapView: UIView!
     @IBOutlet weak var snapButton: UIButton!
     @IBOutlet weak var flipButton: UIButton!
     
-    weak var delegate: LFSSnapDelegate?
+    public weak var delegate: LFSSnapDelegate?
     
-    override func viewDidLoad() {
+    public init() {
+        let bundle = Bundle(for: LFSSnapViewController.self)
+        super.init(nibName: LFSConstants.LFSNibID.Snap.lfsSnapViewController, bundle: bundle)
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override public func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
     }
     
-    override func didReceiveMemoryWarning() {
+    override public func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }

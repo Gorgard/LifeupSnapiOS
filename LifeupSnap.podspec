@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "LifeupSnap"
-  s.version      = "0.0.6"
+  s.version      = "0.0.8"
   s.summary      = "LifeupSnap iOS"
   s.homepage     = 'http://lifeuptest.life'
   s.license      = 'Lifeup co.,Ltd'
@@ -24,8 +24,7 @@ Pod::Spec.new do |s|
 			'LifeupSnap/Controllers/**/*.swift',
 			'LifeupSnap/ViewModels/**/*.swift',
 			'LifeupSnap/Enums/**/*.swift',
-			'LifeupSnap/Models/**/*.swift',
-			'LifeupSnap/Main/*.swift'
+			'LifeupSnap/Models/**/*.swift'
 
   end
 end

@@ -8,11 +8,17 @@
 
 import Foundation
 
-public struct LFSConstants {
+internal struct LFSConstants {
     //MARK: StoryboardID
-    public struct LFSNibID {
-        public struct Snap {
-            public static let lfsSnapViewController = "LFSSnapViewController"
+    internal struct LFSNibID {
+        internal struct Snap {
+            internal static let lfsSnapViewController = "LFSSnapViewController"
+            internal static let lfsOriginalCaptureViewController = "LFSOriginalCaptureViewController"
+            internal static let lfsSquareCaptureViewController = "LFSSquareCaptureViewController"
+            internal static let lfsVideoCaptureViewController = "LFSVideoCaptureViewController"
+            internal static let lfsBoomerangViewController = "LFSBoomerangViewController"
+            internal static let lfsEditingPhotoViewController = "LFSEditingPhotoViewController"
+            internal static let lfsEditingVideoViewController = "LFSEditingVideoViewController"
         }
     }
 }
