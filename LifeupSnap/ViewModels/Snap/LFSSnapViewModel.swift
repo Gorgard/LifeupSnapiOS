@@ -11,9 +11,9 @@ import UIKit
 internal class LFSSnapViewModel: LFSViewModel {
     private weak var delegate: LFSSnapViewModelDelegate?
     
-    private var viewControllers: [UIViewController]!
+    internal var viewControllers: [UIViewController]!
     
-    var receivedFirstPage: ((_ viewController: UIViewController) -> Void)?
+    internal var receivedFirstPage: ((_ viewController: UIViewController) -> Void)?
     
     init(delegate: LFSSnapViewModelDelegate) {
         super.init()

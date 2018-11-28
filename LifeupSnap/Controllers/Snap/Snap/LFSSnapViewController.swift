@@ -18,8 +18,8 @@ public class LFSSnapViewController: UIViewController {
     @IBOutlet weak var flashButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
     
-    private var pageViewController: UIPageViewController!
-    private var viewModel: LFSSnapViewModel!
+    internal var pageViewController: UIPageViewController!
+    internal var viewModel: LFSSnapViewModel!
     
     public weak var delegate: LFSSnapDelegate?
     
