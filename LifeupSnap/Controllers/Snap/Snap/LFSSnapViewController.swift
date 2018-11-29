@@ -9,6 +9,8 @@
 import UIKit
 
 public class LFSSnapViewController: UIViewController {
+    @IBOutlet weak var coverPickerView: UIView!
+    @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var captureView: UIView!
     @IBOutlet weak var coverSnapView: UIView!
     @IBOutlet weak var lineInCoverSnapView: UIView!
@@ -18,7 +20,14 @@ public class LFSSnapViewController: UIViewController {
     @IBOutlet weak var flashButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
     
+    //MARK: Constraint
+    @IBOutlet weak var pickerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var pickerViewWidthConstraint: NSLayoutConstraint!
+    
     open var pageViewController: UIPageViewController!
+    open var swipeRightGesture: UISwipeGestureRecognizer!
+    open var swipeLeftGesture: UISwipeGestureRecognizer!
+    
     internal var viewModel: LFSSnapViewModel!
     
     open weak var delegate: LFSSnapDelegate?
@@ -69,45 +78,98 @@ extension LFSSnapViewController {
     }
     
     fileprivate func setupViews() {
-        pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .vertical, options: nil)
-        pageViewController.delegate = self
-        pageViewController.dataSource = self
+        coverSnapView.layer.cornerRadius = coverSnapView.bounds.size.height / 2
+        lineInCoverSnapView.layer.cornerRadius = lineInCoverSnapView.bounds.size.height / 2
+        snapView.layer.cornerRadius = snapView.bounds.size.height / 2
+        
+        setupPageView()
+        setupPickerView()
+        setupSwipeRight()
+        setupSwipeLeft()
+    }
+    
+    fileprivate func setupPageView() {
+        pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        pageViewController.isPagingEnabled = false
         
         pageViewController.view.frame = captureView.bounds
         
         addChildViewController(pageViewController)
         captureView.addSubview(pageViewController.view)
+    }
+    
+    fileprivate func setupPickerView() {
+        pickerView.transform = CGAffineTransform(rotationAngle: .pi / 2)
+        pickerView.frame = CGRect(x: 0, y: 0, width: coverPickerView.frame.height, height: coverPickerView.frame.width)
+        pickerViewHeightConstraint.constant = coverPickerView.frame.width
+        pickerViewWidthConstraint.constant = coverPickerView.frame.height
         
-        coverSnapView.layer.cornerRadius = coverSnapView.bounds.size.height / 2
-        lineInCoverSnapView.layer.cornerRadius = lineInCoverSnapView.bounds.size.height / 2
-        snapView.layer.cornerRadius = snapView.bounds.size.height / 2
+        pickerView.delegate = self
+        pickerView.dataSource = self
+    }
+    
+    fileprivate func setupSwipeRight() {
+        swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeRight))
+        swipeRightGesture.direction = .right
+        captureView.addGestureRecognizer(swipeRightGesture)
+    }
+    
+    fileprivate func setupSwipeLeft() {
+        swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeLeft))
+        swipeLeftGesture.direction = .left
+        captureView.addGestureRecognizer(swipeLeftGesture)
     }
     
     fileprivate func binding() {
         viewModel.receivedFirstPage = { [unowned self] (viewController) -> Void in
-            self.pageViewController.setViewControllers([viewController], direction: .forward, animated: true, completion: nil)
+            self.pageViewController.setViewControllers([viewController], direction: .forward, animated: false, completion: nil)
+        }
+        
+        viewModel.receivedFirstFeature = { [unowned self] (index) -> Void in
+            self.pickerView.selectRow(index, inComponent: 0, animated: true)
+            self.pickerView.reloadAllComponents()
         }
         
         viewModel.binding()
     }
 }
 
-//MARK: UIPageViewControllerDataSource, UIPageViewControllerDelegate
-extension LFSSnapViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-    public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        return viewModel.beforeViewController(pageViewController: pageViewController, viewController: viewController)
+
+//MARK: UIPickerViewDataSource, UIPickerViewDelegate
+extension LFSSnapViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return viewModel.numberOfComponents(pickerView: pickerView)
     }
     
-    public func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        return viewModel.afterViewController(pageViewController: pageViewController, viewController: viewController)
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return viewModel.numberOfRowsInComponent(pickerView: pickerView, component: component)
     }
     
-    public func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return viewModel.presentationCount()
+    public func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        return 40
     }
     
-    public func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        return viewModel.presentationIndex()
+    public func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 80
+    }
+    
+    public func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        return viewModel.viewForRow(pickerView: pickerView, row: row, component: component, view: view)
+    }
+    
+    public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        viewModel.didSelected(pickerView: pickerView, row: row, component: component)
+    }
+}
+
+//MARK: Handle SwipeGesture
+extension LFSSnapViewController {
+    @objc fileprivate func handleSwipeRight() {
+        viewModel.handleSwipeRight()
+    }
+    
+    @objc fileprivate func handleSwipeLeft() {
+        viewModel.handleSwipeLeft()
     }
 }
 

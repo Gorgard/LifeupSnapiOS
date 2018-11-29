@@ -8,9 +8,7 @@
 
 import UIKit
 
-protocol PageViewPresentable {
+internal protocol PageViewPresentable {
     func beforeViewController(pageViewController: UIPageViewController, viewController: UIViewController) -> UIViewController?
     func afterViewController(pageViewController: UIPageViewController, viewController: UIViewController) -> UIViewController?
-    func presentationCount() -> Int
-    func presentationIndex() -> Int
 }
