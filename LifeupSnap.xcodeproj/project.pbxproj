@@ -18,6 +18,16 @@
 			name = LifeupSnapiOS;
 			productName = LifeupSnapiOS;
 		};
+		43E6A05B21AFED1200355A3C /* LifeupSnapiOSSDK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 43E6A05E21AFED1200355A3C /* Build configuration list for PBXAggregateTarget "LifeupSnapiOSSDK" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = LifeupSnapiOSSDK;
+			productName = LifeupSnapiOSSDK;
+		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
@@ -517,6 +527,9 @@
 					4398717821AF742400EDCE53 = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
+					43E6A05B21AFED1200355A3C = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
 				};
 			};
 			buildConfigurationList = 431A138321AD46C1005730E0 /* Build configuration list for PBXProject "LifeupSnap" */;
@@ -534,6 +547,7 @@
 				431A138821AD46C1005730E0 /* LifeupSnap */,
 				431A139121AD46C1005730E0 /* LifeupSnapTests */,
 				4398717821AF742400EDCE53 /* LifeupSnapiOS */,
+				43E6A05B21AFED1200355A3C /* LifeupSnapiOSSDK */,
 			);
 		};
 /* End PBXProject section */
@@ -863,6 +877,22 @@
 			};
 			name = Release;
 		};
+		43E6A05C21AFED1200355A3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		43E6A05D21AFED1200355A3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -898,6 +928,15 @@
 			buildConfigurations = (
 				4398717921AF742400EDCE53 /* Debug */,
 				4398717A21AF742400EDCE53 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		43E6A05E21AFED1200355A3C /* Build configuration list for PBXAggregateTarget "LifeupSnapiOSSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43E6A05C21AFED1200355A3C /* Debug */,
+				43E6A05D21AFED1200355A3C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

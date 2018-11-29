@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "LifeupSnap"
-  s.version      = "0.1.1"
+  s.version      = "0.1.2"
   s.summary      = "LifeupSnap iOS"
   s.homepage     = 'http://lifeuptest.life'
   s.license      = 'Lifeup co.,Ltd'
@@ -11,6 +11,7 @@ Pod::Spec.new do |s|
 
   s.frameworks  = 'UIKit', 'AVFoundation'
   s.requires_arc = true
+  s.static_framework = false
   s.default_subspec = 'All'
 
   s.subspec 'All' do |ss|
