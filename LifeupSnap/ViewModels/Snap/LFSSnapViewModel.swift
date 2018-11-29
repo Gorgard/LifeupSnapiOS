@@ -11,78 +11,109 @@ import UIKit
 internal class LFSSnapViewModel: LFSViewModel {
     private weak var delegate: LFSSnapViewModelDelegate?
     
-    internal var viewControllers: [UIViewController]!
+    internal var viewControllers: [LFSFeature]!
+    internal var features: [String]!
+    
+    internal var currentIndex: Int = 1
     
     open var receivedFirstPage: ((_ viewController: UIViewController) -> Void)?
+    open var receivedFirstFeature: ((_ index: Int) -> Void)?
     
     init(delegate: LFSSnapViewModelDelegate) {
         super.init()
         self.delegate = delegate
         
         storeViewControllers()
+        storeFeatures()
     }
     
     private func storeViewControllers() {
-        viewControllers = [LFSBoomerangViewController(),
-                           LFSSquareCaptureViewController(),
-                           LFSOriginalCaptureViewController(),
-                           LFSVideoCaptureViewController()]
+        viewControllers = [LFSFeature(viewController: LFSVideoCaptureViewController(), name: LFSConstants.LFSFeatureName.Snap.video, isCurrent: false),
+                           LFSFeature(viewController: LFSOriginalCaptureViewController(), name: LFSConstants.LFSFeatureName.Snap.photo, isCurrent: false),
+                           LFSFeature(viewController: LFSSquareCaptureViewController(), name: LFSConstants.LFSFeatureName.Snap.square, isCurrent: false),
+                           LFSFeature(viewController: LFSBoomerangViewController(), name: LFSConstants.LFSFeatureName.Snap.boomerang, isCurrent: false)]
+    }
+    
+    private func storeFeatures() {
+        features = [LFSConstants.LFSFeatureName.Snap.video,
+                    LFSConstants.LFSFeatureName.Snap.photo,
+                    LFSConstants.LFSFeatureName.Snap.square,
+                    LFSConstants.LFSFeatureName.Snap.boomerang]
     }
     
     internal func binding() {
-        receivedFirstPage?(viewControllerAtIndex(0)!)
+        viewControllers[currentIndex].isCurrent = true
+        
+        receivedFirstPage?(viewControllers[currentIndex].viewController)
+        receivedFirstFeature?(currentIndex)
     }
 }
 
-//MARK: PageViewPresentable
-extension LFSSnapViewModel: PageViewPresentable {
-    func beforeViewController(pageViewController: UIPageViewController, viewController: UIViewController) -> UIViewController? {
-        var index = indexOfViewController(viewController)
-        
-        if index == 0 || index == NSNotFound {
-            return nil
-        }
-        
-        index -= 1
-        
-        return viewControllerAtIndex(index)
+//MARK: PickerViewPresentable
+extension LFSSnapViewModel: PickerViewPresentable {
+    func numberOfComponents(pickerView: UIPickerView) -> Int {
+        return 1
     }
     
-    func afterViewController(pageViewController: UIPageViewController, viewController: UIViewController) -> UIViewController? {
-        var index = indexOfViewController(viewController)
-        
-        if index == NSNotFound {
-            return nil
-        }
-        
-        index += 1
-        
-        if index == viewControllers.count {
-            return nil
-        }
-        
-        return viewControllerAtIndex(index)
+    func numberOfRowsInComponent(pickerView: UIPickerView, component: Int) -> Int {
+        return features.count
     }
     
-    func presentationCount() -> Int {
-        return viewControllers.count
+    func viewForRow(pickerView: UIPickerView, row: Int, component: Int, view: UIView?) -> UIView {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+        label.text = features[row]
+        label.textColor = viewControllers[row].isCurrent ? UIColor.yellow : UIColor.white
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        label.transform = CGAffineTransform(rotationAngle: -.pi / 2)
+        
+        return label
     }
     
-    func presentationIndex() -> Int {
-        return 0
+    func didSelected(pickerView: UIPickerView, row: Int, component: Int) {
+        currentIndex = row
+        setNotCurrent(currentIndex: currentIndex)
+        
+        binding()
     }
 }
 
-//MARK: Helpers
+//MARK: Handle SwipeGesture
 extension LFSSnapViewModel {
-    fileprivate func viewControllerAtIndex(_ index: Int) -> UIViewController? {
-        if viewControllers.count == 0 || index >= viewControllers.count {
-            return nil
+    internal func handleSwipeRight() {
+        if currentIndex == NSNotFound {
+            return
         }
-        return viewControllers[index]
+        
+        currentIndex += 1
+        
+        if currentIndex == viewControllers.count {
+            return
+        }
+        
+        setNotCurrent(currentIndex: currentIndex)
+        
+        binding()
     }
     
-    fileprivate func indexOfViewController(_ viewController: UIViewController) -> Int {
-        return viewControllers.index(of: viewController) ?? NSNotFound
+    internal func handleSwipeLeft() {
+        if currentIndex == 0 || currentIndex == NSNotFound {
+            return
+        }
+        
+        currentIndex -= 1
+        
+        setNotCurrent(currentIndex: currentIndex)
+        
+        binding()
+    }
+}
+
+//MARK: Handle Methods
+extension LFSSnapViewModel {
+    fileprivate func setNotCurrent(currentIndex: Int) {
+        for i in 0..<viewControllers.count {
+            viewControllers[i].isCurrent = false
+        }
     }
 }
