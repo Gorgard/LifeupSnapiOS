@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol LFSViewPresentable: NSObjectProtocol {
+internal protocol LFSViewPresentable: NSObjectProtocol {
     var view: UIView? { get set }
     var viewController: UIViewController? { get set }
     var navigationController: UINavigationController? { get set }

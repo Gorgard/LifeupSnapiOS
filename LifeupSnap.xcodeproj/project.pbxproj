@@ -6,7 +6,23 @@
 	objectVersion = 50;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		4398717821AF742400EDCE53 /* LifeupSnapiOS */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 4398717B21AF742400EDCE53 /* Build configuration list for PBXAggregateTarget "LifeupSnapiOS" */;
+			buildPhases = (
+				4398717C21AF743F00EDCE53 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = LifeupSnapiOS;
+			productName = LifeupSnapiOS;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
+		430F2A8E21AFB39B00F2293D /* LFSFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430F2A8D21AFB39B00F2293D /* LFSFeature.swift */; };
+		430F2A9521AFBC0300F2293D /* PageViewScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430F2A9421AFBC0300F2293D /* PageViewScroll.swift */; };
 		431A139321AD46C1005730E0 /* LifeupSnap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 431A138921AD46C1005730E0 /* LifeupSnap.framework */; };
 		431A139821AD46C1005730E0 /* LifeupSnapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431A139721AD46C1005730E0 /* LifeupSnapTests.swift */; };
 		431A139A21AD46C1005730E0 /* LifeupSnap.h in Headers */ = {isa = PBXBuildFile; fileRef = 431A138C21AD46C1005730E0 /* LifeupSnap.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -29,6 +45,10 @@
 		437225D521AE818F00130213 /* LFSEditingPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 437225D321AE818F00130213 /* LFSEditingPhotoViewController.xib */; };
 		437225D921AE81C000130213 /* LFSEditingVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225D721AE81C000130213 /* LFSEditingVideoViewController.swift */; };
 		437225DA21AE81C000130213 /* LFSEditingVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 437225D821AE81C000130213 /* LFSEditingVideoViewController.xib */; };
+		437225DD21AE874200130213 /* LFSSnapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225DC21AE874200130213 /* LFSSnapViewModel.swift */; };
+		437225E121AE878B00130213 /* LFSSnapViewModelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225E021AE878B00130213 /* LFSSnapViewModelProtocols.swift */; };
+		437225E321AE8B2F00130213 /* PageViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225E221AE8B2F00130213 /* PageViewPresentable.swift */; };
+		439871C321AF7CB300EDCE53 /* PickerViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439871C221AF7CB300EDCE53 /* PickerViewPresentable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +62,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		430F2A8D21AFB39B00F2293D /* LFSFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSFeature.swift; sourceTree = "<group>"; };
+		430F2A9421AFBC0300F2293D /* PageViewScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewScroll.swift; sourceTree = "<group>"; };
 		431A138921AD46C1005730E0 /* LifeupSnap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LifeupSnap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		431A138C21AD46C1005730E0 /* LifeupSnap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LifeupSnap.h; sourceTree = "<group>"; };
 		431A138D21AD46C1005730E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -67,6 +89,10 @@
 		437225D321AE818F00130213 /* LFSEditingPhotoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSEditingPhotoViewController.xib; sourceTree = "<group>"; };
 		437225D721AE81C000130213 /* LFSEditingVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEditingVideoViewController.swift; sourceTree = "<group>"; };
 		437225D821AE81C000130213 /* LFSEditingVideoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSEditingVideoViewController.xib; sourceTree = "<group>"; };
+		437225DC21AE874200130213 /* LFSSnapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnapViewModel.swift; sourceTree = "<group>"; };
+		437225E021AE878B00130213 /* LFSSnapViewModelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnapViewModelProtocols.swift; sourceTree = "<group>"; };
+		437225E221AE8B2F00130213 /* PageViewPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewPresentable.swift; sourceTree = "<group>"; };
+		439871C221AF7CB300EDCE53 /* PickerViewPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewPresentable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +114,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		430F2A2D21AF9E6E00F2293D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				430F2A9321AFBBF200F2293D /* Views */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		430F2A8B21AFB37800F2293D /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				430F2A8C21AFB38B00F2293D /* Views */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		430F2A8C21AFB38B00F2293D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				430F2A8D21AFB39B00F2293D /* LFSFeature.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		430F2A9321AFBBF200F2293D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				430F2A9421AFBC0300F2293D /* PageViewScroll.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		431A137F21AD46C1005730E0 = {
 			isa = PBXGroup;
 			children = (
@@ -114,7 +172,9 @@
 				4372252F21AE2B3300130213 /* Commons */,
 				4372252C21AE2B3300130213 /* Controllers */,
 				4372253021AE2B3600130213 /* Designs */,
+				430F2A2D21AF9E6E00F2293D /* Helpers */,
 				437225AC21AE62F100130213 /* Models */,
+				430F2A8B21AFB37800F2293D /* Objects */,
 				4372254A21AE484100130213 /* Protocols */,
 				4372252B21AE2B3300130213 /* ViewModels */,
 			);
@@ -133,6 +193,7 @@
 		4372252B21AE2B3300130213 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				437225DB21AE873500130213 /* Snap */,
 				4372254721AE47FE00130213 /* Base */,
 			);
 			path = ViewModels;
@@ -205,24 +266,19 @@
 		4372254A21AE484100130213 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				437225DE21AE876000130213 /* ViewModels */,
 				437225A121AE5BF900130213 /* Base */,
 				4372255021AE488500130213 /* Views */,
-				4372254B21AE484D00130213 /* ViewModels */,
 			);
 			path = Protocols;
-			sourceTree = "<group>";
-		};
-		4372254B21AE484D00130213 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		4372255021AE488500130213 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				4372255221AE489D00130213 /* LFSViewPresentable.swift */,
+				437225E221AE8B2F00130213 /* PageViewPresentable.swift */,
+				439871C221AF7CB300EDCE53 /* PickerViewPresentable.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -304,6 +360,30 @@
 			path = "Editing Video";
 			sourceTree = "<group>";
 		};
+		437225DB21AE873500130213 /* Snap */ = {
+			isa = PBXGroup;
+			children = (
+				437225DC21AE874200130213 /* LFSSnapViewModel.swift */,
+			);
+			path = Snap;
+			sourceTree = "<group>";
+		};
+		437225DE21AE876000130213 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				437225DF21AE876900130213 /* Snap */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		437225DF21AE876900130213 /* Snap */ = {
+			isa = PBXGroup;
+			children = (
+				437225E021AE878B00130213 /* LFSSnapViewModelProtocols.swift */,
+			);
+			path = Snap;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -371,6 +451,9 @@
 					431A139121AD46C1005730E0 = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
+					4398717821AF742400EDCE53 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
 				};
 			};
 			buildConfigurationList = 431A138321AD46C1005730E0 /* Build configuration list for PBXProject "LifeupSnap" */;
@@ -387,6 +470,7 @@
 			targets = (
 				431A138821AD46C1005730E0 /* LifeupSnap */,
 				431A139121AD46C1005730E0 /* LifeupSnapTests */,
+				4398717821AF742400EDCE53 /* LifeupSnapiOS */,
 			);
 		};
 /* End PBXProject section */
@@ -415,23 +499,45 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4398717C21AF743F00EDCE53 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target \"${PROJECT_NAME}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\nxcodebuild -target \"${PROJECT_NAME}\" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure (from iphoneos build) to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory\nSIMULATOR_SWIFT_MODULES_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/.\"\nif [ -d \"${SIMULATOR_SWIFT_MODULES_DIR}\" ]; then\ncp -R \"${SIMULATOR_SWIFT_MODULES_DIR}\" \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule\"\nfi\n\n# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework/${PROJECT_NAME}\"\n\n# Step 5. Convenience step to copy the framework to the project's directory\ncp -R \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework\" \"${PROJECT_DIR}\"\n\n# Step 6. Convenience step to open the project's directory in Finder\nopen \"${PROJECT_DIR}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		431A138421AD46C1005730E0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				437225E321AE8B2F00130213 /* PageViewPresentable.swift in Sources */,
 				437225D421AE818F00130213 /* LFSEditingPhotoViewController.swift in Sources */,
 				437225C121AE808900130213 /* LFSSquareCaptureViewController.swift in Sources */,
 				4372255321AE489D00130213 /* LFSViewPresentable.swift in Sources */,
+				439871C321AF7CB300EDCE53 /* PickerViewPresentable.swift in Sources */,
 				437225CF21AE812600130213 /* LFSBoomerangViewController.swift in Sources */,
 				4372253921AE2BA300130213 /* LFSConstants.swift in Sources */,
 				437225A021AE559500130213 /* LFSSnapDelegate.swift in Sources */,
+				430F2A9521AFBC0300F2293D /* PageViewScroll.swift in Sources */,
 				437225AA21AE61CE00130213 /* LFSSnapViewController.swift in Sources */,
 				4372254921AE482600130213 /* LFSViewModel.swift in Sources */,
 				437225BD21AE803600130213 /* LFSOriginalCaptureViewController.swift in Sources */,
 				437225D921AE81C000130213 /* LFSEditingVideoViewController.swift in Sources */,
+				430F2A8E21AFB39B00F2293D /* LFSFeature.swift in Sources */,
+				437225E121AE878B00130213 /* LFSSnapViewModelProtocols.swift in Sources */,
 				4372253F21AE314B00130213 /* LFSViewUtils.swift in Sources */,
 				437225C921AE80FF00130213 /* LFSVideoCaptureViewController.swift in Sources */,
+				437225DD21AE874200130213 /* LFSSnapViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,6 +690,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = LifeupSnap/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -595,6 +705,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lifeup-cool.LifeupSnap";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -611,6 +722,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = LifeupSnap/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -622,6 +737,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lifeup-cool.LifeupSnap";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -663,6 +779,22 @@
 			};
 			name = Release;
 		};
+		4398717921AF742400EDCE53 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4398717A21AF742400EDCE53 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -689,6 +821,15 @@
 			buildConfigurations = (
 				431A13A121AD46C1005730E0 /* Debug */,
 				431A13A221AD46C1005730E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4398717B21AF742400EDCE53 /* Build configuration list for PBXAggregateTarget "LifeupSnapiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4398717921AF742400EDCE53 /* Debug */,
+				4398717A21AF742400EDCE53 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

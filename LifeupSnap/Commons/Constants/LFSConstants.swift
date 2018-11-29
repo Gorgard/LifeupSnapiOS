@@ -21,4 +21,14 @@ internal struct LFSConstants {
             internal static let lfsEditingVideoViewController = "LFSEditingVideoViewController"
         }
     }
+    
+    //MARK: FeatureName
+    internal struct LFSFeatureName {
+        internal struct Snap {
+            internal static let square = "SQUARE"
+            internal static let photo = "PHOTO"
+            internal static let boomerang = "BOOMERANG"
+            internal static let video = "VIDEO"
+        }
+    }
 }
