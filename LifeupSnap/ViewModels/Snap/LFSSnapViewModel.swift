@@ -64,7 +64,7 @@ extension LFSSnapViewModel: PickerViewPresentable {
         label.text = features[row]
         label.textColor = viewControllers[row].isCurrent ? UIColor.yellow : UIColor.white
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         label.transform = CGAffineTransform(rotationAngle: -.pi / 2)
         
         return label

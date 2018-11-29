@@ -150,7 +150,7 @@ extension LFSSnapViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     public func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return 80
+        return 85
     }
     
     public func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
