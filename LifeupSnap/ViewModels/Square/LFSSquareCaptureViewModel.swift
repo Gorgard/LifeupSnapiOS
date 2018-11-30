@@ -20,7 +20,8 @@ internal class LFSSquareCaptureViewModel: LFSViewModel {
     
     internal func startSquareCapture() {
         camera.prepare(completion: { [weak self] () -> Void in
-            try? self?.camera.displayPreview(view: (self?.view)!)
+            try? self?.camera.displayPreview()
+            self?.camera.addPreviewLayer(view: (self?.view)!)
         }, failure: { (error) -> Void in
             print(error?.localizedDescription ?? "")
         })

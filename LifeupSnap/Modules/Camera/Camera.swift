@@ -32,7 +32,6 @@ internal class Camera: NSObject {
             try self.configurationCaptureDevice()
             try self.configurationDeviceInputs()
             try self.configurationPhotoOutput()
-            completion()
             print("Prepared Device")
         }
         catch {
@@ -44,6 +43,8 @@ internal class Camera: NSObject {
             
             return
         }
+        
+        completion()
     }
 }
 
@@ -126,22 +127,25 @@ extension Camera {
         if captureSession.canAddOutput(photoOutput!) {
             captureSession.addOutput(photoOutput!)
         }
+        
+        captureSession.startRunning()
     }
 }
 
 //MARK: Manage
 extension Camera {
-    internal func displayPreview(view: UIView) throws {
+    internal func displayPreview() throws {
         guard let captureSession = captureSession, captureSession.isRunning else {
             throw CameraError.captureSessionIsMissing
         }
         
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        previewLayer?.connection?.videoOrientation = .portrait
-        
-        view.layer.insertSublayer(self.previewLayer!, at: 0)
-        previewLayer?.frame = view.frame
+        previewLayer?.videoGravity = .resizeAspectFill
+    }
+    
+    internal func addPreviewLayer(view: UIView) {
+        previewLayer?.frame = view.bounds
+        view.layer.addSublayer(previewLayer!)
     }
     
     internal func switchCamera() throws {

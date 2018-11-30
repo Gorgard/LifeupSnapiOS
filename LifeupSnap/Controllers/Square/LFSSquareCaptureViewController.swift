@@ -21,12 +21,16 @@ class LFSSquareCaptureViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
-
+    
+    override func viewDidLayoutSubviews() {
+        viewModel?.startSquareCapture()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -38,8 +42,6 @@ extension LFSSquareCaptureViewController {
     fileprivate func setup() {
         viewModel = LFSSquareCaptureViewModel(delegate: self)
         viewModel?.view = squareView
-        
-        viewModel?.startSquareCapture()
     }
 }
 

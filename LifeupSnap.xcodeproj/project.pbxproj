@@ -18,6 +18,16 @@
 			name = LifeupSnapiOS;
 			productName = LifeupSnapiOS;
 		};
+		43E6A05B21AFED1200355A3C /* LifeupSnapiOSSDK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 43E6A05E21AFED1200355A3C /* Build configuration list for PBXAggregateTarget "LifeupSnapiOSSDK" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = LifeupSnapiOSSDK;
+			productName = LifeupSnapiOSSDK;
+		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
@@ -53,6 +63,7 @@
 		437225DD21AE874200130213 /* LFSSnapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225DC21AE874200130213 /* LFSSnapViewModel.swift */; };
 		437225E121AE878B00130213 /* LFSSnapViewModelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225E021AE878B00130213 /* LFSSnapViewModelProtocols.swift */; };
 		437225E321AE8B2F00130213 /* PageViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225E221AE8B2F00130213 /* PageViewPresentable.swift */; };
+		4380FA2921B0CF5200177F64 /* SafeArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4380FA2821B0CF5200177F64 /* SafeArray.swift */; };
 		439871C321AF7CB300EDCE53 /* PickerViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439871C221AF7CB300EDCE53 /* PickerViewPresentable.swift */; };
 /* End PBXBuildFile section */
 
@@ -102,6 +113,7 @@
 		437225DC21AE874200130213 /* LFSSnapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnapViewModel.swift; sourceTree = "<group>"; };
 		437225E021AE878B00130213 /* LFSSnapViewModelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnapViewModelProtocols.swift; sourceTree = "<group>"; };
 		437225E221AE8B2F00130213 /* PageViewPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewPresentable.swift; sourceTree = "<group>"; };
+		4380FA2821B0CF5200177F64 /* SafeArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeArray.swift; sourceTree = "<group>"; };
 		439871C221AF7CB300EDCE53 /* PickerViewPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewPresentable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -127,6 +139,7 @@
 		430F2A2D21AF9E6E00F2293D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				4380FA2721B0CF3700177F64 /* Models */,
 				430F2A9321AFBBF200F2293D /* Views */,
 			);
 			path = Helpers;
@@ -233,7 +246,7 @@
 				4372253021AE2B3600130213 /* Designs */,
 				430F2AE021AFCE6F00F2293D /* Enums */,
 				430F2A2D21AF9E6E00F2293D /* Helpers */,
-				437225AC21AE62F100130213 /* Models */,
+				4380FA2621B0CE3600177F64 /* Models */,
 				430F2AE521AFD02700F2293D /* Modules */,
 				430F2A8B21AFB37800F2293D /* Objects */,
 				4372254A21AE484100130213 /* Protocols */,
@@ -367,13 +380,6 @@
 			path = Nibs;
 			sourceTree = "<group>";
 		};
-		437225AC21AE62F100130213 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		437225B321AE7FB800130213 /* Original */ = {
 			isa = PBXGroup;
 			children = (
@@ -447,6 +453,21 @@
 			path = Snap;
 			sourceTree = "<group>";
 		};
+		4380FA2621B0CE3600177F64 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4380FA2721B0CF3700177F64 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4380FA2821B0CF5200177F64 /* SafeArray.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -517,6 +538,9 @@
 					4398717821AF742400EDCE53 = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
+					43E6A05B21AFED1200355A3C = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
 				};
 			};
 			buildConfigurationList = 431A138321AD46C1005730E0 /* Build configuration list for PBXProject "LifeupSnap" */;
@@ -534,6 +558,7 @@
 				431A138821AD46C1005730E0 /* LifeupSnap */,
 				431A139121AD46C1005730E0 /* LifeupSnapTests */,
 				4398717821AF742400EDCE53 /* LifeupSnapiOS */,
+				43E6A05B21AFED1200355A3C /* LifeupSnapiOSSDK */,
 			);
 		};
 /* End PBXProject section */
@@ -599,6 +624,7 @@
 				4372254921AE482600130213 /* LFSViewModel.swift in Sources */,
 				437225BD21AE803600130213 /* LFSOriginalCaptureViewController.swift in Sources */,
 				437225D921AE81C000130213 /* LFSEditingVideoViewController.swift in Sources */,
+				4380FA2921B0CF5200177F64 /* SafeArray.swift in Sources */,
 				430F2AEA21AFD56300F2293D /* CameraError.swift in Sources */,
 				430F2A8E21AFB39B00F2293D /* LFSFeature.swift in Sources */,
 				430F2ADC21AFCC0C00F2293D /* LFSSquareCaptureViewModel.swift in Sources */,
@@ -863,6 +889,22 @@
 			};
 			name = Release;
 		};
+		43E6A05C21AFED1200355A3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		43E6A05D21AFED1200355A3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -898,6 +940,15 @@
 			buildConfigurations = (
 				4398717921AF742400EDCE53 /* Debug */,
 				4398717A21AF742400EDCE53 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		43E6A05E21AFED1200355A3C /* Build configuration list for PBXAggregateTarget "LifeupSnapiOSSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43E6A05C21AFED1200355A3C /* Debug */,
+				43E6A05D21AFED1200355A3C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
