@@ -42,10 +42,12 @@ internal class LFSSnapViewModel: LFSViewModel {
     }
     
     internal func binding() {
-        viewControllers[currentIndex].isCurrent = true
-        
-        receivedFirstPage?(viewControllers[currentIndex].viewController)
-        receivedFirstFeature?(currentIndex)
+        if let _ = viewControllers[safe: currentIndex] {
+            viewControllers[currentIndex].isCurrent = true
+            
+            receivedFirstPage?(viewControllers[currentIndex].viewController)
+            receivedFirstFeature?(currentIndex)
+        }
     }
 }
 
@@ -87,6 +89,10 @@ extension LFSSnapViewModel {
         
         currentIndex += 1
         
+        if currentIndex > viewControllers.count - 1 {
+            currentIndex = viewControllers.count - 1
+        }
+    
         if currentIndex == viewControllers.count {
             return
         }
@@ -102,7 +108,7 @@ extension LFSSnapViewModel {
         }
         
         currentIndex -= 1
-        
+
         setNotCurrent(currentIndex: currentIndex)
         
         binding()
