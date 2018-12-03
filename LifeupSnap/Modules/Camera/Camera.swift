@@ -8,10 +8,14 @@
 
 import UIKit
 import AVFoundation
+import Photos
 
 internal class Camera: NSObject {
     private var photoCaptureCompletionBlock: ((_ image: UIImage?) -> Void)?
     private var photoCaptureFailureBlock: ((_ error: Error?) -> Void)?
+    
+    private var movieCaptureCompletionBlock: ((_ data: Data?) -> Void)?
+    private var movieCaptureFailureBlock: ((_ error: Error?) -> Void)?
     
     internal var captureSession: AVCaptureSession?
     internal var cameraPosition: CameraPosition?
@@ -22,9 +26,13 @@ internal class Camera: NSObject {
     internal var rearCamera: AVCaptureDevice?
     internal var rearCameraInput: AVCaptureDeviceInput?
     
+    internal var micDevice: AVCaptureDevice?
+    internal var micInput: AVCaptureDeviceInput?
+
     internal var previewLayer: AVCaptureVideoPreviewLayer?
     
     internal var photoOutput: AVCapturePhotoOutput?
+    internal var movieOutput: AVCaptureMovieFileOutput?
     
     internal static var flashMode: AVCaptureDevice.FlashMode = .off
     internal var initialed: Bool = false
@@ -36,6 +44,8 @@ internal class Camera: NSObject {
                 try self.configurationCaptureDevice()
                 try self.configurationDeviceInputs()
                 try self.configurationPhotoOutput()
+                try self.configurationMicInput()
+                try self.configurationMovieOutput()
             }
             catch {
                 DispatchQueue.main.async {
@@ -130,6 +140,38 @@ extension Camera {
         
         if captureSession.canAddOutput(photoOutput!) {
             captureSession.addOutput(photoOutput!)
+        }
+    }
+    
+    fileprivate func configurationMicInput() throws {
+        guard let captureSession = captureSession else {
+            throw CameraError.captureSessionIsMissing
+        }
+        
+        micDevice = AVCaptureDevice.default(for: .audio)
+        
+        do {
+            micInput = try AVCaptureDeviceInput(device: micDevice!)
+        }
+        catch {
+            throw CameraError.invalidOperation
+        }
+        
+        if captureSession.canAddInput(micInput!) {
+            captureSession.addInput(micInput!)
+        }
+    }
+    
+    fileprivate func configurationMovieOutput() throws {
+        guard let captureSession = captureSession else {
+            throw CameraError.captureSessionIsMissing
+        }
+        
+        movieOutput = AVCaptureMovieFileOutput()
+        movieOutput?.movieFragmentInterval = kCMTimeInvalid
+        
+        if captureSession.canAddOutput(movieOutput!) {
+            captureSession.addOutput(movieOutput!)
         }
         
         captureSession.startRunning()
@@ -233,6 +275,32 @@ extension Camera {
     }
 }
 
+//MARK: Record
+extension Camera {
+    internal func recordVideo(completion: @escaping(_ data: Data?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
+        movieOutput?.startRecording(to: outputPathURL()!, recordingDelegate: self)
+        
+        movieCaptureCompletionBlock = completion
+        movieCaptureFailureBlock = failure
+    }
+    
+    private func outputPathURL() -> URL? {
+        let tempPath = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("LFSMovie").appendingPathComponent("m4v").absoluteString
+        let url = URL(string: tempPath)
+        
+        if FileManager.default.fileExists(atPath: tempPath) {
+            do {
+                try FileManager.default.removeItem(at: url!)
+            }
+            catch {
+                print(error)
+            }
+        }
+
+        return url
+    }
+}
+
 //MARK: AVCapturePhotoCaptureDelegate
 extension Camera: AVCapturePhotoCaptureDelegate {
     internal func photoOutput(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?,
@@ -249,5 +317,42 @@ extension Camera: AVCapturePhotoCaptureDelegate {
         else {
             photoCaptureFailureBlock?(CameraError.unknown)
         }
+    }
+}
+
+//MARK: AVCaptureVideoDataOutputSampleBufferDelegate
+extension Camera: AVCaptureFileOutputRecordingDelegate {
+    internal func fileOutput(_ output: AVCaptureFileOutput, didStartRecordingTo fileURL: URL, from connections: [AVCaptureConnection]) {
+        
+    }
+    
+    internal func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        if let error = error {
+            movieCaptureFailureBlock?(error)
+            return
+        }
+        
+        PHPhotoLibrary.shared().performChanges({ () -> Void in
+            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputFileURL)
+        }, completionHandler: { [weak self] (saved, error) -> Void in
+            if let error = error {
+                self?.movieCaptureFailureBlock?(error)
+                return
+            }
+            
+            if saved {
+                let options = PHFetchOptions()
+                options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+                
+                let fetchResult = PHAsset.fetchAssets(with: .video, options: options).lastObject
+                let imageManager = PHImageManager()
+                
+                imageManager.requestAVAsset(forVideo: fetchResult!, options: nil, resultHandler: { (avurlAsset, audioMix, dict) -> Void in
+                    let video = avurlAsset as! AVURLAsset
+                    let data = try? Data(contentsOf: video.url)
+                    self?.movieCaptureCompletionBlock?(data)
+                })
+            }
+        })
     }
 }

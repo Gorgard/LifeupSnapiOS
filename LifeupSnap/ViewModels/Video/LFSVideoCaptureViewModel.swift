@@ -55,10 +55,10 @@ extension LFSVideoCaptureViewModel {
     }
     
     @objc private func snapVideo() {
-//        camera.captureImage(completion: { [weak self] (image) -> Void in
-//            self?.delegate?.didReceivedVideo()
-//            }, failure: { (error) -> Void in
-//                print(error?.localizedDescription ?? "")
-//        })
+        camera.recordVideo(completion: { [weak self] (data) -> Void in
+            print(data)
+        }, failure: { (error) -> Void in
+            print(error?.localizedDescription ?? "")
+        })
     }
 }
