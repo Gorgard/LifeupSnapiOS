@@ -142,6 +142,10 @@ extension LFSSnapViewController {
             self.blurView.alpha = alpha
         }
         
+        viewModel.changeSnapViewColor = { [unowned self] (color) -> Void in
+            self.snapView.backgroundColor = color
+        }
+        
         viewModel.binding()
     }
 }

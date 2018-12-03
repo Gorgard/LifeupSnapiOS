@@ -1,6 +1,6 @@
 //
-//  LFSOriginalCaptureViewModel.swift
-//  LifeupSnapTest
+//  LFSVideoCaptureViewModel.swift
+//  LifeupSnap
 //
 //  Created by lifeup on 3/12/2561 BE.
 //  Copyright © 2561 Khwan Siricharoenporn. All rights reserved.
@@ -8,27 +8,25 @@
 
 import UIKit
 
-internal class LFSOriginalCaptureViewModel: LFSViewModel {
-    private weak var delegate: LFSOriginalCaptureViewModelDelegate?
+internal class LFSVideoCaptureViewModel: LFSViewModel {
+    private weak var delegate: LFSVideoCaptureViewModelDelegate?
     
     private var camera: Camera!
     
-    private var image: UIImage?
-
-    init(delegate: LFSOriginalCaptureViewModelDelegate) {
+    init(delegate: LFSVideoCaptureViewModelDelegate) {
         super.init()
         self.delegate = delegate
         camera = Camera()
         
         NotificationCenter.default.addObserver(self, selector: #selector(flip), name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.flipCamera), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(flash), name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.flashCamera), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(snapOriginal), name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapPhoto), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(snapVideo), name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapVideo), object: nil)
     }
     
-    internal func startOriginalCapture() {
+    internal func startVideoCapture() {
         camera.prepare(completion: { [weak self] () -> Void in
             try? self?.camera.displayPreview()
-            self?.camera.addPreviewLayer(view: (self?.originalView)!)
+            self?.camera.addPreviewLayer(view: (self?.videoView)!)
         }, failure: { (error) -> Void in
             print(error?.localizedDescription ?? "")
         })
@@ -42,7 +40,7 @@ internal class LFSOriginalCaptureViewModel: LFSViewModel {
 }
 
 //MARK: Handle Notification
-extension LFSOriginalCaptureViewModel {
+extension LFSVideoCaptureViewModel {
     @objc private func flip() {
         try? camera.switchCamera()
     }
@@ -56,13 +54,11 @@ extension LFSOriginalCaptureViewModel {
         }
     }
     
-    @objc private func snapOriginal() {
-        camera.captureImage(completion: { [weak self] (image) -> Void in
-            self?.image = image
-            self?.delegate?.didReceivedImage()
-        }, failure: { (error) -> Void in
-            print(error?.localizedDescription ?? "")
-        })
+    @objc private func snapVideo() {
+//        camera.captureImage(completion: { [weak self] (image) -> Void in
+//            self?.delegate?.didReceivedVideo()
+//            }, failure: { (error) -> Void in
+//                print(error?.localizedDescription ?? "")
+//        })
     }
 }
-

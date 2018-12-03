@@ -22,6 +22,7 @@ internal class LFSSnapViewModel: LFSViewModel {
     open var receivedFirstPage: ((_ viewController: UIViewController) -> Void)?
     open var receivedFirstFeature: ((_ index: Int) -> Void)?
     open var hiddenBlurView: ((_ alpha: CGFloat) -> Void)?
+    open var changeSnapViewColor: ((_ color: UIColor) -> Void)?
     
     init(delegate: LFSSnapViewModelDelegate) {
         super.init()
@@ -67,6 +68,8 @@ internal class LFSSnapViewModel: LFSViewModel {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { [unowned self] in
                 self.hiddenBlurView?(0)
             })
+            
+            changeSnapViewColor?(viewControllers[currentIndex].name == CameraFeature.video.rawValue ? .red : .white)
         }
     }
 }
