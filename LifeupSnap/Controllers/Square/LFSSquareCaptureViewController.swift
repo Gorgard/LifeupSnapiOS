@@ -10,8 +10,9 @@ import UIKit
 
 class LFSSquareCaptureViewController: UIViewController {
     @IBOutlet weak var squareView: UIView!
+    @IBOutlet weak var blurView: UIVisualEffectView!
     
-    internal var viewModel: LFSSquareCaptureViewModel?
+    internal var viewModel: LFSSquareCaptureViewModel!
     
     init() {
         let bundle = Bundle(for: LFSSquareCaptureViewController.self)
@@ -25,16 +26,22 @@ class LFSSquareCaptureViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        binding()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel?.begin()
+        viewModel.begin()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.willDisappear()
     }
 
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        viewModel?.startSquareCapture()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        viewModel.startSquareCapture()
     }
     
     override func didReceiveMemoryWarning() {
@@ -47,7 +54,18 @@ class LFSSquareCaptureViewController: UIViewController {
 extension LFSSquareCaptureViewController {
     fileprivate func setup() {
         viewModel = LFSSquareCaptureViewModel(delegate: self)
-        viewModel?.squareView = squareView
+        viewModel.squareView = squareView
+    }
+    
+    fileprivate func binding() {
+        viewModel.hiddenBlurView = { [unowned self] (alpha) -> Void in
+            UIView.animate(withDuration: 0.1, animations: {
+                self.blurView.alpha = alpha
+                self.view.layoutIfNeeded()
+            })
+        }
+        
+        viewModel.binding()
     }
 }
 

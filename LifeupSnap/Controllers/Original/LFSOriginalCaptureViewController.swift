@@ -10,8 +10,9 @@ import UIKit
 
 class LFSOriginalCaptureViewController: UIViewController {
     @IBOutlet weak var originalView: UIView!
+    @IBOutlet weak var blurView: UIVisualEffectView!
     
-    internal var viewModel: LFSOriginalCaptureViewModel?
+    internal var viewModel: LFSOriginalCaptureViewModel!
     
     public init() {
         let bundle = Bundle(for: LFSOriginalCaptureViewController.self)
@@ -25,16 +26,22 @@ class LFSOriginalCaptureViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        binding()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel?.begin()
+        viewModel.begin()
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        viewModel?.startOriginalCapture()
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.willDisappear()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        viewModel.startOriginalCapture()
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,7 +54,18 @@ class LFSOriginalCaptureViewController: UIViewController {
 extension LFSOriginalCaptureViewController {
     fileprivate func setup() {
         viewModel = LFSOriginalCaptureViewModel(delegate: self)
-        viewModel?.originalView = originalView
+        viewModel.originalView = originalView
+    }
+    
+    fileprivate func binding() {
+        viewModel.hiddenBlurView = { [unowned self] (alpha) -> Void in
+            UIView.animate(withDuration: 0.1, animations: {
+                self.blurView.alpha = alpha
+                self.view.layoutIfNeeded()
+            })
+        }
+        
+        viewModel.binding()
     }
 }
 

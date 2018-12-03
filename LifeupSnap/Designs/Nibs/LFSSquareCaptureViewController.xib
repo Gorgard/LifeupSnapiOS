@@ -13,6 +13,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSSquareCaptureViewController" customModule="LifeupSnap" customModuleProvider="target">
             <connections>
+                <outlet property="blurView" destination="efa-hT-plx" id="QMH-J2-w7B"/>
                 <outlet property="squareView" destination="K8a-bL-oec" id="LEt-ib-T4l"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,19 +25,31 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K8a-bL-oec">
                     <rect key="frame" x="0.0" y="156" width="375" height="375"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="K8a-bL-oec" secondAttribute="height" multiplier="1:1" id="Obe-3Z-FUE"/>
                         <constraint firstAttribute="height" constant="375" id="zEj-Nj-Sf5"/>
                     </constraints>
                 </view>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="efa-hT-plx">
+                    <rect key="frame" x="0.0" y="156" width="375" height="375"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="nWD-N2-rCZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <blurEffect style="light"/>
+                </visualEffectView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="K8a-bL-oec" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="06q-qK-56L"/>
+                <constraint firstItem="efa-hT-plx" firstAttribute="bottom" secondItem="K8a-bL-oec" secondAttribute="bottom" id="CSt-EN-JyY"/>
                 <constraint firstItem="K8a-bL-oec" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="MBv-XV-Vnm"/>
+                <constraint firstItem="efa-hT-plx" firstAttribute="leading" secondItem="K8a-bL-oec" secondAttribute="leading" id="PaP-MA-5l0"/>
                 <constraint firstItem="K8a-bL-oec" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="UGh-mB-CRh"/>
+                <constraint firstItem="efa-hT-plx" firstAttribute="trailing" secondItem="K8a-bL-oec" secondAttribute="trailing" id="YOb-Mb-p4B"/>
                 <constraint firstItem="K8a-bL-oec" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="x02-Oj-dta"/>
+                <constraint firstItem="efa-hT-plx" firstAttribute="top" secondItem="K8a-bL-oec" secondAttribute="top" id="ycp-lp-q93"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="34.5" y="53.5"/>
