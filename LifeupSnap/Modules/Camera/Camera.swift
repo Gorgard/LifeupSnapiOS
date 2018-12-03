@@ -10,6 +10,11 @@ import UIKit
 import AVFoundation
 
 internal class Camera: NSObject {
+    internal static let shared: Camera = Camera()
+    
+    private var photoCaptureCompletionBlock: ((_ image: UIImage?) -> Void)?
+    private var photoCaptureFailureBlock: ((_ error: Error?) -> Void)?
+    
     internal var captureSession: AVCaptureSession?
     internal var cameraPosition: CameraPosition?
     
@@ -24,27 +29,30 @@ internal class Camera: NSObject {
     internal var photoOutput: AVCapturePhotoOutput?
     
     internal var flashMode = AVCaptureDevice.FlashMode.off
-    internal var photoCaptureCompletionBlock: ((_ image: UIImage?, Error?) -> Void)?
+    
+    private override init() {}
     
     internal func prepare(completion: @escaping() -> Void, failure: @escaping(_ error: Error?) -> Void) {
-        do {
-            self.createCaptureSession()
-            try self.configurationCaptureDevice()
-            try self.configurationDeviceInputs()
-            try self.configurationPhotoOutput()
-            print("Prepared Device")
-        }
-        catch {
-            DispatchQueue.main.async {
-                failure(error)
+        DispatchQueue.main.async {
+            do {
+                self.createCaptureSession()
+                try self.configurationCaptureDevice()
+                try self.configurationDeviceInputs()
+                try self.configurationPhotoOutput()
+                print("Prepared Device")
+            }
+            catch {
+                DispatchQueue.main.async {
+                    failure(error)
+                }
+                
+                print("Prepare Failure")
+                
+                return
             }
             
-            print("Prepare Failure")
-            
-            return
+            completion()
         }
-        
-        completion()
     }
 }
 
@@ -58,12 +66,12 @@ extension Camera {
         var session: AVCaptureDevice.DiscoverySession
         
         if #available(iOS 10.2, *) {
-            session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera], mediaType: .video, position: .unspecified)
+            session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera, .builtInWideAngleCamera], mediaType: .video, position: .unspecified)
         } else {
-            session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDuoCamera], mediaType: .video, position: .unspecified)
+            session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDuoCamera, .builtInWideAngleCamera], mediaType: .video, position: .unspecified)
         }
         
-        let cameras = session.devices.compactMap { $0 }
+        let cameras = session.devices
         
         guard !cameras.isEmpty else {
             throw CameraError.noCamerasAvailable
@@ -157,10 +165,10 @@ extension Camera {
         
         switch cameraPosition {
         case .front:
-            try switchFrontCamera(captureSession: captureSession)
+            try switchRearCamera(captureSession: captureSession)
             break
         case .rear:
-            try switchRearCamera(captureSession: captureSession)
+            try switchFrontCamera(captureSession: captureSession)
             break
         }
         
@@ -206,4 +214,38 @@ extension Camera {
     }
 }
 
+//MARK: Capture
+extension Camera {
+    internal func captureImage(completion: @escaping(_ image: UIImage?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
+        guard let captureSession = captureSession, captureSession.isRunning else {
+            failure(CameraError.unknown)
+            return
+        }
+        
+        let settings = AVCapturePhotoSettings()
+        settings.flashMode = flashMode
+        
+        photoOutput?.capturePhoto(with: settings, delegate: self)
+        photoCaptureCompletionBlock = completion
+        photoCaptureFailureBlock = failure
+    }
+}
+
 //MARK: AVCapturePhotoCaptureDelegate
+extension Camera: AVCapturePhotoCaptureDelegate {
+    internal func photoOutput(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?,
+                                   resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Swift.Error?) {
+        if let error = error {
+            photoCaptureFailureBlock?(error)
+            return
+        }
+
+        if let buffer = photoSampleBuffer, let data = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: buffer, previewPhotoSampleBuffer: nil) {
+            let image = UIImage(data: data)
+            photoCaptureCompletionBlock?(image)
+        }
+        else {
+            photoCaptureFailureBlock?(CameraError.unknown)
+        }
+    }
+}

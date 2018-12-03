@@ -10,20 +10,46 @@ import UIKit
 
 internal class LFSSquareCaptureViewModel: LFSViewModel {
     private weak var delegate: LFSSquareCaptureViewModelDelegate?
-    
-    private var camera: Camera!
-    
+
     init(delegate: LFSSquareCaptureViewModelDelegate) {
+        super.init()
         self.delegate = delegate
-        camera = Camera()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(flip), name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.flipCamera), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(flash), name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.flashCamera), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(snapSquare), name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapSquare), object: nil)
     }
     
     internal func startSquareCapture() {
-        camera.prepare(completion: { [weak self] () -> Void in
-            try? self?.camera.displayPreview()
-            self?.camera.addPreviewLayer(view: (self?.view)!)
+        Camera.shared.prepare(completion: { [weak self] () -> Void in
+            try? Camera.shared.displayPreview()
+            Camera.shared.addPreviewLayer(view: (self?.view)!)
         }, failure: { (error) -> Void in
             print(error?.localizedDescription ?? "")
+        })
+    }
+}
+
+//MARK: Handle Notification
+extension LFSSquareCaptureViewModel {
+    @objc private func flip() {
+        try? Camera.shared.switchCamera()
+    }
+    
+    @objc private func flash() {
+        if Camera.shared.flashMode == .on {
+            Camera.shared.flashMode = .off
+        }
+        else {
+            Camera.shared.flashMode = .on
+        }
+    }
+    
+    @objc private func snapSquare() {
+        Camera.shared.captureImage(completion: { (image) -> Void in
+            print(image)
+        }, failure: { (error) -> Void in
+            print(error)
         })
     }
 }

@@ -30,20 +30,12 @@
                         <constraint firstAttribute="height" constant="375" id="zEj-Nj-Sf5"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SQUARE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zU6-cS-5Af">
-                    <rect key="frame" x="146" y="331" width="82" height="24"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="K8a-bL-oec" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="06q-qK-56L"/>
                 <constraint firstItem="K8a-bL-oec" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="MBv-XV-Vnm"/>
-                <constraint firstItem="zU6-cS-5Af" firstAttribute="centerY" secondItem="K8a-bL-oec" secondAttribute="centerY" id="OxP-hU-O5W"/>
                 <constraint firstItem="K8a-bL-oec" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="UGh-mB-CRh"/>
-                <constraint firstItem="zU6-cS-5Af" firstAttribute="centerX" secondItem="K8a-bL-oec" secondAttribute="centerX" id="YxO-sO-EP0"/>
                 <constraint firstItem="K8a-bL-oec" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="x02-Oj-dta"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

@@ -58,15 +58,15 @@ public class LFSSnapViewController: UIViewController {
     
     //MARK: UIActions
     @IBAction private func onTappedSnap(_ sender: Any) {
-        
+        viewModel.snap()
     }
     
     @IBAction func onTappedFlash(_ sender: Any) {
-        
+        viewModel.flash()
     }
     
     @IBAction func onTappedFlip(_ sender: Any) {
-        
+        viewModel.flip()
     }
     
     @IBAction func onTappedClose(_ sender: Any) {
