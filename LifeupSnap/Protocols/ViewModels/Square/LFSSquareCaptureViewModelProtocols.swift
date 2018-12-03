@@ -9,5 +9,5 @@
 import Foundation
 
 internal protocol LFSSquareCaptureViewModelDelegate: class {
-    
+    func didReceivedImage()
 }

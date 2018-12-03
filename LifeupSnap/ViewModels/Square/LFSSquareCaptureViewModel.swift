@@ -10,7 +10,9 @@ import UIKit
 
 internal class LFSSquareCaptureViewModel: LFSViewModel {
     private weak var delegate: LFSSquareCaptureViewModelDelegate?
-
+    
+    private var image: UIImage?
+    
     init(delegate: LFSSquareCaptureViewModelDelegate) {
         super.init()
         self.delegate = delegate
@@ -46,10 +48,11 @@ extension LFSSquareCaptureViewModel {
     }
     
     @objc private func snapSquare() {
-        Camera.shared.captureImage(completion: { (image) -> Void in
-            print(image)
+        Camera.shared.captureImage(completion: { [weak self] (image) -> Void in
+            self?.image = image
+            self?.delegate?.didReceivedImage()
         }, failure: { (error) -> Void in
-            print(error)
+            print(error?.localizedDescription ?? "")
         })
     }
 }

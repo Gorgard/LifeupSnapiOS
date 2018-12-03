@@ -47,5 +47,7 @@ extension LFSSquareCaptureViewController {
 
 //MARK: LFSSquareCaptureViewModelDelegate
 extension LFSSquareCaptureViewController: LFSSquareCaptureViewModelDelegate {
-    
+    func didReceivedImage() {
+        
+    }
 }
