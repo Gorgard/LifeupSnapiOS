@@ -10,7 +10,9 @@ import UIKit
 
 class LFSSquareCaptureViewController: UIViewController {
     @IBOutlet weak var squareView: UIView!
-    @IBOutlet weak var blurView: UIVisualEffectView!
+
+    //MARK: Constraint
+    @IBOutlet weak var squareViewHeightConstraint: NSLayoutConstraint!
     
     internal var viewModel: LFSSquareCaptureViewModel!
     
@@ -26,17 +28,19 @@ class LFSSquareCaptureViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        setupViews()
         binding()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.begin()
+        viewModel.binding()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        viewModel.willDisappear()
+        viewModel.binding()
     }
 
     override func viewDidLayoutSubviews() {
@@ -57,15 +61,17 @@ extension LFSSquareCaptureViewController {
         viewModel.squareView = squareView
     }
     
+    fileprivate func setupViews() {
+        viewModel.squareViewHeight = squareViewHeightConstraint.constant
+    }
+    
     fileprivate func binding() {
-        viewModel.hiddenBlurView = { [unowned self] (alpha) -> Void in
-            UIView.animate(withDuration: 0.1, animations: {
-                self.blurView.alpha = alpha
+        viewModel.showSquareView = { [unowned self] (height) -> Void in
+            UIView.animate(withDuration: 1, animations: {
+                self.squareViewHeightConstraint.constant = height
                 self.view.layoutIfNeeded()
             })
         }
-        
-        viewModel.binding()
     }
 }
 

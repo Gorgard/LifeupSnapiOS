@@ -14,9 +14,7 @@ class LFSOriginalCaptureViewModel: LFSViewModel {
     private var camera: Camera!
     
     private var image: UIImage?
-    
-    internal var hiddenBlurView: ((_ alpha: CGFloat) -> Void)?
-    
+
     init(delegate: LFSOriginalCaptureViewModelDelegate) {
         super.init()
         self.delegate = delegate
@@ -38,19 +36,8 @@ class LFSOriginalCaptureViewModel: LFSViewModel {
     
     internal func begin() {
         if camera.initialed {
-            startOriginalCapture()
-            binding()
+            camera.begin()
         }
-    }
-    
-    internal func binding() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
-            self?.hiddenBlurView?(0)
-        })
-    }
-    
-    internal func willDisappear() {
-        hiddenBlurView?(1)
     }
 }
 

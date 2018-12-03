@@ -19,6 +19,7 @@ public class LFSSnapViewController: UIViewController {
     @IBOutlet weak var flipButton: UIButton!
     @IBOutlet weak var flashButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var blurView: UIVisualEffectView!
     
     //MARK: Constraint
     @IBOutlet weak var pickerViewHeightConstraint: NSLayoutConstraint!
@@ -135,6 +136,10 @@ extension LFSSnapViewController {
         viewModel.receivedFirstFeature = { [unowned self] (index) -> Void in
             self.pickerView.selectRow(index, inComponent: 0, animated: true)
             self.pickerView.reloadAllComponents()
+        }
+        
+        viewModel.hiddenBlurView = { [unowned self] (alpha) -> Void in
+            self.blurView.alpha = alpha
         }
         
         viewModel.binding()

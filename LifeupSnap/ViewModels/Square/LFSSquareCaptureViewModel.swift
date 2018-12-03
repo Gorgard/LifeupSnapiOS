@@ -15,7 +15,9 @@ internal class LFSSquareCaptureViewModel: LFSViewModel {
     
     private var image: UIImage?
     
-    internal var hiddenBlurView: ((_ alpha: CGFloat) -> Void)?
+    internal var showSquareView: ((_ height: CGFloat) -> Void)?
+    
+    internal var squareViewHeight: CGFloat = 0
     
     init(delegate: LFSSquareCaptureViewModelDelegate) {
         super.init()
@@ -38,19 +40,12 @@ internal class LFSSquareCaptureViewModel: LFSViewModel {
     
     internal func begin() {
         if camera.initialed {
-            startSquareCapture()
-            binding()
+            camera.begin()
         }
     }
     
     internal func binding() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
-            self?.hiddenBlurView?(0)
-        })
-    }
-    
-    internal func willDisappear() {
-        hiddenBlurView?(1)
+        self.showSquareView?(self.squareViewHeight == 620 ? 375 : 620)
     }
 }
 

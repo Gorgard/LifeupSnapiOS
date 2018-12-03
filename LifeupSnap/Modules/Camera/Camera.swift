@@ -30,7 +30,7 @@ internal class Camera: NSObject {
     internal var initialed: Bool = false
 
     internal func prepare(completion: @escaping() -> Void, failure: @escaping(_ error: Error?) -> Void) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             do {
                 self.createCaptureSession()
                 try self.configurationCaptureDevice()
@@ -42,12 +42,11 @@ internal class Camera: NSObject {
                     failure(error)
                 }
                 
-                print("Prepare Failure")
-                
                 return
             }
             
             self.initialed = true
+            
             completion()
         }
     }
@@ -151,6 +150,12 @@ extension Camera {
     internal func addPreviewLayer(view: UIView) {
         previewLayer?.frame = view.bounds
         view.layer.addSublayer(previewLayer!)
+    }
+    
+    internal func begin() {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            self?.captureSession?.startRunning()
+        }
     }
     
     internal func switchCamera() throws {
