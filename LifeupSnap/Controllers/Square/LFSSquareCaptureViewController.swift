@@ -10,8 +10,11 @@ import UIKit
 
 class LFSSquareCaptureViewController: UIViewController {
     @IBOutlet weak var squareView: UIView!
+
+    //MARK: Constraint
+    @IBOutlet weak var squareViewHeightConstraint: NSLayoutConstraint!
     
-    internal var viewModel: LFSSquareCaptureViewModel?
+    internal var viewModel: LFSSquareCaptureViewModel!
     
     init() {
         let bundle = Bundle(for: LFSSquareCaptureViewController.self)
@@ -25,10 +28,24 @@ class LFSSquareCaptureViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        setupViews()
+        binding()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.begin()
+        viewModel.binding()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.binding()
+    }
+
     override func viewDidLayoutSubviews() {
-        viewModel?.startSquareCapture()
+        super.viewDidLayoutSubviews()
+        viewModel.startSquareCapture()
     }
     
     override func didReceiveMemoryWarning() {
@@ -41,7 +58,20 @@ class LFSSquareCaptureViewController: UIViewController {
 extension LFSSquareCaptureViewController {
     fileprivate func setup() {
         viewModel = LFSSquareCaptureViewModel(delegate: self)
-        viewModel?.view = squareView
+        viewModel.squareView = squareView
+    }
+    
+    fileprivate func setupViews() {
+        viewModel.squareViewHeight = squareViewHeightConstraint.constant
+    }
+    
+    fileprivate func binding() {
+        viewModel.showSquareView = { [unowned self] (height) -> Void in
+            UIView.animate(withDuration: 1, animations: {
+                self.squareViewHeightConstraint.constant = height
+                self.view.layoutIfNeeded()
+            })
+        }
     }
 }
 

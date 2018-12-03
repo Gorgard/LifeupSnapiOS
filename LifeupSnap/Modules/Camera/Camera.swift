@@ -10,8 +10,6 @@ import UIKit
 import AVFoundation
 
 internal class Camera: NSObject {
-    internal static let shared: Camera = Camera()
-    
     private var photoCaptureCompletionBlock: ((_ image: UIImage?) -> Void)?
     private var photoCaptureFailureBlock: ((_ error: Error?) -> Void)?
     
@@ -28,28 +26,26 @@ internal class Camera: NSObject {
     
     internal var photoOutput: AVCapturePhotoOutput?
     
-    internal var flashMode = AVCaptureDevice.FlashMode.off
-    
-    private override init() {}
-    
+    internal static var flashMode: AVCaptureDevice.FlashMode = .off
+    internal var initialed: Bool = false
+
     internal func prepare(completion: @escaping() -> Void, failure: @escaping(_ error: Error?) -> Void) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [unowned self] in
             do {
                 self.createCaptureSession()
                 try self.configurationCaptureDevice()
                 try self.configurationDeviceInputs()
                 try self.configurationPhotoOutput()
-                print("Prepared Device")
             }
             catch {
                 DispatchQueue.main.async {
                     failure(error)
                 }
                 
-                print("Prepare Failure")
-                
                 return
             }
+            
+            self.initialed = true
             
             completion()
         }
@@ -156,6 +152,12 @@ extension Camera {
         view.layer.addSublayer(previewLayer!)
     }
     
+    internal func begin() {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            self?.captureSession?.startRunning()
+        }
+    }
+    
     internal func switchCamera() throws {
         guard let cameraPosition = cameraPosition, let captureSession = captureSession, captureSession.isRunning else {
             throw CameraError.captureSessionIsMissing
@@ -223,7 +225,7 @@ extension Camera {
         }
         
         let settings = AVCapturePhotoSettings()
-        settings.flashMode = flashMode
+        settings.flashMode = Camera.flashMode
         
         photoOutput?.capturePhoto(with: settings, delegate: self)
         photoCaptureCompletionBlock = completion

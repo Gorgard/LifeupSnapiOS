@@ -21,6 +21,7 @@ internal class LFSSnapViewModel: LFSViewModel {
     
     open var receivedFirstPage: ((_ viewController: UIViewController) -> Void)?
     open var receivedFirstFeature: ((_ index: Int) -> Void)?
+    open var hiddenBlurView: ((_ alpha: CGFloat) -> Void)?
     
     init(delegate: LFSSnapViewModelDelegate) {
         super.init()
@@ -62,6 +63,10 @@ internal class LFSSnapViewModel: LFSViewModel {
             
             receivedFirstPage?(viewControllers[currentIndex].viewController)
             receivedFirstFeature?(currentIndex)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { [unowned self] in
+                self.hiddenBlurView?(0)
+            })
         }
     }
 }
@@ -88,6 +93,8 @@ extension LFSSnapViewModel: PickerViewPresentable {
     }
     
     func didSelected(pickerView: UIPickerView, row: Int, component: Int) {
+        hiddenBlurView?(1)
+        
         currentIndex = row
         setNotCurrent(currentIndex: currentIndex)
         
@@ -142,6 +149,8 @@ extension LFSSnapViewModel {
             return
         }
         
+        hiddenBlurView?(1)
+        
         setNotCurrent(currentIndex: currentIndex)
         
         binding()
@@ -153,6 +162,8 @@ extension LFSSnapViewModel {
         }
         
         currentIndex -= 1
+        
+        hiddenBlurView?(1)
 
         setNotCurrent(currentIndex: currentIndex)
         

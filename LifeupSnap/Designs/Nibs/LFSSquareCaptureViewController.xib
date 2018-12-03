@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSSquareCaptureViewController" customModule="LifeupSnap" customModuleProvider="target">
             <connections>
                 <outlet property="squareView" destination="K8a-bL-oec" id="LEt-ib-T4l"/>
+                <outlet property="squareViewHeightConstraint" destination="zEj-Nj-Sf5" id="PgE-Cv-2kP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,11 +23,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K8a-bL-oec">
-                    <rect key="frame" x="0.0" y="156" width="375" height="375"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <rect key="frame" x="0.0" y="33.5" width="375" height="620"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="K8a-bL-oec" secondAttribute="height" multiplier="1:1" id="Obe-3Z-FUE"/>
-                        <constraint firstAttribute="height" constant="375" id="zEj-Nj-Sf5"/>
+                        <constraint firstAttribute="height" constant="620" id="zEj-Nj-Sf5"/>
                     </constraints>
                 </view>
             </subviews>

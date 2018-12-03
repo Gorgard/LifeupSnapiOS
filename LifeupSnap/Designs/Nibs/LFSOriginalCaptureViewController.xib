@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSOriginalCaptureViewController" customModule="LifeupSnap" customModuleProvider="target">
             <connections>
+                <outlet property="originalView" destination="7Hb-gB-TSN" id="Wn1-ac-fNc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,17 +21,16 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PHOTO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lWK-C2-8bi">
-                    <rect key="frame" x="153" y="331.5" width="69.5" height="24"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Hb-gB-TSN">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
             </subviews>
-            <color key="backgroundColor" red="1" green="0.7125336431" blue="0.68389253459999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="lWK-C2-8bi" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="SsB-Ob-jwp"/>
-                <constraint firstItem="lWK-C2-8bi" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="eTG-1h-Xdn"/>
+                <constraint firstItem="7Hb-gB-TSN" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Krl-Su-u0W"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="7Hb-gB-TSN" secondAttribute="trailing" id="b1R-mF-kTX"/>
+                <constraint firstItem="7Hb-gB-TSN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="r41-bR-h7s"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="7Hb-gB-TSN" secondAttribute="bottom" id="rKW-nR-HIH"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>
