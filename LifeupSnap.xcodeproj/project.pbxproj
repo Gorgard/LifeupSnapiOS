@@ -65,6 +65,7 @@
 		437225E321AE8B2F00130213 /* PageViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225E221AE8B2F00130213 /* PageViewPresentable.swift */; };
 		4380FA2921B0CF5200177F64 /* SafeArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4380FA2821B0CF5200177F64 /* SafeArray.swift */; };
 		439871C321AF7CB300EDCE53 /* PickerViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439871C221AF7CB300EDCE53 /* PickerViewPresentable.swift */; };
+		43E9F74E21B4C1A600E91AAE /* CameraFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E9F74D21B4C1A600E91AAE /* CameraFeature.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +116,7 @@
 		437225E221AE8B2F00130213 /* PageViewPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewPresentable.swift; sourceTree = "<group>"; };
 		4380FA2821B0CF5200177F64 /* SafeArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeArray.swift; sourceTree = "<group>"; };
 		439871C221AF7CB300EDCE53 /* PickerViewPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewPresentable.swift; sourceTree = "<group>"; };
+		43E9F74D21B4C1A600E91AAE /* CameraFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFeature.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +200,7 @@
 			children = (
 				430F2AE221AFCE9A00F2293D /* CameraPosition.swift */,
 				430F2AE921AFD56300F2293D /* CameraError.swift */,
+				43E9F74D21B4C1A600E91AAE /* CameraFeature.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -619,6 +622,7 @@
 				4372253921AE2BA300130213 /* LFSConstants.swift in Sources */,
 				437225A021AE559500130213 /* LFSSnapDelegate.swift in Sources */,
 				430F2A9521AFBC0300F2293D /* PageViewScroll.swift in Sources */,
+				43E9F74E21B4C1A600E91AAE /* CameraFeature.swift in Sources */,
 				437225AA21AE61CE00130213 /* LFSSnapViewController.swift in Sources */,
 				430F2ADF21AFCC3100F2293D /* LFSSquareCaptureViewModelProtocols.swift in Sources */,
 				4372254921AE482600130213 /* LFSViewModel.swift in Sources */,

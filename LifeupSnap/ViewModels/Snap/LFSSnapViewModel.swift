@@ -12,7 +12,7 @@ internal class LFSSnapViewModel: LFSViewModel {
     private weak var delegate: LFSSnapViewModelDelegate?
     
     internal var viewControllers: [LFSFeature]!
-    internal var features: [String]!
+    internal var features: [CameraFeature]!
     
     internal var currentIndex: Int = 1
     
@@ -22,23 +22,22 @@ internal class LFSSnapViewModel: LFSViewModel {
     init(delegate: LFSSnapViewModelDelegate) {
         super.init()
         self.delegate = delegate
-        
-        storeViewControllers()
-        storeFeatures()
     }
     
-    private func storeViewControllers() {
-        viewControllers = [LFSFeature(viewController: LFSVideoCaptureViewController(), name: LFSConstants.LFSFeatureName.Snap.video, isCurrent: false),
+    internal func setup() {
+        viewControllers = [LFSFeature]()
+        
+        let _viewControllers = [LFSFeature(viewController: LFSVideoCaptureViewController(), name: LFSConstants.LFSFeatureName.Snap.video, isCurrent: false),
                            LFSFeature(viewController: LFSOriginalCaptureViewController(), name: LFSConstants.LFSFeatureName.Snap.photo, isCurrent: false),
                            LFSFeature(viewController: LFSSquareCaptureViewController(), name: LFSConstants.LFSFeatureName.Snap.square, isCurrent: false),
                            LFSFeature(viewController: LFSBoomerangViewController(), name: LFSConstants.LFSFeatureName.Snap.boomerang, isCurrent: false)]
-    }
-    
-    private func storeFeatures() {
-        features = [LFSConstants.LFSFeatureName.Snap.video,
-                    LFSConstants.LFSFeatureName.Snap.photo,
-                    LFSConstants.LFSFeatureName.Snap.square,
-                    LFSConstants.LFSFeatureName.Snap.boomerang]
+        
+        features = features.sorted(by: { $0.rawValue > $1.rawValue })
+        
+        for feature in features {
+            let viewController = _viewControllers.filter({ $0.name == feature.rawValue }).first
+            viewControllers.append(viewController!)
+        }
     }
     
     internal func binding() {
@@ -63,7 +62,7 @@ extension LFSSnapViewModel: PickerViewPresentable {
     
     func viewForRow(pickerView: UIPickerView, row: Int, component: Int, view: UIView?) -> UIView {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
-        label.text = features[row]
+        label.text = features[row].rawValue
         label.textColor = viewControllers[row].isCurrent ? UIColor.yellow : UIColor.white
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 13, weight: .medium)

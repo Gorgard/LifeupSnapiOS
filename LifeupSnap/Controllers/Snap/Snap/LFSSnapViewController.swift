@@ -30,7 +30,10 @@ public class LFSSnapViewController: UIViewController {
     
     internal var viewModel: LFSSnapViewModel!
     
+    open var features: [CameraFeature]!
+    
     open weak var delegate: LFSSnapDelegate?
+    open weak var navigation: UINavigationController?
     
     public init() {
         let bundle = Bundle(for: LFSSnapViewController.self)
@@ -67,7 +70,7 @@ public class LFSSnapViewController: UIViewController {
     }
     
     @IBAction func onTappedClose(_ sender: Any) {
-        
+        viewModel.close()
     }
 }
 
@@ -75,6 +78,10 @@ public class LFSSnapViewController: UIViewController {
 extension LFSSnapViewController {
     fileprivate func setup() {
         viewModel = LFSSnapViewModel(delegate: self)
+        viewModel.features = features
+        viewModel.navigationController = navigation
+        
+        viewModel.setup()
     }
     
     fileprivate func setupViews() {
