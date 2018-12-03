@@ -12,9 +12,12 @@ internal class LFSSnapViewModel: LFSViewModel {
     private weak var delegate: LFSSnapViewModelDelegate?
     
     internal var viewControllers: [LFSFeature]!
-    internal var features: [String]!
+    internal var features: [CameraFeature]!
     
-    internal var currentIndex: Int = 1
+    private var feature: CameraFeature!
+    
+    private var currentIndex: Int = 1
+    private var initialed: Bool = false
     
     open var receivedFirstPage: ((_ viewController: UIViewController) -> Void)?
     open var receivedFirstFeature: ((_ index: Int) -> Void)?
@@ -22,30 +25,44 @@ internal class LFSSnapViewModel: LFSViewModel {
     init(delegate: LFSSnapViewModelDelegate) {
         super.init()
         self.delegate = delegate
-        
-        storeViewControllers()
-        storeFeatures()
     }
     
-    private func storeViewControllers() {
-        viewControllers = [LFSFeature(viewController: LFSVideoCaptureViewController(), name: LFSConstants.LFSFeatureName.Snap.video, isCurrent: false),
+    internal func setup() {
+        viewControllers = [LFSFeature]()
+        
+        let _viewControllers = [LFSFeature(viewController: LFSVideoCaptureViewController(), name: LFSConstants.LFSFeatureName.Snap.video, isCurrent: false),
                            LFSFeature(viewController: LFSOriginalCaptureViewController(), name: LFSConstants.LFSFeatureName.Snap.photo, isCurrent: false),
                            LFSFeature(viewController: LFSSquareCaptureViewController(), name: LFSConstants.LFSFeatureName.Snap.square, isCurrent: false),
                            LFSFeature(viewController: LFSBoomerangViewController(), name: LFSConstants.LFSFeatureName.Snap.boomerang, isCurrent: false)]
-    }
-    
-    private func storeFeatures() {
-        features = [LFSConstants.LFSFeatureName.Snap.video,
-                    LFSConstants.LFSFeatureName.Snap.photo,
-                    LFSConstants.LFSFeatureName.Snap.square,
-                    LFSConstants.LFSFeatureName.Snap.boomerang]
+        
+        features = features.sorted(by: { $0.rawValue > $1.rawValue })
+        
+        if let _features = features {
+            for feature in _features {
+                let viewController = _viewControllers.filter({ $0.name == feature.rawValue }).first
+                viewControllers.append(viewController!)
+            }
+        }
+        else {
+            features = [.original]
+        }
     }
     
     internal func binding() {
-        viewControllers[currentIndex].isCurrent = true
+        if !initialed {
+            currentIndex = features.index(of: .original)!
+            feature = .original
+            initialed = true
+        }
         
-        receivedFirstPage?(viewControllers[currentIndex].viewController)
-        receivedFirstFeature?(currentIndex)
+        if let _ = viewControllers[safe: currentIndex] {
+            feature = features[currentIndex]
+            
+            viewControllers[currentIndex].isCurrent = true
+            
+            receivedFirstPage?(viewControllers[currentIndex].viewController)
+            receivedFirstFeature?(currentIndex)
+        }
     }
 }
 
@@ -61,7 +78,7 @@ extension LFSSnapViewModel: PickerViewPresentable {
     
     func viewForRow(pickerView: UIPickerView, row: Int, component: Int, view: UIView?) -> UIView {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
-        label.text = features[row]
+        label.text = features[row].rawValue
         label.textColor = viewControllers[row].isCurrent ? UIColor.yellow : UIColor.white
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 13, weight: .medium)
@@ -78,6 +95,36 @@ extension LFSSnapViewModel: PickerViewPresentable {
     }
 }
 
+//MARK: ACTION Handle
+extension LFSSnapViewModel {
+    internal func flip() {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.flipCamera), object: nil)
+    }
+    
+    internal func flash() {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.flashCamera), object: nil)
+    }
+    
+    internal func snap() {
+        switch feature {
+        case .boomerang:
+            NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapBoomerang), object: nil)
+            break
+        case .original:
+            NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapPhoto), object: nil)
+            break
+        case .square:
+            NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapSquare), object: nil)
+            break
+        case .video:
+            NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapVideo), object: nil)
+            break
+        default:
+            break
+        }
+    }
+}
+
 //MARK: Handle SwipeGesture
 extension LFSSnapViewModel {
     internal func handleSwipeRight() {
@@ -87,6 +134,10 @@ extension LFSSnapViewModel {
         
         currentIndex += 1
         
+        if currentIndex > viewControllers.count - 1 {
+            currentIndex = viewControllers.count - 1
+        }
+    
         if currentIndex == viewControllers.count {
             return
         }
@@ -102,7 +153,7 @@ extension LFSSnapViewModel {
         }
         
         currentIndex -= 1
-        
+
         setNotCurrent(currentIndex: currentIndex)
         
         binding()

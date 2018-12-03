@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "LifeupSnap"
-  s.version      = "0.1.0"
+  s.version      = "0.1.2"
   s.summary      = "LifeupSnap iOS"
   s.homepage     = 'http://lifeuptest.life'
   s.license      = 'Lifeup co.,Ltd'
@@ -9,8 +9,9 @@ Pod::Spec.new do |s|
   s.source       = { :git => 'https://github.com/Gorgard/LifeupSnapiOS.git',:tag => s.version.to_s}
   s.ios.deployment_target = '9.0'
 
-  s.framework  = 'UIKit'
+  s.frameworks  = 'UIKit', 'AVFoundation'
   s.requires_arc = true
+  s.static_framework = false
   s.default_subspec = 'All'
 
   s.subspec 'All' do |ss|
@@ -26,7 +27,8 @@ Pod::Spec.new do |s|
 			'LifeupSnap/ViewModels/**/*.swift',
 			'LifeupSnap/Enums/**/*.swift',
 			'LifeupSnap/Models/**/*.swift',
-			'LifeupSnap/Helpers/**/*.swift'
+			'LifeupSnap/Helpers/**/*.swift',
+			'LifeupSnap/Modules/**/*.swift'
 
   end
 end

@@ -11,5 +11,11 @@ import UIKit
 class LFSViewModel: NSObject, LFSViewPresentable {
     var view: UIView?
     var viewController: UIViewController?
-    var navigationController: UINavigationController? 
+    var navigationController: UINavigationController?
+    
+    internal func close() {
+        if let navigationController = navigationController {
+            navigationController.dismiss(animated: true, completion: nil)
+        }
+    }
 }
