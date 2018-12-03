@@ -27,7 +27,13 @@ class LFSSquareCaptureViewController: UIViewController {
         setup()
     }
     
-    override func viewDidLayoutSubviews() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel?.begin()
+    }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         viewModel?.startSquareCapture()
     }
     
@@ -41,7 +47,7 @@ class LFSSquareCaptureViewController: UIViewController {
 extension LFSSquareCaptureViewController {
     fileprivate func setup() {
         viewModel = LFSSquareCaptureViewModel(delegate: self)
-        viewModel?.view = squareView
+        viewModel?.squareView = squareView
     }
 }
 

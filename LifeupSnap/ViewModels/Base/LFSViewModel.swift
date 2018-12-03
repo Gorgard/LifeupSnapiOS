@@ -9,7 +9,11 @@
 import UIKit
 
 class LFSViewModel: NSObject, LFSViewPresentable {
-    var view: UIView?
+    var boomerangView: UIView?
+    var squareView: UIView?
+    var originalView: UIView?
+    var videoView: UIView?
+    
     var viewController: UIViewController?
     var navigationController: UINavigationController?
     

@@ -10,8 +10,6 @@ import UIKit
 import AVFoundation
 
 internal class Camera: NSObject {
-    internal static let shared: Camera = Camera()
-    
     private var photoCaptureCompletionBlock: ((_ image: UIImage?) -> Void)?
     private var photoCaptureFailureBlock: ((_ error: Error?) -> Void)?
     
@@ -28,10 +26,9 @@ internal class Camera: NSObject {
     
     internal var photoOutput: AVCapturePhotoOutput?
     
-    internal var flashMode = AVCaptureDevice.FlashMode.off
-    
-    private override init() {}
-    
+    internal static var flashMode: AVCaptureDevice.FlashMode = .off
+    internal var initialed: Bool = false
+
     internal func prepare(completion: @escaping() -> Void, failure: @escaping(_ error: Error?) -> Void) {
         DispatchQueue.main.async {
             do {
@@ -39,7 +36,6 @@ internal class Camera: NSObject {
                 try self.configurationCaptureDevice()
                 try self.configurationDeviceInputs()
                 try self.configurationPhotoOutput()
-                print("Prepared Device")
             }
             catch {
                 DispatchQueue.main.async {
@@ -51,6 +47,7 @@ internal class Camera: NSObject {
                 return
             }
             
+            self.initialed = true
             completion()
         }
     }
@@ -223,7 +220,7 @@ extension Camera {
         }
         
         let settings = AVCapturePhotoSettings()
-        settings.flashMode = flashMode
+        settings.flashMode = Camera.flashMode
         
         photoOutput?.capturePhoto(with: settings, delegate: self)
         photoCaptureCompletionBlock = completion

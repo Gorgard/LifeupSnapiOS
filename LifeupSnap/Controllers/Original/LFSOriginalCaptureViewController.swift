@@ -9,6 +9,9 @@
 import UIKit
 
 class LFSOriginalCaptureViewController: UIViewController {
+    @IBOutlet weak var originalView: UIView!
+    
+    internal var viewModel: LFSOriginalCaptureViewModel?
     
     public init() {
         let bundle = Bundle(for: LFSOriginalCaptureViewController.self)
@@ -21,12 +24,36 @@ class LFSOriginalCaptureViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setup()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel?.begin()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        viewModel?.startOriginalCapture()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+}
+
+//MARK: Setups
+extension LFSOriginalCaptureViewController {
+    fileprivate func setup() {
+        viewModel = LFSOriginalCaptureViewModel(delegate: self)
+        viewModel?.originalView = originalView
+    }
+}
+
+//MARK: LFSOriginalCaptureViewModelDelegate
+extension LFSOriginalCaptureViewController: LFSOriginalCaptureViewModelDelegate {
+    func didReceivedImage() {
+        
     }
 }

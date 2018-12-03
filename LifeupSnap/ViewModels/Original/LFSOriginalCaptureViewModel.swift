@@ -1,34 +1,34 @@
 //
-//  LFSSquareCaptureViewModel.swift
-//  LifeupSnap
+//  LFSOriginalCaptureViewModel.swift
+//  LifeupSnapTest
 //
-//  Created by lifeup on 29/11/2561 BE.
+//  Created by lifeup on 3/12/2561 BE.
 //  Copyright © 2561 Khwan Siricharoenporn. All rights reserved.
 //
 
 import UIKit
 
-internal class LFSSquareCaptureViewModel: LFSViewModel {
-    private weak var delegate: LFSSquareCaptureViewModelDelegate?
+class LFSOriginalCaptureViewModel: LFSViewModel {
+    private weak var delegate: LFSOriginalCaptureViewModelDelegate?
     
     private var camera: Camera!
     
     private var image: UIImage?
     
-    init(delegate: LFSSquareCaptureViewModelDelegate) {
+    init(delegate: LFSOriginalCaptureViewModelDelegate) {
         super.init()
         self.delegate = delegate
         camera = Camera()
         
         NotificationCenter.default.addObserver(self, selector: #selector(flip), name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.flipCamera), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(flash), name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.flashCamera), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(snapSquare), name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapSquare), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(snapOriginal), name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapPhoto), object: nil)
     }
     
-    internal func startSquareCapture() {
+    internal func startOriginalCapture() {
         camera.prepare(completion: { [weak self] () -> Void in
             try? self?.camera.displayPreview()
-            self?.camera.addPreviewLayer(view: (self?.squareView)!)
+            self?.camera.addPreviewLayer(view: (self?.originalView)!)
         }, failure: { (error) -> Void in
             print(error?.localizedDescription ?? "")
         })
@@ -36,13 +36,13 @@ internal class LFSSquareCaptureViewModel: LFSViewModel {
     
     internal func begin() {
         if camera.initialed {
-            startSquareCapture()
+            startOriginalCapture()
         }
     }
 }
 
 //MARK: Handle Notification
-extension LFSSquareCaptureViewModel {
+extension LFSOriginalCaptureViewModel {
     @objc private func flip() {
         try? camera.switchCamera()
     }
@@ -56,7 +56,7 @@ extension LFSSquareCaptureViewModel {
         }
     }
     
-    @objc private func snapSquare() {
+    @objc private func snapOriginal() {
         camera.captureImage(completion: { [weak self] (image) -> Void in
             self?.image = image
             self?.delegate?.didReceivedImage()
@@ -65,3 +65,4 @@ extension LFSSquareCaptureViewModel {
         })
     }
 }
+

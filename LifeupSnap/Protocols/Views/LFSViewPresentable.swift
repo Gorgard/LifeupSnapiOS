@@ -9,7 +9,11 @@
 import UIKit
 
 internal protocol LFSViewPresentable: NSObjectProtocol {
-    var view: UIView? { get set }
+    var boomerangView: UIView? { get set }
+    var squareView: UIView? { get set }
+    var originalView: UIView? { get set }
+    var videoView: UIView? { get set }
+    
     var viewController: UIViewController? { get set }
     var navigationController: UINavigationController? { get set }
 }
