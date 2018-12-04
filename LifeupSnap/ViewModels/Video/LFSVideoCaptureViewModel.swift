@@ -73,5 +73,6 @@ extension LFSVideoCaptureViewModel {
     
     private func stopRecord() {
         camera.stopRecord()
+        NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.finishedSnapVideo), object: nil)
     }
 }

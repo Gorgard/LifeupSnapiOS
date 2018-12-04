@@ -171,7 +171,6 @@ extension Camera {
         }
         
         movieOutput = AVCaptureMovieFileOutput()
-        movieOutput?.movieFragmentInterval = kCMTimeInvalid
         
         if captureSession.canAddOutput(movieOutput!) {
             captureSession.addOutput(movieOutput!)

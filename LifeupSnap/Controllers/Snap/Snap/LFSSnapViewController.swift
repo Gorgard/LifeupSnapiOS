@@ -15,6 +15,7 @@ public class LFSSnapViewController: UIViewController {
     @IBOutlet weak var coverSnapView: UIView!
     @IBOutlet weak var lineInCoverSnapView: UIView!
     @IBOutlet weak var snapView: UIView!
+    @IBOutlet weak var recordSnapView: UIView!
     @IBOutlet weak var snapButton: UIButton!
     @IBOutlet weak var flipButton: UIButton!
     @IBOutlet weak var flashButton: UIButton!
@@ -89,6 +90,7 @@ extension LFSSnapViewController {
         coverSnapView.layer.cornerRadius = coverSnapView.bounds.size.height / 2
         lineInCoverSnapView.layer.cornerRadius = lineInCoverSnapView.bounds.size.height / 2
         snapView.layer.cornerRadius = snapView.bounds.size.height / 2
+        recordSnapView.layer.cornerRadius = 8
         
         setupPageView()
         setupPickerView()
@@ -144,6 +146,14 @@ extension LFSSnapViewController {
         
         viewModel.changeSnapViewColor = { [unowned self] (color) -> Void in
             self.snapView.backgroundColor = color
+            self.recordSnapView.backgroundColor = color
+        }
+        
+        viewModel.hiddenSnapView = { [unowned self] (alpha) -> Void in
+            UIView.animate(withDuration: 0.3, animations: {
+                self.snapView.alpha = alpha
+                self.view.layoutIfNeeded()
+            })
         }
         
         viewModel.binding()

@@ -18,15 +18,18 @@ internal class LFSSnapViewModel: LFSViewModel {
     
     private var currentIndex: Int = 1
     private var initialed: Bool = false
-    
+
     open var receivedFirstPage: ((_ viewController: UIViewController) -> Void)?
     open var receivedFirstFeature: ((_ index: Int) -> Void)?
     open var hiddenBlurView: ((_ alpha: CGFloat) -> Void)?
     open var changeSnapViewColor: ((_ color: UIColor) -> Void)?
+    open var hiddenSnapView: ((_ alpha: CGFloat) -> Void)?
     
     init(delegate: LFSSnapViewModelDelegate) {
         super.init()
         self.delegate = delegate
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(finishedSnapVideo), name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.finishedSnapVideo), object: nil)
     }
     
     internal func setup() {
@@ -127,6 +130,7 @@ extension LFSSnapViewModel {
             NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapSquare), object: nil)
             break
         case .video:
+            hiddenSnapView?(0)
             NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapVideo), object: nil)
             break
         default:
@@ -180,5 +184,12 @@ extension LFSSnapViewModel {
         for i in 0..<viewControllers.count {
             viewControllers[i].isCurrent = false
         }
+    }
+}
+
+//MARK: Notification Handle
+extension LFSSnapViewModel {
+    @objc fileprivate func finishedSnapVideo() {
+        hiddenSnapView?(1)
     }
 }

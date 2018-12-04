@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSSnapViewController" customModule="LifeupSnapTest" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSSnapViewController" customModule="LifeupSnap" customModuleProvider="target">
             <connections>
                 <outlet property="blurView" destination="o9g-3g-nfa" id="aIR-Wq-zY9"/>
                 <outlet property="captureView" destination="SX6-aB-iLb" id="sLx-WH-8qe"/>
@@ -24,6 +24,7 @@
                 <outlet property="pickerView" destination="0kt-yp-ki1" id="NKp-un-0AB"/>
                 <outlet property="pickerViewHeightConstraint" destination="JaO-Qg-LQF" id="u9s-pe-Oi6"/>
                 <outlet property="pickerViewWidthConstraint" destination="KKa-WS-OE2" id="864-sF-s6W"/>
+                <outlet property="recordSnapView" destination="9XD-0J-HR1" id="9mc-Oe-Krc"/>
                 <outlet property="snapButton" destination="376-SO-c4d" id="bad-4v-Oew"/>
                 <outlet property="snapView" destination="b8L-Z9-9u6" id="gGq-AZ-Mel"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -43,31 +44,49 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vzi-m7-hGo">
                                     <rect key="frame" x="3" y="3" width="59" height="59"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b8L-Z9-9u6">
-                                            <rect key="frame" x="3" y="3" width="53" height="53"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9XD-0J-HR1">
+                                            <rect key="frame" x="10" y="10" width="39" height="39"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="376-SO-c4d">
-                                                    <rect key="frame" x="0.0" y="0.0" width="53" height="53"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t3s-iF-tEk">
+                                                    <rect key="frame" x="0.0" y="0.0" width="39" height="39"/>
                                                     <connections>
-                                                        <action selector="onTappedSnap:" destination="-1" eventType="touchUpInside" id="DAS-gx-OmG"/>
+                                                        <action selector="onTappedSnap:" destination="-1" eventType="touchUpInside" id="wli-fX-dR0"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="376-SO-c4d" firstAttribute="leading" secondItem="b8L-Z9-9u6" secondAttribute="leading" id="KRU-3U-kIe"/>
-                                                <constraint firstAttribute="trailing" secondItem="376-SO-c4d" secondAttribute="trailing" id="df9-ST-bpj"/>
-                                                <constraint firstAttribute="bottom" secondItem="376-SO-c4d" secondAttribute="bottom" id="pbB-zz-ALn"/>
-                                                <constraint firstItem="376-SO-c4d" firstAttribute="top" secondItem="b8L-Z9-9u6" secondAttribute="top" id="ymj-kr-g0w"/>
+                                                <constraint firstAttribute="bottom" secondItem="t3s-iF-tEk" secondAttribute="bottom" id="0VB-ne-P4A"/>
+                                                <constraint firstItem="t3s-iF-tEk" firstAttribute="top" secondItem="9XD-0J-HR1" secondAttribute="top" id="719-mW-hm2"/>
+                                                <constraint firstItem="t3s-iF-tEk" firstAttribute="leading" secondItem="9XD-0J-HR1" secondAttribute="leading" id="FYw-Yy-62d"/>
+                                                <constraint firstAttribute="trailing" secondItem="t3s-iF-tEk" secondAttribute="trailing" id="hc6-vY-upw"/>
                                             </constraints>
                                         </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b8L-Z9-9u6">
+                                            <rect key="frame" x="3" y="3" width="53" height="53"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="376-SO-c4d">
+                                            <rect key="frame" x="3" y="3" width="53" height="53"/>
+                                            <connections>
+                                                <action selector="onTappedSnap:" destination="-1" eventType="touchUpInside" id="DAS-gx-OmG"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="b8L-Z9-9u6" firstAttribute="leading" secondItem="Vzi-m7-hGo" secondAttribute="leading" constant="3" id="H5I-0s-6Ku"/>
+                                        <constraint firstItem="376-SO-c4d" firstAttribute="trailing" secondItem="b8L-Z9-9u6" secondAttribute="trailing" id="LOT-7Y-RYj"/>
+                                        <constraint firstItem="376-SO-c4d" firstAttribute="leading" secondItem="b8L-Z9-9u6" secondAttribute="leading" id="OuF-GN-YQa"/>
+                                        <constraint firstAttribute="trailing" secondItem="9XD-0J-HR1" secondAttribute="trailing" constant="10" id="Quv-w3-ksD"/>
                                         <constraint firstAttribute="bottom" secondItem="b8L-Z9-9u6" secondAttribute="bottom" constant="3" id="Rvf-wC-k9v"/>
+                                        <constraint firstItem="9XD-0J-HR1" firstAttribute="leading" secondItem="Vzi-m7-hGo" secondAttribute="leading" constant="10" id="VuK-vq-7Pf"/>
+                                        <constraint firstAttribute="bottom" secondItem="9XD-0J-HR1" secondAttribute="bottom" constant="10" id="h5B-SD-sl9"/>
                                         <constraint firstAttribute="trailing" secondItem="b8L-Z9-9u6" secondAttribute="trailing" constant="3" id="l7q-sD-xwE"/>
+                                        <constraint firstItem="376-SO-c4d" firstAttribute="bottom" secondItem="b8L-Z9-9u6" secondAttribute="bottom" id="mU5-7b-2Ls"/>
                                         <constraint firstItem="b8L-Z9-9u6" firstAttribute="top" secondItem="Vzi-m7-hGo" secondAttribute="top" constant="3" id="pFC-It-eWk"/>
+                                        <constraint firstItem="9XD-0J-HR1" firstAttribute="top" secondItem="Vzi-m7-hGo" secondAttribute="top" constant="10" id="q11-X0-EKv"/>
+                                        <constraint firstItem="376-SO-c4d" firstAttribute="top" secondItem="b8L-Z9-9u6" secondAttribute="top" id="vJv-qE-cYK"/>
                                     </constraints>
                                 </view>
                             </subviews>
@@ -113,11 +132,11 @@
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="LRo-yH-kAO" secondAttribute="trailing" constant="20" id="05S-o6-Q0M"/>
+                        <constraint firstItem="LRo-yH-kAO" firstAttribute="centerY" secondItem="376-SO-c4d" secondAttribute="centerY" id="4a4-Hq-p5u"/>
                         <constraint firstItem="3MN-Kd-aRL" firstAttribute="centerY" secondItem="vDY-2S-bKE" secondAttribute="centerY" id="6zo-WN-HEN"/>
-                        <constraint firstItem="LRo-yH-kAO" firstAttribute="centerY" secondItem="376-SO-c4d" secondAttribute="centerY" id="7mr-rc-1ol"/>
                         <constraint firstItem="PsR-7F-MkC" firstAttribute="leading" secondItem="vDY-2S-bKE" secondAttribute="leading" constant="20" id="UFN-s7-8b7"/>
                         <constraint firstItem="3MN-Kd-aRL" firstAttribute="centerX" secondItem="vDY-2S-bKE" secondAttribute="centerX" id="fzg-Qj-kLu"/>
-                        <constraint firstItem="PsR-7F-MkC" firstAttribute="centerY" secondItem="376-SO-c4d" secondAttribute="centerY" id="q6w-gW-5hC"/>
+                        <constraint firstItem="PsR-7F-MkC" firstAttribute="centerY" secondItem="376-SO-c4d" secondAttribute="centerY" id="jJE-gf-lxV"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yqG-Ck-ejo">
