@@ -16,9 +16,12 @@ internal class LFSSnapViewModel: LFSViewModel {
     
     private var feature: CameraFeature!
     
+    internal var circularProgressView: UIView!
+    private var circularProgress: CircularProgress!
+    
     private var currentIndex: Int = 1
     private var initialed: Bool = false
-
+    
     open var receivedFirstPage: ((_ viewController: UIViewController) -> Void)?
     open var receivedFirstFeature: ((_ index: Int) -> Void)?
     open var hiddenBlurView: ((_ alpha: CGFloat) -> Void)?
@@ -61,7 +64,7 @@ internal class LFSSnapViewModel: LFSViewModel {
             initialed = true
         }
         
-        if let _ = viewControllers[safe: currentIndex] {
+        if let _viewController = viewControllers[safe: currentIndex] {
             feature = features[currentIndex]
             
             viewControllers[currentIndex].isCurrent = true
@@ -74,6 +77,10 @@ internal class LFSSnapViewModel: LFSViewModel {
             })
             
             changeSnapViewColor?(viewControllers[currentIndex].name == CameraFeature.video.rawValue ? .red : .white)
+            
+            if !(_viewController.name == CameraFeature.video.rawValue) {
+                removeCircularProgress()
+            }
         }
     }
 }
@@ -131,8 +138,13 @@ extension LFSSnapViewModel {
             NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapSquare), object: nil)
             break
         case .video:
-            hiddenSnapView?(0)
-            enableAllView?(false)
+            DispatchQueue.main.async { [unowned self] in
+                self.hiddenSnapView?(0)
+                self.enableAllView?(false)
+            }
+            
+            startProgress()
+            
             NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapVideo), object: nil)
             break
         default:
@@ -192,7 +204,34 @@ extension LFSSnapViewModel {
 //MARK: Notification Handle
 extension LFSSnapViewModel {
     @objc fileprivate func finishedSnapVideo() {
-        hiddenSnapView?(1)
-        enableAllView?(true)
+        DispatchQueue.main.async { [unowned self] in
+            self.hiddenSnapView?(1)
+            self.enableAllView?(true)
+        }
+        
+        removeCircularProgress()
+    }
+}
+
+//MARK: Circular Progress
+extension LFSSnapViewModel {
+    fileprivate func startProgress() {
+        circularProgress = CircularProgress(baseView: circularProgressView, duration: 30)
+        circularProgress.shapeLineWidth = 4
+        circularProgress.shapeStrokeColor = UIColor.orange.cgColor
+        circularProgress.shapeFillColor = UIColor.clear.cgColor
+        
+        circularProgress.trackLineWidth = 4
+        circularProgress.trackStrokeColor = UIColor.white.cgColor
+        circularProgress.trackFillColor = UIColor.clear.cgColor
+        
+        circularProgress.createCircularProgress()
+        circularProgress.startProgress()
+    }
+    
+    fileprivate func removeCircularProgress() {
+        if let _ = circularProgress {
+            circularProgress.removeProgress()
+        }
     }
 }

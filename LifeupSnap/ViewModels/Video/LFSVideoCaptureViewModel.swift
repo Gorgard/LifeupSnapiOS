@@ -65,10 +65,16 @@ extension LFSVideoCaptureViewModel {
     
     private func record() {
         camera.recordVideo(completion: { [weak self] (data) -> Void in
-            print(data)
-            }, failure: { (error) -> Void in
-                print(error?.localizedDescription ?? "")
+            self?.handleRecord()
+        }, failure: { (error) -> Void in
+            print(error?.localizedDescription ?? "")
         })
+    }
+    
+    private func handleRecord() {
+        if camera.selfStop {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.finishedSnapVideo), object: nil)
+        }
     }
     
     private func stopRecord() {

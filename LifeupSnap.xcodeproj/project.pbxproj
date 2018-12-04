@@ -65,6 +65,7 @@
 		437225E321AE8B2F00130213 /* PageViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225E221AE8B2F00130213 /* PageViewPresentable.swift */; };
 		4380FA2921B0CF5200177F64 /* SafeArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4380FA2821B0CF5200177F64 /* SafeArray.swift */; };
 		439871C321AF7CB300EDCE53 /* PickerViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439871C221AF7CB300EDCE53 /* PickerViewPresentable.swift */; };
+		43D8BF8521B639860065B3EB /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D8BF8421B639860065B3EB /* CircularProgress.swift */; };
 		43E9F74E21B4C1A600E91AAE /* CameraFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E9F74D21B4C1A600E91AAE /* CameraFeature.swift */; };
 		43E9F7BA21B4E7C800E91AAE /* LFSOriginalCaptureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E9F7B921B4E7C800E91AAE /* LFSOriginalCaptureViewModel.swift */; };
 		43E9F7BD21B4E7E000E91AAE /* LFSOriginalCaptureViewModelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E9F7BC21B4E7E000E91AAE /* LFSOriginalCaptureViewModelProtocols.swift */; };
@@ -120,6 +121,7 @@
 		437225E221AE8B2F00130213 /* PageViewPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewPresentable.swift; sourceTree = "<group>"; };
 		4380FA2821B0CF5200177F64 /* SafeArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeArray.swift; sourceTree = "<group>"; };
 		439871C221AF7CB300EDCE53 /* PickerViewPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewPresentable.swift; sourceTree = "<group>"; };
+		43D8BF8421B639860065B3EB /* CircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
 		43E9F74D21B4C1A600E91AAE /* CameraFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFeature.swift; sourceTree = "<group>"; };
 		43E9F7B921B4E7C800E91AAE /* LFSOriginalCaptureViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFSOriginalCaptureViewModel.swift; sourceTree = "<group>"; };
 		43E9F7BC21B4E7E000E91AAE /* LFSOriginalCaptureViewModelProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFSOriginalCaptureViewModelProtocols.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 		430F2AE521AFD02700F2293D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				43D8BF8321B639860065B3EB /* Circular Progress */,
 				430F2AE621AFD04200F2293D /* Camera */,
 			);
 			path = Modules;
@@ -483,6 +486,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		43D8BF8321B639860065B3EB /* Circular Progress */ = {
+			isa = PBXGroup;
+			children = (
+				43D8BF8421B639860065B3EB /* CircularProgress.swift */,
+			);
+			path = "Circular Progress";
+			sourceTree = "<group>";
+		};
 		43E9F7B821B4E7C800E91AAE /* Original */ = {
 			isa = PBXGroup;
 			children = (
@@ -680,6 +691,7 @@
 				430F2A8E21AFB39B00F2293D /* LFSFeature.swift in Sources */,
 				430F2ADC21AFCC0C00F2293D /* LFSSquareCaptureViewModel.swift in Sources */,
 				437225E121AE878B00130213 /* LFSSnapViewModelProtocols.swift in Sources */,
+				43D8BF8521B639860065B3EB /* CircularProgress.swift in Sources */,
 				4372253F21AE314B00130213 /* LFSViewUtils.swift in Sources */,
 				437225C921AE80FF00130213 /* LFSVideoCaptureViewController.swift in Sources */,
 				43E9F7BA21B4E7C800E91AAE /* LFSOriginalCaptureViewModel.swift in Sources */,

@@ -37,6 +37,7 @@ internal class Camera: NSObject {
     internal static var flashMode: AVCaptureDevice.FlashMode = .off
     internal var initialed: Bool = false
     internal var isRecording: Bool = false
+    internal var selfStop: Bool = false
 
     internal func prepare(completion: @escaping() -> Void, failure: @escaping(_ error: Error?) -> Void) {
         DispatchQueue.main.async { [unowned self] in
@@ -170,7 +171,12 @@ extension Camera {
             throw CameraError.captureSessionIsMissing
         }
         
+        let seconds = 30.0
+        let preferredTimeScale = 1
+        let maxRecordDuration = CMTime(seconds: seconds, preferredTimescale: CMTimeScale(preferredTimeScale))
+        
         movieOutput = AVCaptureMovieFileOutput()
+        movieOutput?.maxRecordedDuration = maxRecordDuration
         
         if captureSession.canAddOutput(movieOutput!) {
             captureSession.addOutput(movieOutput!)
@@ -286,6 +292,7 @@ extension Camera {
         movieCaptureFailureBlock = failure
         
         isRecording = true
+        selfStop = false
     }
     
     internal func stopRecord() {
@@ -336,8 +343,10 @@ extension Camera: AVCaptureFileOutputRecordingDelegate {
     
     internal func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         if let error = error {
-            movieCaptureFailureBlock?(error)
-            return
+            if !outputFileURL.isFileURL {
+                movieCaptureFailureBlock?(error)
+                return
+            }
         }
         
         PHPhotoLibrary.shared().performChanges({ () -> Void in
@@ -358,6 +367,12 @@ extension Camera: AVCaptureFileOutputRecordingDelegate {
                 imageManager.requestAVAsset(forVideo: fetchResult!, options: nil, resultHandler: { (avurlAsset, audioMix, dict) -> Void in
                     let video = avurlAsset as! AVURLAsset
                     let data = try? Data(contentsOf: video.url)
+   
+                    if video.duration.seconds >= 30.0 {
+                        self?.selfStop = true
+                        self?.isRecording = false
+                    }
+                    
                     self?.movieCaptureCompletionBlock?(data)
                 })
             }
