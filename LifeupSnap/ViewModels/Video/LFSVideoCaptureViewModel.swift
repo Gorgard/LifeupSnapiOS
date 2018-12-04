@@ -55,10 +55,23 @@ extension LFSVideoCaptureViewModel {
     }
     
     @objc private func snapVideo() {
+        if camera.isRecording {
+            stopRecord()
+            return
+        }
+        
+        record()
+    }
+    
+    private func record() {
         camera.recordVideo(completion: { [weak self] (data) -> Void in
             print(data)
-        }, failure: { (error) -> Void in
-            print(error?.localizedDescription ?? "")
+            }, failure: { (error) -> Void in
+                print(error?.localizedDescription ?? "")
         })
+    }
+    
+    private func stopRecord() {
+        camera.stopRecord()
     }
 }

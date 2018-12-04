@@ -36,6 +36,7 @@ internal class Camera: NSObject {
     
     internal static var flashMode: AVCaptureDevice.FlashMode = .off
     internal var initialed: Bool = false
+    internal var isRecording: Bool = false
 
     internal func prepare(completion: @escaping() -> Void, failure: @escaping(_ error: Error?) -> Void) {
         DispatchQueue.main.async { [unowned self] in
@@ -72,9 +73,9 @@ extension Camera {
         var session: AVCaptureDevice.DiscoverySession
         
         if #available(iOS 10.2, *) {
-            session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera, .builtInWideAngleCamera], mediaType: .video, position: .unspecified)
+            session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera, .builtInWideAngleCamera, .builtInMicrophone], mediaType: .video, position: .unspecified)
         } else {
-            session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDuoCamera, .builtInWideAngleCamera], mediaType: .video, position: .unspecified)
+            session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDuoCamera, .builtInWideAngleCamera, .builtInMicrophone], mediaType: .video, position: .unspecified)
         }
         
         let cameras = session.devices
@@ -147,16 +148,18 @@ extension Camera {
         guard let captureSession = captureSession else {
             throw CameraError.captureSessionIsMissing
         }
-        
-        micDevice = AVCaptureDevice.default(for: .audio)
-        
+
+        guard let micDevice = AVCaptureDevice.default(for: .audio) else {
+            throw CameraError.captureSessionIsMissing
+        }
+
         do {
-            micInput = try AVCaptureDeviceInput(device: micDevice!)
+            micInput = try AVCaptureDeviceInput(device: micDevice)
         }
         catch {
             throw CameraError.invalidOperation
         }
-        
+
         if captureSession.canAddInput(micInput!) {
             captureSession.addInput(micInput!)
         }
@@ -282,22 +285,28 @@ extension Camera {
         
         movieCaptureCompletionBlock = completion
         movieCaptureFailureBlock = failure
+        
+        isRecording = true
+    }
+    
+    internal func stopRecord() {
+        movieOutput?.stopRecording()
+        isRecording = false
     }
     
     private func outputPathURL() -> URL? {
-        let tempPath = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("LFSMovie").appendingPathComponent("m4v").absoluteString
-        let url = URL(string: tempPath)
+        let tempPath = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first)?.appendingPathComponent("LFSSNAPVIDEO-\(Date())").appendingPathExtension("mp4")
         
-        if FileManager.default.fileExists(atPath: tempPath) {
+        if FileManager.default.fileExists(atPath: tempPath?.absoluteString ?? "") {
             do {
-                try FileManager.default.removeItem(at: url!)
+                try FileManager.default.removeItem(at: tempPath!)
             }
             catch {
                 print(error)
             }
         }
 
-        return url
+        return tempPath
     }
 }
 
