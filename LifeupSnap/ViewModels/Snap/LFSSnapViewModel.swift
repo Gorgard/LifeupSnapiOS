@@ -24,6 +24,7 @@ internal class LFSSnapViewModel: LFSViewModel {
     open var hiddenBlurView: ((_ alpha: CGFloat) -> Void)?
     open var changeSnapViewColor: ((_ color: UIColor) -> Void)?
     open var hiddenSnapView: ((_ alpha: CGFloat) -> Void)?
+    open var enableAllView: ((_ enable: Bool) -> Void)?
     
     init(delegate: LFSSnapViewModelDelegate) {
         super.init()
@@ -131,6 +132,7 @@ extension LFSSnapViewModel {
             break
         case .video:
             hiddenSnapView?(0)
+            enableAllView?(false)
             NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapVideo), object: nil)
             break
         default:
@@ -191,5 +193,6 @@ extension LFSSnapViewModel {
 extension LFSSnapViewModel {
     @objc fileprivate func finishedSnapVideo() {
         hiddenSnapView?(1)
+        enableAllView?(true)
     }
 }

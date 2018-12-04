@@ -140,6 +140,15 @@ extension LFSSnapViewController {
             self.pickerView.reloadAllComponents()
         }
         
+        viewModel.enableAllView = { [unowned self] (enable) -> Void in
+            self.pickerView.isUserInteractionEnabled = enable
+            self.swipeLeftGesture.isEnabled = enable
+            self.swipeRightGesture.isEnabled = enable
+            self.flipButton.isEnabled = enable
+            self.flashButton.isEnabled = enable
+            self.closeButton.isEnabled = enable
+        }
+        
         viewModel.hiddenBlurView = { [unowned self] (alpha) -> Void in
             self.blurView.alpha = alpha
         }
