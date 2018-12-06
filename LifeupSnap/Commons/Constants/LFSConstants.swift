@@ -44,6 +44,7 @@ internal struct LFSConstants {
             internal static let snapVideo = "snap_video_notification_center"
             
             internal static let finishedSnapVideo = "finished_snap_video_notification_center"
+            internal static let finishedSnapBoomerang = "finished_snap_boomerang_notification_center"
         }
     }
 }

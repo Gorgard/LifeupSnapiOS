@@ -35,6 +35,7 @@ internal class Camera: NSObject {
     internal var movieOutput: AVCaptureMovieFileOutput?
     
     internal static var flashMode: AVCaptureDevice.FlashMode = .off
+    internal var maxDuration: Double = 30
     internal var initialed: Bool = false
     internal var isRecording: Bool = false
     internal var selfStop: Bool = false
@@ -176,7 +177,7 @@ extension Camera {
             throw CameraError.captureSessionIsMissing
         }
         
-        let seconds = 30.0
+        let seconds = maxDuration
         let preferredTimeScale = 1
         let maxRecordDuration = CMTime(seconds: seconds, preferredTimescale: CMTimeScale(preferredTimeScale))
         
@@ -337,6 +338,82 @@ extension Camera {
         }
 
         return tempPath
+    }
+}
+
+//MARK: Boomerang
+extension Camera {
+    func reverse(original: AVAsset, outputURL: URL, completion: @escaping(_ data: Data?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
+        var reader: AVAssetReader!
+        
+        do {
+            reader = try AVAssetReader(asset: original)
+        } catch {
+            failure(CameraError.inputsAreInvalid)
+            return
+        }
+        
+        guard let videoTrack = original.tracks(withMediaType: .video).last else {
+            failure(CameraError.inputsAreInvalid)
+            return
+        }
+        
+        let readerOutputSettings: [String: Any] = [kCVPixelBufferPixelFormatTypeKey as String : Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)]
+        let readerOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings: readerOutputSettings)
+        reader.add(readerOutput)
+        
+        reader.startReading()
+        
+        var samples: [CMSampleBuffer] = []
+        while let sample = readerOutput.copyNextSampleBuffer() {
+            samples.append(sample)
+        }
+        
+        let writer: AVAssetWriter
+        do {
+            writer = try AVAssetWriter(outputURL: outputURL, fileType: .mov)
+        } catch let error {
+            failure(error)
+            return
+        }
+        
+        let videoCompositionProps = [AVVideoAverageBitRateKey: videoTrack.estimatedDataRate]
+        let writerOutputSettings = [
+            AVVideoCodecKey: AVVideoCodecH264,
+            AVVideoWidthKey: videoTrack.naturalSize.width,
+            AVVideoHeightKey: videoTrack.naturalSize.height,
+            AVVideoCompressionPropertiesKey: videoCompositionProps] as [String : Any]
+        
+        let writerInput = AVAssetWriterInput(mediaType: .video, outputSettings: writerOutputSettings)
+        writerInput.expectsMediaDataInRealTime = false
+        writerInput.transform = videoTrack.preferredTransform
+        
+        let pixelBufferAdaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerInput, sourcePixelBufferAttributes: nil)
+        
+        writer.add(writerInput)
+        writer.startWriting()
+        writer.startSession(atSourceTime: CMSampleBufferGetPresentationTimeStamp(samples.first!))
+        
+        for (index, sample) in samples.enumerated() {
+            let presentationTime = CMSampleBufferGetPresentationTimeStamp(sample)
+            let imageBufferRef = CMSampleBufferGetImageBuffer(samples[samples.count - 1 - index])
+            while !writerInput.isReadyForMoreMediaData {
+                Thread.sleep(forTimeInterval: 0.1)
+            }
+            pixelBufferAdaptor.append(imageBufferRef!, withPresentationTime: presentationTime)
+            
+        }
+        
+        writer.finishWriting {
+            do {
+                let data = try Data(contentsOf: outputURL)
+                completion(data)
+            }
+            catch let error {
+                failure(error)
+                return
+            }
+        }
     }
 }
 

@@ -166,6 +166,13 @@ extension LFSSnapViewController {
             self.flashButton.setImage(image, for: .normal)
         }
         
+        viewModel.changeImageSnapButton = { [unowned self] (image) -> Void in
+            UIView.animate(withDuration: 0.3, delay: 0.1, options: .transitionCrossDissolve, animations: {
+                self.snapButton.setImage(image, for: .normal)
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        }
+        
         viewModel.changeSnapButtonRadius = { [unowned self] (raduis, bounds) -> Void in
             UIView.animate(withDuration: 0.3, animations: {
                 self.snapButton.layer.cornerRadius = raduis
@@ -177,7 +184,6 @@ extension LFSSnapViewController {
         viewModel.binding()
     }
 }
-
 
 //MARK: UIPickerViewDataSource, UIPickerViewDelegate
 extension LFSSnapViewController: UIPickerViewDataSource, UIPickerViewDelegate {

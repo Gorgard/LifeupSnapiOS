@@ -30,6 +30,7 @@ internal class LFSSnapViewModel: LFSViewModel {
     open var enableAllView: ((_ enable: Bool) -> Void)?
     open var changeSnapButtonRadius: ((_ radius: CGFloat, _ bounds: CGRect) -> Void)?
     open var changeImageFlashButton: ((_ image: UIImage) -> Void)?
+    open var changeImageSnapButton: ((_ image: UIImage?) -> Void)?
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapBoomerang), object: nil)
@@ -39,6 +40,7 @@ internal class LFSSnapViewModel: LFSViewModel {
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.flashCamera), object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.flipCamera), object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.finishedSnapVideo), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.finishedSnapBoomerang), object: nil)
     }
     
     init(delegate: LFSSnapViewModelDelegate) {
@@ -46,6 +48,7 @@ internal class LFSSnapViewModel: LFSViewModel {
         self.delegate = delegate
         
         NotificationCenter.default.addObserver(self, selector: #selector(finishedSnapVideo), name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.finishedSnapVideo), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(finishedSnapBoomerang), name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.finishedSnapBoomerang), object: nil)
     }
     
     internal func setup() {
@@ -89,8 +92,9 @@ internal class LFSSnapViewModel: LFSViewModel {
             })
             
             changeSnapButtonColor?(viewControllers[currentIndex].name == CameraFeature.video.rawValue ? .red : .white)
+            changeImageSnapButton?(viewControllers[currentIndex].name == CameraFeature.boomerang.rawValue ? #imageLiteral(resourceName: "ic_main_infinity.png") : nil)
             
-            if !(_viewController.name == CameraFeature.video.rawValue) {
+            if !(_viewController.name == CameraFeature.video.rawValue || _viewController.name == CameraFeature.boomerang.rawValue) {
                 removeCircularProgress()
             }
         }
@@ -149,27 +153,50 @@ extension LFSSnapViewModel {
     internal func snap() {
         switch feature {
         case .boomerang:
-            NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapBoomerang), object: nil)
+            snapBoomerang()
             break
         case .original:
-            NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapPhoto), object: nil)
+            snapOriginal()
             break
         case .square:
-            NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapSquare), object: nil)
+            snapSquare()
             break
         case .video:
-            DispatchQueue.main.async { [unowned self] in
-                self.changeSnapButtonRadius?(8, CGRect(x: 0, y: 0, width: 40, height: 40))
-                self.enableAllView?(false)
-            }
-            
-            startProgress()
-            
-            NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapVideo), object: nil)
+            snapVideo()
             break
         default:
             break
         }
+    }
+    
+    fileprivate func snapBoomerang() {
+        DispatchQueue.main.async { [unowned self] in
+            self.changeSnapButtonRadius?(8, CGRect(x: 0, y: 0, width: 40, height: 40))
+            self.enableAllView?(false)
+        }
+        
+        startProgressBoomerang()
+        
+        NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapBoomerang), object: nil)
+    }
+    
+    fileprivate func snapOriginal() {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapPhoto), object: nil)
+    }
+    
+    fileprivate func snapSquare() {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapSquare), object: nil)
+    }
+    
+    fileprivate func snapVideo() {
+        DispatchQueue.main.async { [unowned self] in
+            self.changeSnapButtonRadius?(8, CGRect(x: 0, y: 0, width: 40, height: 40))
+            self.enableAllView?(false)
+        }
+        
+        startProgressVideo()
+        
+        NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapVideo), object: nil)
     }
 }
 
@@ -231,12 +258,29 @@ extension LFSSnapViewModel {
         
         removeCircularProgress()
     }
+    
+    @objc fileprivate func finishedSnapBoomerang() {
+        DispatchQueue.main.async { [unowned self] in
+            self.changeSnapButtonRadius?(self.snapButtonBounds.size.height / 2, self.snapButtonBounds)
+            self.enableAllView?(true)
+        }
+        
+        removeCircularProgress()
+    }
 }
 
 //MARK: Circular Progress
 extension LFSSnapViewModel {
-    fileprivate func startProgress() {
+    fileprivate func startProgressVideo() {
         circularProgress.duration = 30
+        circularProgress.bgColor = UIColor.clear.cgColor
+        circularProgress.strokeColor = UIColor.orange.cgColor
+        circularProgress.lineWidth = 4
+        circularProgress.animateProgressView()
+    }
+    
+    fileprivate func startProgressBoomerang() {
+        circularProgress.duration = 10
         circularProgress.bgColor = UIColor.clear.cgColor
         circularProgress.strokeColor = UIColor.orange.cgColor
         circularProgress.lineWidth = 4

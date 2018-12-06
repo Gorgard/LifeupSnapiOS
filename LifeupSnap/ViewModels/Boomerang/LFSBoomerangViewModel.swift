@@ -55,10 +55,31 @@ extension LFSBoomerangViewModel {
     }
     
     @objc private func snapBoomerang() {
-        camera.captureImage(completion: { [weak self] (image) -> Void in
-            
-        }, failure: { (error) -> Void in
-            print(error?.localizedDescription ?? "")
+        if camera.isRecording {
+            stopRecord()
+            return
+        }
+        
+        record()
+    }
+    
+    private func record() {
+        camera.maxDuration = 10
+        camera.recordVideo(completion: { [weak self] (data) -> Void in
+            self?.handleRecord()
+            }, failure: { (error) -> Void in
+                print(error?.localizedDescription ?? "")
         })
+    }
+    
+    private func handleRecord() {
+        if camera.selfStop {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.finishedSnapBoomerang), object: nil)
+        }
+    }
+    
+    private func stopRecord() {
+        camera.stopRecord()
+        NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.finishedSnapBoomerang), object: nil)
     }
 }
