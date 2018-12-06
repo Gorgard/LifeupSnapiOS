@@ -30,6 +30,16 @@ internal class LFSSnapViewModel: LFSViewModel {
     open var enableAllView: ((_ enable: Bool) -> Void)?
     open var changeSnapButtonRadius: ((_ radius: CGFloat, _ bounds: CGRect) -> Void)?
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapBoomerang), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapPhoto), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapSquare), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapVideo), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.flashCamera), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.flipCamera), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.finishedSnapVideo), object: nil)
+    }
+    
     init(delegate: LFSSnapViewModelDelegate) {
         super.init()
         self.delegate = delegate
