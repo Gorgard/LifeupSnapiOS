@@ -14,8 +14,6 @@ public class LFSSnapViewController: UIViewController {
     @IBOutlet weak var captureView: UIView!
     @IBOutlet weak var coverSnapView: UIView!
     @IBOutlet weak var lineInCoverSnapView: UIView!
-//    @IBOutlet weak var snapView: UIView!
-//    @IBOutlet weak var recordSnapView: UIView!
     @IBOutlet weak var snapButton: UIButton!
     @IBOutlet weak var flipButton: UIButton!
     @IBOutlet weak var flashButton: UIButton!
@@ -159,8 +157,6 @@ extension LFSSnapViewController {
         }
         
         viewModel.changeSnapButtonColor = { [unowned self] (color) -> Void in
-//            self.snapView.backgroundColor = color
-//            self.recordSnapView.backgroundColor = color
             self.snapButton.backgroundColor = color
         }
         

@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSSnapViewController" customModule="LifeupSnapTest" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSSnapViewController" customModule="LifeupSnap" customModuleProvider="target">
             <connections>
                 <outlet property="blurView" destination="o9g-3g-nfa" id="aIR-Wq-zY9"/>
                 <outlet property="captureView" destination="SX6-aB-iLb" id="sLx-WH-8qe"/>
@@ -40,7 +40,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3MN-Kd-aRL">
                             <rect key="frame" x="174.66666666666666" y="14.666666666666629" width="65" height="65"/>
                             <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CcM-95-i8S" customClass="CircularProgress" customModule="LifeupSnapTest" customModuleProvider="target">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CcM-95-i8S" customClass="CircularProgress" customModule="LifeupSnap" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vzi-m7-hGo">
@@ -49,7 +49,7 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cFr-n0-FIv">
                                             <rect key="frame" x="3" y="3" width="53" height="53"/>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="376-SO-c4d">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="376-SO-c4d">
                                             <rect key="frame" x="3" y="3" width="53" height="53"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
