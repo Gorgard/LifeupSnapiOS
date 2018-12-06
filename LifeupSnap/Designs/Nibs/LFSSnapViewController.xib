@@ -11,11 +11,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSSnapViewController" customModule="LifeupSnapTest" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSSnapViewController" customModule="LifeupSnap" customModuleProvider="target">
             <connections>
                 <outlet property="blurView" destination="o9g-3g-nfa" id="aIR-Wq-zY9"/>
                 <outlet property="captureView" destination="SX6-aB-iLb" id="sLx-WH-8qe"/>
-                <outlet property="circularProgressView" destination="biY-ln-7bO" id="E7m-wf-aiD"/>
+                <outlet property="circularProgress" destination="CcM-95-i8S" id="bdQ-EJ-FCl"/>
                 <outlet property="closeButton" destination="hX8-Ph-ab1" id="Nr4-vz-3yM"/>
                 <outlet property="coverPickerView" destination="ohw-7s-NBi" id="57f-6N-sOp"/>
                 <outlet property="coverSnapView" destination="3MN-Kd-aRL" id="zSs-A3-cD3"/>
@@ -42,9 +42,6 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3MN-Kd-aRL">
                             <rect key="frame" x="155" y="10.5" width="65" height="65"/>
                             <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="biY-ln-7bO">
-                                    <rect key="frame" x="-0.5" y="-0.5" width="65" height="65"/>
-                                </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vzi-m7-hGo">
                                     <rect key="frame" x="3" y="3" width="59" height="59"/>
                                     <subviews>
@@ -88,15 +85,14 @@
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="Vzi-m7-hGo" secondAttribute="bottom" constant="3" id="66h-C5-Z7V"/>
                                 <constraint firstAttribute="trailing" secondItem="Vzi-m7-hGo" secondAttribute="trailing" constant="3" id="IOi-O7-Tte"/>
-                                <constraint firstItem="biY-ln-7bO" firstAttribute="centerY" secondItem="3MN-Kd-aRL" secondAttribute="centerY" id="Nx9-B9-JGc"/>
                                 <constraint firstAttribute="width" constant="65" id="ewA-p7-Rdr"/>
                                 <constraint firstAttribute="height" constant="65" id="fNg-jG-dYM"/>
                                 <constraint firstItem="Vzi-m7-hGo" firstAttribute="top" secondItem="3MN-Kd-aRL" secondAttribute="top" constant="3" id="n51-oq-FBu"/>
-                                <constraint firstItem="biY-ln-7bO" firstAttribute="width" secondItem="3MN-Kd-aRL" secondAttribute="width" id="oXS-Qn-SAr"/>
-                                <constraint firstItem="biY-ln-7bO" firstAttribute="height" secondItem="3MN-Kd-aRL" secondAttribute="height" id="toe-d2-U2v"/>
-                                <constraint firstItem="biY-ln-7bO" firstAttribute="centerX" secondItem="3MN-Kd-aRL" secondAttribute="centerX" id="vg2-JS-qVs"/>
                                 <constraint firstItem="Vzi-m7-hGo" firstAttribute="leading" secondItem="3MN-Kd-aRL" secondAttribute="leading" constant="3" id="x0n-jm-ZEX"/>
                             </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CcM-95-i8S" customClass="CircularProgress" customModule="LifeupSnap" customModuleProvider="target">
+                            <rect key="frame" x="155" y="10.5" width="65" height="65"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="376-SO-c4d">
                             <rect key="frame" x="154.5" y="10.5" width="65" height="65"/>
@@ -137,10 +133,14 @@
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="LRo-yH-kAO" secondAttribute="trailing" constant="20" id="05S-o6-Q0M"/>
                         <constraint firstItem="3MN-Kd-aRL" firstAttribute="centerY" secondItem="vDY-2S-bKE" secondAttribute="centerY" id="6zo-WN-HEN"/>
+                        <constraint firstItem="CcM-95-i8S" firstAttribute="top" secondItem="3MN-Kd-aRL" secondAttribute="top" id="8Fw-DO-xyd"/>
                         <constraint firstItem="376-SO-c4d" firstAttribute="height" secondItem="3MN-Kd-aRL" secondAttribute="height" id="MBR-Cd-yyD"/>
                         <constraint firstItem="376-SO-c4d" firstAttribute="width" secondItem="3MN-Kd-aRL" secondAttribute="width" id="OiS-hF-A1w"/>
+                        <constraint firstItem="CcM-95-i8S" firstAttribute="bottom" secondItem="3MN-Kd-aRL" secondAttribute="bottom" id="TNH-sA-k4z"/>
                         <constraint firstItem="376-SO-c4d" firstAttribute="centerX" secondItem="3MN-Kd-aRL" secondAttribute="centerX" id="TyZ-mE-s2V"/>
                         <constraint firstItem="PsR-7F-MkC" firstAttribute="leading" secondItem="vDY-2S-bKE" secondAttribute="leading" constant="20" id="UFN-s7-8b7"/>
+                        <constraint firstItem="CcM-95-i8S" firstAttribute="trailing" secondItem="3MN-Kd-aRL" secondAttribute="trailing" id="Ypy-6k-xpi"/>
+                        <constraint firstItem="CcM-95-i8S" firstAttribute="leading" secondItem="3MN-Kd-aRL" secondAttribute="leading" id="aBY-LH-dAG"/>
                         <constraint firstItem="376-SO-c4d" firstAttribute="centerY" secondItem="3MN-Kd-aRL" secondAttribute="centerY" id="aml-IV-5xJ"/>
                         <constraint firstItem="PsR-7F-MkC" firstAttribute="centerY" secondItem="3MN-Kd-aRL" secondAttribute="centerY" id="el2-O9-kiS"/>
                         <constraint firstItem="3MN-Kd-aRL" firstAttribute="centerX" secondItem="vDY-2S-bKE" secondAttribute="centerX" id="fzg-Qj-kLu"/>
@@ -179,7 +179,7 @@
                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o9g-3g-nfa">
                     <rect key="frame" x="0.0" y="87" width="375" height="443.5"/>
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="fA1-WD-PBg">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="443"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="443.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                     <blurEffect style="light"/>

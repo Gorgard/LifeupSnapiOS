@@ -21,7 +21,7 @@ public class LFSSnapViewController: UIViewController {
     @IBOutlet weak var flashButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var blurView: UIVisualEffectView!
-    @IBOutlet weak var circularProgressView: UIView!
+    @IBOutlet weak var circularProgress: CircularProgress!
     
     //MARK: Constraint
     @IBOutlet weak var pickerViewHeightConstraint: NSLayoutConstraint!
@@ -88,7 +88,7 @@ extension LFSSnapViewController {
     }
     
     fileprivate func setupViews() {
-        viewModel.circularProgressView = circularProgressView
+        viewModel.circularProgress = circularProgress
         
         coverSnapView.layer.cornerRadius = coverSnapView.bounds.size.height / 2
         lineInCoverSnapView.layer.cornerRadius = lineInCoverSnapView.bounds.size.height / 2

@@ -16,8 +16,7 @@ internal class LFSSnapViewModel: LFSViewModel {
     
     private var feature: CameraFeature!
     
-    internal var circularProgressView: UIView!
-    private var circularProgress: CircularProgress!
+    internal var circularProgress: CircularProgress!
     
     private var currentIndex: Int = 1
     private var initialed: Bool = false
@@ -216,22 +215,16 @@ extension LFSSnapViewModel {
 //MARK: Circular Progress
 extension LFSSnapViewModel {
     fileprivate func startProgress() {
-        circularProgress = CircularProgress(baseView: circularProgressView, duration: 30)
-        circularProgress.shapeLineWidth = 4
-        circularProgress.shapeStrokeColor = UIColor.orange.cgColor
-        circularProgress.shapeFillColor = UIColor.clear.cgColor
-        
-        circularProgress.trackLineWidth = 4
-        circularProgress.trackStrokeColor = UIColor.white.cgColor
-        circularProgress.trackFillColor = UIColor.clear.cgColor
-        
-        circularProgress.createCircularProgress()
-        circularProgress.startProgress()
+        circularProgress.duration = 30
+        circularProgress.bgColor = UIColor.clear.cgColor
+        circularProgress.strokeColor = UIColor.orange.cgColor
+        circularProgress.lineWidth = 4
+        circularProgress.animateProgressView()
     }
     
     fileprivate func removeCircularProgress() {
         if let _ = circularProgress {
-            circularProgress.removeProgress()
+            circularProgress.hideProgressView()
         }
     }
 }
