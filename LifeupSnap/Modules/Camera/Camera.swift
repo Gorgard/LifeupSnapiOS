@@ -40,6 +40,11 @@ internal class Camera: NSObject {
     internal var selfStop: Bool = false
 
     internal func prepare(completion: @escaping() -> Void, failure: @escaping(_ error: Error?) -> Void) {
+        if initialed {
+            completion()
+            return
+        }
+        
         DispatchQueue.main.async { [unowned self] in
             do {
                 self.createCaptureSession()
@@ -200,6 +205,11 @@ extension Camera {
     }
     
     internal func addPreviewLayer(view: UIView) {
+        guard let connection = previewLayer?.connection else {
+            return
+        }
+        
+        connection.videoOrientation = currentVideoOrientation()
         previewLayer?.frame = view.bounds
         view.layer.addSublayer(previewLayer!)
     }
@@ -279,6 +289,12 @@ extension Camera {
         let settings = AVCapturePhotoSettings()
         settings.flashMode = Camera.flashMode
         
+        guard let connection = photoOutput?.connection(with: .video) else {
+            failure(CameraError.unknown)
+            return
+        }
+        
+        connection.videoOrientation = currentVideoOrientation()
         photoOutput?.capturePhoto(with: settings, delegate: self)
         photoCaptureCompletionBlock = completion
         photoCaptureFailureBlock = failure
@@ -288,6 +304,12 @@ extension Camera {
 //MARK: Record
 extension Camera {
     internal func recordVideo(completion: @escaping(_ data: Data?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
+        guard let connection = movieOutput?.connection(with: .video) else {
+            failure(CameraError.unknown)
+            return
+        }
+        
+        connection.videoOrientation = currentVideoOrientation()
         movieOutput?.startRecording(to: outputPathURL()!, recordingDelegate: self)
         
         movieCaptureCompletionBlock = completion
@@ -302,7 +324,7 @@ extension Camera {
         isRecording = false
     }
     
-    private func outputPathURL() -> URL? {
+    fileprivate func outputPathURL() -> URL? {
         let tempPath = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first)?.appendingPathComponent("LFSSNAPVIDEO-\(Date())").appendingPathExtension("mp4")
         
         if FileManager.default.fileExists(atPath: tempPath?.absoluteString ?? "") {
@@ -315,6 +337,30 @@ extension Camera {
         }
 
         return tempPath
+    }
+}
+
+//MARK: Orientation
+extension Camera {
+    fileprivate func currentVideoOrientation() -> AVCaptureVideoOrientation {
+        var orientation: AVCaptureVideoOrientation
+        
+        switch UIDevice.current.orientation {
+        case .portrait:
+            orientation = .portrait
+            break
+        case .landscapeRight:
+            orientation = .landscapeLeft
+            break
+        case .landscapeLeft:
+            orientation = .landscapeRight
+            break
+        default:
+            orientation = .portrait
+            break
+        }
+        
+        return orientation
     }
 }
 
