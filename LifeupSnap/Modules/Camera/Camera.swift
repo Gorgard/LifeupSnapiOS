@@ -182,14 +182,16 @@ extension Camera {
             captureSession.addOutput(movieOutput!)
         }
         
-        captureSession.startRunning()
+        DispatchQueue.main.async { [weak self] in
+            self?.captureSession?.startRunning()
+        }
     }
 }
 
 //MARK: Manage
 extension Camera {
     internal func displayPreview() throws {
-        guard let captureSession = captureSession, captureSession.isRunning else {
+        guard let captureSession = captureSession, !captureSession.isRunning else {
             throw CameraError.captureSessionIsMissing
         }
         
@@ -203,7 +205,7 @@ extension Camera {
     }
     
     internal func begin() {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             self?.captureSession?.startRunning()
         }
     }
