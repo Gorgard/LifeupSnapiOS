@@ -36,6 +36,8 @@ public class LFSSnapViewController: UIViewController {
     open weak var delegate: LFSSnapDelegate?
     open weak var navigation: UINavigationController?
     
+    internal static weak var baseNavigation: UINavigationController?
+    
     override public var prefersStatusBarHidden: Bool {
         return true
     }
@@ -87,6 +89,8 @@ extension LFSSnapViewController {
         viewModel.navigationController = navigation
         
         viewModel.setup()
+        
+        LFSSnapViewController.baseNavigation = navigation
     }
     
     fileprivate func setupViews() {

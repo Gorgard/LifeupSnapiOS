@@ -14,7 +14,7 @@ internal class Camera: NSObject {
     private var photoCaptureCompletionBlock: ((_ image: UIImage?) -> Void)?
     private var photoCaptureFailureBlock: ((_ error: Error?) -> Void)?
     
-    private var movieCaptureCompletionBlock: ((_ data: Data?) -> Void)?
+    private var movieCaptureCompletionBlock: ((_ url: URL?) -> Void)?
     private var movieCaptureFailureBlock: ((_ error: Error?) -> Void)?
     
     internal var captureSession: AVCaptureSession?
@@ -304,7 +304,7 @@ extension Camera {
 
 //MARK: Record
 extension Camera {
-    internal func recordVideo(completion: @escaping(_ data: Data?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
+    internal func recordVideo(completion: @escaping(_ url: URL?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
         guard let connection = movieOutput?.connection(with: .video) else {
             failure(CameraError.unknown)
             return
@@ -343,7 +343,7 @@ extension Camera {
 
 //MARK: Boomerang
 extension Camera {
-    func reverse(original: AVAsset, outputURL: URL, completion: @escaping(_ data: Data?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
+    func reverse(original: AVAsset, outputURL: URL, completion: @escaping(_ url: URL?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
         var reader: AVAssetReader!
         
         do {
@@ -405,14 +405,33 @@ extension Camera {
         }
         
         writer.finishWriting {
-            do {
-                let data = try Data(contentsOf: outputURL)
-                completion(data)
-            }
-            catch let error {
-                failure(error)
-                return
-            }
+            PHPhotoLibrary.shared().performChanges({ () -> Void in
+                PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputURL)
+            }, completionHandler: { [weak self] (saved, error) -> Void in
+                if let error = error {
+                    failure(error)
+                    return
+                }
+                
+                if saved {
+                    let options = PHFetchOptions()
+                    options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+                    
+                    let fetchResult = PHAsset.fetchAssets(with: .video, options: options).lastObject
+                    let imageManager = PHImageManager()
+                    
+                    imageManager.requestAVAsset(forVideo: fetchResult!, options: nil, resultHandler: { (avurlAsset, audioMix, dict) -> Void in
+                        let video = avurlAsset as! AVURLAsset
+                        
+                        if video.duration.seconds >= 30.0 {
+                            self?.selfStop = true
+                            self?.isRecording = false
+                        }
+                        
+                        completion(video.url)
+                    })
+                }
+            })
         }
     }
 }
@@ -460,6 +479,39 @@ extension Camera: AVCapturePhotoCaptureDelegate {
     }
 }
 
+//MARK: Save Video
+extension Camera {
+    fileprivate func saveByURL(url: URL, completion: @escaping(_ url: URL?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
+        PHPhotoLibrary.shared().performChanges({ () -> Void in
+            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
+        }, completionHandler: { [weak self] (saved, error) -> Void in
+            if let error = error {
+                failure(error)
+                return
+            }
+            
+            if saved {
+                let options = PHFetchOptions()
+                options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+                
+                let fetchResult = PHAsset.fetchAssets(with: .video, options: options).lastObject
+                let imageManager = PHImageManager()
+                
+                imageManager.requestAVAsset(forVideo: fetchResult!, options: nil, resultHandler: { (avurlAsset, audioMix, dict) -> Void in
+                    let video = avurlAsset as! AVURLAsset
+                    
+                    if video.duration.seconds >= 30.0 {
+                        self?.selfStop = true
+                        self?.isRecording = false
+                    }
+                    
+                    completion(video.url)
+                })
+            }
+        })
+    }
+}
+
 //MARK: AVCaptureVideoDataOutputSampleBufferDelegate
 extension Camera: AVCaptureFileOutputRecordingDelegate {
     internal func fileOutput(_ output: AVCaptureFileOutput, didStartRecordingTo fileURL: URL, from connections: [AVCaptureConnection]) {
@@ -474,33 +526,10 @@ extension Camera: AVCaptureFileOutputRecordingDelegate {
             }
         }
         
-        PHPhotoLibrary.shared().performChanges({ () -> Void in
-            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputFileURL)
-        }, completionHandler: { [weak self] (saved, error) -> Void in
-            if let error = error {
-                self?.movieCaptureFailureBlock?(error)
-                return
-            }
-            
-            if saved {
-                let options = PHFetchOptions()
-                options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-                
-                let fetchResult = PHAsset.fetchAssets(with: .video, options: options).lastObject
-                let imageManager = PHImageManager()
-                
-                imageManager.requestAVAsset(forVideo: fetchResult!, options: nil, resultHandler: { (avurlAsset, audioMix, dict) -> Void in
-                    let video = avurlAsset as! AVURLAsset
-                    let data = try? Data(contentsOf: video.url)
-   
-                    if video.duration.seconds >= 30.0 {
-                        self?.selfStop = true
-                        self?.isRecording = false
-                    }
-                    
-                    self?.movieCaptureCompletionBlock?(data)
-                })
-            }
+        saveByURL(url: outputFileURL, completion: { (url) -> Void in
+            self.movieCaptureCompletionBlock?(url)
+        }, failure: { (error) -> Void in
+            self.movieCaptureFailureBlock?(error)
         })
     }
 }

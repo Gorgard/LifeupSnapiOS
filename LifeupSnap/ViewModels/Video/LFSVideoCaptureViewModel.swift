@@ -65,7 +65,7 @@ extension LFSVideoCaptureViewModel {
     
     private func record() {
         camera.maxDuration = 30
-        camera.recordVideo(completion: { [weak self] (data) -> Void in
+        camera.recordVideo(completion: { [weak self] (url) -> Void in
             self?.handleRecord()
         }, failure: { (error) -> Void in
             print(error?.localizedDescription ?? "")

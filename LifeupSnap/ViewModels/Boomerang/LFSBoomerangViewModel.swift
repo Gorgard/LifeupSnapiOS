@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVKit
+import AVFoundation
 
 internal class LFSBoomerangViewModel: LFSViewModel {
     private weak var delegate: LFSBoomerangViewModelDelegate?
@@ -65,21 +67,41 @@ extension LFSBoomerangViewModel {
     
     private func record() {
         camera.maxDuration = 10
-        camera.recordVideo(completion: { [weak self] (data) -> Void in
-            self?.handleRecord()
-            }, failure: { (error) -> Void in
-                print(error?.localizedDescription ?? "")
+        camera.recordVideo(completion: { [weak self] (url) -> Void in
+            self?.handleRecord(url: url)
+        }, failure: { (error) -> Void in
+            print(error?.localizedDescription ?? "")
         })
     }
     
-    private func handleRecord() {
+    private func handleRecord(url: URL?) {
         if camera.selfStop {
             NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.finishedSnapBoomerang), object: nil)
+        }
+        
+        if let _url = url {
+            let original = AVAsset.init(url: _url)
+            camera.reverse(original: original, outputURL: _url, completion: { (reversedURL) -> Void in
+                print(reversedURL)
+                self.playWithUrl(url: reversedURL)
+            }, failure: { (error) -> Void in
+                print(error?.localizedDescription ?? "")
+            })
         }
     }
     
     private func stopRecord() {
         camera.stopRecord()
         NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.finishedSnapBoomerang), object: nil)
+    }
+    
+    private func playWithUrl(url: URL?) {
+        let player = AVPlayer(url: url!)
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = player
+        
+        LFSSnapViewController.baseNavigation?.present(playerViewController, animated: true, completion: {
+            playerViewController.player?.play()
+        })
     }
 }
