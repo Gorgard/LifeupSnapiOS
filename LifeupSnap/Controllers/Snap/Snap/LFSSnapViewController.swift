@@ -36,6 +36,10 @@ public class LFSSnapViewController: UIViewController {
     open weak var delegate: LFSSnapDelegate?
     open weak var navigation: UINavigationController?
     
+    override public var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     public init() {
         let bundle = Bundle(for: LFSSnapViewController.self)
         super.init(nibName: LFSConstants.LFSNibID.Snap.lfsSnapViewController, bundle: bundle)
@@ -92,8 +96,6 @@ extension LFSSnapViewController {
         coverSnapView.layer.cornerRadius = coverSnapView.bounds.size.height / 2
         lineInCoverSnapView.layer.cornerRadius = lineInCoverSnapView.bounds.size.height / 2
         snapButton.layer.cornerRadius = snapButton.bounds.size.height / 2
-//        snapView.layer.cornerRadius = snapView.bounds.size.height / 2
-//        recordSnapView.layer.cornerRadius = 8
         
         setupPageView()
         setupPickerView()
@@ -158,6 +160,10 @@ extension LFSSnapViewController {
         
         viewModel.changeSnapButtonColor = { [unowned self] (color) -> Void in
             self.snapButton.backgroundColor = color
+        }
+        
+        viewModel.changeImageFlashButton = { [unowned self] (image) -> Void in
+            self.flashButton.setImage(image, for: .normal)
         }
         
         viewModel.changeSnapButtonRadius = { [unowned self] (raduis, bounds) -> Void in

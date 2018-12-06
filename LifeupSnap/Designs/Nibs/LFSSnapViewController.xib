@@ -84,28 +84,26 @@
                                 <constraint firstItem="CcM-95-i8S" firstAttribute="leading" secondItem="3MN-Kd-aRL" secondAttribute="leading" id="zIK-9r-MoZ"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LRo-yH-kAO">
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LRo-yH-kAO">
                             <rect key="frame" x="344" y="22.666666666666629" width="50" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="FdT-Dj-fz8"/>
                                 <constraint firstAttribute="height" constant="50" id="Nu0-6F-fl0"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                            <state key="normal" title="Flip">
+                            <state key="normal" image="ic_main_camera_flip.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
                                 <action selector="onTappedFlip:" destination="-1" eventType="touchUpInside" id="zvi-X2-iHX"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PsR-7F-MkC">
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PsR-7F-MkC">
                             <rect key="frame" x="20" y="22.666666666666629" width="50" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="EWG-wZ-dfc"/>
                                 <constraint firstAttribute="height" constant="50" id="w2l-1K-PiS"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                            <state key="normal" title="Flash">
+                            <state key="normal" image="ic_main_flash_off.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
@@ -126,14 +124,13 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yqG-Ck-ejo">
                     <rect key="frame" x="0.0" y="20" width="414" height="73.666666666666671"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hX8-Ph-ab1">
-                            <rect key="frame" x="10" y="16.333333333333332" width="41" height="40.333333333333343"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hX8-Ph-ab1">
+                            <rect key="frame" x="10" y="17.333333333333336" width="41" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="41" id="mgd-Ov-BWD"/>
                                 <constraint firstAttribute="height" constant="40" id="t24-k1-72E"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                            <state key="normal" title="Close">
+                            <state key="normal" image="ic_main_close.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
@@ -205,4 +202,9 @@
             <point key="canvasLocation" x="34.5" y="53.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="ic_main_camera_flip.png" width="20" height="17"/>
+        <image name="ic_main_close.png" width="30" height="30"/>
+        <image name="ic_main_flash_off.png" width="20" height="20"/>
+    </resources>
 </document>

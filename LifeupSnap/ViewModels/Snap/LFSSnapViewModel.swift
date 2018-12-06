@@ -29,6 +29,7 @@ internal class LFSSnapViewModel: LFSViewModel {
     open var changeSnapButtonColor: ((_ color: UIColor) -> Void)?
     open var enableAllView: ((_ enable: Bool) -> Void)?
     open var changeSnapButtonRadius: ((_ radius: CGFloat, _ bounds: CGRect) -> Void)?
+    open var changeImageFlashButton: ((_ image: UIImage) -> Void)?
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapBoomerang), object: nil)
@@ -134,6 +135,14 @@ extension LFSSnapViewModel {
     }
     
     internal func flash() {
+        if Camera.flashMode == .off {
+            changeImageFlashButton?(#imageLiteral(resourceName: "ic_main_flash_on.png"))
+        }
+        else {
+            changeImageFlashButton?(#imageLiteral(resourceName: "ic_main_flash_off.png"))
+        }
+        
+        //changeImageFlashButton?(Camera.flashMode == .off ? #imageLiteral(resourceName: "ic_main_flash_off.png") : #imageLiteral(resourceName: "ic_main_flash_on.png"))
         NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.flashCamera), object: nil)
     }
     
