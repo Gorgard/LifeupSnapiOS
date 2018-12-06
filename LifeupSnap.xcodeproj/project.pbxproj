@@ -64,6 +64,8 @@
 		437225E121AE878B00130213 /* LFSSnapViewModelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225E021AE878B00130213 /* LFSSnapViewModelProtocols.swift */; };
 		437225E321AE8B2F00130213 /* PageViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225E221AE8B2F00130213 /* PageViewPresentable.swift */; };
 		4380FA2921B0CF5200177F64 /* SafeArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4380FA2821B0CF5200177F64 /* SafeArray.swift */; };
+		438677F421B904C700B31B92 /* LFSBoomerangViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438677F321B904C700B31B92 /* LFSBoomerangViewModel.swift */; };
+		438677F621B904D100B31B92 /* LFSBoomerangViewModelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438677F521B904D100B31B92 /* LFSBoomerangViewModelProtocols.swift */; };
 		439871C321AF7CB300EDCE53 /* PickerViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439871C221AF7CB300EDCE53 /* PickerViewPresentable.swift */; };
 		43D8BF8521B639860065B3EB /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D8BF8421B639860065B3EB /* CircularProgress.swift */; };
 		43E9F74E21B4C1A600E91AAE /* CameraFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E9F74D21B4C1A600E91AAE /* CameraFeature.swift */; };
@@ -120,6 +122,8 @@
 		437225E021AE878B00130213 /* LFSSnapViewModelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnapViewModelProtocols.swift; sourceTree = "<group>"; };
 		437225E221AE8B2F00130213 /* PageViewPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewPresentable.swift; sourceTree = "<group>"; };
 		4380FA2821B0CF5200177F64 /* SafeArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeArray.swift; sourceTree = "<group>"; };
+		438677F321B904C700B31B92 /* LFSBoomerangViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSBoomerangViewModel.swift; sourceTree = "<group>"; };
+		438677F521B904D100B31B92 /* LFSBoomerangViewModelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSBoomerangViewModelProtocols.swift; sourceTree = "<group>"; };
 		439871C221AF7CB300EDCE53 /* PickerViewPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewPresentable.swift; sourceTree = "<group>"; };
 		43D8BF8421B639860065B3EB /* CircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
 		43E9F74D21B4C1A600E91AAE /* CameraFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFeature.swift; sourceTree = "<group>"; };
@@ -281,6 +285,7 @@
 		4372252B21AE2B3300130213 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				438677F121B904A700B31B92 /* Boomerang */,
 				43E9F7BE21B51AB700E91AAE /* Video */,
 				43E9F7B821B4E7C800E91AAE /* Original */,
 				430F2ADA21AFCBF400F2293D /* Square */,
@@ -455,6 +460,7 @@
 		437225DE21AE876000130213 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				438677F221B904B400B31B92 /* Boomerang */,
 				43E9F7C121B51AE400E91AAE /* Video */,
 				43E9F7BB21B4E7E000E91AAE /* Original */,
 				430F2ADD21AFCC1B00F2293D /* Square */,
@@ -484,6 +490,22 @@
 				4380FA2821B0CF5200177F64 /* SafeArray.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		438677F121B904A700B31B92 /* Boomerang */ = {
+			isa = PBXGroup;
+			children = (
+				438677F321B904C700B31B92 /* LFSBoomerangViewModel.swift */,
+			);
+			path = Boomerang;
+			sourceTree = "<group>";
+		};
+		438677F221B904B400B31B92 /* Boomerang */ = {
+			isa = PBXGroup;
+			children = (
+				438677F521B904D100B31B92 /* LFSBoomerangViewModelProtocols.swift */,
+			);
+			path = Boomerang;
 			sourceTree = "<group>";
 		};
 		43D8BF8321B639860065B3EB /* Circular Progress */ = {
@@ -676,6 +698,7 @@
 				439871C321AF7CB300EDCE53 /* PickerViewPresentable.swift in Sources */,
 				437225CF21AE812600130213 /* LFSBoomerangViewController.swift in Sources */,
 				4372253921AE2BA300130213 /* LFSConstants.swift in Sources */,
+				438677F621B904D100B31B92 /* LFSBoomerangViewModelProtocols.swift in Sources */,
 				437225A021AE559500130213 /* LFSSnapDelegate.swift in Sources */,
 				43E9F7C321B51AF000E91AAE /* LFSVideoCaptureViewModelProtocols.swift in Sources */,
 				430F2A9521AFBC0300F2293D /* PageViewScroll.swift in Sources */,
@@ -691,6 +714,7 @@
 				430F2A8E21AFB39B00F2293D /* LFSFeature.swift in Sources */,
 				430F2ADC21AFCC0C00F2293D /* LFSSquareCaptureViewModel.swift in Sources */,
 				437225E121AE878B00130213 /* LFSSnapViewModelProtocols.swift in Sources */,
+				438677F421B904C700B31B92 /* LFSBoomerangViewModel.swift in Sources */,
 				43D8BF8521B639860065B3EB /* CircularProgress.swift in Sources */,
 				4372253F21AE314B00130213 /* LFSViewUtils.swift in Sources */,
 				437225C921AE80FF00130213 /* LFSVideoCaptureViewController.swift in Sources */,

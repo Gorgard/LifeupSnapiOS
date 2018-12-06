@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSBoomerangViewController" customModule="LifeupSnap" customModuleProvider="target">
             <connections>
+                <outlet property="boomerangView" destination="n6T-WZ-Lpl" id="5fJ-dD-lbV"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,17 +21,16 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BOOMERANG" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gI6-Nm-dXb">
-                    <rect key="frame" x="122.5" y="331.5" width="130.5" height="24"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n6T-WZ-Lpl">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
             </subviews>
-            <color key="backgroundColor" red="0.95686274510000002" green="0.8119047368624952" blue="0.92149458302717091" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="gI6-Nm-dXb" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="4mJ-Hc-9H9"/>
-                <constraint firstItem="gI6-Nm-dXb" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="ZN2-OG-VGy"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="n6T-WZ-Lpl" secondAttribute="bottom" id="2xK-cK-hX0"/>
+                <constraint firstItem="n6T-WZ-Lpl" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="53z-k8-0gO"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="n6T-WZ-Lpl" secondAttribute="trailing" id="ev8-86-6gC"/>
+                <constraint firstItem="n6T-WZ-Lpl" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="h4C-4g-PP7"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>
