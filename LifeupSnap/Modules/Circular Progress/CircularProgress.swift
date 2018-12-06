@@ -78,7 +78,7 @@ internal class CircularProgress: UIView {
         animation.fromValue = 0
         animation.toValue = 1
         animation.duration = duration
-        animation.isRemovedOnCompletion = false
+        animation.isRemovedOnCompletion = true
         animation.isAdditive = true
         animation.fillMode = kCAFillModeForwards
         progressLayer.add(animation, forKey: "strokeEnd")
