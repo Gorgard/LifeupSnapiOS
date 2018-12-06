@@ -16,16 +16,25 @@ internal class LFSSnapViewModel: LFSViewModel {
     
     private var feature: CameraFeature!
     
+    internal var circularProgress: CircularProgress!
+    
+    internal var snapButtonBounds: CGRect!
+    
     private var currentIndex: Int = 1
     private var initialed: Bool = false
     
     open var receivedFirstPage: ((_ viewController: UIViewController) -> Void)?
     open var receivedFirstFeature: ((_ index: Int) -> Void)?
     open var hiddenBlurView: ((_ alpha: CGFloat) -> Void)?
+    open var changeSnapButtonColor: ((_ color: UIColor) -> Void)?
+    open var enableAllView: ((_ enable: Bool) -> Void)?
+    open var changeSnapButtonRadius: ((_ radius: CGFloat, _ bounds: CGRect) -> Void)?
     
     init(delegate: LFSSnapViewModelDelegate) {
         super.init()
         self.delegate = delegate
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(finishedSnapVideo), name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.finishedSnapVideo), object: nil)
     }
     
     internal func setup() {
@@ -56,7 +65,7 @@ internal class LFSSnapViewModel: LFSViewModel {
             initialed = true
         }
         
-        if let _ = viewControllers[safe: currentIndex] {
+        if let _viewController = viewControllers[safe: currentIndex] {
             feature = features[currentIndex]
             
             viewControllers[currentIndex].isCurrent = true
@@ -67,6 +76,12 @@ internal class LFSSnapViewModel: LFSViewModel {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { [unowned self] in
                 self.hiddenBlurView?(0)
             })
+            
+            changeSnapButtonColor?(viewControllers[currentIndex].name == CameraFeature.video.rawValue ? .red : .white)
+            
+            if !(_viewController.name == CameraFeature.video.rawValue) {
+                removeCircularProgress()
+            }
         }
     }
 }
@@ -124,6 +139,13 @@ extension LFSSnapViewModel {
             NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapSquare), object: nil)
             break
         case .video:
+            DispatchQueue.main.async { [unowned self] in
+                self.changeSnapButtonRadius?(8, CGRect(x: 0, y: 0, width: 40, height: 40))
+                self.enableAllView?(false)
+            }
+            
+            startProgress()
+            
             NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapVideo), object: nil)
             break
         default:
@@ -176,6 +198,35 @@ extension LFSSnapViewModel {
     fileprivate func setNotCurrent(currentIndex: Int) {
         for i in 0..<viewControllers.count {
             viewControllers[i].isCurrent = false
+        }
+    }
+}
+
+//MARK: Notification Handle
+extension LFSSnapViewModel {
+    @objc fileprivate func finishedSnapVideo() {
+        DispatchQueue.main.async { [unowned self] in
+            self.changeSnapButtonRadius?(self.snapButtonBounds.size.height / 2, self.snapButtonBounds)
+            self.enableAllView?(true)
+        }
+        
+        removeCircularProgress()
+    }
+}
+
+//MARK: Circular Progress
+extension LFSSnapViewModel {
+    fileprivate func startProgress() {
+        circularProgress.duration = 30
+        circularProgress.bgColor = UIColor.clear.cgColor
+        circularProgress.strokeColor = UIColor.orange.cgColor
+        circularProgress.lineWidth = 4
+        circularProgress.animateProgressView()
+    }
+    
+    fileprivate func removeCircularProgress() {
+        if let _ = circularProgress {
+            circularProgress.hideProgressView()
         }
     }
 }

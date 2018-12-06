@@ -8,10 +8,14 @@
 
 import UIKit
 import AVFoundation
+import Photos
 
 internal class Camera: NSObject {
     private var photoCaptureCompletionBlock: ((_ image: UIImage?) -> Void)?
     private var photoCaptureFailureBlock: ((_ error: Error?) -> Void)?
+    
+    private var movieCaptureCompletionBlock: ((_ data: Data?) -> Void)?
+    private var movieCaptureFailureBlock: ((_ error: Error?) -> Void)?
     
     internal var captureSession: AVCaptureSession?
     internal var cameraPosition: CameraPosition?
@@ -22,20 +26,33 @@ internal class Camera: NSObject {
     internal var rearCamera: AVCaptureDevice?
     internal var rearCameraInput: AVCaptureDeviceInput?
     
+    internal var micDevice: AVCaptureDevice?
+    internal var micInput: AVCaptureDeviceInput?
+
     internal var previewLayer: AVCaptureVideoPreviewLayer?
     
     internal var photoOutput: AVCapturePhotoOutput?
+    internal var movieOutput: AVCaptureMovieFileOutput?
     
     internal static var flashMode: AVCaptureDevice.FlashMode = .off
     internal var initialed: Bool = false
+    internal var isRecording: Bool = false
+    internal var selfStop: Bool = false
 
     internal func prepare(completion: @escaping() -> Void, failure: @escaping(_ error: Error?) -> Void) {
+        if initialed {
+            completion()
+            return
+        }
+        
         DispatchQueue.main.async { [unowned self] in
             do {
                 self.createCaptureSession()
                 try self.configurationCaptureDevice()
                 try self.configurationDeviceInputs()
                 try self.configurationPhotoOutput()
+                try self.configurationMicInput()
+                try self.configurationMovieOutput()
             }
             catch {
                 DispatchQueue.main.async {
@@ -62,9 +79,9 @@ extension Camera {
         var session: AVCaptureDevice.DiscoverySession
         
         if #available(iOS 10.2, *) {
-            session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera, .builtInWideAngleCamera], mediaType: .video, position: .unspecified)
+            session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera, .builtInWideAngleCamera, .builtInMicrophone], mediaType: .video, position: .unspecified)
         } else {
-            session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDuoCamera, .builtInWideAngleCamera], mediaType: .video, position: .unspecified)
+            session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDuoCamera, .builtInWideAngleCamera, .builtInMicrophone], mediaType: .video, position: .unspecified)
         }
         
         let cameras = session.devices
@@ -131,15 +148,55 @@ extension Camera {
         if captureSession.canAddOutput(photoOutput!) {
             captureSession.addOutput(photoOutput!)
         }
+    }
+    
+    fileprivate func configurationMicInput() throws {
+        guard let captureSession = captureSession else {
+            throw CameraError.captureSessionIsMissing
+        }
+
+        guard let micDevice = AVCaptureDevice.default(for: .audio) else {
+            throw CameraError.captureSessionIsMissing
+        }
+
+        do {
+            micInput = try AVCaptureDeviceInput(device: micDevice)
+        }
+        catch {
+            throw CameraError.invalidOperation
+        }
+
+        if captureSession.canAddInput(micInput!) {
+            captureSession.addInput(micInput!)
+        }
+    }
+    
+    fileprivate func configurationMovieOutput() throws {
+        guard let captureSession = captureSession else {
+            throw CameraError.captureSessionIsMissing
+        }
         
-        captureSession.startRunning()
+        let seconds = 30.0
+        let preferredTimeScale = 1
+        let maxRecordDuration = CMTime(seconds: seconds, preferredTimescale: CMTimeScale(preferredTimeScale))
+        
+        movieOutput = AVCaptureMovieFileOutput()
+        movieOutput?.maxRecordedDuration = maxRecordDuration
+        
+        if captureSession.canAddOutput(movieOutput!) {
+            captureSession.addOutput(movieOutput!)
+        }
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.captureSession?.startRunning()
+        }
     }
 }
 
 //MARK: Manage
 extension Camera {
     internal func displayPreview() throws {
-        guard let captureSession = captureSession, captureSession.isRunning else {
+        guard let captureSession = captureSession, !captureSession.isRunning else {
             throw CameraError.captureSessionIsMissing
         }
         
@@ -148,12 +205,17 @@ extension Camera {
     }
     
     internal func addPreviewLayer(view: UIView) {
+        guard let connection = previewLayer?.connection else {
+            return
+        }
+        
+        connection.videoOrientation = currentVideoOrientation()
         previewLayer?.frame = view.bounds
         view.layer.addSublayer(previewLayer!)
     }
     
     internal func begin() {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             self?.captureSession?.startRunning()
         }
     }
@@ -227,9 +289,78 @@ extension Camera {
         let settings = AVCapturePhotoSettings()
         settings.flashMode = Camera.flashMode
         
+        guard let connection = photoOutput?.connection(with: .video) else {
+            failure(CameraError.unknown)
+            return
+        }
+        
+        connection.videoOrientation = currentVideoOrientation()
         photoOutput?.capturePhoto(with: settings, delegate: self)
         photoCaptureCompletionBlock = completion
         photoCaptureFailureBlock = failure
+    }
+}
+
+//MARK: Record
+extension Camera {
+    internal func recordVideo(completion: @escaping(_ data: Data?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
+        guard let connection = movieOutput?.connection(with: .video) else {
+            failure(CameraError.unknown)
+            return
+        }
+        
+        connection.videoOrientation = currentVideoOrientation()
+        movieOutput?.startRecording(to: outputPathURL()!, recordingDelegate: self)
+        
+        movieCaptureCompletionBlock = completion
+        movieCaptureFailureBlock = failure
+        
+        isRecording = true
+        selfStop = false
+    }
+    
+    internal func stopRecord() {
+        movieOutput?.stopRecording()
+        isRecording = false
+    }
+    
+    fileprivate func outputPathURL() -> URL? {
+        let tempPath = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first)?.appendingPathComponent("LFSSNAPVIDEO-\(Date())").appendingPathExtension("mp4")
+        
+        if FileManager.default.fileExists(atPath: tempPath?.absoluteString ?? "") {
+            do {
+                try FileManager.default.removeItem(at: tempPath!)
+            }
+            catch {
+                print(error)
+            }
+        }
+
+        return tempPath
+    }
+}
+
+//MARK: Orientation
+extension Camera {
+    fileprivate func currentVideoOrientation() -> AVCaptureVideoOrientation {
+        var orientation: AVCaptureVideoOrientation
+        
+        switch UIDevice.current.orientation {
+        case .portrait:
+            orientation = .portrait
+            break
+        case .landscapeRight:
+            orientation = .landscapeLeft
+            break
+        case .landscapeLeft:
+            orientation = .landscapeRight
+            break
+        default:
+            orientation = .portrait
+            break
+        }
+        
+        return orientation
     }
 }
 
@@ -249,5 +380,50 @@ extension Camera: AVCapturePhotoCaptureDelegate {
         else {
             photoCaptureFailureBlock?(CameraError.unknown)
         }
+    }
+}
+
+//MARK: AVCaptureVideoDataOutputSampleBufferDelegate
+extension Camera: AVCaptureFileOutputRecordingDelegate {
+    internal func fileOutput(_ output: AVCaptureFileOutput, didStartRecordingTo fileURL: URL, from connections: [AVCaptureConnection]) {
+        
+    }
+    
+    internal func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        if let error = error {
+            if !outputFileURL.isFileURL {
+                movieCaptureFailureBlock?(error)
+                return
+            }
+        }
+        
+        PHPhotoLibrary.shared().performChanges({ () -> Void in
+            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputFileURL)
+        }, completionHandler: { [weak self] (saved, error) -> Void in
+            if let error = error {
+                self?.movieCaptureFailureBlock?(error)
+                return
+            }
+            
+            if saved {
+                let options = PHFetchOptions()
+                options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+                
+                let fetchResult = PHAsset.fetchAssets(with: .video, options: options).lastObject
+                let imageManager = PHImageManager()
+                
+                imageManager.requestAVAsset(forVideo: fetchResult!, options: nil, resultHandler: { (avurlAsset, audioMix, dict) -> Void in
+                    let video = avurlAsset as! AVURLAsset
+                    let data = try? Data(contentsOf: video.url)
+   
+                    if video.duration.seconds >= 30.0 {
+                        self?.selfStop = true
+                        self?.isRecording = false
+                    }
+                    
+                    self?.movieCaptureCompletionBlock?(data)
+                })
+            }
+        })
     }
 }
