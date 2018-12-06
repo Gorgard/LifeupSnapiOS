@@ -18,15 +18,17 @@ internal class LFSSnapViewModel: LFSViewModel {
     
     internal var circularProgress: CircularProgress!
     
+    internal var snapButtonBounds: CGRect!
+    
     private var currentIndex: Int = 1
     private var initialed: Bool = false
     
     open var receivedFirstPage: ((_ viewController: UIViewController) -> Void)?
     open var receivedFirstFeature: ((_ index: Int) -> Void)?
     open var hiddenBlurView: ((_ alpha: CGFloat) -> Void)?
-    open var changeSnapViewColor: ((_ color: UIColor) -> Void)?
-    open var hiddenSnapView: ((_ alpha: CGFloat) -> Void)?
+    open var changeSnapButtonColor: ((_ color: UIColor) -> Void)?
     open var enableAllView: ((_ enable: Bool) -> Void)?
+    open var changeSnapButtonRadius: ((_ radius: CGFloat, _ bounds: CGRect) -> Void)?
     
     init(delegate: LFSSnapViewModelDelegate) {
         super.init()
@@ -75,7 +77,7 @@ internal class LFSSnapViewModel: LFSViewModel {
                 self.hiddenBlurView?(0)
             })
             
-            changeSnapViewColor?(viewControllers[currentIndex].name == CameraFeature.video.rawValue ? .red : .white)
+            changeSnapButtonColor?(viewControllers[currentIndex].name == CameraFeature.video.rawValue ? .red : .white)
             
             if !(_viewController.name == CameraFeature.video.rawValue) {
                 removeCircularProgress()
@@ -138,7 +140,7 @@ extension LFSSnapViewModel {
             break
         case .video:
             DispatchQueue.main.async { [unowned self] in
-                self.hiddenSnapView?(0)
+                self.changeSnapButtonRadius?(8, CGRect(x: 0, y: 0, width: 40, height: 40))
                 self.enableAllView?(false)
             }
             
@@ -204,7 +206,7 @@ extension LFSSnapViewModel {
 extension LFSSnapViewModel {
     @objc fileprivate func finishedSnapVideo() {
         DispatchQueue.main.async { [unowned self] in
-            self.hiddenSnapView?(1)
+            self.changeSnapButtonRadius?(self.snapButtonBounds.size.height / 2, self.snapButtonBounds)
             self.enableAllView?(true)
         }
         

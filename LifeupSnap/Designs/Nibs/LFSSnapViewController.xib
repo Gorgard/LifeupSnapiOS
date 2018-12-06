@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSSnapViewController" customModule="LifeupSnap" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSSnapViewController" customModule="LifeupSnapTest" customModuleProvider="target">
             <connections>
                 <outlet property="blurView" destination="o9g-3g-nfa" id="aIR-Wq-zY9"/>
                 <outlet property="captureView" destination="SX6-aB-iLb" id="sLx-WH-8qe"/>
@@ -25,9 +25,7 @@
                 <outlet property="pickerView" destination="0kt-yp-ki1" id="NKp-un-0AB"/>
                 <outlet property="pickerViewHeightConstraint" destination="JaO-Qg-LQF" id="u9s-pe-Oi6"/>
                 <outlet property="pickerViewWidthConstraint" destination="KKa-WS-OE2" id="864-sF-s6W"/>
-                <outlet property="recordSnapView" destination="9XD-0J-HR1" id="9mc-Oe-Krc"/>
                 <outlet property="snapButton" destination="376-SO-c4d" id="bad-4v-Oew"/>
-                <outlet property="snapView" destination="b8L-Z9-9u6" id="gGq-AZ-Mel"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -42,64 +40,50 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3MN-Kd-aRL">
                             <rect key="frame" x="155" y="10.5" width="65" height="65"/>
                             <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CcM-95-i8S" customClass="CircularProgress" customModule="LifeupSnapTest" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="65" height="65"/>
+                                </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vzi-m7-hGo">
                                     <rect key="frame" x="3" y="3" width="59" height="59"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9XD-0J-HR1">
-                                            <rect key="frame" x="10" y="10" width="39" height="39"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t3s-iF-tEk">
-                                                    <rect key="frame" x="0.0" y="0.0" width="39" height="39"/>
-                                                    <connections>
-                                                        <action selector="onTappedSnap:" destination="-1" eventType="touchUpInside" id="wli-fX-dR0"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="t3s-iF-tEk" secondAttribute="bottom" id="0VB-ne-P4A"/>
-                                                <constraint firstItem="t3s-iF-tEk" firstAttribute="top" secondItem="9XD-0J-HR1" secondAttribute="top" id="719-mW-hm2"/>
-                                                <constraint firstItem="t3s-iF-tEk" firstAttribute="leading" secondItem="9XD-0J-HR1" secondAttribute="leading" id="FYw-Yy-62d"/>
-                                                <constraint firstAttribute="trailing" secondItem="t3s-iF-tEk" secondAttribute="trailing" id="hc6-vY-upw"/>
-                                            </constraints>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cFr-n0-FIv">
+                                            <rect key="frame" x="3" y="3" width="53" height="53"/>
                                         </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b8L-Z9-9u6">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="376-SO-c4d">
                                             <rect key="frame" x="3" y="3" width="53" height="53"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </view>
+                                            <connections>
+                                                <action selector="onTappedSnap:" destination="-1" eventType="touchUpInside" id="DAS-gx-OmG"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstItem="b8L-Z9-9u6" firstAttribute="leading" secondItem="Vzi-m7-hGo" secondAttribute="leading" constant="3" id="H5I-0s-6Ku"/>
-                                        <constraint firstAttribute="trailing" secondItem="9XD-0J-HR1" secondAttribute="trailing" constant="10" id="Quv-w3-ksD"/>
-                                        <constraint firstAttribute="bottom" secondItem="b8L-Z9-9u6" secondAttribute="bottom" constant="3" id="Rvf-wC-k9v"/>
-                                        <constraint firstItem="9XD-0J-HR1" firstAttribute="leading" secondItem="Vzi-m7-hGo" secondAttribute="leading" constant="10" id="VuK-vq-7Pf"/>
-                                        <constraint firstAttribute="bottom" secondItem="9XD-0J-HR1" secondAttribute="bottom" constant="10" id="h5B-SD-sl9"/>
-                                        <constraint firstAttribute="trailing" secondItem="b8L-Z9-9u6" secondAttribute="trailing" constant="3" id="l7q-sD-xwE"/>
-                                        <constraint firstItem="b8L-Z9-9u6" firstAttribute="top" secondItem="Vzi-m7-hGo" secondAttribute="top" constant="3" id="pFC-It-eWk"/>
-                                        <constraint firstItem="9XD-0J-HR1" firstAttribute="top" secondItem="Vzi-m7-hGo" secondAttribute="top" constant="10" id="q11-X0-EKv"/>
+                                        <constraint firstItem="376-SO-c4d" firstAttribute="top" secondItem="cFr-n0-FIv" secondAttribute="top" id="97e-jI-tww"/>
+                                        <constraint firstItem="376-SO-c4d" firstAttribute="bottom" secondItem="cFr-n0-FIv" secondAttribute="bottom" id="C4X-vh-oNZ"/>
+                                        <constraint firstItem="cFr-n0-FIv" firstAttribute="leading" secondItem="Vzi-m7-hGo" secondAttribute="leading" constant="3" id="IQQ-Lf-0Cu"/>
+                                        <constraint firstItem="376-SO-c4d" firstAttribute="trailing" secondItem="cFr-n0-FIv" secondAttribute="trailing" id="K2X-o7-VNp"/>
+                                        <constraint firstItem="376-SO-c4d" firstAttribute="leading" secondItem="cFr-n0-FIv" secondAttribute="leading" id="XbQ-47-zbo"/>
+                                        <constraint firstAttribute="trailing" secondItem="cFr-n0-FIv" secondAttribute="trailing" constant="3" id="o5C-TF-sbA"/>
+                                        <constraint firstAttribute="bottom" secondItem="cFr-n0-FIv" secondAttribute="bottom" constant="3" id="qxl-5n-7hT"/>
+                                        <constraint firstItem="cFr-n0-FIv" firstAttribute="top" secondItem="Vzi-m7-hGo" secondAttribute="top" constant="3" id="uai-xX-IRp"/>
                                     </constraints>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="Vzi-m7-hGo" secondAttribute="bottom" constant="3" id="66h-C5-Z7V"/>
+                                <constraint firstItem="CcM-95-i8S" firstAttribute="top" secondItem="3MN-Kd-aRL" secondAttribute="top" id="Bzl-7C-kcd"/>
                                 <constraint firstAttribute="trailing" secondItem="Vzi-m7-hGo" secondAttribute="trailing" constant="3" id="IOi-O7-Tte"/>
                                 <constraint firstAttribute="width" constant="65" id="ewA-p7-Rdr"/>
+                                <constraint firstAttribute="bottom" secondItem="CcM-95-i8S" secondAttribute="bottom" id="f3o-m9-aVk"/>
                                 <constraint firstAttribute="height" constant="65" id="fNg-jG-dYM"/>
+                                <constraint firstAttribute="trailing" secondItem="CcM-95-i8S" secondAttribute="trailing" id="ia6-vB-oNb"/>
                                 <constraint firstItem="Vzi-m7-hGo" firstAttribute="top" secondItem="3MN-Kd-aRL" secondAttribute="top" constant="3" id="n51-oq-FBu"/>
                                 <constraint firstItem="Vzi-m7-hGo" firstAttribute="leading" secondItem="3MN-Kd-aRL" secondAttribute="leading" constant="3" id="x0n-jm-ZEX"/>
+                                <constraint firstItem="CcM-95-i8S" firstAttribute="leading" secondItem="3MN-Kd-aRL" secondAttribute="leading" id="zIK-9r-MoZ"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CcM-95-i8S" customClass="CircularProgress" customModule="LifeupSnap" customModuleProvider="target">
-                            <rect key="frame" x="155" y="10.5" width="65" height="65"/>
-                        </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="376-SO-c4d">
-                            <rect key="frame" x="154.5" y="10.5" width="65" height="65"/>
-                            <connections>
-                                <action selector="onTappedSnap:" destination="-1" eventType="touchUpInside" id="DAS-gx-OmG"/>
-                            </connections>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LRo-yH-kAO">
                             <rect key="frame" x="305" y="18" width="50" height="50"/>
                             <constraints>
@@ -133,15 +117,7 @@
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="LRo-yH-kAO" secondAttribute="trailing" constant="20" id="05S-o6-Q0M"/>
                         <constraint firstItem="3MN-Kd-aRL" firstAttribute="centerY" secondItem="vDY-2S-bKE" secondAttribute="centerY" id="6zo-WN-HEN"/>
-                        <constraint firstItem="CcM-95-i8S" firstAttribute="top" secondItem="3MN-Kd-aRL" secondAttribute="top" id="8Fw-DO-xyd"/>
-                        <constraint firstItem="376-SO-c4d" firstAttribute="height" secondItem="3MN-Kd-aRL" secondAttribute="height" id="MBR-Cd-yyD"/>
-                        <constraint firstItem="376-SO-c4d" firstAttribute="width" secondItem="3MN-Kd-aRL" secondAttribute="width" id="OiS-hF-A1w"/>
-                        <constraint firstItem="CcM-95-i8S" firstAttribute="bottom" secondItem="3MN-Kd-aRL" secondAttribute="bottom" id="TNH-sA-k4z"/>
-                        <constraint firstItem="376-SO-c4d" firstAttribute="centerX" secondItem="3MN-Kd-aRL" secondAttribute="centerX" id="TyZ-mE-s2V"/>
                         <constraint firstItem="PsR-7F-MkC" firstAttribute="leading" secondItem="vDY-2S-bKE" secondAttribute="leading" constant="20" id="UFN-s7-8b7"/>
-                        <constraint firstItem="CcM-95-i8S" firstAttribute="trailing" secondItem="3MN-Kd-aRL" secondAttribute="trailing" id="Ypy-6k-xpi"/>
-                        <constraint firstItem="CcM-95-i8S" firstAttribute="leading" secondItem="3MN-Kd-aRL" secondAttribute="leading" id="aBY-LH-dAG"/>
-                        <constraint firstItem="376-SO-c4d" firstAttribute="centerY" secondItem="3MN-Kd-aRL" secondAttribute="centerY" id="aml-IV-5xJ"/>
                         <constraint firstItem="PsR-7F-MkC" firstAttribute="centerY" secondItem="3MN-Kd-aRL" secondAttribute="centerY" id="el2-O9-kiS"/>
                         <constraint firstItem="3MN-Kd-aRL" firstAttribute="centerX" secondItem="vDY-2S-bKE" secondAttribute="centerX" id="fzg-Qj-kLu"/>
                         <constraint firstItem="LRo-yH-kAO" firstAttribute="centerY" secondItem="3MN-Kd-aRL" secondAttribute="centerY" id="qie-lT-ddC"/>

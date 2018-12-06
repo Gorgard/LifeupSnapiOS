@@ -14,8 +14,8 @@ public class LFSSnapViewController: UIViewController {
     @IBOutlet weak var captureView: UIView!
     @IBOutlet weak var coverSnapView: UIView!
     @IBOutlet weak var lineInCoverSnapView: UIView!
-    @IBOutlet weak var snapView: UIView!
-    @IBOutlet weak var recordSnapView: UIView!
+//    @IBOutlet weak var snapView: UIView!
+//    @IBOutlet weak var recordSnapView: UIView!
     @IBOutlet weak var snapButton: UIButton!
     @IBOutlet weak var flipButton: UIButton!
     @IBOutlet weak var flashButton: UIButton!
@@ -89,11 +89,13 @@ extension LFSSnapViewController {
     
     fileprivate func setupViews() {
         viewModel.circularProgress = circularProgress
+        viewModel.snapButtonBounds = snapButton.bounds
         
         coverSnapView.layer.cornerRadius = coverSnapView.bounds.size.height / 2
         lineInCoverSnapView.layer.cornerRadius = lineInCoverSnapView.bounds.size.height / 2
-        snapView.layer.cornerRadius = snapView.bounds.size.height / 2
-        recordSnapView.layer.cornerRadius = 8
+        snapButton.layer.cornerRadius = snapButton.bounds.size.height / 2
+//        snapView.layer.cornerRadius = snapView.bounds.size.height / 2
+//        recordSnapView.layer.cornerRadius = 8
         
         setupPageView()
         setupPickerView()
@@ -156,14 +158,16 @@ extension LFSSnapViewController {
             self.blurView.alpha = alpha
         }
         
-        viewModel.changeSnapViewColor = { [unowned self] (color) -> Void in
-            self.snapView.backgroundColor = color
-            self.recordSnapView.backgroundColor = color
+        viewModel.changeSnapButtonColor = { [unowned self] (color) -> Void in
+//            self.snapView.backgroundColor = color
+//            self.recordSnapView.backgroundColor = color
+            self.snapButton.backgroundColor = color
         }
         
-        viewModel.hiddenSnapView = { [unowned self] (alpha) -> Void in
+        viewModel.changeSnapButtonRadius = { [unowned self] (raduis, bounds) -> Void in
             UIView.animate(withDuration: 0.3, animations: {
-                self.snapView.alpha = alpha
+                self.snapButton.layer.cornerRadius = raduis
+                self.snapButton.bounds = bounds
                 self.view.layoutIfNeeded()
             })
         }
