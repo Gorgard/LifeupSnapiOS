@@ -31,4 +31,21 @@ internal struct LFSConstants {
             internal static let video = "VIDEO"
         }
     }
+    
+    //MARK: VIDEO Name
+    internal struct LFSVideoName {
+        internal struct Snap {
+            internal static let snapVideo = "LFSSNAPVIDEO-"
+            internal static let snapReversedVideo = "LFSSNAPREVERSEVIDEO-"
+            internal static let snapMergedVideo = "LFSSNAPMERGEDVIDEO-"
+        }
+    }
+    
+    //MARK: File Type
+    internal struct LFSFileType {
+        internal struct Snap {
+            internal static let mp4 = "mp4"
+            internal static let mov = "mov"
+        }
+    }
 }

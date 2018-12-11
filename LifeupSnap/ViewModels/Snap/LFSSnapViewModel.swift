@@ -33,8 +33,6 @@ internal class LFSSnapViewModel: LFSViewModel {
     open var changeSnapButtonRadius: ((_ radius: CGFloat, _ bounds: CGRect) -> Void)?
     open var changeImageFlashButton: ((_ image: UIImage) -> Void)?
     open var changeImageSnapButton: ((_ image: UIImage?) -> Void)?
-    open var hiddenCaptureView: ((_ alpha: CGFloat) -> Void)?
-    open var hiddenSquareView: ((_ alpha: CGFloat) -> Void)?
     open var changeSquareViewHeight: ((_ height: CGFloat) -> Void)?
     
     //MARK: Camera value

@@ -334,8 +334,9 @@ extension Camera {
         }
         
         connection.videoOrientation = currentVideoOrientation()
-        let fileName = outputPathURL(fileName: "LFSSNAPVIDEO-\(Date())", fileType: "mp4")!
-        movieOutput?.startRecording(to: fileName, recordingDelegate: self)
+        let fileName = "\(LFSConstants.LFSVideoName.Snap.snapVideo)\(Date())"
+        let path = outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mp4)!
+        movieOutput?.startRecording(to: path, recordingDelegate: self)
         
         movieCaptureCompletionBlock = completion
         movieCaptureFailureBlock = failure
@@ -396,7 +397,8 @@ extension Camera {
         }
         
         let writer: AVAssetWriter
-        let reversePath = outputPathURL(fileName: "LFSSNAPREVERSEVIDEO-\(Date())", fileType: "mov")!
+        let fileName = "\(LFSConstants.LFSVideoName.Snap.snapReversedVideo)\(Date())"
+        let reversePath = outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mov)!
         do {
             writer = try AVAssetWriter(outputURL: reversePath, fileType: .mov)
         } catch let error {
@@ -462,8 +464,9 @@ extension Camera {
         
         videoTrack?.preferredTransform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
 
-        let mergedPath = outputPathURL(fileName: "LFSSNAPMERGEDVIDEO-\(Date())", fileType: "mov")!
-        let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHEVCHighestQuality)
+        let fileName = "\(LFSConstants.LFSVideoName.Snap.snapMergedVideo)\(Date())"
+        let mergedPath = outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mov)!
+        let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality)
         exporter?.outputURL = mergedPath
         exporter?.shouldOptimizeForNetworkUse = true
         exporter?.outputFileType = .mov
