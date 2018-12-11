@@ -367,7 +367,9 @@ extension Camera {
 
 //MARK: Boomerang
 extension Camera {
-    func reverse(original: AVAsset, completion: @escaping(_ url: URL?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
+    func reverse(originalURL: URL, completion: @escaping(_ url: URL?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
+        let original = AVAsset(url: originalURL)
+        
         var reader: AVAssetReader!
         
         do {
@@ -394,9 +396,9 @@ extension Camera {
         }
         
         let writer: AVAssetWriter
-        let outputPath = outputPathURL(fileName: "LFSSNAPREVERSEVIDEO-\(Date())", fileType: "mov")!
+        let reversePath = outputPathURL(fileName: "LFSSNAPREVERSEVIDEO-\(Date())", fileType: "mov")!
         do {
-            writer = try AVAssetWriter(outputURL: outputPath, fileType: .mov)
+            writer = try AVAssetWriter(outputURL: reversePath, fileType: .mov)
         } catch let error {
             failure(error)
             return
@@ -430,7 +432,46 @@ extension Camera {
         }
         
         writer.finishWriting {
-            completion(outputPath)
+            self.mergeReversed(originalURL: originalURL, reversePath: reversePath, completion: completion)
+        }
+    }
+    
+    fileprivate func mergeReversed(originalURL: URL, reversePath: URL, completion: @escaping(_ url: URL?) -> Void) {
+        let videos = [originalURL, reversePath]
+        
+        let composition = AVMutableComposition()
+        let videoTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
+        
+        var currentVideoTime = kCMTimeZero
+        
+        for video in videos {
+            let asset = AVAsset(url: video)
+            let videoAssetTrack = asset.tracks(withMediaType: .video).first!
+            
+            do {
+                try videoTrack?.insertTimeRange(CMTimeRangeMake(kCMTimeZero, videoAssetTrack.timeRange.duration), of: videoAssetTrack, at: currentVideoTime)
+            }
+            catch {
+                print("Cannot merged reversed video.")
+            }
+            
+            let scaleDuration = CMTimeMultiplyByFloat64(videoAssetTrack.timeRange.duration, Float64(0.5))
+            videoTrack?.scaleTimeRange(CMTimeRangeMake(currentVideoTime, videoAssetTrack.timeRange.duration), toDuration: scaleDuration)
+            currentVideoTime = CMTimeAdd(currentVideoTime, scaleDuration)
+        }
+        
+        videoTrack?.preferredTransform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+
+        let mergedPath = outputPathURL(fileName: "LFSSNAPMERGEDVIDEO-\(Date())", fileType: "mov")!
+        let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHEVCHighestQuality)
+        exporter?.outputURL = mergedPath
+        exporter?.shouldOptimizeForNetworkUse = true
+        exporter?.outputFileType = .mov
+        
+        exporter?.exportAsynchronously {
+            DispatchQueue.main.async {
+                completion(exporter?.outputURL)
+            }
         }
     }
 }
@@ -461,8 +502,7 @@ extension Camera {
 
 //MARK: AVCapturePhotoCaptureDelegate
 extension Camera: AVCapturePhotoCaptureDelegate {
-    internal func photoOutput(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?,
-                                   resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Swift.Error?) {
+    internal func photoOutput(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Swift.Error?) {
         if let error = error {
             photoCaptureFailureBlock?(error)
             return

@@ -299,8 +299,7 @@ extension LFSSnapViewModel {
         }
         
         if let _url = url {
-            let original = AVAsset.init(url: _url)
-            camera.reverse(original: original, completion: { (reversedURL) -> Void in
+            camera.reverse(originalURL: _url, completion: { (reversedURL) -> Void in
                 self.playWithUrl(url: reversedURL!)
             }, failure: { (error) -> Void in
                 print(error?.localizedDescription ?? "")

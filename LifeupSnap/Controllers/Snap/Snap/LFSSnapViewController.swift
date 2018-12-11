@@ -159,8 +159,6 @@ extension LFSSnapViewController {
             self.pickerView.isUserInteractionEnabled = enable
             self.swipeCaptureViewLeftGesture.isEnabled = enable
             self.swipeCaptureViewRightGesture.isEnabled = enable
-            self.swipeSquareViewRightGesture.isEnabled = enable
-            self.swipeSquareViewLeftGesture.isEnabled = enable
             self.flipButton.isEnabled = enable
             self.flashButton.isEnabled = enable
             self.closeButton.isEnabled = enable
