@@ -30,8 +30,8 @@ public class LFSSnapViewController: UIViewController {
     
     open var swipeCaptureViewRightGesture: UISwipeGestureRecognizer!
     open var swipeCaptureViewLeftGesture: UISwipeGestureRecognizer!
-    open var swipeSquareViewRightGesture: UISwipeGestureRecognizer!
-    open var swipeSquareViewLeftGesture: UISwipeGestureRecognizer!
+    open var swipeBlurViewRightGesture: UISwipeGestureRecognizer!
+    open var swipeBlurViewLeftGesture: UISwipeGestureRecognizer!
     
     internal var viewModel: LFSSnapViewModel!
     
@@ -133,12 +133,20 @@ extension LFSSnapViewController {
         swipeCaptureViewRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeRight))
         swipeCaptureViewRightGesture.direction = .right
         captureView.addGestureRecognizer(swipeCaptureViewRightGesture)
+        
+        swipeBlurViewRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeRight))
+        swipeBlurViewRightGesture.direction = .right
+        blurView.addGestureRecognizer(swipeBlurViewRightGesture)
     }
     
     fileprivate func setupSwipeLeft() {
         swipeCaptureViewLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeLeft))
         swipeCaptureViewLeftGesture.direction = .left
         captureView.addGestureRecognizer(swipeCaptureViewLeftGesture)
+        
+        swipeBlurViewLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeLeft))
+        swipeBlurViewLeftGesture.direction = .left
+        blurView.addGestureRecognizer(swipeBlurViewLeftGesture)
     }
     
     fileprivate func setupCamera() {
@@ -159,6 +167,8 @@ extension LFSSnapViewController {
             self.pickerView.isUserInteractionEnabled = enable
             self.swipeCaptureViewLeftGesture.isEnabled = enable
             self.swipeCaptureViewRightGesture.isEnabled = enable
+            self.swipeBlurViewLeftGesture.isEnabled = enable
+            self.swipeBlurViewRightGesture.isEnabled = enable
             self.flipButton.isEnabled = enable
             self.flashButton.isEnabled = enable
             self.closeButton.isEnabled = enable
