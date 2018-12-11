@@ -307,6 +307,7 @@ extension LFSSnapViewModel {
         if let _url = url {
             camera.reverse(originalURL: _url, completion: { (reversedURL) -> Void in
                 self.playWithUrl(url: reversedURL!)
+                //self.boomerangPreview(url: reversedURL!)
             }, failure: { (error) -> Void in
                 print(error?.localizedDescription ?? "")
             })
@@ -336,6 +337,15 @@ extension LFSSnapViewModel {
         }
         
         removeCircularProgress()
+    }
+    
+    fileprivate func boomerangPreview(url: URL) {
+        let lfsVideoPreviewViewController = LFSVideoPreviewViewController()
+        lfsVideoPreviewViewController.url = url
+        
+        DispatchQueue.main.async { [unowned self] in
+            self.viewController?.present(lfsVideoPreviewViewController, animated: true, completion: nil)
+        }
     }
 }
 
