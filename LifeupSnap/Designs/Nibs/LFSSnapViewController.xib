@@ -14,9 +14,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSSnapViewController" customModule="LifeupSnap" customModuleProvider="target">
             <connections>
                 <outlet property="blurView" destination="o9g-3g-nfa" id="aIR-Wq-zY9"/>
-                <outlet property="captureView" destination="SX6-aB-iLb" id="sLx-WH-8qe"/>
+                <outlet property="bottomSquareViewHeightConstraint" destination="9rH-K4-urc" id="11s-rh-9uf"/>
+                <outlet property="captureView" destination="NIF-lf-orX" id="VjU-sN-vPu"/>
                 <outlet property="circularProgress" destination="CcM-95-i8S" id="bdQ-EJ-FCl"/>
                 <outlet property="closeButton" destination="hX8-Ph-ab1" id="Nr4-vz-3yM"/>
+                <outlet property="coverCaptureView" destination="SX6-aB-iLb" id="4Bj-V5-cYF"/>
                 <outlet property="coverPickerView" destination="ohw-7s-NBi" id="57f-6N-sOp"/>
                 <outlet property="coverSnapView" destination="3MN-Kd-aRL" id="zSs-A3-cD3"/>
                 <outlet property="flashButton" destination="PsR-7F-MkC" id="RJj-Bt-EQ5"/>
@@ -26,6 +28,7 @@
                 <outlet property="pickerViewHeightConstraint" destination="JaO-Qg-LQF" id="u9s-pe-Oi6"/>
                 <outlet property="pickerViewWidthConstraint" destination="KKa-WS-OE2" id="864-sF-s6W"/>
                 <outlet property="snapButton" destination="376-SO-c4d" id="bad-4v-Oew"/>
+                <outlet property="topSquareViewHeightConstraint" destination="CYQ-8z-dEl" id="fpl-43-Aqh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -84,28 +87,26 @@
                                 <constraint firstItem="CcM-95-i8S" firstAttribute="leading" secondItem="3MN-Kd-aRL" secondAttribute="leading" id="zIK-9r-MoZ"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LRo-yH-kAO">
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LRo-yH-kAO">
                             <rect key="frame" x="344" y="22.666666666666629" width="50" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="FdT-Dj-fz8"/>
                                 <constraint firstAttribute="height" constant="50" id="Nu0-6F-fl0"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                            <state key="normal" title="Flip">
+                            <state key="normal" image="ic_main_camera_flip.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
                                 <action selector="onTappedFlip:" destination="-1" eventType="touchUpInside" id="zvi-X2-iHX"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PsR-7F-MkC">
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PsR-7F-MkC">
                             <rect key="frame" x="20" y="22.666666666666629" width="50" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="50" id="EWG-wZ-dfc"/>
                                 <constraint firstAttribute="height" constant="50" id="w2l-1K-PiS"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                            <state key="normal" title="Flash">
+                            <state key="normal" image="ic_main_flash_off.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
@@ -126,14 +127,13 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yqG-Ck-ejo">
                     <rect key="frame" x="0.0" y="20" width="414" height="73.666666666666671"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hX8-Ph-ab1">
-                            <rect key="frame" x="10" y="16.333333333333332" width="41" height="40.333333333333343"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hX8-Ph-ab1">
+                            <rect key="frame" x="10" y="17.333333333333336" width="41" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="41" id="mgd-Ov-BWD"/>
                                 <constraint firstAttribute="height" constant="40" id="t24-k1-72E"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                            <state key="normal" title="Close">
+                            <state key="normal" image="ic_main_close.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
@@ -149,13 +149,47 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SX6-aB-iLb">
                     <rect key="frame" x="0.0" y="93.999999999999972" width="414" height="496.33333333333326"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NIF-lf-orX">
+                            <rect key="frame" x="0.0" y="103" width="414" height="290"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mTk-ID-zZg">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="103"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="103" id="CYQ-8z-dEl"/>
+                                <constraint firstAttribute="width" constant="414" id="IJD-Du-bHG"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wUi-LN-c9B">
+                            <rect key="frame" x="0.0" y="393" width="414" height="103"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="103" id="9rH-K4-urc"/>
+                                <constraint firstAttribute="width" constant="414" id="bBE-zS-HXw"/>
+                            </constraints>
+                        </view>
+                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstItem="mTk-ID-zZg" firstAttribute="top" secondItem="SX6-aB-iLb" secondAttribute="top" id="1O3-RS-q1m"/>
+                        <constraint firstItem="mTk-ID-zZg" firstAttribute="leading" secondItem="SX6-aB-iLb" secondAttribute="leading" id="1uo-0q-XUz"/>
+                        <constraint firstItem="wUi-LN-c9B" firstAttribute="top" secondItem="NIF-lf-orX" secondAttribute="bottom" id="94V-kL-jB0"/>
+                        <constraint firstAttribute="trailing" secondItem="wUi-LN-c9B" secondAttribute="trailing" id="BHv-7v-VgJ"/>
+                        <constraint firstAttribute="trailing" secondItem="NIF-lf-orX" secondAttribute="trailing" id="CHj-o3-erJ"/>
+                        <constraint firstAttribute="trailing" secondItem="mTk-ID-zZg" secondAttribute="trailing" id="NmN-Nm-XSO"/>
+                        <constraint firstAttribute="bottom" secondItem="wUi-LN-c9B" secondAttribute="bottom" id="eic-o6-dgj"/>
+                        <constraint firstItem="NIF-lf-orX" firstAttribute="leading" secondItem="SX6-aB-iLb" secondAttribute="leading" id="gRI-dL-jyJ"/>
+                        <constraint firstItem="wUi-LN-c9B" firstAttribute="leading" secondItem="SX6-aB-iLb" secondAttribute="leading" id="ueH-2O-CUb"/>
+                        <constraint firstItem="NIF-lf-orX" firstAttribute="top" secondItem="mTk-ID-zZg" secondAttribute="bottom" id="vyR-X3-6vy"/>
+                    </constraints>
                 </view>
                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o9g-3g-nfa">
                     <rect key="frame" x="0.0" y="93.999999999999972" width="414" height="496.33333333333326"/>
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="fA1-WD-PBg">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="496.33333333333326"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="496"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                     <blurEffect style="light"/>
@@ -202,7 +236,12 @@
                 <constraint firstItem="yqG-Ck-ejo" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="wuY-sQ-gQq"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="34.5" y="53.5"/>
+            <point key="canvasLocation" x="34" y="53"/>
         </view>
     </objects>
+    <resources>
+        <image name="ic_main_camera_flip.png" width="20" height="17"/>
+        <image name="ic_main_close.png" width="30" height="30"/>
+        <image name="ic_main_flash_off.png" width="20" height="20"/>
+    </resources>
 </document>

@@ -14,7 +14,7 @@ internal class Camera: NSObject {
     private var photoCaptureCompletionBlock: ((_ image: UIImage?) -> Void)?
     private var photoCaptureFailureBlock: ((_ error: Error?) -> Void)?
     
-    private var movieCaptureCompletionBlock: ((_ data: Data?) -> Void)?
+    private var movieCaptureCompletionBlock: ((_ url: URL?) -> Void)?
     private var movieCaptureFailureBlock: ((_ error: Error?) -> Void)?
     
     internal var captureSession: AVCaptureSession?
@@ -35,6 +35,7 @@ internal class Camera: NSObject {
     internal var movieOutput: AVCaptureMovieFileOutput?
     
     internal static var flashMode: AVCaptureDevice.FlashMode = .off
+    internal var maxDuration: Double = 30
     internal var initialed: Bool = false
     internal var isRecording: Bool = false
     internal var selfStop: Bool = false
@@ -176,7 +177,7 @@ extension Camera {
             throw CameraError.captureSessionIsMissing
         }
         
-        let seconds = 30.0
+        let seconds = maxDuration
         let preferredTimeScale = 1
         let maxRecordDuration = CMTime(seconds: seconds, preferredTimescale: CMTimeScale(preferredTimeScale))
         
@@ -190,6 +191,18 @@ extension Camera {
         DispatchQueue.main.async { [weak self] in
             self?.captureSession?.startRunning()
         }
+    }
+    
+    internal func renewMovieOutput() {
+        guard let captureSession = captureSession else {
+            return
+        }
+        
+        if captureSession.outputs.contains(movieOutput!) {
+            captureSession.removeOutput(movieOutput!)
+        }
+        
+        try? configurationMovieOutput()
     }
 }
 
@@ -212,6 +225,17 @@ extension Camera {
         connection.videoOrientation = currentVideoOrientation()
         previewLayer?.frame = view.bounds
         view.layer.addSublayer(previewLayer!)
+    }
+    
+    internal func resetPreviewLayer(view: UIView) {
+        guard let previewLayer = previewLayer else {
+            return
+        }
+        
+        previewLayer.removeFromSuperlayer()
+        
+        try? displayPreview()
+        addPreviewLayer(view: view)
     }
     
     internal func begin() {
@@ -303,14 +327,16 @@ extension Camera {
 
 //MARK: Record
 extension Camera {
-    internal func recordVideo(completion: @escaping(_ data: Data?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
+    internal func recordVideo(completion: @escaping(_ url: URL?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
         guard let connection = movieOutput?.connection(with: .video) else {
             failure(CameraError.unknown)
             return
         }
         
         connection.videoOrientation = currentVideoOrientation()
-        movieOutput?.startRecording(to: outputPathURL()!, recordingDelegate: self)
+        let fileName = "\(LFSConstants.LFSVideoName.Snap.snapVideo)\(Date())"
+        let path = outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mp4)!
+        movieOutput?.startRecording(to: path, recordingDelegate: self)
         
         movieCaptureCompletionBlock = completion
         movieCaptureFailureBlock = failure
@@ -324,8 +350,8 @@ extension Camera {
         isRecording = false
     }
     
-    fileprivate func outputPathURL() -> URL? {
-        let tempPath = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first)?.appendingPathComponent("LFSSNAPVIDEO-\(Date())").appendingPathExtension("mp4")
+    fileprivate func outputPathURL(fileName: String, fileType: String) -> URL? {
+        let tempPath = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first)?.appendingPathComponent(fileName).appendingPathExtension(fileType)
         
         if FileManager.default.fileExists(atPath: tempPath?.absoluteString ?? "") {
             do {
@@ -337,6 +363,119 @@ extension Camera {
         }
 
         return tempPath
+    }
+}
+
+//MARK: Boomerang
+extension Camera {
+    func reverse(originalURL: URL, completion: @escaping(_ url: URL?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
+        let original = AVAsset(url: originalURL)
+        
+        var reader: AVAssetReader!
+        
+        do {
+            reader = try AVAssetReader(asset: original)
+        } catch {
+            failure(CameraError.inputsAreInvalid)
+            return
+        }
+        
+        guard let videoTrack = original.tracks(withMediaType: .video).last else {
+            failure(CameraError.inputsAreInvalid)
+            return
+        }
+        
+        let readerOutputSettings: [String: Any] = [kCVPixelBufferPixelFormatTypeKey as String : Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)]
+        let readerOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings: readerOutputSettings)
+        reader.add(readerOutput)
+        
+        reader.startReading()
+        
+        var samples: [CMSampleBuffer] = []
+        while let sample = readerOutput.copyNextSampleBuffer() {
+            samples.append(sample)
+        }
+        
+        let writer: AVAssetWriter
+        let fileName = "\(LFSConstants.LFSVideoName.Snap.snapReversedVideo)\(Date())"
+        let reversePath = outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mov)!
+        do {
+            writer = try AVAssetWriter(outputURL: reversePath, fileType: .mov)
+        } catch let error {
+            failure(error)
+            return
+        }
+        
+        let videoCompositionProps = [AVVideoAverageBitRateKey: videoTrack.estimatedDataRate]
+        let writerOutputSettings = [
+            AVVideoCodecKey: AVVideoCodecH264,
+            AVVideoWidthKey: videoTrack.naturalSize.width,
+            AVVideoHeightKey: videoTrack.naturalSize.height,
+            AVVideoCompressionPropertiesKey: videoCompositionProps] as [String : Any]
+        
+        let writerInput = AVAssetWriterInput(mediaType: .video, outputSettings: writerOutputSettings)
+        writerInput.expectsMediaDataInRealTime = false
+        writerInput.transform = videoTrack.preferredTransform
+        
+        let pixelBufferAdaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerInput, sourcePixelBufferAttributes: nil)
+        
+        writer.add(writerInput)
+        writer.startWriting()
+        writer.startSession(atSourceTime: CMSampleBufferGetPresentationTimeStamp(samples.first!))
+        
+        for (index, sample) in samples.enumerated() {
+            let presentationTime = CMSampleBufferGetPresentationTimeStamp(sample)
+            let imageBufferRef = CMSampleBufferGetImageBuffer(samples[samples.count - 1 - index])
+            while !writerInput.isReadyForMoreMediaData {
+                Thread.sleep(forTimeInterval: 0.1)
+            }
+            pixelBufferAdaptor.append(imageBufferRef!, withPresentationTime: presentationTime)
+            
+        }
+        
+        writer.finishWriting {
+            self.mergeReversed(originalURL: originalURL, reversePath: reversePath, completion: completion)
+        }
+    }
+    
+    fileprivate func mergeReversed(originalURL: URL, reversePath: URL, completion: @escaping(_ url: URL?) -> Void) {
+        let videos = [originalURL, reversePath]
+        
+        let composition = AVMutableComposition()
+        let videoTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
+        
+        var currentVideoTime = kCMTimeZero
+        
+        for video in videos {
+            let asset = AVAsset(url: video)
+            let videoAssetTrack = asset.tracks(withMediaType: .video).first!
+            
+            do {
+                try videoTrack?.insertTimeRange(CMTimeRangeMake(kCMTimeZero, videoAssetTrack.timeRange.duration), of: videoAssetTrack, at: currentVideoTime)
+            }
+            catch {
+                print("Cannot merged reversed video.")
+            }
+            
+            let scaleDuration = CMTimeMultiplyByFloat64(videoAssetTrack.timeRange.duration, Float64(0.5))
+            videoTrack?.scaleTimeRange(CMTimeRangeMake(currentVideoTime, videoAssetTrack.timeRange.duration), toDuration: scaleDuration)
+            currentVideoTime = CMTimeAdd(currentVideoTime, scaleDuration)
+        }
+        
+        videoTrack?.preferredTransform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+
+        let fileName = "\(LFSConstants.LFSVideoName.Snap.snapMergedVideo)\(Date())"
+        let mergedPath = outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mov)!
+        let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality)
+        exporter?.outputURL = mergedPath
+        exporter?.shouldOptimizeForNetworkUse = true
+        exporter?.outputFileType = .mov
+        
+        exporter?.exportAsynchronously {
+            DispatchQueue.main.async {
+                completion(exporter?.outputURL)
+            }
+        }
     }
 }
 
@@ -366,8 +505,7 @@ extension Camera {
 
 //MARK: AVCapturePhotoCaptureDelegate
 extension Camera: AVCapturePhotoCaptureDelegate {
-    internal func photoOutput(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?,
-                                   resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Swift.Error?) {
+    internal func photoOutput(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Swift.Error?) {
         if let error = error {
             photoCaptureFailureBlock?(error)
             return
@@ -380,6 +518,39 @@ extension Camera: AVCapturePhotoCaptureDelegate {
         else {
             photoCaptureFailureBlock?(CameraError.unknown)
         }
+    }
+}
+
+//MARK: Save Video
+extension Camera {
+    fileprivate func saveByURL(url: URL, completion: @escaping(_ url: URL?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
+        PHPhotoLibrary.shared().performChanges({ () -> Void in
+            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
+        }, completionHandler: { [weak self] (saved, error) -> Void in
+            if let error = error {
+                failure(error)
+                return
+            }
+            
+            if saved {
+                let options = PHFetchOptions()
+                options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+                
+                let fetchResult = PHAsset.fetchAssets(with: .video, options: options).lastObject
+                let imageManager = PHImageManager()
+                
+                imageManager.requestAVAsset(forVideo: fetchResult!, options: nil, resultHandler: { (avurlAsset, audioMix, dict) -> Void in
+                    let video = avurlAsset as! AVURLAsset
+                    
+                    if video.duration.seconds >= 10.0 || video.duration.seconds >= 30.0 {
+                        self?.selfStop = true
+                        self?.isRecording = false
+                    }
+                    
+                    completion(video.url)
+                })
+            }
+        })
     }
 }
 
@@ -397,33 +568,10 @@ extension Camera: AVCaptureFileOutputRecordingDelegate {
             }
         }
         
-        PHPhotoLibrary.shared().performChanges({ () -> Void in
-            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputFileURL)
-        }, completionHandler: { [weak self] (saved, error) -> Void in
-            if let error = error {
-                self?.movieCaptureFailureBlock?(error)
-                return
-            }
-            
-            if saved {
-                let options = PHFetchOptions()
-                options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-                
-                let fetchResult = PHAsset.fetchAssets(with: .video, options: options).lastObject
-                let imageManager = PHImageManager()
-                
-                imageManager.requestAVAsset(forVideo: fetchResult!, options: nil, resultHandler: { (avurlAsset, audioMix, dict) -> Void in
-                    let video = avurlAsset as! AVURLAsset
-                    let data = try? Data(contentsOf: video.url)
-   
-                    if video.duration.seconds >= 30.0 {
-                        self?.selfStop = true
-                        self?.isRecording = false
-                    }
-                    
-                    self?.movieCaptureCompletionBlock?(data)
-                })
-            }
+        saveByURL(url: outputFileURL, completion: { (url) -> Void in
+            self.movieCaptureCompletionBlock?(url)
+        }, failure: { (error) -> Void in
+            self.movieCaptureFailureBlock?(error)
         })
     }
 }

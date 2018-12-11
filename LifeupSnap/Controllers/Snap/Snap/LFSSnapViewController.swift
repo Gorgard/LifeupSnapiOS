@@ -12,6 +12,7 @@ public class LFSSnapViewController: UIViewController {
     @IBOutlet weak var coverPickerView: UIView!
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var captureView: UIView!
+    @IBOutlet weak var coverCaptureView: UIView!
     @IBOutlet weak var coverSnapView: UIView!
     @IBOutlet weak var lineInCoverSnapView: UIView!
     @IBOutlet weak var snapButton: UIButton!
@@ -24,10 +25,13 @@ public class LFSSnapViewController: UIViewController {
     //MARK: Constraint
     @IBOutlet weak var pickerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var pickerViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topSquareViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomSquareViewHeightConstraint: NSLayoutConstraint!
     
-    open var pageViewController: UIPageViewController!
-    open var swipeRightGesture: UISwipeGestureRecognizer!
-    open var swipeLeftGesture: UISwipeGestureRecognizer!
+    open var swipeCaptureViewRightGesture: UISwipeGestureRecognizer!
+    open var swipeCaptureViewLeftGesture: UISwipeGestureRecognizer!
+    open var swipeBlurViewRightGesture: UISwipeGestureRecognizer!
+    open var swipeBlurViewLeftGesture: UISwipeGestureRecognizer!
     
     internal var viewModel: LFSSnapViewModel!
     
@@ -35,6 +39,10 @@ public class LFSSnapViewController: UIViewController {
     
     open weak var delegate: LFSSnapDelegate?
     open weak var navigation: UINavigationController?
+    
+    override public var prefersStatusBarHidden: Bool {
+        return true
+    }
     
     public init() {
         let bundle = Bundle(for: LFSSnapViewController.self)
@@ -50,6 +58,16 @@ public class LFSSnapViewController: UIViewController {
         setup()
         setupViews()
         binding()
+    }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        beginCamera()
+    }
+    
+    public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setupCamera()
     }
     
     override public func didReceiveMemoryWarning() {
@@ -80,35 +98,25 @@ extension LFSSnapViewController {
     fileprivate func setup() {
         viewModel = LFSSnapViewModel(delegate: self)
         viewModel.features = features
+        viewModel.viewController = self
         viewModel.navigationController = navigation
+        viewModel.view = captureView
         
         viewModel.setup()
     }
     
     fileprivate func setupViews() {
+        viewModel.coverCaptureViewBounds = coverCaptureView.bounds
         viewModel.circularProgress = circularProgress
         viewModel.snapButtonBounds = snapButton.bounds
         
         coverSnapView.layer.cornerRadius = coverSnapView.bounds.size.height / 2
         lineInCoverSnapView.layer.cornerRadius = lineInCoverSnapView.bounds.size.height / 2
         snapButton.layer.cornerRadius = snapButton.bounds.size.height / 2
-//        snapView.layer.cornerRadius = snapView.bounds.size.height / 2
-//        recordSnapView.layer.cornerRadius = 8
-        
-        setupPageView()
+
         setupPickerView()
         setupSwipeRight()
         setupSwipeLeft()
-    }
-    
-    fileprivate func setupPageView() {
-        pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-        pageViewController.isPagingEnabled = false
-        
-        pageViewController.view.frame = captureView.bounds
-        
-        addChildViewController(pageViewController)
-        captureView.addSubview(pageViewController.view)
     }
     
     fileprivate func setupPickerView() {
@@ -122,44 +130,80 @@ extension LFSSnapViewController {
     }
     
     fileprivate func setupSwipeRight() {
-        swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeRight))
-        swipeRightGesture.direction = .right
-        captureView.addGestureRecognizer(swipeRightGesture)
+        swipeCaptureViewRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeRight))
+        swipeCaptureViewRightGesture.direction = .right
+        captureView.addGestureRecognizer(swipeCaptureViewRightGesture)
+        
+        swipeBlurViewRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeRight))
+        swipeBlurViewRightGesture.direction = .right
+        blurView.addGestureRecognizer(swipeBlurViewRightGesture)
     }
     
     fileprivate func setupSwipeLeft() {
-        swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeLeft))
-        swipeLeftGesture.direction = .left
-        captureView.addGestureRecognizer(swipeLeftGesture)
+        swipeCaptureViewLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeLeft))
+        swipeCaptureViewLeftGesture.direction = .left
+        captureView.addGestureRecognizer(swipeCaptureViewLeftGesture)
+        
+        swipeBlurViewLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeLeft))
+        swipeBlurViewLeftGesture.direction = .left
+        blurView.addGestureRecognizer(swipeBlurViewLeftGesture)
+    }
+    
+    fileprivate func setupCamera() {
+        viewModel.prepareCamera()
+    }
+    
+    fileprivate func beginCamera() {
+        viewModel.beginCamera()
     }
     
     fileprivate func binding() {
-        viewModel.receivedFirstPage = { [unowned self] (viewController) -> Void in
-            self.pageViewController.setViewControllers([viewController], direction: .forward, animated: false, completion: nil)
-        }
-        
-        viewModel.receivedFirstFeature = { [unowned self] (index) -> Void in
+        viewModel.receivedFeature = { [unowned self] (index) -> Void in
             self.pickerView.selectRow(index, inComponent: 0, animated: true)
             self.pickerView.reloadAllComponents()
         }
         
         viewModel.enableAllView = { [unowned self] (enable) -> Void in
             self.pickerView.isUserInteractionEnabled = enable
-            self.swipeLeftGesture.isEnabled = enable
-            self.swipeRightGesture.isEnabled = enable
+            self.swipeCaptureViewLeftGesture.isEnabled = enable
+            self.swipeCaptureViewRightGesture.isEnabled = enable
+            self.swipeBlurViewLeftGesture.isEnabled = enable
+            self.swipeBlurViewRightGesture.isEnabled = enable
             self.flipButton.isEnabled = enable
             self.flashButton.isEnabled = enable
             self.closeButton.isEnabled = enable
         }
         
         viewModel.hiddenBlurView = { [unowned self] (alpha) -> Void in
-            self.blurView.alpha = alpha
+            UIView.animate(withDuration: 0.3, delay: 0.2, animations: {
+                self.blurView.alpha = alpha
+                self.view.layoutIfNeeded()
+            })
         }
         
         viewModel.changeSnapButtonColor = { [unowned self] (color) -> Void in
             self.snapButton.backgroundColor = color
         }
         
+        viewModel.changeImageFlashButton = { [unowned self] (image) -> Void in
+            self.flashButton.setImage(image, for: .normal)
+        }
+        
+        viewModel.changeImageSnapButton = { [unowned self] (image) -> Void in
+            UIView.animate(withDuration: 0.3, delay: 0.1, options: .transitionCrossDissolve, animations: {
+                self.snapButton.setImage(image, for: .normal)
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        }
+        
+        viewModel.changeSquareViewHeight = { [unowned self] (height) -> Void in
+            UIView.animate(withDuration: 0.3, animations: {
+                self.topSquareViewHeightConstraint.constant = height
+                self.bottomSquareViewHeightConstraint.constant = height
+                self.view.layoutIfNeeded()
+            })
+        }
+
         viewModel.changeSnapButtonRadius = { [unowned self] (raduis, bounds) -> Void in
             UIView.animate(withDuration: 0.3, animations: {
                 self.snapButton.layer.cornerRadius = raduis
@@ -171,7 +215,6 @@ extension LFSSnapViewController {
         viewModel.binding()
     }
 }
-
 
 //MARK: UIPickerViewDataSource, UIPickerViewDelegate
 extension LFSSnapViewController: UIPickerViewDataSource, UIPickerViewDelegate {

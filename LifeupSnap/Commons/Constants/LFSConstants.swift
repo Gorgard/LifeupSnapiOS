@@ -32,18 +32,20 @@ internal struct LFSConstants {
         }
     }
     
-    //MARK: LFSNotification
-    internal struct LFSNotificationID {
+    //MARK: VIDEO Name
+    internal struct LFSVideoName {
         internal struct Snap {
-            internal static let flipCamera = "flip_camera_notification_center"
-            internal static let flashCamera = "flash_camera_notification_center"
-            
-            internal static let snapSquare = "snap_square_notification_center"
-            internal static let snapPhoto = "snap_photo_notification_center"
-            internal static let snapBoomerang = "snap_boomerang_notification_center"
-            internal static let snapVideo = "snap_video_notification_center"
-            
-            internal static let finishedSnapVideo = "finished_snap_video_notification_center"
+            internal static let snapVideo = "LFSSNAPVIDEO-"
+            internal static let snapReversedVideo = "LFSSNAPREVERSEVIDEO-"
+            internal static let snapMergedVideo = "LFSSNAPMERGEDVIDEO-"
+        }
+    }
+    
+    //MARK: File Type
+    internal struct LFSFileType {
+        internal struct Snap {
+            internal static let mp4 = "mp4"
+            internal static let mov = "mov"
         }
     }
 }
