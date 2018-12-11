@@ -13,6 +13,7 @@ class LFSViewModel: NSObject, LFSViewPresentable {
     var squareView: UIView?
     var originalView: UIView?
     var videoView: UIView?
+    var view: UIView?
     
     var viewController: UIViewController?
     var navigationController: UINavigationController?

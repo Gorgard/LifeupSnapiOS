@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,7 +15,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSSnapViewController" customModule="LifeupSnap" customModuleProvider="target">
             <connections>
                 <outlet property="blurView" destination="o9g-3g-nfa" id="aIR-Wq-zY9"/>
-                <outlet property="captureView" destination="SX6-aB-iLb" id="sLx-WH-8qe"/>
+                <outlet property="captureView" destination="NIF-lf-orX" id="VjU-sN-vPu"/>
                 <outlet property="circularProgress" destination="CcM-95-i8S" id="bdQ-EJ-FCl"/>
                 <outlet property="closeButton" destination="hX8-Ph-ab1" id="Nr4-vz-3yM"/>
                 <outlet property="coverPickerView" destination="ohw-7s-NBi" id="57f-6N-sOp"/>
@@ -26,6 +27,7 @@
                 <outlet property="pickerViewHeightConstraint" destination="JaO-Qg-LQF" id="u9s-pe-Oi6"/>
                 <outlet property="pickerViewWidthConstraint" destination="KKa-WS-OE2" id="864-sF-s6W"/>
                 <outlet property="snapButton" destination="376-SO-c4d" id="bad-4v-Oew"/>
+                <outlet property="squareView" destination="TbR-Bx-ZHG" id="Rqs-CP-aKs"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -146,8 +148,28 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SX6-aB-iLb">
                     <rect key="frame" x="0.0" y="93.999999999999972" width="414" height="496.33333333333326"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NIF-lf-orX">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="496.33333333333331"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="NIF-lf-orX" secondAttribute="bottom" id="6hf-BV-Vgt"/>
+                        <constraint firstItem="NIF-lf-orX" firstAttribute="top" secondItem="SX6-aB-iLb" secondAttribute="top" id="EQv-WR-4hg"/>
+                        <constraint firstItem="NIF-lf-orX" firstAttribute="leading" secondItem="SX6-aB-iLb" secondAttribute="leading" id="ImF-3A-kKZ"/>
+                        <constraint firstAttribute="trailing" secondItem="NIF-lf-orX" secondAttribute="trailing" id="ssq-xK-Xxc"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TbR-Bx-ZHG">
+                    <rect key="frame" x="0.0" y="135.33333333333337" width="414" height="414"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="TbR-Bx-ZHG" secondAttribute="height" multiplier="1:1" id="alo-Dr-dXn"/>
+                        <constraint firstAttribute="height" constant="414" id="eBo-n9-3QT"/>
+                    </constraints>
                 </view>
                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o9g-3g-nfa">
                     <rect key="frame" x="0.0" y="93.999999999999972" width="414" height="496.33333333333326"/>
@@ -181,6 +203,7 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="SX6-aB-iLb" secondAttribute="trailing" id="0de-IJ-XGV"/>
                 <constraint firstItem="o9g-3g-nfa" firstAttribute="trailing" secondItem="SX6-aB-iLb" secondAttribute="trailing" id="3K4-xQ-vDf"/>
                 <constraint firstItem="SX6-aB-iLb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="7qS-EM-2e9"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="TbR-Bx-ZHG" secondAttribute="trailing" id="8t2-07-lgR"/>
                 <constraint firstItem="vDY-2S-bKE" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="9Qb-1U-4D6"/>
                 <constraint firstItem="ohw-7s-NBi" firstAttribute="top" secondItem="SX6-aB-iLb" secondAttribute="bottom" id="BuJ-hM-nmr"/>
                 <constraint firstItem="vDY-2S-bKE" firstAttribute="top" secondItem="ohw-7s-NBi" secondAttribute="bottom" id="FMY-U3-avj"/>
@@ -189,17 +212,20 @@
                 <constraint firstItem="vDY-2S-bKE" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="JaL-yQ-Lwv"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ohw-7s-NBi" secondAttribute="trailing" id="MfI-34-MKW"/>
                 <constraint firstItem="o9g-3g-nfa" firstAttribute="top" secondItem="SX6-aB-iLb" secondAttribute="top" id="PCf-Ls-BIt"/>
+                <constraint firstItem="TbR-Bx-ZHG" firstAttribute="centerX" secondItem="SX6-aB-iLb" secondAttribute="centerX" id="Pfl-54-F01"/>
                 <constraint firstItem="yqG-Ck-ejo" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="TAL-C1-fkL"/>
                 <constraint firstItem="SX6-aB-iLb" firstAttribute="top" secondItem="yqG-Ck-ejo" secondAttribute="bottom" id="Up0-wk-ZxL"/>
                 <constraint firstItem="o9g-3g-nfa" firstAttribute="leading" secondItem="SX6-aB-iLb" secondAttribute="leading" id="YCJ-JY-lOR"/>
                 <constraint firstItem="yqG-Ck-ejo" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.1" id="ZKU-hT-u4x"/>
                 <constraint firstItem="ohw-7s-NBi" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="d23-Nl-lHP"/>
                 <constraint firstItem="vDY-2S-bKE" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.13" id="jSM-Aw-cYM"/>
+                <constraint firstItem="TbR-Bx-ZHG" firstAttribute="centerY" secondItem="SX6-aB-iLb" secondAttribute="centerY" id="k7t-2v-cLq"/>
                 <constraint firstItem="o9g-3g-nfa" firstAttribute="bottom" secondItem="SX6-aB-iLb" secondAttribute="bottom" id="vB4-DY-6RW"/>
                 <constraint firstItem="yqG-Ck-ejo" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="wuY-sQ-gQq"/>
+                <constraint firstItem="TbR-Bx-ZHG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="yJW-wR-cth"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="34.5" y="53.5"/>
+            <point key="canvasLocation" x="34" y="53"/>
         </view>
     </objects>
     <resources>

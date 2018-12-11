@@ -31,20 +31,4 @@ internal struct LFSConstants {
             internal static let video = "VIDEO"
         }
     }
-    
-    //MARK: LFSNotification
-    internal struct LFSNotificationID {
-        internal struct Snap {
-            internal static let flipCamera = "flip_camera_notification_center"
-            internal static let flashCamera = "flash_camera_notification_center"
-            
-            internal static let snapSquare = "snap_square_notification_center"
-            internal static let snapPhoto = "snap_photo_notification_center"
-            internal static let snapBoomerang = "snap_boomerang_notification_center"
-            internal static let snapVideo = "snap_video_notification_center"
-            
-            internal static let finishedSnapVideo = "finished_snap_video_notification_center"
-            internal static let finishedSnapBoomerang = "finished_snap_boomerang_notification_center"
-        }
-    }
 }

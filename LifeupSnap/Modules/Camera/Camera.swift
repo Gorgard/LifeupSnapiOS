@@ -215,6 +215,17 @@ extension Camera {
         view.layer.addSublayer(previewLayer!)
     }
     
+    internal func resetPreviewLayer(view: UIView) {
+        guard let previewLayer = previewLayer else {
+            return
+        }
+        
+        previewLayer.removeFromSuperlayer()
+        
+        try? displayPreview()
+        addPreviewLayer(view: view)
+    }
+    
     internal func begin() {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             self?.captureSession?.startRunning()
@@ -311,7 +322,7 @@ extension Camera {
         }
         
         connection.videoOrientation = currentVideoOrientation()
-        movieOutput?.startRecording(to: outputPathURL()!, recordingDelegate: self)
+        movieOutput?.startRecording(to: outputPathURL(fileName: "LFSSNAPVIDEO-\(Date())")!, recordingDelegate: self)
         
         movieCaptureCompletionBlock = completion
         movieCaptureFailureBlock = failure
@@ -325,8 +336,8 @@ extension Camera {
         isRecording = false
     }
     
-    fileprivate func outputPathURL() -> URL? {
-        let tempPath = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first)?.appendingPathComponent("LFSSNAPVIDEO-\(Date())").appendingPathExtension("mp4")
+    fileprivate func outputPathURL(fileName: String) -> URL? {
+        let tempPath = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first)?.appendingPathComponent(fileName).appendingPathExtension("mp4")
         
         if FileManager.default.fileExists(atPath: tempPath?.absoluteString ?? "") {
             do {
@@ -343,7 +354,7 @@ extension Camera {
 
 //MARK: Boomerang
 extension Camera {
-    func reverse(original: AVAsset, outputURL: URL, completion: @escaping(_ url: URL?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
+    func reverse(original: AVAsset, completion: @escaping(_ url: URL?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
         var reader: AVAssetReader!
         
         do {
@@ -370,8 +381,9 @@ extension Camera {
         }
         
         let writer: AVAssetWriter
+        let outputPath = outputPathURL(fileName: "LFSSNAPREVERSEVIDEO-\(Date())")!
         do {
-            writer = try AVAssetWriter(outputURL: outputURL, fileType: .mov)
+            writer = try AVAssetWriter(outputURL: outputPath, fileType: .mov)
         } catch let error {
             failure(error)
             return
@@ -405,33 +417,7 @@ extension Camera {
         }
         
         writer.finishWriting {
-            PHPhotoLibrary.shared().performChanges({ () -> Void in
-                PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputURL)
-            }, completionHandler: { [weak self] (saved, error) -> Void in
-                if let error = error {
-                    failure(error)
-                    return
-                }
-                
-                if saved {
-                    let options = PHFetchOptions()
-                    options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-                    
-                    let fetchResult = PHAsset.fetchAssets(with: .video, options: options).lastObject
-                    let imageManager = PHImageManager()
-                    
-                    imageManager.requestAVAsset(forVideo: fetchResult!, options: nil, resultHandler: { (avurlAsset, audioMix, dict) -> Void in
-                        let video = avurlAsset as! AVURLAsset
-                        
-                        if video.duration.seconds >= 30.0 {
-                            self?.selfStop = true
-                            self?.isRecording = false
-                        }
-                        
-                        completion(video.url)
-                    })
-                }
-            })
+            completion(outputPath)
         }
     }
 }

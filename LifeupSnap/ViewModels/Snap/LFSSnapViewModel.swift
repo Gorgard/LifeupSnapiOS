@@ -11,64 +11,55 @@ import UIKit
 internal class LFSSnapViewModel: LFSViewModel {
     private weak var delegate: LFSSnapViewModelDelegate?
     
-    internal var viewControllers: [LFSFeature]!
+    internal var viewFeatures: [LFSFeature]!
     internal var features: [CameraFeature]!
     
     private var feature: CameraFeature!
     
+    internal var camera: Camera!
     internal var circularProgress: CircularProgress!
     
     internal var snapButtonBounds: CGRect!
+    internal var captureViewBounds: CGRect!
     
     private var currentIndex: Int = 1
     private var initialed: Bool = false
     
-    open var receivedFirstPage: ((_ viewController: UIViewController) -> Void)?
-    open var receivedFirstFeature: ((_ index: Int) -> Void)?
+    open var receivedFeature: ((_ index: Int) -> Void)?
     open var hiddenBlurView: ((_ alpha: CGFloat) -> Void)?
     open var changeSnapButtonColor: ((_ color: UIColor) -> Void)?
     open var enableAllView: ((_ enable: Bool) -> Void)?
     open var changeSnapButtonRadius: ((_ radius: CGFloat, _ bounds: CGRect) -> Void)?
     open var changeImageFlashButton: ((_ image: UIImage) -> Void)?
     open var changeImageSnapButton: ((_ image: UIImage?) -> Void)?
+    open var hiddenCaptureView: ((_ alpha: CGFloat) -> Void)?
+    open var hiddenSquareView: ((_ alpha: CGFloat) -> Void)?
     
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapBoomerang), object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapPhoto), object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapSquare), object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapVideo), object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.flashCamera), object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.flipCamera), object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.finishedSnapVideo), object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.finishedSnapBoomerang), object: nil)
-    }
-    
+    //MARK: Camera value
+    private var image: UIImage?
+
     init(delegate: LFSSnapViewModelDelegate) {
         super.init()
         self.delegate = delegate
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(finishedSnapVideo), name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.finishedSnapVideo), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(finishedSnapBoomerang), name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.finishedSnapBoomerang), object: nil)
+        camera = Camera()
     }
-    
+}
+
+//MARK: Base
+extension LFSSnapViewModel {
     internal func setup() {
-        viewControllers = [LFSFeature]()
-        
-        let _viewControllers = [LFSFeature(viewController: LFSVideoCaptureViewController(), name: LFSConstants.LFSFeatureName.Snap.video, isCurrent: false),
-                           LFSFeature(viewController: LFSOriginalCaptureViewController(), name: LFSConstants.LFSFeatureName.Snap.photo, isCurrent: false),
-                           LFSFeature(viewController: LFSSquareCaptureViewController(), name: LFSConstants.LFSFeatureName.Snap.square, isCurrent: false),
-                           LFSFeature(viewController: LFSBoomerangViewController(), name: LFSConstants.LFSFeatureName.Snap.boomerang, isCurrent: false)]
+        viewFeatures = [LFSFeature]()
         
         features = features.sorted(by: { $0.rawValue > $1.rawValue })
         
-        if let _features = features {
-            for feature in _features {
-                let viewController = _viewControllers.filter({ $0.name == feature.rawValue }).first
-                viewControllers.append(viewController!)
+        if let features = features {
+            for feature in features {
+                let viewFeature = LFSFeature(name: feature.rawValue, isCurrent: false)
+                viewFeatures.append(viewFeature)
             }
         }
         else {
-            features = [.original]
+           features = [.original]
         }
     }
     
@@ -79,24 +70,27 @@ internal class LFSSnapViewModel: LFSViewModel {
             initialed = true
         }
         
-        if let _viewController = viewControllers[safe: currentIndex] {
-            feature = features[currentIndex]
-            
-            viewControllers[currentIndex].isCurrent = true
-            
-            receivedFirstPage?(viewControllers[currentIndex].viewController)
-            receivedFirstFeature?(currentIndex)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { [unowned self] in
-                self.hiddenBlurView?(0)
-            })
-            
-            changeSnapButtonColor?(viewControllers[currentIndex].name == CameraFeature.video.rawValue ? .red : .white)
-            changeImageSnapButton?(viewControllers[currentIndex].name == CameraFeature.boomerang.rawValue ? #imageLiteral(resourceName: "ic_main_infinity.png") : nil)
-            
-            if !(_viewController.name == CameraFeature.video.rawValue || _viewController.name == CameraFeature.boomerang.rawValue) {
-                removeCircularProgress()
-            }
+        feature = features[currentIndex]
+        
+        viewFeatures[currentIndex].isCurrent = true
+        
+        receivedFeature?(currentIndex)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { [unowned self] in
+            self.hiddenBlurView?(0)
+        })
+        
+        changeSnapButtonColor?(feature.rawValue == CameraFeature.video.rawValue ? .red : .white)
+        changeImageSnapButton?(feature.rawValue == CameraFeature.boomerang.rawValue ? #imageLiteral(resourceName: "ic_main_infinity.png") : nil)
+        hiddenCaptureView?(feature.rawValue == CameraFeature.square.rawValue ? 0 : 1)
+        hiddenSquareView?(feature.rawValue == CameraFeature.square.rawValue ? 1 : 0)
+        
+        if let camera = camera {
+            camera.resetPreviewLayer(view: feature.rawValue == CameraFeature.square.rawValue ? squareView! : originalView!)
+        }
+        
+        if !(feature.rawValue == CameraFeature.video.rawValue || feature.rawValue == CameraFeature.boomerang.rawValue) {
+            removeCircularProgress()
         }
     }
 }
@@ -114,7 +108,7 @@ extension LFSSnapViewModel: PickerViewPresentable {
     func viewForRow(pickerView: UIPickerView, row: Int, component: Int, view: UIView?) -> UIView {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
         label.text = features[row].rawValue
-        label.textColor = viewControllers[row].isCurrent ? UIColor.yellow : UIColor.white
+        label.textColor = viewFeatures[row].isCurrent ? UIColor.yellow : UIColor.white
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         label.transform = CGAffineTransform(rotationAngle: -.pi / 2)
@@ -135,7 +129,7 @@ extension LFSSnapViewModel: PickerViewPresentable {
 //MARK: ACTION Handle
 extension LFSSnapViewModel {
     internal func flip() {
-        NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.flipCamera), object: nil)
+        flipCamera()
     }
     
     internal func flash() {
@@ -146,8 +140,7 @@ extension LFSSnapViewModel {
             changeImageFlashButton?(#imageLiteral(resourceName: "ic_main_flash_off.png"))
         }
         
-        //changeImageFlashButton?(Camera.flashMode == .off ? #imageLiteral(resourceName: "ic_main_flash_off.png") : #imageLiteral(resourceName: "ic_main_flash_on.png"))
-        NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.flashCamera), object: nil)
+        flashCamera()
     }
     
     internal func snap() {
@@ -176,16 +169,15 @@ extension LFSSnapViewModel {
         }
         
         startProgressBoomerang()
-        
-        NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapBoomerang), object: nil)
+        captureBoomerang()
     }
     
     fileprivate func snapOriginal() {
-        NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapPhoto), object: nil)
+        captureOriginal()
     }
     
     fileprivate func snapSquare() {
-        NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapSquare), object: nil)
+        captureSquare()
     }
     
     fileprivate func snapVideo() {
@@ -195,8 +187,7 @@ extension LFSSnapViewModel {
         }
         
         startProgressVideo()
-        
-        NotificationCenter.default.post(name: Notification.Name(rawValue: LFSConstants.LFSNotificationID.Snap.snapVideo), object: nil)
+        captureVideo()
     }
 }
 
@@ -209,11 +200,11 @@ extension LFSSnapViewModel {
         
         currentIndex += 1
         
-        if currentIndex > viewControllers.count - 1 {
-            currentIndex = viewControllers.count - 1
+        if currentIndex > viewFeatures.count - 1 {
+            currentIndex = viewFeatures.count - 1
         }
     
-        if currentIndex == viewControllers.count {
+        if currentIndex == viewFeatures.count {
             return
         }
         
@@ -242,15 +233,85 @@ extension LFSSnapViewModel {
 //MARK: Handle Methods
 extension LFSSnapViewModel {
     fileprivate func setNotCurrent(currentIndex: Int) {
-        for i in 0..<viewControllers.count {
-            viewControllers[i].isCurrent = false
+        for i in 0..<viewFeatures.count {
+            viewFeatures[i].isCurrent = false
         }
     }
 }
 
-//MARK: Notification Handle
+//MARK: Manage Camera
 extension LFSSnapViewModel {
-    @objc fileprivate func finishedSnapVideo() {
+    internal func prepareCamera() {
+        camera.prepare(completion: { [unowned self] () -> Void in
+            try? self.camera.displayPreview()
+            self.camera.addPreviewLayer(view: self.originalView!)
+        }, failure: { (error) -> Void in
+            print(error?.localizedDescription ?? "")
+        })
+    }
+    
+    internal func beginCamera() {
+        if camera.initialed {
+            camera.begin()
+        }
+    }
+    
+    private func flipCamera() {
+        try? camera.switchCamera()
+    }
+    
+    private func flashCamera() {
+        if Camera.flashMode == .on {
+            Camera.flashMode = .off
+        }
+        else {
+            Camera.flashMode = .on
+        }
+    }
+}
+
+//MARK: Manage Camera Boomerang
+extension LFSSnapViewModel {
+    @objc private func captureBoomerang() {
+        if camera.isRecording {
+            stopBoomerangRecord()
+            return
+        }
+        
+        startBoomerangRecord()
+    }
+    
+    private func startBoomerangRecord() {
+        camera.maxDuration = 10
+        camera.recordVideo(completion: { [weak self] (url) -> Void in
+            self?.handleRecord(url: url)
+            }, failure: { (error) -> Void in
+                print(error?.localizedDescription ?? "")
+        })
+    }
+    
+    private func handleRecord(url: URL?) {
+        if camera.selfStop {
+            finishedSnapBoomerang()
+        }
+        
+//        if let _url = url {
+//            let original = AVAsset.init(url: _url)
+//            camera.reverse(original: original, completion: { (reversedURL) -> Void in
+//                print(reversedURL)
+//                self.playWithUrl(url: reversedURL)
+//            }, failure: { (error) -> Void in
+//                print(error?.localizedDescription ?? "")
+//            })
+//        }
+    }
+    
+    private func stopBoomerangRecord() {
+        camera.stopRecord()
+        finishedSnapBoomerang()
+    }
+    
+    fileprivate func finishedSnapBoomerang() {
         DispatchQueue.main.async { [unowned self] in
             self.changeSnapButtonRadius?(self.snapButtonBounds.size.height / 2, self.snapButtonBounds)
             self.enableAllView?(true)
@@ -258,8 +319,63 @@ extension LFSSnapViewModel {
         
         removeCircularProgress()
     }
+}
+
+//MARK: Manage Camera Original
+extension LFSSnapViewModel {
+    private func captureOriginal() {
+        camera.captureImage(completion: { [weak self] (image) -> Void in
+            self?.image = image
+            
+        }, failure: { (error) -> Void in
+            print(error?.localizedDescription ?? "")
+        })
+    }
+}
+
+//MARK: Manage Camera Square
+extension LFSSnapViewModel {
+    @objc private func captureSquare() {
+        camera.captureImage(completion: { [weak self] (image) -> Void in
+            self?.image = image
+        }, failure: { (error) -> Void in
+            print(error?.localizedDescription ?? "")
+        })
+    }
+}
+
+//MARK: Manage Camera Video
+extension LFSSnapViewModel {
+    private func captureVideo() {
+        if camera.isRecording {
+            stopVideoRecord()
+            return
+        }
+        
+        startVideoRecord()
+    }
     
-    @objc fileprivate func finishedSnapBoomerang() {
+    private func startVideoRecord() {
+        camera.maxDuration = 30
+        camera.recordVideo(completion: { [weak self] (url) -> Void in
+            self?.handleVideoRecord()
+        }, failure: { (error) -> Void in
+            print(error?.localizedDescription ?? "")
+        })
+    }
+    
+    private func handleVideoRecord() {
+        if camera.selfStop {
+            finishedSnapVideo()
+        }
+    }
+    
+    private func stopVideoRecord() {
+        camera.stopRecord()
+        finishedSnapVideo()
+    }
+    
+    fileprivate func finishedSnapVideo() {
         DispatchQueue.main.async { [unowned self] in
             self.changeSnapButtonRadius?(self.snapButtonBounds.size.height / 2, self.snapButtonBounds)
             self.enableAllView?(true)

@@ -9,7 +9,6 @@
 import UIKit
 
 struct LFSFeature {
-    var viewController: UIViewController!
     var name: String!
     var isCurrent: Bool!
 }

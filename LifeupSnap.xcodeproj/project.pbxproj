@@ -33,8 +33,6 @@
 /* Begin PBXBuildFile section */
 		430F2A8E21AFB39B00F2293D /* LFSFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430F2A8D21AFB39B00F2293D /* LFSFeature.swift */; };
 		430F2A9521AFBC0300F2293D /* PageViewScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430F2A9421AFBC0300F2293D /* PageViewScroll.swift */; };
-		430F2ADC21AFCC0C00F2293D /* LFSSquareCaptureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430F2ADB21AFCC0C00F2293D /* LFSSquareCaptureViewModel.swift */; };
-		430F2ADF21AFCC3100F2293D /* LFSSquareCaptureViewModelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430F2ADE21AFCC3100F2293D /* LFSSquareCaptureViewModelProtocols.swift */; };
 		430F2AE321AFCE9A00F2293D /* CameraPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430F2AE221AFCE9A00F2293D /* CameraPosition.swift */; };
 		430F2AE821AFD05400F2293D /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430F2AE721AFD05400F2293D /* Camera.swift */; };
 		430F2AEA21AFD56300F2293D /* CameraError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430F2AE921AFD56300F2293D /* CameraError.swift */; };
@@ -48,14 +46,6 @@
 		437225A021AE559500130213 /* LFSSnapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372259F21AE559500130213 /* LFSSnapDelegate.swift */; };
 		437225AA21AE61CE00130213 /* LFSSnapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225A821AE61CE00130213 /* LFSSnapViewController.swift */; };
 		437225AB21AE61CE00130213 /* LFSSnapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 437225A921AE61CE00130213 /* LFSSnapViewController.xib */; };
-		437225BD21AE803600130213 /* LFSOriginalCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225BB21AE803600130213 /* LFSOriginalCaptureViewController.swift */; };
-		437225BE21AE803600130213 /* LFSOriginalCaptureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 437225BC21AE803600130213 /* LFSOriginalCaptureViewController.xib */; };
-		437225C121AE808900130213 /* LFSSquareCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225BF21AE808900130213 /* LFSSquareCaptureViewController.swift */; };
-		437225C221AE808900130213 /* LFSSquareCaptureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 437225C021AE808900130213 /* LFSSquareCaptureViewController.xib */; };
-		437225C921AE80FF00130213 /* LFSVideoCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225C721AE80FF00130213 /* LFSVideoCaptureViewController.swift */; };
-		437225CA21AE80FF00130213 /* LFSVideoCaptureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 437225C821AE80FF00130213 /* LFSVideoCaptureViewController.xib */; };
-		437225CF21AE812600130213 /* LFSBoomerangViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225CD21AE812600130213 /* LFSBoomerangViewController.swift */; };
-		437225D021AE812600130213 /* LFSBoomerangViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 437225CE21AE812600130213 /* LFSBoomerangViewController.xib */; };
 		437225D421AE818F00130213 /* LFSEditingPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225D221AE818F00130213 /* LFSEditingPhotoViewController.swift */; };
 		437225D521AE818F00130213 /* LFSEditingPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 437225D321AE818F00130213 /* LFSEditingPhotoViewController.xib */; };
 		437225D921AE81C000130213 /* LFSEditingVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225D721AE81C000130213 /* LFSEditingVideoViewController.swift */; };
@@ -64,8 +54,6 @@
 		437225E121AE878B00130213 /* LFSSnapViewModelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225E021AE878B00130213 /* LFSSnapViewModelProtocols.swift */; };
 		437225E321AE8B2F00130213 /* PageViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225E221AE8B2F00130213 /* PageViewPresentable.swift */; };
 		4380FA2921B0CF5200177F64 /* SafeArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4380FA2821B0CF5200177F64 /* SafeArray.swift */; };
-		438677F421B904C700B31B92 /* LFSBoomerangViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438677F321B904C700B31B92 /* LFSBoomerangViewModel.swift */; };
-		438677F621B904D100B31B92 /* LFSBoomerangViewModelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438677F521B904D100B31B92 /* LFSBoomerangViewModelProtocols.swift */; };
 		4386780521B90A1800B31B92 /* ic_main_flash_off@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 438677FF21B90A1700B31B92 /* ic_main_flash_off@3x.png */; };
 		4386780621B90A1800B31B92 /* ic_main_flash_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 4386780021B90A1700B31B92 /* ic_main_flash_on.png */; };
 		4386780721B90A1800B31B92 /* ic_main_flash_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4386780121B90A1700B31B92 /* ic_main_flash_off@2x.png */; };
@@ -99,10 +87,6 @@
 		439871C321AF7CB300EDCE53 /* PickerViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439871C221AF7CB300EDCE53 /* PickerViewPresentable.swift */; };
 		43D8BF8521B639860065B3EB /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D8BF8421B639860065B3EB /* CircularProgress.swift */; };
 		43E9F74E21B4C1A600E91AAE /* CameraFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E9F74D21B4C1A600E91AAE /* CameraFeature.swift */; };
-		43E9F7BA21B4E7C800E91AAE /* LFSOriginalCaptureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E9F7B921B4E7C800E91AAE /* LFSOriginalCaptureViewModel.swift */; };
-		43E9F7BD21B4E7E000E91AAE /* LFSOriginalCaptureViewModelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E9F7BC21B4E7E000E91AAE /* LFSOriginalCaptureViewModelProtocols.swift */; };
-		43E9F7C021B51ACD00E91AAE /* LFSVideoCaptureViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E9F7BF21B51ACD00E91AAE /* LFSVideoCaptureViewModel.swift */; };
-		43E9F7C321B51AF000E91AAE /* LFSVideoCaptureViewModelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E9F7C221B51AF000E91AAE /* LFSVideoCaptureViewModelProtocols.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,8 +102,6 @@
 /* Begin PBXFileReference section */
 		430F2A8D21AFB39B00F2293D /* LFSFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSFeature.swift; sourceTree = "<group>"; };
 		430F2A9421AFBC0300F2293D /* PageViewScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewScroll.swift; sourceTree = "<group>"; };
-		430F2ADB21AFCC0C00F2293D /* LFSSquareCaptureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSquareCaptureViewModel.swift; sourceTree = "<group>"; };
-		430F2ADE21AFCC3100F2293D /* LFSSquareCaptureViewModelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSquareCaptureViewModelProtocols.swift; sourceTree = "<group>"; };
 		430F2AE221AFCE9A00F2293D /* CameraPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPosition.swift; sourceTree = "<group>"; };
 		430F2AE721AFD05400F2293D /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		430F2AE921AFD56300F2293D /* CameraError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraError.swift; sourceTree = "<group>"; };
@@ -136,14 +118,6 @@
 		4372259F21AE559500130213 /* LFSSnapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnapDelegate.swift; sourceTree = "<group>"; };
 		437225A821AE61CE00130213 /* LFSSnapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnapViewController.swift; sourceTree = "<group>"; };
 		437225A921AE61CE00130213 /* LFSSnapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSSnapViewController.xib; sourceTree = "<group>"; };
-		437225BB21AE803600130213 /* LFSOriginalCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSOriginalCaptureViewController.swift; sourceTree = "<group>"; };
-		437225BC21AE803600130213 /* LFSOriginalCaptureViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSOriginalCaptureViewController.xib; sourceTree = "<group>"; };
-		437225BF21AE808900130213 /* LFSSquareCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSquareCaptureViewController.swift; sourceTree = "<group>"; };
-		437225C021AE808900130213 /* LFSSquareCaptureViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSSquareCaptureViewController.xib; sourceTree = "<group>"; };
-		437225C721AE80FF00130213 /* LFSVideoCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSVideoCaptureViewController.swift; sourceTree = "<group>"; };
-		437225C821AE80FF00130213 /* LFSVideoCaptureViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSVideoCaptureViewController.xib; sourceTree = "<group>"; };
-		437225CD21AE812600130213 /* LFSBoomerangViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSBoomerangViewController.swift; sourceTree = "<group>"; };
-		437225CE21AE812600130213 /* LFSBoomerangViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSBoomerangViewController.xib; sourceTree = "<group>"; };
 		437225D221AE818F00130213 /* LFSEditingPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEditingPhotoViewController.swift; sourceTree = "<group>"; };
 		437225D321AE818F00130213 /* LFSEditingPhotoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSEditingPhotoViewController.xib; sourceTree = "<group>"; };
 		437225D721AE81C000130213 /* LFSEditingVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEditingVideoViewController.swift; sourceTree = "<group>"; };
@@ -152,8 +126,6 @@
 		437225E021AE878B00130213 /* LFSSnapViewModelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnapViewModelProtocols.swift; sourceTree = "<group>"; };
 		437225E221AE8B2F00130213 /* PageViewPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewPresentable.swift; sourceTree = "<group>"; };
 		4380FA2821B0CF5200177F64 /* SafeArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeArray.swift; sourceTree = "<group>"; };
-		438677F321B904C700B31B92 /* LFSBoomerangViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSBoomerangViewModel.swift; sourceTree = "<group>"; };
-		438677F521B904D100B31B92 /* LFSBoomerangViewModelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSBoomerangViewModelProtocols.swift; sourceTree = "<group>"; };
 		438677FF21B90A1700B31B92 /* ic_main_flash_off@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_main_flash_off@3x.png"; sourceTree = "<group>"; };
 		4386780021B90A1700B31B92 /* ic_main_flash_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_main_flash_on.png; sourceTree = "<group>"; };
 		4386780121B90A1700B31B92 /* ic_main_flash_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_main_flash_off@2x.png"; sourceTree = "<group>"; };
@@ -172,10 +144,6 @@
 		439871C221AF7CB300EDCE53 /* PickerViewPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewPresentable.swift; sourceTree = "<group>"; };
 		43D8BF8421B639860065B3EB /* CircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
 		43E9F74D21B4C1A600E91AAE /* CameraFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFeature.swift; sourceTree = "<group>"; };
-		43E9F7B921B4E7C800E91AAE /* LFSOriginalCaptureViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFSOriginalCaptureViewModel.swift; sourceTree = "<group>"; };
-		43E9F7BC21B4E7E000E91AAE /* LFSOriginalCaptureViewModelProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFSOriginalCaptureViewModelProtocols.swift; sourceTree = "<group>"; };
-		43E9F7BF21B51ACD00E91AAE /* LFSVideoCaptureViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSVideoCaptureViewModel.swift; sourceTree = "<group>"; };
-		43E9F7C221B51AF000E91AAE /* LFSVideoCaptureViewModelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSVideoCaptureViewModelProtocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,22 +196,6 @@
 				430F2A9421AFBC0300F2293D /* PageViewScroll.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		430F2ADA21AFCBF400F2293D /* Square */ = {
-			isa = PBXGroup;
-			children = (
-				430F2ADB21AFCC0C00F2293D /* LFSSquareCaptureViewModel.swift */,
-			);
-			path = Square;
-			sourceTree = "<group>";
-		};
-		430F2ADD21AFCC1B00F2293D /* Square */ = {
-			isa = PBXGroup;
-			children = (
-				430F2ADE21AFCC3100F2293D /* LFSSquareCaptureViewModelProtocols.swift */,
-			);
-			path = Square;
 			sourceTree = "<group>";
 		};
 		430F2AE021AFCE6F00F2293D /* Enums */ = {
@@ -331,10 +283,6 @@
 		4372252B21AE2B3300130213 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				438677F121B904A700B31B92 /* Boomerang */,
-				43E9F7BE21B51AB700E91AAE /* Video */,
-				43E9F7B821B4E7C800E91AAE /* Original */,
-				430F2ADA21AFCBF400F2293D /* Square */,
 				437225DB21AE873500130213 /* Snap */,
 				4372254721AE47FE00130213 /* Base */,
 			);
@@ -346,10 +294,6 @@
 			children = (
 				437225D621AE819900130213 /* Editing Video */,
 				437225D121AE816000130213 /* Editing Photo */,
-				437225C621AE80E300130213 /* Boomerang */,
-				437225C321AE80B700130213 /* Video */,
-				437225B621AE7FDD00130213 /* Square */,
-				437225B321AE7FB800130213 /* Original */,
 				4372253521AE2B6200130213 /* Snap */,
 			);
 			path = Controllers;
@@ -438,45 +382,9 @@
 			children = (
 				437225D821AE81C000130213 /* LFSEditingVideoViewController.xib */,
 				437225D321AE818F00130213 /* LFSEditingPhotoViewController.xib */,
-				437225CE21AE812600130213 /* LFSBoomerangViewController.xib */,
-				437225BC21AE803600130213 /* LFSOriginalCaptureViewController.xib */,
 				437225A921AE61CE00130213 /* LFSSnapViewController.xib */,
-				437225C021AE808900130213 /* LFSSquareCaptureViewController.xib */,
-				437225C821AE80FF00130213 /* LFSVideoCaptureViewController.xib */,
 			);
 			path = Nibs;
-			sourceTree = "<group>";
-		};
-		437225B321AE7FB800130213 /* Original */ = {
-			isa = PBXGroup;
-			children = (
-				437225BB21AE803600130213 /* LFSOriginalCaptureViewController.swift */,
-			);
-			path = Original;
-			sourceTree = "<group>";
-		};
-		437225B621AE7FDD00130213 /* Square */ = {
-			isa = PBXGroup;
-			children = (
-				437225BF21AE808900130213 /* LFSSquareCaptureViewController.swift */,
-			);
-			path = Square;
-			sourceTree = "<group>";
-		};
-		437225C321AE80B700130213 /* Video */ = {
-			isa = PBXGroup;
-			children = (
-				437225C721AE80FF00130213 /* LFSVideoCaptureViewController.swift */,
-			);
-			path = Video;
-			sourceTree = "<group>";
-		};
-		437225C621AE80E300130213 /* Boomerang */ = {
-			isa = PBXGroup;
-			children = (
-				437225CD21AE812600130213 /* LFSBoomerangViewController.swift */,
-			);
-			path = Boomerang;
 			sourceTree = "<group>";
 		};
 		437225D121AE816000130213 /* Editing Photo */ = {
@@ -506,10 +414,6 @@
 		437225DE21AE876000130213 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				438677F221B904B400B31B92 /* Boomerang */,
-				43E9F7C121B51AE400E91AAE /* Video */,
-				43E9F7BB21B4E7E000E91AAE /* Original */,
-				430F2ADD21AFCC1B00F2293D /* Square */,
 				437225DF21AE876900130213 /* Snap */,
 			);
 			path = ViewModels;
@@ -536,22 +440,6 @@
 				4380FA2821B0CF5200177F64 /* SafeArray.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		438677F121B904A700B31B92 /* Boomerang */ = {
-			isa = PBXGroup;
-			children = (
-				438677F321B904C700B31B92 /* LFSBoomerangViewModel.swift */,
-			);
-			path = Boomerang;
-			sourceTree = "<group>";
-		};
-		438677F221B904B400B31B92 /* Boomerang */ = {
-			isa = PBXGroup;
-			children = (
-				438677F521B904D100B31B92 /* LFSBoomerangViewModelProtocols.swift */,
-			);
-			path = Boomerang;
 			sourceTree = "<group>";
 		};
 		438677FD21B909BC00B31B92 /* Resources */ = {
@@ -590,38 +478,6 @@
 				43D8BF8421B639860065B3EB /* CircularProgress.swift */,
 			);
 			path = "Circular Progress";
-			sourceTree = "<group>";
-		};
-		43E9F7B821B4E7C800E91AAE /* Original */ = {
-			isa = PBXGroup;
-			children = (
-				43E9F7B921B4E7C800E91AAE /* LFSOriginalCaptureViewModel.swift */,
-			);
-			path = Original;
-			sourceTree = "<group>";
-		};
-		43E9F7BB21B4E7E000E91AAE /* Original */ = {
-			isa = PBXGroup;
-			children = (
-				43E9F7BC21B4E7E000E91AAE /* LFSOriginalCaptureViewModelProtocols.swift */,
-			);
-			path = Original;
-			sourceTree = "<group>";
-		};
-		43E9F7BE21B51AB700E91AAE /* Video */ = {
-			isa = PBXGroup;
-			children = (
-				43E9F7BF21B51ACD00E91AAE /* LFSVideoCaptureViewModel.swift */,
-			);
-			path = Video;
-			sourceTree = "<group>";
-		};
-		43E9F7C121B51AE400E91AAE /* Video */ = {
-			isa = PBXGroup;
-			children = (
-				43E9F7C221B51AF000E91AAE /* LFSVideoCaptureViewModelProtocols.swift */,
-			);
-			path = Video;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -724,14 +580,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				437225D021AE812600130213 /* LFSBoomerangViewController.xib in Resources */,
 				4386786E21B91F1D00B31B92 /* ic_main_infinity@2x.png in Resources */,
 				4386780921B90A1800B31B92 /* ic_main_flash_on@2x.png in Resources */,
 				4386781521B90B7800B31B92 /* ic_main_camera_flip@2x.png in Resources */,
 				437225DA21AE81C000130213 /* LFSEditingVideoViewController.xib in Resources */,
-				437225BE21AE803600130213 /* LFSOriginalCaptureViewController.xib in Resources */,
 				4386783421B90CD000B31B92 /* ic_main_close.png in Resources */,
-				437225C221AE808900130213 /* LFSSquareCaptureViewController.xib in Resources */,
 				437225AB21AE61CE00130213 /* LFSSnapViewController.xib in Resources */,
 				4386780621B90A1800B31B92 /* ic_main_flash_on.png in Resources */,
 				4386787021B91F1D00B31B92 /* ic_main_infinity.png in Resources */,
@@ -743,7 +596,6 @@
 				4386780521B90A1800B31B92 /* ic_main_flash_off@3x.png in Resources */,
 				437225D521AE818F00130213 /* LFSEditingPhotoViewController.xib in Resources */,
 				4386781B21B90BC600B31B92 /* ic_main_flash_on@3x.png in Resources */,
-				437225CA21AE80FF00130213 /* LFSVideoCaptureViewController.xib in Resources */,
 				4386783521B90CD000B31B92 /* ic_main_close@2x.png in Resources */,
 				4386783321B90CD000B31B92 /* ic_main_close@3x.png in Resources */,
 			);
@@ -779,37 +631,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43E9F7BD21B4E7E000E91AAE /* LFSOriginalCaptureViewModelProtocols.swift in Sources */,
 				430F2AE821AFD05400F2293D /* Camera.swift in Sources */,
 				430F2AE321AFCE9A00F2293D /* CameraPosition.swift in Sources */,
 				437225E321AE8B2F00130213 /* PageViewPresentable.swift in Sources */,
 				437225D421AE818F00130213 /* LFSEditingPhotoViewController.swift in Sources */,
-				437225C121AE808900130213 /* LFSSquareCaptureViewController.swift in Sources */,
 				4372255321AE489D00130213 /* LFSViewPresentable.swift in Sources */,
 				439871C321AF7CB300EDCE53 /* PickerViewPresentable.swift in Sources */,
-				437225CF21AE812600130213 /* LFSBoomerangViewController.swift in Sources */,
 				4372253921AE2BA300130213 /* LFSConstants.swift in Sources */,
-				438677F621B904D100B31B92 /* LFSBoomerangViewModelProtocols.swift in Sources */,
 				437225A021AE559500130213 /* LFSSnapDelegate.swift in Sources */,
-				43E9F7C321B51AF000E91AAE /* LFSVideoCaptureViewModelProtocols.swift in Sources */,
 				430F2A9521AFBC0300F2293D /* PageViewScroll.swift in Sources */,
 				43E9F74E21B4C1A600E91AAE /* CameraFeature.swift in Sources */,
 				437225AA21AE61CE00130213 /* LFSSnapViewController.swift in Sources */,
-				430F2ADF21AFCC3100F2293D /* LFSSquareCaptureViewModelProtocols.swift in Sources */,
 				4372254921AE482600130213 /* LFSViewModel.swift in Sources */,
-				437225BD21AE803600130213 /* LFSOriginalCaptureViewController.swift in Sources */,
-				43E9F7C021B51ACD00E91AAE /* LFSVideoCaptureViewModel.swift in Sources */,
 				437225D921AE81C000130213 /* LFSEditingVideoViewController.swift in Sources */,
 				4380FA2921B0CF5200177F64 /* SafeArray.swift in Sources */,
 				430F2AEA21AFD56300F2293D /* CameraError.swift in Sources */,
 				430F2A8E21AFB39B00F2293D /* LFSFeature.swift in Sources */,
-				430F2ADC21AFCC0C00F2293D /* LFSSquareCaptureViewModel.swift in Sources */,
 				437225E121AE878B00130213 /* LFSSnapViewModelProtocols.swift in Sources */,
-				438677F421B904C700B31B92 /* LFSBoomerangViewModel.swift in Sources */,
 				43D8BF8521B639860065B3EB /* CircularProgress.swift in Sources */,
 				4372253F21AE314B00130213 /* LFSViewUtils.swift in Sources */,
-				437225C921AE80FF00130213 /* LFSVideoCaptureViewController.swift in Sources */,
-				43E9F7BA21B4E7C800E91AAE /* LFSOriginalCaptureViewModel.swift in Sources */,
 				437225DD21AE874200130213 /* LFSSnapViewModel.swift in Sources */,
 				4386787121B91F3300B31B92 /* ic_main_infinity.png in Sources */,
 				4386787221B91F3300B31B92 /* ic_main_infinity@2x.png in Sources */,
