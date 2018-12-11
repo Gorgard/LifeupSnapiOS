@@ -12,7 +12,7 @@ public class LFSSnapViewController: UIViewController {
     @IBOutlet weak var coverPickerView: UIView!
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var captureView: UIView!
-    @IBOutlet weak var squareView: UIView!
+    @IBOutlet weak var coverCaptureView: UIView!
     @IBOutlet weak var coverSnapView: UIView!
     @IBOutlet weak var lineInCoverSnapView: UIView!
     @IBOutlet weak var snapButton: UIButton!
@@ -25,6 +25,8 @@ public class LFSSnapViewController: UIViewController {
     //MARK: Constraint
     @IBOutlet weak var pickerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var pickerViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topSquareViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomSquareViewHeightConstraint: NSLayoutConstraint!
     
     open var swipeCaptureViewRightGesture: UISwipeGestureRecognizer!
     open var swipeCaptureViewLeftGesture: UISwipeGestureRecognizer!
@@ -98,14 +100,13 @@ extension LFSSnapViewController {
         viewModel.features = features
         viewModel.viewController = self
         viewModel.navigationController = navigation
-        viewModel.originalView = captureView
-        viewModel.squareView = squareView
+        viewModel.view = captureView
         
         viewModel.setup()
     }
     
     fileprivate func setupViews() {
-        viewModel.captureViewBounds = captureView.bounds
+        viewModel.coverCaptureViewBounds = coverCaptureView.bounds
         viewModel.circularProgress = circularProgress
         viewModel.snapButtonBounds = snapButton.bounds
         
@@ -132,20 +133,12 @@ extension LFSSnapViewController {
         swipeCaptureViewRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeRight))
         swipeCaptureViewRightGesture.direction = .right
         captureView.addGestureRecognizer(swipeCaptureViewRightGesture)
-        
-        swipeSquareViewRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeRight))
-        swipeSquareViewRightGesture.direction = .right
-        squareView.addGestureRecognizer(swipeSquareViewRightGesture)
     }
     
     fileprivate func setupSwipeLeft() {
         swipeCaptureViewLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeLeft))
         swipeCaptureViewLeftGesture.direction = .left
         captureView.addGestureRecognizer(swipeCaptureViewLeftGesture)
-        
-        swipeSquareViewLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeLeft))
-        swipeSquareViewLeftGesture.direction = .left
-        squareView.addGestureRecognizer(swipeSquareViewLeftGesture)
     }
     
     fileprivate func setupCamera() {
@@ -195,20 +188,14 @@ extension LFSSnapViewController {
             }, completion: nil)
         }
         
-        viewModel.hiddenCaptureView = { [unowned self] (alpha) -> Void in
-            UIView.animate(withDuration: 0.3, delay: 0.2, animations: {
-                self.captureView.alpha = alpha
+        viewModel.changeSquareViewHeight = { [unowned self] (height) -> Void in
+            UIView.animate(withDuration: 0.3, animations: {
+                self.topSquareViewHeightConstraint.constant = height
+                self.bottomSquareViewHeightConstraint.constant = height
                 self.view.layoutIfNeeded()
             })
         }
-        
-        viewModel.hiddenSquareView = { [unowned self] (alpha) -> Void in
-            UIView.animate(withDuration: 0.3, delay: 0.1, animations: {
-                self.squareView.alpha = alpha
-                self.view.layoutIfNeeded()
-            })
-        }
-        
+
         viewModel.changeSnapButtonRadius = { [unowned self] (raduis, bounds) -> Void in
             UIView.animate(withDuration: 0.3, animations: {
                 self.snapButton.layer.cornerRadius = raduis

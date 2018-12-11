@@ -21,7 +21,7 @@ internal class LFSSnapViewModel: LFSViewModel {
     internal var circularProgress: CircularProgress!
     
     internal var snapButtonBounds: CGRect!
-    internal var captureViewBounds: CGRect!
+    internal var coverCaptureViewBounds: CGRect!
     
     private var currentIndex: Int = 1
     private var initialed: Bool = false
@@ -35,6 +35,7 @@ internal class LFSSnapViewModel: LFSViewModel {
     open var changeImageSnapButton: ((_ image: UIImage?) -> Void)?
     open var hiddenCaptureView: ((_ alpha: CGFloat) -> Void)?
     open var hiddenSquareView: ((_ alpha: CGFloat) -> Void)?
+    open var changeSquareViewHeight: ((_ height: CGFloat) -> Void)?
     
     //MARK: Camera value
     private var image: UIImage?
@@ -83,11 +84,10 @@ extension LFSSnapViewModel {
         
         changeSnapButtonColor?(feature.rawValue == CameraFeature.video.rawValue ? .red : .white)
         changeImageSnapButton?(feature.rawValue == CameraFeature.boomerang.rawValue ? #imageLiteral(resourceName: "ic_main_infinity.png") : nil)
-        hiddenCaptureView?(feature.rawValue == CameraFeature.square.rawValue ? 0 : 1)
-        hiddenSquareView?(feature.rawValue == CameraFeature.square.rawValue ? 1 : 0)
+        changeSquareViewHeight?(feature.rawValue == CameraFeature.square.rawValue ? (coverCaptureViewBounds.size.width / 4) - 20 : 0)
         
         if let camera = camera {
-            camera.resetPreviewLayer(view: feature.rawValue == CameraFeature.square.rawValue ? squareView! : originalView!)
+            camera.resetPreviewLayer(view: view!)
         }
         
         if !(feature.rawValue == CameraFeature.video.rawValue || feature.rawValue == CameraFeature.boomerang.rawValue) {
@@ -245,7 +245,7 @@ extension LFSSnapViewModel {
     internal func prepareCamera() {
         camera.prepare(completion: { [unowned self] () -> Void in
             try? self.camera.displayPreview()
-            self.camera.addPreviewLayer(view: self.originalView!)
+            self.camera.addPreviewLayer(view: self.view!)
         }, failure: { (error) -> Void in
             print(error?.localizedDescription ?? "")
         })
