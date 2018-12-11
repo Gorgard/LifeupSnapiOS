@@ -52,21 +52,29 @@ extension LFSSnapViewModel {
         
         features = features.sorted(by: { $0.rawValue > $1.rawValue })
         
-        if let features = features {
+        if let features = features, features.count > 0 {
             for feature in features {
                 let viewFeature = LFSFeature(name: feature.rawValue, isCurrent: false)
                 viewFeatures.append(viewFeature)
             }
         }
         else {
-           features = [.original]
+            viewFeatures.append(LFSFeature(name: CameraFeature.original.rawValue, isCurrent: false))
+            features = [.original]
         }
     }
     
     internal func binding() {
         if !initialed {
-            currentIndex = features.index(of: .original)!
-            feature = .original
+            if features.contains(.original) {
+                currentIndex = features.index(of: .original)!
+                feature = .original
+            }
+            else {
+                currentIndex = features.count - 1
+                feature = features[currentIndex]
+            }
+            
             initialed = true
         }
         
