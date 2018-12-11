@@ -96,6 +96,7 @@ extension LFSSnapViewController {
     fileprivate func setup() {
         viewModel = LFSSnapViewModel(delegate: self)
         viewModel.features = features
+        viewModel.viewController = self
         viewModel.navigationController = navigation
         viewModel.originalView = captureView
         viewModel.squareView = squareView

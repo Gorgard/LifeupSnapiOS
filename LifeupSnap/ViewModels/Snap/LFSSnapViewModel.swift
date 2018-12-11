@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVKit
 
 internal class LFSSnapViewModel: LFSViewModel {
     private weak var delegate: LFSSnapViewModelDelegate?
@@ -283,10 +284,12 @@ extension LFSSnapViewModel {
     
     private func startBoomerangRecord() {
         camera.maxDuration = 10
+        camera.renewMovieOutput()
+        
         camera.recordVideo(completion: { [weak self] (url) -> Void in
             self?.handleRecord(url: url)
-            }, failure: { (error) -> Void in
-                print(error?.localizedDescription ?? "")
+        }, failure: { (error) -> Void in
+            print(error?.localizedDescription ?? "")
         })
     }
     
@@ -295,15 +298,25 @@ extension LFSSnapViewModel {
             finishedSnapBoomerang()
         }
         
-//        if let _url = url {
-//            let original = AVAsset.init(url: _url)
-//            camera.reverse(original: original, completion: { (reversedURL) -> Void in
-//                print(reversedURL)
-//                self.playWithUrl(url: reversedURL)
-//            }, failure: { (error) -> Void in
-//                print(error?.localizedDescription ?? "")
-//            })
-//        }
+        if let _url = url {
+            let original = AVAsset.init(url: _url)
+            camera.reverse(original: original, completion: { (reversedURL) -> Void in
+                self.playWithUrl(url: reversedURL!)
+            }, failure: { (error) -> Void in
+                print(error?.localizedDescription ?? "")
+            })
+        }
+    }
+    
+    private func playWithUrl(url: URL) {
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = AVPlayer(url: url)
+        
+        DispatchQueue.main.async {
+            self.viewController?.present(playerViewController, animated: true, completion: {
+                playerViewController.player?.play()
+            })
+        }
     }
     
     private func stopBoomerangRecord() {
@@ -357,6 +370,8 @@ extension LFSSnapViewModel {
     
     private func startVideoRecord() {
         camera.maxDuration = 30
+        camera.renewMovieOutput()
+        
         camera.recordVideo(completion: { [weak self] (url) -> Void in
             self?.handleVideoRecord()
         }, failure: { (error) -> Void in

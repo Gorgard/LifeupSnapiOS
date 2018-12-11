@@ -192,6 +192,18 @@ extension Camera {
             self?.captureSession?.startRunning()
         }
     }
+    
+    internal func renewMovieOutput() {
+        guard let captureSession = captureSession else {
+            return
+        }
+        
+        if captureSession.outputs.contains(movieOutput!) {
+            captureSession.removeOutput(movieOutput!)
+        }
+        
+        try? configurationMovieOutput()
+    }
 }
 
 //MARK: Manage
@@ -322,7 +334,8 @@ extension Camera {
         }
         
         connection.videoOrientation = currentVideoOrientation()
-        movieOutput?.startRecording(to: outputPathURL(fileName: "LFSSNAPVIDEO-\(Date())")!, recordingDelegate: self)
+        let fileName = outputPathURL(fileName: "LFSSNAPVIDEO-\(Date())", fileType: "mp4")!
+        movieOutput?.startRecording(to: fileName, recordingDelegate: self)
         
         movieCaptureCompletionBlock = completion
         movieCaptureFailureBlock = failure
@@ -336,8 +349,8 @@ extension Camera {
         isRecording = false
     }
     
-    fileprivate func outputPathURL(fileName: String) -> URL? {
-        let tempPath = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first)?.appendingPathComponent(fileName).appendingPathExtension("mp4")
+    fileprivate func outputPathURL(fileName: String, fileType: String) -> URL? {
+        let tempPath = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first)?.appendingPathComponent(fileName).appendingPathExtension(fileType)
         
         if FileManager.default.fileExists(atPath: tempPath?.absoluteString ?? "") {
             do {
@@ -381,7 +394,7 @@ extension Camera {
         }
         
         let writer: AVAssetWriter
-        let outputPath = outputPathURL(fileName: "LFSSNAPREVERSEVIDEO-\(Date())")!
+        let outputPath = outputPathURL(fileName: "LFSSNAPREVERSEVIDEO-\(Date())", fileType: "mov")!
         do {
             writer = try AVAssetWriter(outputURL: outputPath, fileType: .mov)
         } catch let error {
@@ -486,7 +499,7 @@ extension Camera {
                 imageManager.requestAVAsset(forVideo: fetchResult!, options: nil, resultHandler: { (avurlAsset, audioMix, dict) -> Void in
                     let video = avurlAsset as! AVURLAsset
                     
-                    if video.duration.seconds >= 30.0 {
+                    if video.duration.seconds >= 10.0 || video.duration.seconds >= 30.0 {
                         self?.selfStop = true
                         self?.isRecording = false
                     }
