@@ -194,15 +194,17 @@ extension Camera {
     }
     
     internal func renewMovieOutput() {
-        guard let captureSession = captureSession else {
-            return
+        DispatchQueue(label: "renewMovieOutputBackground").async { [unowned self] in
+            guard let captureSession = self.captureSession else {
+                return
+            }
+            
+            if captureSession.outputs.contains(self.movieOutput!) {
+                captureSession.removeOutput(self.movieOutput!)
+            }
+            
+            try? self.configurationMovieOutput()
         }
-        
-        if captureSession.outputs.contains(movieOutput!) {
-            captureSession.removeOutput(movieOutput!)
-        }
-        
-        try? configurationMovieOutput()
     }
 }
 

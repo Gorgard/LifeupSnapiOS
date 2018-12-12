@@ -38,10 +38,7 @@ public class LFSSnapViewController: UIViewController {
     open var features: [CameraFeature]!
     
     open weak var delegate: LFSSnapDelegate?
-    open weak var navigation: UINavigationController?
-    
-    internal static weak var baseNavigation: UINavigationController?
-    
+
     public init() {
         let bundle = Bundle(for: LFSSnapViewController.self)
         super.init(nibName: LFSConstants.LFSNibID.Snap.lfsSnapViewController, bundle: bundle)
@@ -97,12 +94,9 @@ extension LFSSnapViewController {
         viewModel = LFSSnapViewModel(delegate: self)
         viewModel.features = features
         viewModel.viewController = self
-        viewModel.navigationController = navigation
         viewModel.view = captureView
         
         viewModel.setup()
-        
-        LFSSnapViewController.baseNavigation = navigation
     }
     
     fileprivate func setupViews() {

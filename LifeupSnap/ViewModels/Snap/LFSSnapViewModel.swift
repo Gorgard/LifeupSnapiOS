@@ -90,7 +90,7 @@ extension LFSSnapViewModel {
         
         changeSnapButtonColor?(feature.rawValue == CameraFeature.video.rawValue ? .red : .white)
         changeImageSnapButton?(feature.rawValue == CameraFeature.boomerang.rawValue ? #imageLiteral(resourceName: "ic_main_infinity.png") : nil)
-        changeSquareViewHeight?(feature.rawValue == CameraFeature.square.rawValue ? (coverCaptureViewBounds.size.width / 4) - 20 : 0)
+        changeSquareViewHeight?(feature.rawValue == CameraFeature.square.rawValue ? 60 : 0)
         
         if let camera = camera {
             camera.resetPreviewLayer(view: view!)
@@ -98,6 +98,14 @@ extension LFSSnapViewModel {
         
         if !(feature.rawValue == CameraFeature.video.rawValue || feature.rawValue == CameraFeature.boomerang.rawValue) {
             removeCircularProgress()
+        }
+        
+        if feature.rawValue == CameraFeature.video.rawValue {
+            setupVideo()
+        }
+        
+        if feature.rawValue == CameraFeature.boomerang.rawValue {
+            setupBoomerang()
         }
     }
 }
@@ -289,9 +297,6 @@ extension LFSSnapViewModel {
     }
     
     private func startBoomerangRecord() {
-        camera.maxDuration = 10
-        camera.renewMovieOutput()
-        
         camera.recordVideo(completion: { [weak self] (url) -> Void in
             self?.handleRecord(url: url)
         }, failure: { (error) -> Void in
@@ -306,8 +311,8 @@ extension LFSSnapViewModel {
         
         if let _url = url {
             camera.reverse(originalURL: _url, completion: { (reversedURL) -> Void in
-                self.playWithUrl(url: reversedURL!)
-                //self.boomerangPreview(url: reversedURL!)
+                //self.playWithUrl(url: reversedURL!)
+                self.boomerangPreview(url: reversedURL!)
             }, failure: { (error) -> Void in
                 print(error?.localizedDescription ?? "")
             })
@@ -343,9 +348,12 @@ extension LFSSnapViewModel {
         let lfsVideoPreviewViewController = LFSVideoPreviewViewController()
         lfsVideoPreviewViewController.url = url
         
-        DispatchQueue.main.async { [unowned self] in
-            self.viewController?.present(lfsVideoPreviewViewController, animated: true, completion: nil)
-        }
+        viewController?.present(lfsVideoPreviewViewController, animated: true, completion: nil)
+    }
+    
+    fileprivate func setupBoomerang() {
+        self.camera.maxDuration = 10
+        self.camera.renewMovieOutput()
     }
 }
 
@@ -384,9 +392,6 @@ extension LFSSnapViewModel {
     }
     
     private func startVideoRecord() {
-        camera.maxDuration = 30
-        camera.renewMovieOutput()
-        
         camera.recordVideo(completion: { [weak self] (url) -> Void in
             self?.handleVideoRecord()
         }, failure: { (error) -> Void in
@@ -412,6 +417,11 @@ extension LFSSnapViewModel {
         }
         
         removeCircularProgress()
+    }
+    
+    fileprivate func setupVideo() {
+        camera.maxDuration = 30
+        camera.renewMovieOutput()
     }
 }
 

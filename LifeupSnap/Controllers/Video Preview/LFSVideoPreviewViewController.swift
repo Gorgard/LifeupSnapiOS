@@ -30,6 +30,12 @@ internal class LFSVideoPreviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        setupViews()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        viewModel.setupLayer()
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,11 +44,11 @@ internal class LFSVideoPreviewViewController: UIViewController {
     }
 
     @IBAction func onTappedBack(_ sender: Any) {
-        
+        viewModel.close()
     }
     
     @IBAction func onTappedReplay(_ sender: Any) {
-        
+        viewModel.replay()
     }
     
     @IBAction func onTappedNext(_ sender: Any) {
@@ -55,11 +61,18 @@ extension LFSVideoPreviewViewController {
     fileprivate func setup() {
         viewModel = LFSVideoPreviewViewModel(delegate: self)
         viewModel.url = url
-        viewModel.navigationController = LFSSnapViewController.baseNavigation
+        viewModel.viewController = self
+        viewModel.view = videoView
+        
+        viewModel.preview()
     }
     
     fileprivate func setupViews() {
-        nextButton.layer.cornerRadius = 8
+        nextButton.layer.cornerRadius = nextButton.bounds.size.height / 2
+        nextButton.layer.shadowColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+        nextButton.layer.shadowOffset = CGSize(width: 0, height: 2)
+        nextButton.layer.shadowOpacity = 1
+        nextButton.layer.shadowRadius = 0
     }
 }
 

@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSVideoPreviewViewController" customModule="LifeupSnap" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSVideoPreviewViewController" customModule="LifeupSnapTest" customModuleProvider="target">
             <connections>
                 <outlet property="backButton" destination="Ucs-YJ-9IA" id="7ma-n6-Vnq"/>
                 <outlet property="nextButton" destination="aQQ-u6-w6O" id="BmW-Ig-HwO"/>
@@ -26,32 +26,26 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hs2-cX-sdi">
                     <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bwT-Jn-7XH">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQQ-u6-w6O">
-                            <rect key="frame" x="297" y="599" width="70" height="40"/>
+                            <rect key="frame" x="267" y="599" width="100" height="40"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="70" id="OIo-Ru-UfD"/>
+                                <constraint firstAttribute="width" constant="100" id="OIo-Ru-UfD"/>
                                 <constraint firstAttribute="height" constant="40" id="g5y-41-MBV"/>
                             </constraints>
-                            <inset key="titleEdgeInsets" minX="-30" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <inset key="imageEdgeInsets" minX="49" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                            <inset key="titleEdgeInsets" minX="-35" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="60" minY="2" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Next" image="ic_preview_next.png">
-                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
                                 <action selector="onTappedNext:" destination="-1" eventType="touchUpInside" id="YdJ-Q2-dqG"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ucs-YJ-9IA">
-                            <rect key="frame" x="0.0" y="8" width="40" height="40"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="40" id="HwT-de-kCV"/>
-                                <constraint firstAttribute="height" constant="40" id="qLw-Fm-pSm"/>
-                            </constraints>
-                            <state key="normal" image="ic_preview_back.png"/>
-                            <connections>
-                                <action selector="onTappedBack:" destination="-1" eventType="touchUpInside" id="JG0-eC-jzE"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b4w-52-5xO">
@@ -65,31 +59,45 @@
                                 <action selector="onTappedReplay:" destination="-1" eventType="touchUpInside" id="4Gh-Lc-1xn"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ucs-YJ-9IA">
+                            <rect key="frame" x="8" y="8" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="HwT-de-kCV"/>
+                                <constraint firstAttribute="height" constant="40" id="qLw-Fm-pSm"/>
+                            </constraints>
+                            <state key="normal" image="ic_main_close.png"/>
+                            <connections>
+                                <action selector="onTappedBack:" destination="-1" eventType="touchUpInside" id="JG0-eC-jzE"/>
+                            </connections>
+                        </button>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="Ucs-YJ-9IA" firstAttribute="leading" secondItem="hs2-cX-sdi" secondAttribute="leading" id="HqI-WU-Ecc"/>
-                        <constraint firstItem="b4w-52-5xO" firstAttribute="top" secondItem="hs2-cX-sdi" secondAttribute="top" constant="8" id="Pa8-2q-JLl"/>
-                        <constraint firstAttribute="trailing" secondItem="b4w-52-5xO" secondAttribute="trailing" constant="8" id="THG-pM-wit"/>
-                        <constraint firstAttribute="trailing" secondItem="aQQ-u6-w6O" secondAttribute="trailing" constant="8" id="jkI-Wd-kKm"/>
-                        <constraint firstAttribute="bottom" secondItem="aQQ-u6-w6O" secondAttribute="bottom" constant="8" id="mDo-O7-ewm"/>
-                        <constraint firstItem="Ucs-YJ-9IA" firstAttribute="top" secondItem="hs2-cX-sdi" secondAttribute="top" constant="8" id="mk5-Ed-MxT"/>
+                        <constraint firstItem="Ucs-YJ-9IA" firstAttribute="top" secondItem="bwT-Jn-7XH" secondAttribute="top" constant="8" id="B8V-7A-hOi"/>
+                        <constraint firstAttribute="bottom" secondItem="aQQ-u6-w6O" secondAttribute="bottom" constant="8" id="DDf-aT-GZk"/>
+                        <constraint firstAttribute="trailing" secondItem="aQQ-u6-w6O" secondAttribute="trailing" constant="8" id="Fjo-8G-2Ms"/>
+                        <constraint firstItem="b4w-52-5xO" firstAttribute="top" secondItem="bwT-Jn-7XH" secondAttribute="top" constant="8" id="R7k-Op-6h9"/>
+                        <constraint firstAttribute="trailing" secondItem="b4w-52-5xO" secondAttribute="trailing" constant="8" id="RCH-wb-DK1"/>
+                        <constraint firstItem="Ucs-YJ-9IA" firstAttribute="leading" secondItem="bwT-Jn-7XH" secondAttribute="leading" constant="8" id="yn0-RB-hOa"/>
                     </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="bwT-Jn-7XH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="MQx-nR-3BO"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="hs2-cX-sdi" secondAttribute="bottom" id="Pum-dH-VDe"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="bwT-Jn-7XH" secondAttribute="bottom" id="aNQ-Qn-TT3"/>
                 <constraint firstItem="hs2-cX-sdi" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="atu-uC-bz9"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hs2-cX-sdi" secondAttribute="trailing" id="ipq-7c-4Qb"/>
                 <constraint firstItem="hs2-cX-sdi" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="mBf-hv-XPI"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="bwT-Jn-7XH" secondAttribute="trailing" id="qFc-cC-09P"/>
+                <constraint firstItem="bwT-Jn-7XH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="zGG-xK-cFx"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>
     </objects>
     <resources>
-        <image name="ic_preview_back.png" width="20" height="20"/>
+        <image name="ic_main_close.png" width="30" height="30"/>
         <image name="ic_preview_next.png" width="20" height="20"/>
-        <image name="ic_preview_replay.png" width="20" height="20"/>
+        <image name="ic_preview_replay.png" width="35" height="35"/>
     </resources>
 </document>

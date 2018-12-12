@@ -22,5 +22,8 @@ class LFSViewModel: NSObject, LFSViewPresentable {
         if let navigationController = navigationController {
             navigationController.dismiss(animated: true, completion: nil)
         }
+        else {
+            viewController?.dismiss(animated: true, completion: nil)
+        }
     }
 }
