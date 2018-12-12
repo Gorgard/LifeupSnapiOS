@@ -549,7 +549,9 @@ extension Camera {
                         self?.isRecording = false
                     }
                     
-                    completion(video.url)
+                    DispatchQueue.main.async {
+                        completion(video.url)
+                    }
                 })
             }
         })

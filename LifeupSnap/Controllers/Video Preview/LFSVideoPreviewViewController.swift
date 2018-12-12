@@ -18,6 +18,10 @@ internal class LFSVideoPreviewViewController: UIViewController {
     
     internal var url: URL?
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     internal init() {
         let bundle = Bundle(for: LFSVideoPreviewViewController.self)
         super.init(nibName: LFSConstants.LFSNibID.Snap.lfsVideoPreviewController, bundle: bundle)

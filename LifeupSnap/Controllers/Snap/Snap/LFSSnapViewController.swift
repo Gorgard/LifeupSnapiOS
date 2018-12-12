@@ -39,6 +39,10 @@ public class LFSSnapViewController: UIViewController {
     open var features: [CameraFeature]!
     
     open weak var delegate: LFSSnapDelegate?
+    
+    override public var prefersStatusBarHidden: Bool {
+        return true
+    }
 
     public init() {
         let bundle = Bundle(for: LFSSnapViewController.self)
