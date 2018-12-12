@@ -561,6 +561,7 @@ extension Camera {
 
 //MARK: AVCapturePhotoCaptureDelegate
 extension Camera: AVCapturePhotoCaptureDelegate {
+    @available(iOS 10, *)
     internal func photoOutput(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Swift.Error?) {
         if let error = error {
             photoCaptureFailureBlock?(error)
@@ -568,6 +569,26 @@ extension Camera: AVCapturePhotoCaptureDelegate {
         }
 
         if let buffer = photoSampleBuffer, let data = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: buffer, previewPhotoSampleBuffer: nil) {
+            let image = UIImage(data: data)
+            
+            var realImage: UIImage
+            
+            if isSquare {
+                realImage = cropImageToSquare(image: image!)!
+            }
+            else {
+                realImage = image!
+            }
+            
+            photoCaptureCompletionBlock?(realImage)
+        }
+        else {
+            photoCaptureFailureBlock?(CameraError.unknown)
+        }
+    }
+    
+    internal func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        if let data = photo.fileDataRepresentation() {
             let image = UIImage(data: data)
             
             var realImage: UIImage
