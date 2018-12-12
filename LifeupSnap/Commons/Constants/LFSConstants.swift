@@ -14,6 +14,7 @@ internal struct LFSConstants {
         internal struct Snap {
             internal static let lfsSnapViewController = "LFSSnapViewController"
             internal static let lfsVideoPreviewController = "LFSVideoPreviewViewController"
+            internal static let lfsPhotoPreviewController = "LFSPhotoPreviewViewController"
             internal static let lfsEditingPhotoViewController = "LFSEditingPhotoViewController"
             internal static let lfsEditingVideoViewController = "LFSEditingVideoViewController"
         }
