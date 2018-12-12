@@ -34,6 +34,7 @@ internal class LFSSnapViewModel: LFSViewModel {
     open var changeImageFlashButton: ((_ image: UIImage) -> Void)?
     open var changeImageSnapButton: ((_ image: UIImage?) -> Void)?
     open var changeSquareViewHeight: ((_ height: CGFloat) -> Void)?
+    open var hiddenLoadingView: ((_ hidden: Bool) -> Void)?
     
     //MARK: Camera value
     private var image: UIImage?
@@ -305,6 +306,10 @@ extension LFSSnapViewModel {
     }
     
     private func handleRecord(url: URL?) {
+        DispatchQueue.main.async { [unowned self] in
+            self.hiddenLoadingView?(false)
+        }
+        
         if camera.selfStop {
             finishedSnapBoomerang()
         }
@@ -348,6 +353,7 @@ extension LFSSnapViewModel {
         let lfsVideoPreviewViewController = LFSVideoPreviewViewController()
         lfsVideoPreviewViewController.url = url
         
+        hiddenLoadingView?(true)
         viewController?.present(lfsVideoPreviewViewController, animated: true, completion: nil)
     }
     

@@ -20,6 +20,7 @@ public class LFSSnapViewController: UIViewController {
     @IBOutlet weak var flashButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var blurView: UIVisualEffectView!
+    @IBOutlet weak var loadingView: UIView!
     @IBOutlet weak var circularProgress: CircularProgress!
     
     //MARK: Constraint
@@ -204,6 +205,10 @@ extension LFSSnapViewController {
                 self.snapButton.bounds = bounds
                 self.view.layoutIfNeeded()
             })
+        }
+        
+        viewModel.hiddenLoadingView = { [unowned self] (hidden) -> Void in
+            self.loadingView.isHidden = hidden
         }
         
         viewModel.binding()
