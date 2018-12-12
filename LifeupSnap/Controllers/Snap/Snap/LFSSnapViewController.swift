@@ -20,6 +20,7 @@ public class LFSSnapViewController: UIViewController {
     @IBOutlet weak var flashButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var blurView: UIVisualEffectView!
+    @IBOutlet weak var loadingView: UIView!
     @IBOutlet weak var circularProgress: CircularProgress!
     
     //MARK: Constraint
@@ -38,12 +39,11 @@ public class LFSSnapViewController: UIViewController {
     open var features: [CameraFeature]!
     
     open weak var delegate: LFSSnapDelegate?
-    open weak var navigation: UINavigationController?
     
     override public var prefersStatusBarHidden: Bool {
         return true
     }
-    
+
     public init() {
         let bundle = Bundle(for: LFSSnapViewController.self)
         super.init(nibName: LFSConstants.LFSNibID.Snap.lfsSnapViewController, bundle: bundle)
@@ -99,7 +99,6 @@ extension LFSSnapViewController {
         viewModel = LFSSnapViewModel(delegate: self)
         viewModel.features = features
         viewModel.viewController = self
-        viewModel.navigationController = navigation
         viewModel.view = captureView
         
         viewModel.setup()
@@ -210,6 +209,10 @@ extension LFSSnapViewController {
                 self.snapButton.bounds = bounds
                 self.view.layoutIfNeeded()
             })
+        }
+        
+        viewModel.hiddenLoadingView = { [unowned self] (hidden) -> Void in
+            self.loadingView.isHidden = hidden
         }
         
         viewModel.binding()

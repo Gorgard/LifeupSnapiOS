@@ -13,10 +13,8 @@ internal struct LFSConstants {
     internal struct LFSNibID {
         internal struct Snap {
             internal static let lfsSnapViewController = "LFSSnapViewController"
-            internal static let lfsOriginalCaptureViewController = "LFSOriginalCaptureViewController"
-            internal static let lfsSquareCaptureViewController = "LFSSquareCaptureViewController"
-            internal static let lfsVideoCaptureViewController = "LFSVideoCaptureViewController"
-            internal static let lfsBoomerangViewController = "LFSBoomerangViewController"
+            internal static let lfsVideoPreviewController = "LFSVideoPreviewViewController"
+            internal static let lfsPhotoPreviewController = "LFSPhotoPreviewViewController"
             internal static let lfsEditingPhotoViewController = "LFSEditingPhotoViewController"
             internal static let lfsEditingVideoViewController = "LFSEditingVideoViewController"
         }

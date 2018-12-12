@@ -34,6 +34,7 @@ internal class LFSSnapViewModel: LFSViewModel {
     open var changeImageFlashButton: ((_ image: UIImage) -> Void)?
     open var changeImageSnapButton: ((_ image: UIImage?) -> Void)?
     open var changeSquareViewHeight: ((_ height: CGFloat) -> Void)?
+    open var hiddenLoadingView: ((_ hidden: Bool) -> Void)?
     
     //MARK: Camera value
     private var image: UIImage?
@@ -90,7 +91,7 @@ extension LFSSnapViewModel {
         
         changeSnapButtonColor?(feature.rawValue == CameraFeature.video.rawValue ? .red : .white)
         changeImageSnapButton?(feature.rawValue == CameraFeature.boomerang.rawValue ? #imageLiteral(resourceName: "ic_main_infinity.png") : nil)
-        changeSquareViewHeight?(feature.rawValue == CameraFeature.square.rawValue ? (coverCaptureViewBounds.size.width / 4) - 20 : 0)
+        changeSquareViewHeight?(feature.rawValue == CameraFeature.square.rawValue ? 60 : 0)
         
         if let camera = camera {
             camera.resetPreviewLayer(view: view!)
@@ -98,6 +99,14 @@ extension LFSSnapViewModel {
         
         if !(feature.rawValue == CameraFeature.video.rawValue || feature.rawValue == CameraFeature.boomerang.rawValue) {
             removeCircularProgress()
+        }
+        
+        if feature.rawValue == CameraFeature.video.rawValue {
+            setupVideo()
+        }
+        
+        if feature.rawValue == CameraFeature.boomerang.rawValue {
+            setupBoomerang()
         }
     }
 }
@@ -289,9 +298,6 @@ extension LFSSnapViewModel {
     }
     
     private func startBoomerangRecord() {
-        camera.maxDuration = 10
-        camera.renewMovieOutput()
-        
         camera.recordVideo(completion: { [weak self] (url) -> Void in
             self?.handleRecord(url: url)
         }, failure: { (error) -> Void in
@@ -300,26 +306,19 @@ extension LFSSnapViewModel {
     }
     
     private func handleRecord(url: URL?) {
+        DispatchQueue.main.async { [unowned self] in
+            self.hiddenLoadingView?(false)
+        }
+        
         if camera.selfStop {
             finishedSnapBoomerang()
         }
         
         if let _url = url {
             camera.reverse(originalURL: _url, completion: { (reversedURL) -> Void in
-                self.playWithUrl(url: reversedURL!)
+                self.boomerangPreview(url: reversedURL!)
             }, failure: { (error) -> Void in
                 print(error?.localizedDescription ?? "")
-            })
-        }
-    }
-    
-    private func playWithUrl(url: URL) {
-        let playerViewController = AVPlayerViewController()
-        playerViewController.player = AVPlayer(url: url)
-        
-        DispatchQueue.main.async {
-            self.viewController?.present(playerViewController, animated: true, completion: {
-                playerViewController.player?.play()
             })
         }
     }
@@ -336,6 +335,21 @@ extension LFSSnapViewModel {
         }
         
         removeCircularProgress()
+    }
+    
+    fileprivate func boomerangPreview(url: URL) {
+        let lfsVideoPreviewViewController = LFSVideoPreviewViewController()
+        lfsVideoPreviewViewController.url = url
+        
+        DispatchQueue.main.async { [unowned self] in
+            self.hiddenLoadingView?(true)
+            self.viewController?.present(lfsVideoPreviewViewController, animated: true, completion: nil)
+        }
+    }
+    
+    fileprivate func setupBoomerang() {
+        self.camera.maxDuration = 10
+        self.camera.renewMovieOutput()
     }
 }
 
@@ -374,19 +388,24 @@ extension LFSSnapViewModel {
     }
     
     private func startVideoRecord() {
-        camera.maxDuration = 30
-        camera.renewMovieOutput()
-        
         camera.recordVideo(completion: { [weak self] (url) -> Void in
-            self?.handleVideoRecord()
+            self?.handleVideoRecord(url: url)
         }, failure: { (error) -> Void in
             print(error?.localizedDescription ?? "")
         })
     }
     
-    private func handleVideoRecord() {
+    private func handleVideoRecord(url: URL?) {
+        DispatchQueue.main.async { [unowned self] in
+            self.hiddenLoadingView?(false)
+        }
+        
         if camera.selfStop {
             finishedSnapVideo()
+        }
+        
+        if let _url = url {
+            videoPreview(url: _url)
         }
     }
     
@@ -402,6 +421,21 @@ extension LFSSnapViewModel {
         }
         
         removeCircularProgress()
+    }
+    
+    fileprivate func videoPreview(url: URL) {
+        let lfsVideoPreviewViewController = LFSVideoPreviewViewController()
+        lfsVideoPreviewViewController.url = url
+        
+        DispatchQueue.main.async { [unowned self] in
+            self.hiddenLoadingView?(true)
+            self.viewController?.present(lfsVideoPreviewViewController, animated: true, completion: nil)
+        }
+    }
+    
+    fileprivate func setupVideo() {
+        camera.maxDuration = 30
+        camera.renewMovieOutput()
     }
 }
 
