@@ -39,6 +39,8 @@ internal class Camera: NSObject {
     internal var initialed: Bool = false
     internal var isRecording: Bool = false
     internal var selfStop: Bool = false
+    
+    private var isSquare: Bool = false
 
     internal func prepare(completion: @escaping() -> Void, failure: @escaping(_ error: Error?) -> Void) {
         if initialed {
@@ -320,10 +322,62 @@ extension Camera {
             return
         }
         
+        isSquare = false
+        
         connection.videoOrientation = currentVideoOrientation()
         photoOutput?.capturePhoto(with: settings, delegate: self)
         photoCaptureCompletionBlock = completion
         photoCaptureFailureBlock = failure
+    }
+    
+    internal func captureSquareImage(completion: @escaping(_ image: UIImage?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
+        guard let captureSession = captureSession, captureSession.isRunning else {
+            failure(CameraError.unknown)
+            return
+        }
+        
+        let settings = AVCapturePhotoSettings()
+        settings.flashMode = Camera.flashMode
+        
+        guard let connection = photoOutput?.connection(with: .video) else {
+            failure(CameraError.unknown)
+            return
+        }
+        
+        isSquare = true
+        
+        connection.videoOrientation = currentVideoOrientation()
+        photoOutput?.capturePhoto(with: settings, delegate: self)
+        photoCaptureCompletionBlock = completion
+        photoCaptureFailureBlock = failure
+    }
+    
+    private func cropImageToSquare(image: UIImage) -> UIImage? {
+        var imageHeight = image.size.height
+        var imageWidth = image.size.width
+        
+        if imageHeight > imageWidth {
+            imageHeight = imageWidth
+        }
+        else {
+            imageWidth = imageHeight
+        }
+        
+        let size = CGSize(width: imageWidth, height: imageHeight)
+        
+        let refWidth = CGFloat(image.cgImage!.width)
+        let refHeight = CGFloat(image.cgImage!.height)
+        
+        let x = (refWidth - size.width) / 2
+        let y = (refHeight - size.height) / 2
+        
+        let cropRect = CGRect(x: x, y: y, width: size.height, height: size.width)
+        
+        if let imageRef = image.cgImage!.cropping(to: cropRect) {
+            return UIImage(cgImage: imageRef, scale: 3, orientation: image.imageOrientation)
+        }
+        
+        return nil
     }
 }
 
@@ -515,7 +569,17 @@ extension Camera: AVCapturePhotoCaptureDelegate {
 
         if let buffer = photoSampleBuffer, let data = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: buffer, previewPhotoSampleBuffer: nil) {
             let image = UIImage(data: data)
-            photoCaptureCompletionBlock?(image)
+            
+            var realImage: UIImage
+            
+            if isSquare {
+                realImage = cropImageToSquare(image: image!)!
+            }
+            else {
+                realImage = image!
+            }
+            
+            photoCaptureCompletionBlock?(realImage)
         }
         else {
             photoCaptureFailureBlock?(CameraError.unknown)
