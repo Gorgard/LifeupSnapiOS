@@ -111,6 +111,11 @@ extension LFSEditLabelViewController {
         messageTextView.textColor = .lightGray
         messageTextView.returnKeyType = .done
         messageTextView.delegate = self
+        
+        messageTextView.becomeFirstResponder()
+        
+        viewModel.text = messageTextView.text
+        viewModel.placeholderColor = messageTextView.placeholderColor
     }
     
     fileprivate func setupCollectionView() {
@@ -150,11 +155,11 @@ extension LFSEditLabelViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         viewModel.textViewDidBeginEditing(textView: textView)
     }
-    
+
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         return viewModel.textView(textView: textView, range: range, text: text)
     }
-    
+
     func textViewDidEndEditing(_ textView: UITextView) {
         viewModel.textViewDidEndEditing(textView: textView)
     }

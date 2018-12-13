@@ -16,6 +16,9 @@ internal class LFSEditLabelViewModel: LFSViewModel {
     internal var label: UILabel!
     internal var colorPallateViewAlpha: CGFloat!
     
+    internal var text: String?
+    internal var placeholderColor: UIColor!
+    
     private var textColor: UIColor = .black
     
     internal var openColorPallate: ((_ alpha: CGFloat) -> Void)?
