@@ -11,9 +11,84 @@ import UIKit
 internal class LFSEditLabelViewModel: LFSViewModel {
     private weak var delegate: LFSEditLabelViewModelDelegate?
     
+    internal var pallateColors: [LFSColor]!
+    
     internal var label: UILabel!
+    internal var colorPallateViewAlpha: CGFloat!
+    
+    internal var openColorPallate: ((_ alpha: CGFloat) -> Void)?
     
     init(delegate: LFSEditLabelViewModelDelegate) {
         self.delegate = delegate
+    }
+}
+
+//MARK: Base
+extension LFSEditLabelViewModel {
+    internal func setup() {
+        let pallateColor = LFSPallateColor()
+        pallateColors = pallateColor.colors
+    }
+}
+
+//MARK: Handle Action
+extension LFSEditLabelViewModel {
+    internal func colorPallate() {
+        if colorPallateViewAlpha == 0 {
+            colorPallateViewAlpha = 1
+        }
+        else {
+            colorPallateViewAlpha = 0
+        }
+        openColorPallate?(colorPallateViewAlpha)
+    }
+}
+
+//MARK: LFSCollectionViewPresentable
+extension LFSEditLabelViewModel: LFSCollectionViewPresentable {
+    internal func numberOfSections() -> Int {
+        return 1
+    }
+    
+    internal func numberOfItems(section: Int) -> Int {
+        return pallateColors.count
+    }
+    
+    internal func cellForItem(with collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lsLabelColorCollectionViewCell, for: indexPath) as! LFSLabelColorCollectionViewCell
+        let pallateColor = pallateColors[indexPath.row]
+        
+        cell.labelColorView.backgroundColor = pallateColor.color
+       
+        return cell
+    }
+    
+    internal func didSelected(with collectionView: UICollectionView, at indexPath: IndexPath) {
+        
+    }
+}
+
+//MARK: Handle PlaceholderTextView
+extension LFSEditLabelViewModel {
+    func textViewDidBeginEditing(textView: UITextView) {
+        if textView.text == LFSConstants.LFSPlaceholder.Edit.startTyping && textView.textColor == .lightGray {
+            textView.text = ""
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    func textView(textView: UITextView, range: NSRange, text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+        }
+        
+        return true
+    }
+    
+    func textViewDidEndEditing(textView: UITextView) {
+        if textView.text == "" && textView.textColor != .lightGray {
+            textView.text = LFSConstants.LFSPlaceholder.Edit.startTyping
+            textView.textColor = UIColor.lightGray
+        }
     }
 }

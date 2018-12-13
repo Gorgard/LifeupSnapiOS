@@ -20,6 +20,14 @@ internal struct LFSConstants {
         internal struct Edit {
             internal static let lfsEditViewController = "LFSEditViewController"
             internal static let lfsEditLabelViewController = "LFSEditLabelViewController"
+            internal static let lsLabelColorCollectionViewCell = "LFSLabelColorCollectionViewCell"
+        }
+    }
+    
+    //MARK: CollectionViewCell Identifier
+    internal struct LFSCollectionViewCellID {
+        internal struct Edit {
+            internal static let lsLabelColorCollectionViewCell = "LFSLabelColorCollectionViewCellIdentifier"
         }
     }
     
@@ -47,6 +55,13 @@ internal struct LFSConstants {
         internal struct Snap {
             internal static let mp4 = "mp4"
             internal static let mov = "mov"
+        }
+    }
+    
+    //MARK: Placeholder
+    internal struct LFSPlaceholder {
+        internal struct Edit {
+            internal static let startTyping = "Start Typing"
         }
     }
 }

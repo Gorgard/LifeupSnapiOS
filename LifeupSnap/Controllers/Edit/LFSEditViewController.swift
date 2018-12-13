@@ -58,7 +58,7 @@ internal class LFSEditViewController: UIViewController {
     }
     
     @IBAction func onTappedLabel(_ sender: Any) {
-        
+        viewModel.label()
     }
     
     @IBAction func onTappedPainting(_ sender: Any) {
@@ -83,6 +83,14 @@ extension LFSEditViewController {
     fileprivate func binding() {
         viewModel.receivedThumbnailImage = { [unowned self] (image) -> Void in
             self.previewImageView.image = image
+        }
+        
+        viewModel.hiddenAllView = { [unowned self] (hidden) -> Void in
+            self.backButton.isHidden = hidden
+            self.stickerButton.isHidden = hidden
+            self.labelButton.isHidden = hidden
+            self.paintingButton.isHidden = hidden
+            self.nextButton.isHidden = hidden
         }
         
         viewModel.binding()

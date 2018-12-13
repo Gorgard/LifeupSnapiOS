@@ -17,6 +17,7 @@ internal class LFSEditViewModel: LFSViewModel {
     internal var url: URL?
     
     internal var receivedThumbnailImage: ((_ image: UIImage?) -> Void)?
+    internal var hiddenAllView: ((_ hidden: Bool) -> Void)?
     
     init(delegate: LFSEditViewModelDelegate) {
         self.delegate = delegate
@@ -37,6 +38,22 @@ extension LFSEditViewModel {
             break
         }
     }
+    
+    internal func begin() {
+        hiddenAllView?(false)
+    }
+}
+
+//MARK: Handle Action
+extension LFSEditViewModel {
+    internal func label() {
+        let lfsEditLabelViewController = LFSEditLabelViewController(delegate: self)
+        lfsEditLabelViewController.modalPresentationStyle = .overFullScreen
+        
+        hiddenAllView?(true)
+        
+        viewController?.present(lfsEditLabelViewController, animated: true, completion: nil)
+    }
 }
 
 //MARK: Thumbnail
@@ -52,4 +69,9 @@ extension LFSEditViewModel {
     private func thumbnailPhoto() {
         receivedThumbnailImage?(image)
     }
+}
+
+//MARK: LFSEditLabelDelegate
+extension LFSEditViewModel: LFSEditLabelDelegate {
+    
 }
