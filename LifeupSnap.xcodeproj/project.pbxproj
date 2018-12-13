@@ -46,10 +46,6 @@
 		437225A021AE559500130213 /* LFSSnapDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4372259F21AE559500130213 /* LFSSnapDelegate.swift */; };
 		437225AA21AE61CE00130213 /* LFSSnapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225A821AE61CE00130213 /* LFSSnapViewController.swift */; };
 		437225AB21AE61CE00130213 /* LFSSnapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 437225A921AE61CE00130213 /* LFSSnapViewController.xib */; };
-		437225D421AE818F00130213 /* LFSEditingPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225D221AE818F00130213 /* LFSEditingPhotoViewController.swift */; };
-		437225D521AE818F00130213 /* LFSEditingPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 437225D321AE818F00130213 /* LFSEditingPhotoViewController.xib */; };
-		437225D921AE81C000130213 /* LFSEditingVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225D721AE81C000130213 /* LFSEditingVideoViewController.swift */; };
-		437225DA21AE81C000130213 /* LFSEditingVideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 437225D821AE81C000130213 /* LFSEditingVideoViewController.xib */; };
 		437225DD21AE874200130213 /* LFSSnapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225DC21AE874200130213 /* LFSSnapViewModel.swift */; };
 		437225E121AE878B00130213 /* LFSSnapViewModelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225E021AE878B00130213 /* LFSSnapViewModelProtocols.swift */; };
 		437225E321AE8B2F00130213 /* PageViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437225E221AE8B2F00130213 /* PageViewPresentable.swift */; };
@@ -138,10 +134,6 @@
 		4372259F21AE559500130213 /* LFSSnapDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnapDelegate.swift; sourceTree = "<group>"; };
 		437225A821AE61CE00130213 /* LFSSnapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnapViewController.swift; sourceTree = "<group>"; };
 		437225A921AE61CE00130213 /* LFSSnapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSSnapViewController.xib; sourceTree = "<group>"; };
-		437225D221AE818F00130213 /* LFSEditingPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEditingPhotoViewController.swift; sourceTree = "<group>"; };
-		437225D321AE818F00130213 /* LFSEditingPhotoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSEditingPhotoViewController.xib; sourceTree = "<group>"; };
-		437225D721AE81C000130213 /* LFSEditingVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEditingVideoViewController.swift; sourceTree = "<group>"; };
-		437225D821AE81C000130213 /* LFSEditingVideoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSEditingVideoViewController.xib; sourceTree = "<group>"; };
 		437225DC21AE874200130213 /* LFSSnapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnapViewModel.swift; sourceTree = "<group>"; };
 		437225E021AE878B00130213 /* LFSSnapViewModelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSSnapViewModelProtocols.swift; sourceTree = "<group>"; };
 		437225E221AE8B2F00130213 /* PageViewPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewPresentable.swift; sourceTree = "<group>"; };
@@ -330,8 +322,6 @@
 			children = (
 				4383E53A21C0F53700B87A30 /* Photo Preview */,
 				43FCBA4F21BFB7610022C749 /* Video Preview */,
-				437225D621AE819900130213 /* Editing Video */,
-				437225D121AE816000130213 /* Editing Photo */,
 				4372253521AE2B6200130213 /* Snap */,
 			);
 			path = Controllers;
@@ -418,29 +408,11 @@
 		437225A321AE617800130213 /* Nibs */ = {
 			isa = PBXGroup;
 			children = (
-				437225D821AE81C000130213 /* LFSEditingVideoViewController.xib */,
-				437225D321AE818F00130213 /* LFSEditingPhotoViewController.xib */,
 				437225A921AE61CE00130213 /* LFSSnapViewController.xib */,
 				43FCBA4C21BFB75C0022C749 /* LFSVideoPreviewViewController.xib */,
 				4383E53721C0F53200B87A30 /* LFSPhotoPreviewViewController.xib */,
 			);
 			path = Nibs;
-			sourceTree = "<group>";
-		};
-		437225D121AE816000130213 /* Editing Photo */ = {
-			isa = PBXGroup;
-			children = (
-				437225D221AE818F00130213 /* LFSEditingPhotoViewController.swift */,
-			);
-			path = "Editing Photo";
-			sourceTree = "<group>";
-		};
-		437225D621AE819900130213 /* Editing Video */ = {
-			isa = PBXGroup;
-			children = (
-				437225D721AE81C000130213 /* LFSEditingVideoViewController.swift */,
-			);
-			path = "Editing Video";
 			sourceTree = "<group>";
 		};
 		437225DB21AE873500130213 /* Snap */ = {
@@ -688,7 +660,6 @@
 				4383E5D521C0F8DC00B87A30 /* ic_preview_next.png in Resources */,
 				4386780921B90A1800B31B92 /* ic_main_flash_on@2x.png in Resources */,
 				4386781521B90B7800B31B92 /* ic_main_camera_flip@2x.png in Resources */,
-				437225DA21AE81C000130213 /* LFSEditingVideoViewController.xib in Resources */,
 				4383E53221C0ECE100B87A30 /* ic_preview_replay@3x.png in Resources */,
 				4386783421B90CD000B31B92 /* ic_main_close.png in Resources */,
 				437225AB21AE61CE00130213 /* LFSSnapViewController.xib in Resources */,
@@ -705,7 +676,6 @@
 				4386780521B90A1800B31B92 /* ic_main_flash_off@3x.png in Resources */,
 				4383E5D621C0F8DC00B87A30 /* ic_preview_next@2x.png in Resources */,
 				43FCBA4E21BFB75C0022C749 /* LFSVideoPreviewViewController.xib in Resources */,
-				437225D521AE818F00130213 /* LFSEditingPhotoViewController.xib in Resources */,
 				4386781B21B90BC600B31B92 /* ic_main_flash_on@3x.png in Resources */,
 				4383E53921C0F53200B87A30 /* LFSPhotoPreviewViewController.xib in Resources */,
 				4386783521B90CD000B31B92 /* ic_main_close@2x.png in Resources */,
@@ -746,7 +716,6 @@
 				430F2AE821AFD05400F2293D /* Camera.swift in Sources */,
 				430F2AE321AFCE9A00F2293D /* CameraPosition.swift in Sources */,
 				437225E321AE8B2F00130213 /* PageViewPresentable.swift in Sources */,
-				437225D421AE818F00130213 /* LFSEditingPhotoViewController.swift in Sources */,
 				4372255321AE489D00130213 /* LFSViewPresentable.swift in Sources */,
 				43FCBA8121BFBBC90022C749 /* LFSVideoPreviewViewModel.swift in Sources */,
 				439871C321AF7CB300EDCE53 /* PickerViewPresentable.swift in Sources */,
@@ -756,7 +725,6 @@
 				43E9F74E21B4C1A600E91AAE /* CameraFeature.swift in Sources */,
 				437225AA21AE61CE00130213 /* LFSSnapViewController.swift in Sources */,
 				4372254921AE482600130213 /* LFSViewModel.swift in Sources */,
-				437225D921AE81C000130213 /* LFSEditingVideoViewController.swift in Sources */,
 				4383E53821C0F53200B87A30 /* LFSPhotoPreviewViewController.swift in Sources */,
 				4380FA2921B0CF5200177F64 /* SafeArray.swift in Sources */,
 				430F2AEA21AFD56300F2293D /* CameraError.swift in Sources */,

@@ -569,42 +569,38 @@ extension Camera: AVCapturePhotoCaptureDelegate {
         }
 
         if let buffer = photoSampleBuffer, let data = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: buffer, previewPhotoSampleBuffer: nil) {
-            let image = UIImage(data: data)
-            
-            var realImage: UIImage
-            
-            if isSquare {
-                realImage = cropImageToSquare(image: image!)!
-            }
-            else {
-                realImage = image!
-            }
-            
-            photoCaptureCompletionBlock?(realImage)
+            let image = generatePhoto(data: data)
+            photoCaptureCompletionBlock?(image)
         }
         else {
             photoCaptureFailureBlock?(CameraError.unknown)
         }
     }
     
+    @available(iOS 11.0, *)
     internal func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let data = photo.fileDataRepresentation() {
-            let image = UIImage(data: data)
-            
-            var realImage: UIImage
-            
-            if isSquare {
-                realImage = cropImageToSquare(image: image!)!
-            }
-            else {
-                realImage = image!
-            }
-            
-            photoCaptureCompletionBlock?(realImage)
+            let image = generatePhoto(data: data)
+            photoCaptureCompletionBlock?(image)
         }
         else {
             photoCaptureFailureBlock?(CameraError.unknown)
         }
+    }
+    
+    private func generatePhoto(data: Data) -> UIImage {
+        let image = UIImage(data: data)
+        
+        var realImage: UIImage
+        
+        if isSquare {
+            realImage = cropImageToSquare(image: image!)!
+        }
+        else {
+            realImage = image!
+        }
+        
+        return realImage
     }
 }
 
