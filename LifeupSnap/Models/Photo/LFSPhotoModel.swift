@@ -6,7 +6,7 @@
 //  Copyright © 2561 Khwan Siricharoenporn. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 internal class LFSPhotoModel: LFSBaseModel {
     internal static let shared: LFSPhotoModel = LFSPhotoModel()

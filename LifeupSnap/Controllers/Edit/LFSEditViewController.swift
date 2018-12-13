@@ -40,6 +40,7 @@ internal class LFSEditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        binding()
         setupViews()
     }
 
@@ -49,7 +50,7 @@ internal class LFSEditViewController: UIViewController {
     }
     
     @IBAction func onTappedBack(_ sender: Any) {
-        
+        viewModel.close()
     }
     
     @IBAction func onTappedSticker(_ sender: Any) {
@@ -77,6 +78,14 @@ extension LFSEditViewController {
         viewModel.image = image
         viewModel.url = url
         viewModel.viewController = self
+    }
+    
+    fileprivate func binding() {
+        viewModel.receivedThumbnailImage = { [unowned self] (image) -> Void in
+            self.previewImageView.image = image
+        }
+        
+        viewModel.binding()
     }
     
     fileprivate func setupViews() {

@@ -16,4 +16,12 @@ internal class LFSPhotoPreviewViewModel: LFSViewModel {
     init(delegate: LFSPhotoPreviewViewModelDelegate) {
         self.delegate = delegate
     }
+    
+    internal func next() {
+        let lfsEditViewController = LFSEditViewController()
+        lfsEditViewController.image = image
+        lfsEditViewController.editEvent = .photo
+        
+        viewController?.present(lfsEditViewController, animated: true, completion: nil)
+    }
 }

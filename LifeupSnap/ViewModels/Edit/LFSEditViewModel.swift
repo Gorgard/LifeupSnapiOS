@@ -23,7 +23,33 @@ internal class LFSEditViewModel: LFSViewModel {
     }
 }
 
+//MARK: Base
+extension LFSEditViewModel {
+    internal func binding() {
+        switch editEvent {
+        case .photo:
+            thumbnailPhoto()
+            break
+        case .video:
+            thumbnailVideo()
+            break
+        default:
+            break
+        }
+    }
+}
+
 //MARK: Thumbnail
 extension LFSEditViewModel {
+    private func thumbnailVideo() {
+        if let url = url {
+            let thumbnailImage = LFSVideoModel.shared.thumnailImage(from: url)
+            
+            receivedThumbnailImage?(thumbnailImage)
+        }
+    }
     
+    private func thumbnailPhoto() {
+        receivedThumbnailImage?(image)
+    }
 }

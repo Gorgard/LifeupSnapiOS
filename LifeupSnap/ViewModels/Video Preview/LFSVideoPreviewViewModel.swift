@@ -51,4 +51,12 @@ internal class LFSVideoPreviewViewModel: LFSViewModel {
     private func play() {
         player.play()
     }
+    
+    internal func next() {
+        let lfsEditViewController = LFSEditViewController()
+        lfsEditViewController.url = url
+        lfsEditViewController.editEvent = .video
+        
+        viewController?.present(lfsEditViewController, animated: true, completion: nil)
+    }
 }

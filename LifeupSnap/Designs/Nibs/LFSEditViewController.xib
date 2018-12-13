@@ -30,7 +30,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nWa-PP-zm9">
                     <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hSP-jU-Ycz">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hSP-jU-Ycz">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PiN-M0-fBc">
@@ -52,35 +52,41 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rcv-8h-Mnd">
                     <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="QOQ-2A-V5e">
-                            <rect key="frame" x="8" y="599" width="140" height="40"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="QOQ-2A-V5e">
+                            <rect key="frame" x="8" y="609" width="122" height="30"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2fO-VX-5Ia">
-                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2fO-VX-5Ia">
+                                    <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="40" id="Zh0-lA-HHj"/>
-                                        <constraint firstAttribute="width" constant="40" id="zvd-MP-i4v"/>
+                                        <constraint firstAttribute="height" constant="30" id="Zh0-lA-HHj"/>
+                                        <constraint firstAttribute="width" constant="30" id="zvd-MP-i4v"/>
                                     </constraints>
-                                    <state key="normal" title="Button"/>
+                                    <state key="normal" image="ic_edit_sticker.png"/>
                                     <connections>
                                         <action selector="onTappedSticker:" destination="-1" eventType="touchUpInside" id="vyD-DF-s8v"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NJ1-9h-mYN">
-                                    <rect key="frame" x="50" y="5" width="40" height="30"/>
-                                    <state key="normal" title="Button"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NJ1-9h-mYN">
+                                    <rect key="frame" x="46" y="0.0" width="30" height="30"/>
+                                    <state key="normal" image="ic_edit_label.png"/>
                                     <connections>
                                         <action selector="onTappedLabel:" destination="-1" eventType="touchUpInside" id="ONR-8w-e5x"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ZM-9u-f4l">
-                                    <rect key="frame" x="100" y="5" width="40" height="30"/>
-                                    <state key="normal" title="Button"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ZM-9u-f4l">
+                                    <rect key="frame" x="92" y="0.0" width="30" height="30"/>
+                                    <state key="normal" image="ic_edit_paint.png"/>
                                     <connections>
                                         <action selector="onTappedPainting:" destination="-1" eventType="touchUpInside" id="4XS-G2-yuT"/>
                                     </connections>
                                 </button>
                             </subviews>
+                            <constraints>
+                                <constraint firstItem="NJ1-9h-mYN" firstAttribute="width" secondItem="2fO-VX-5Ia" secondAttribute="width" id="WeT-st-giq"/>
+                                <constraint firstItem="1ZM-9u-f4l" firstAttribute="width" secondItem="2fO-VX-5Ia" secondAttribute="width" id="Zyz-n6-Hre"/>
+                                <constraint firstItem="NJ1-9h-mYN" firstAttribute="height" secondItem="2fO-VX-5Ia" secondAttribute="height" id="iCW-T3-bKb"/>
+                                <constraint firstItem="1ZM-9u-f4l" firstAttribute="height" secondItem="2fO-VX-5Ia" secondAttribute="height" id="oMa-EE-3uU"/>
+                            </constraints>
                         </stackView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eAa-JA-B81">
                             <rect key="frame" x="267" y="599" width="100" height="40"/>
@@ -136,6 +142,9 @@
         </view>
     </objects>
     <resources>
+        <image name="ic_edit_label.png" width="35" height="35"/>
+        <image name="ic_edit_paint.png" width="35" height="35"/>
+        <image name="ic_edit_sticker.png" width="35" height="35"/>
         <image name="ic_main_close.png" width="30" height="30"/>
         <image name="ic_preview_next.png" width="20" height="20"/>
     </resources>
