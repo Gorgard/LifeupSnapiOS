@@ -357,22 +357,39 @@ extension LFSSnapViewModel {
 extension LFSSnapViewModel {
     private func captureOriginal() {
         camera.captureImage(completion: { [weak self] (image) -> Void in
-            self?.image = image
-            
+            self?.handleOriginalCapture(image: image)
         }, failure: { (error) -> Void in
             print(error?.localizedDescription ?? "")
         })
+    }
+    
+    fileprivate func handleOriginalCapture(image: UIImage?) {
+        self.image = image
+        
+        let lfsPhotoPreviewViewController = LFSPhotoPreviewViewController()
+        lfsPhotoPreviewViewController.image = self.image
+        
+        viewController?.present(lfsPhotoPreviewViewController, animated: true, completion: nil)
     }
 }
 
 //MARK: Manage Camera Square
 extension LFSSnapViewModel {
-    @objc private func captureSquare() {
-        camera.captureImage(completion: { [weak self] (image) -> Void in
-            self?.image = image
+    private func captureSquare() {
+        camera.captureSquareImage(completion: { [weak self] (image) -> Void in
+            self?.handleSquareCapture(image: image)
         }, failure: { (error) -> Void in
             print(error?.localizedDescription ?? "")
         })
+    }
+    
+    fileprivate func handleSquareCapture(image: UIImage?) {
+        self.image = image
+        
+        let lfsPhotoPreviewViewController = LFSPhotoPreviewViewController()
+        lfsPhotoPreviewViewController.image = self.image
+        
+        viewController?.present(lfsPhotoPreviewViewController, animated: true, completion: nil)
     }
 }
 
