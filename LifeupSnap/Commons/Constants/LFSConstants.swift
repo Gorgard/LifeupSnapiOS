@@ -15,7 +15,11 @@ internal struct LFSConstants {
             internal static let lfsSnapViewController = "LFSSnapViewController"
             internal static let lfsVideoPreviewController = "LFSVideoPreviewViewController"
             internal static let lfsPhotoPreviewController = "LFSPhotoPreviewViewController"
+        }
+        
+        internal struct Edit {
             internal static let lfsEditViewController = "LFSEditViewController"
+            internal static let lfsEditLabelViewController = "LFSEditLabelViewController"
         }
     }
     

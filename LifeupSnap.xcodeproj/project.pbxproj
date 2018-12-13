@@ -58,6 +58,12 @@
 		433BC31121C20CA800DA3C43 /* ic_edit_paint.png in Sources */ = {isa = PBXBuildFile; fileRef = 433BC2FF21C20C9600DA3C43 /* ic_edit_paint.png */; };
 		433BC31221C20CA800DA3C43 /* ic_edit_paint@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = 433BC30021C20C9600DA3C43 /* ic_edit_paint@2x.png */; };
 		433BC31321C20CA800DA3C43 /* ic_edit_sticker.png in Sources */ = {isa = PBXBuildFile; fileRef = 433BC30121C20C9600DA3C43 /* ic_edit_sticker.png */; };
+		433BC3C621C2106700DA3C43 /* LFSEditLabelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BC3C421C2106700DA3C43 /* LFSEditLabelViewController.swift */; };
+		433BC3C721C2106700DA3C43 /* LFSEditLabelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 433BC3C521C2106700DA3C43 /* LFSEditLabelViewController.xib */; };
+		433BC3CA21C2111700DA3C43 /* LFSEditLabelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BC3C921C2111700DA3C43 /* LFSEditLabelViewModel.swift */; };
+		433BC3CD21C2114200DA3C43 /* LFSEditLabelViewModelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BC3CC21C2114200DA3C43 /* LFSEditLabelViewModelProtocols.swift */; };
+		433BC3D121C2194E00DA3C43 /* LFSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BC3D021C2194E00DA3C43 /* LFSColor.swift */; };
+		433BC3D421C21A4200DA3C43 /* LFSLabelColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BC3D321C21A4200DA3C43 /* LFSLabelColor.swift */; };
 		436FCB2321C1FAF9008EBBC7 /* LFSEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FCB2121C1FAF9008EBBC7 /* LFSEditViewController.swift */; };
 		436FCB2421C1FAF9008EBBC7 /* LFSEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 436FCB2221C1FAF9008EBBC7 /* LFSEditViewController.xib */; };
 		436FCB2721C1FDEE008EBBC7 /* LFSEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FCB2621C1FDEE008EBBC7 /* LFSEditViewModel.swift */; };
@@ -162,6 +168,12 @@
 		433BC2FF21C20C9600DA3C43 /* ic_edit_paint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_edit_paint.png; sourceTree = "<group>"; };
 		433BC30021C20C9600DA3C43 /* ic_edit_paint@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_edit_paint@2x.png"; sourceTree = "<group>"; };
 		433BC30121C20C9600DA3C43 /* ic_edit_sticker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_edit_sticker.png; sourceTree = "<group>"; };
+		433BC3C421C2106700DA3C43 /* LFSEditLabelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEditLabelViewController.swift; sourceTree = "<group>"; };
+		433BC3C521C2106700DA3C43 /* LFSEditLabelViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSEditLabelViewController.xib; sourceTree = "<group>"; };
+		433BC3C921C2111700DA3C43 /* LFSEditLabelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEditLabelViewModel.swift; sourceTree = "<group>"; };
+		433BC3CC21C2114200DA3C43 /* LFSEditLabelViewModelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEditLabelViewModelProtocols.swift; sourceTree = "<group>"; };
+		433BC3D021C2194E00DA3C43 /* LFSColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSColor.swift; sourceTree = "<group>"; };
+		433BC3D321C21A4200DA3C43 /* LFSLabelColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSLabelColor.swift; sourceTree = "<group>"; };
 		436FCB2121C1FAF9008EBBC7 /* LFSEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEditViewController.swift; sourceTree = "<group>"; };
 		436FCB2221C1FAF9008EBBC7 /* LFSEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSEditViewController.xib; sourceTree = "<group>"; };
 		436FCB2621C1FDEE008EBBC7 /* LFSEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEditViewModel.swift; sourceTree = "<group>"; };
@@ -244,17 +256,19 @@
 		430F2A8B21AFB37800F2293D /* Objects */ = {
 			isa = PBXGroup;
 			children = (
-				430F2A8C21AFB38B00F2293D /* Views */,
+				430F2A8C21AFB38B00F2293D /* Models */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
 		};
-		430F2A8C21AFB38B00F2293D /* Views */ = {
+		430F2A8C21AFB38B00F2293D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				430F2A8D21AFB39B00F2293D /* LFSFeature.swift */,
+				433BC3D221C21A1100DA3C43 /* Label Color */,
+				433BC3CF21C2193700DA3C43 /* Color */,
+				433BC3CE21C2192F00DA3C43 /* Feature */,
 			);
-			path = Views;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		430F2A9321AFBBF200F2293D /* Views */ = {
@@ -372,6 +386,54 @@
 			path = Edit;
 			sourceTree = "<group>";
 		};
+		433BC3C321C2104E00DA3C43 /* Edit Label */ = {
+			isa = PBXGroup;
+			children = (
+				433BC3C421C2106700DA3C43 /* LFSEditLabelViewController.swift */,
+			);
+			path = "Edit Label";
+			sourceTree = "<group>";
+		};
+		433BC3C821C2110600DA3C43 /* Edit Label */ = {
+			isa = PBXGroup;
+			children = (
+				433BC3C921C2111700DA3C43 /* LFSEditLabelViewModel.swift */,
+			);
+			path = "Edit Label";
+			sourceTree = "<group>";
+		};
+		433BC3CB21C2113600DA3C43 /* Edit Label */ = {
+			isa = PBXGroup;
+			children = (
+				433BC3CC21C2114200DA3C43 /* LFSEditLabelViewModelProtocols.swift */,
+			);
+			path = "Edit Label";
+			sourceTree = "<group>";
+		};
+		433BC3CE21C2192F00DA3C43 /* Feature */ = {
+			isa = PBXGroup;
+			children = (
+				430F2A8D21AFB39B00F2293D /* LFSFeature.swift */,
+			);
+			path = Feature;
+			sourceTree = "<group>";
+		};
+		433BC3CF21C2193700DA3C43 /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				433BC3D021C2194E00DA3C43 /* LFSColor.swift */,
+			);
+			path = Color;
+			sourceTree = "<group>";
+		};
+		433BC3D221C21A1100DA3C43 /* Label Color */ = {
+			isa = PBXGroup;
+			children = (
+				433BC3D321C21A4200DA3C43 /* LFSLabelColor.swift */,
+			);
+			path = "Label Color";
+			sourceTree = "<group>";
+		};
 		436FCB2021C1FAE5008EBBC7 /* Edit */ = {
 			isa = PBXGroup;
 			children = (
@@ -423,6 +485,7 @@
 		4372252B21AE2B3300130213 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				433BC3C821C2110600DA3C43 /* Edit Label */,
 				436FCB2521C1FDE0008EBBC7 /* Edit */,
 				4383E53E21C0F58A00B87A30 /* Photo Preview */,
 				43FCBA7F21BFBBB20022C749 /* Video Preview */,
@@ -435,6 +498,7 @@
 		4372252C21AE2B3300130213 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				433BC3C321C2104E00DA3C43 /* Edit Label */,
 				436FCB2021C1FAE5008EBBC7 /* Edit */,
 				4383E53A21C0F53700B87A30 /* Photo Preview */,
 				43FCBA4F21BFB7610022C749 /* Video Preview */,
@@ -523,6 +587,7 @@
 		437225A321AE617800130213 /* Nibs */ = {
 			isa = PBXGroup;
 			children = (
+				433BC3C521C2106700DA3C43 /* LFSEditLabelViewController.xib */,
 				436FCB2221C1FAF9008EBBC7 /* LFSEditViewController.xib */,
 				437225A921AE61CE00130213 /* LFSSnapViewController.xib */,
 				43FCBA4C21BFB75C0022C749 /* LFSVideoPreviewViewController.xib */,
@@ -542,6 +607,7 @@
 		437225DE21AE876000130213 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				433BC3CB21C2113600DA3C43 /* Edit Label */,
 				436FCB2921C1FDF9008EBBC7 /* Edit */,
 				4383E53B21C0F56C00B87A30 /* Photo Preview */,
 				43FCBA8221BFBBCF0022C749 /* Video Preview */,
@@ -803,6 +869,7 @@
 				433BC30621C20C9600DA3C43 /* ic_edit_label@3x.png in Resources */,
 				4383E5D621C0F8DC00B87A30 /* ic_preview_next@2x.png in Resources */,
 				433BC30A21C20C9600DA3C43 /* ic_edit_sticker.png in Resources */,
+				433BC3C721C2106700DA3C43 /* LFSEditLabelViewController.xib in Resources */,
 				433BC30521C20C9600DA3C43 /* ic_edit_label@2x.png in Resources */,
 				43FCBA4E21BFB75C0022C749 /* LFSVideoPreviewViewController.xib in Resources */,
 				4386781B21B90BC600B31B92 /* ic_main_flash_on@3x.png in Resources */,
@@ -848,6 +915,7 @@
 				430F2AE321AFCE9A00F2293D /* CameraPosition.swift in Sources */,
 				437225E321AE8B2F00130213 /* PageViewPresentable.swift in Sources */,
 				4372255321AE489D00130213 /* LFSViewPresentable.swift in Sources */,
+				433BC3CD21C2114200DA3C43 /* LFSEditLabelViewModelProtocols.swift in Sources */,
 				43FCBA8121BFBBC90022C749 /* LFSVideoPreviewViewModel.swift in Sources */,
 				439871C321AF7CB300EDCE53 /* PickerViewPresentable.swift in Sources */,
 				4372253921AE2BA300130213 /* LFSConstants.swift in Sources */,
@@ -858,10 +926,12 @@
 				4372254921AE482600130213 /* LFSViewModel.swift in Sources */,
 				433BC2F721C2040800DA3C43 /* LFSBaseModel.swift in Sources */,
 				4383E53821C0F53200B87A30 /* LFSPhotoPreviewViewController.swift in Sources */,
+				433BC3C621C2106700DA3C43 /* LFSEditLabelViewController.swift in Sources */,
 				4380FA2921B0CF5200177F64 /* SafeArray.swift in Sources */,
 				430F2AEA21AFD56300F2293D /* CameraError.swift in Sources */,
 				430F2A8E21AFB39B00F2293D /* LFSFeature.swift in Sources */,
 				437225E121AE878B00130213 /* LFSSnapViewModelProtocols.swift in Sources */,
+				433BC3CA21C2111700DA3C43 /* LFSEditLabelViewModel.swift in Sources */,
 				43D8BF8521B639860065B3EB /* CircularProgress.swift in Sources */,
 				437225DD21AE874200130213 /* LFSSnapViewModel.swift in Sources */,
 				4383E54021C0F59700B87A30 /* LFSPhotoPreviewViewModel.swift in Sources */,
@@ -881,6 +951,7 @@
 				433BC30F21C20CA800DA3C43 /* ic_edit_label@3x.png in Sources */,
 				433BC31021C20CA800DA3C43 /* ic_edit_label.png in Sources */,
 				433BC31121C20CA800DA3C43 /* ic_edit_paint.png in Sources */,
+				433BC3D421C21A4200DA3C43 /* LFSLabelColor.swift in Sources */,
 				433BC31221C20CA800DA3C43 /* ic_edit_paint@2x.png in Sources */,
 				433BC31321C20CA800DA3C43 /* ic_edit_sticker.png in Sources */,
 				4383E5D821C0F8E600B87A30 /* ic_preview_next.png in Sources */,
@@ -891,6 +962,7 @@
 				4383E53521C0ECEB00B87A30 /* ic_preview_replay@3x.png in Sources */,
 				4386787121B91F3300B31B92 /* ic_main_infinity.png in Sources */,
 				4386787221B91F3300B31B92 /* ic_main_infinity@2x.png in Sources */,
+				433BC3D121C2194E00DA3C43 /* LFSColor.swift in Sources */,
 				4386787321B91F3300B31B92 /* ic_main_infinity@3x.png in Sources */,
 				4386784121B911FE00B31B92 /* ic_main_camera_flip.png in Sources */,
 				4386784221B911FE00B31B92 /* ic_main_camera_flip@2x.png in Sources */,
