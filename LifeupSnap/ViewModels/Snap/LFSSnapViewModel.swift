@@ -26,15 +26,15 @@ internal class LFSSnapViewModel: LFSViewModel {
     private var currentIndex: Int = 1
     private var initialed: Bool = false
     
-    open var receivedFeature: ((_ index: Int) -> Void)?
-    open var hiddenBlurView: ((_ alpha: CGFloat) -> Void)?
-    open var changeSnapButtonColor: ((_ color: UIColor) -> Void)?
-    open var enableAllView: ((_ enable: Bool) -> Void)?
-    open var changeSnapButtonRadius: ((_ radius: CGFloat, _ bounds: CGRect) -> Void)?
-    open var changeImageFlashButton: ((_ image: UIImage) -> Void)?
-    open var changeImageSnapButton: ((_ image: UIImage?) -> Void)?
-    open var changeSquareViewHeight: ((_ height: CGFloat) -> Void)?
-    open var hiddenLoadingView: ((_ hidden: Bool) -> Void)?
+    internal var receivedFeature: ((_ index: Int) -> Void)?
+    internal var hiddenBlurView: ((_ alpha: CGFloat) -> Void)?
+    internal var changeSnapButtonColor: ((_ color: UIColor) -> Void)?
+    internal var enableAllView: ((_ enable: Bool) -> Void)?
+    internal var changeSnapButtonRadius: ((_ radius: CGFloat, _ bounds: CGRect) -> Void)?
+    internal var changeImageFlashButton: ((_ image: UIImage) -> Void)?
+    internal var changeImageSnapButton: ((_ image: UIImage?) -> Void)?
+    internal var changeSquareViewHeight: ((_ height: CGFloat) -> Void)?
+    internal var hiddenLoadingView: ((_ hidden: Bool) -> Void)?
     
     //MARK: Camera value
     private var image: UIImage?

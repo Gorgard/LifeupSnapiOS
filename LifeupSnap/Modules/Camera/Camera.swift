@@ -351,34 +351,6 @@ extension Camera {
         photoCaptureCompletionBlock = completion
         photoCaptureFailureBlock = failure
     }
-    
-    private func cropImageToSquare(image: UIImage) -> UIImage? {
-        var imageHeight = image.size.height
-        var imageWidth = image.size.width
-        
-        if imageHeight > imageWidth {
-            imageHeight = imageWidth
-        }
-        else {
-            imageWidth = imageHeight
-        }
-        
-        let size = CGSize(width: imageWidth, height: imageHeight)
-        
-        let refWidth = CGFloat(image.cgImage!.width)
-        let refHeight = CGFloat(image.cgImage!.height)
-        
-        let x = (refWidth - size.width) / 2
-        let y = (refHeight - size.height) / 2
-        
-        let cropRect = CGRect(x: x, y: y, width: size.height, height: size.width)
-        
-        if let imageRef = image.cgImage!.cropping(to: cropRect) {
-            return UIImage(cgImage: imageRef, scale: 3, orientation: image.imageOrientation)
-        }
-        
-        return nil
-    }
 }
 
 //MARK: Record
@@ -390,8 +362,10 @@ extension Camera {
         }
         
         connection.videoOrientation = currentVideoOrientation()
+        
         let fileName = "\(LFSConstants.LFSVideoName.Snap.snapVideo)\(Date())"
-        let path = outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mp4)!
+        let path = LFSVideoModel.shared.outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mp4)!
+        
         movieOutput?.startRecording(to: path, recordingDelegate: self)
         
         movieCaptureCompletionBlock = completion
@@ -404,21 +378,6 @@ extension Camera {
     internal func stopRecord() {
         movieOutput?.stopRecording()
         isRecording = false
-    }
-    
-    fileprivate func outputPathURL(fileName: String, fileType: String) -> URL? {
-        let tempPath = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first)?.appendingPathComponent(fileName).appendingPathExtension(fileType)
-        
-        if FileManager.default.fileExists(atPath: tempPath?.absoluteString ?? "") {
-            do {
-                try FileManager.default.removeItem(at: tempPath!)
-            }
-            catch {
-                print(error)
-            }
-        }
-
-        return tempPath
     }
 }
 
@@ -452,9 +411,11 @@ extension Camera {
             samples.append(sample)
         }
         
-        let writer: AVAssetWriter
         let fileName = "\(LFSConstants.LFSVideoName.Snap.snapReversedVideo)\(Date())"
-        let reversePath = outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mov)!
+        let reversePath = LFSVideoModel.shared.outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mov)!
+        
+        let writer: AVAssetWriter
+        
         do {
             writer = try AVAssetWriter(outputURL: reversePath, fileType: .mov)
         } catch let error {
@@ -463,6 +424,7 @@ extension Camera {
         }
         
         let videoCompositionProps = [AVVideoAverageBitRateKey: videoTrack.estimatedDataRate]
+        
         let writerOutputSettings = [
             AVVideoCodecKey: AVVideoCodecH264,
             AVVideoWidthKey: videoTrack.naturalSize.width,
@@ -521,7 +483,8 @@ extension Camera {
         videoTrack?.preferredTransform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
 
         let fileName = "\(LFSConstants.LFSVideoName.Snap.snapMergedVideo)\(Date())"
-        let mergedPath = outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mov)!
+        let mergedPath = LFSVideoModel.shared.outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mov)!
+        
         let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality)
         exporter?.outputURL = mergedPath
         exporter?.shouldOptimizeForNetworkUse = true
@@ -569,7 +532,7 @@ extension Camera: AVCapturePhotoCaptureDelegate {
         }
 
         if let buffer = photoSampleBuffer, let data = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: buffer, previewPhotoSampleBuffer: nil) {
-            let image = generatePhoto(data: data)
+            let image = LFSPhotoModel.shared.generatePhoto(data: data, isSquare: isSquare)
             photoCaptureCompletionBlock?(image)
         }
         else {
@@ -580,62 +543,12 @@ extension Camera: AVCapturePhotoCaptureDelegate {
     @available(iOS 11.0, *)
     internal func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let data = photo.fileDataRepresentation() {
-            let image = generatePhoto(data: data)
+            let image = LFSPhotoModel.shared.generatePhoto(data: data, isSquare: isSquare)
             photoCaptureCompletionBlock?(image)
         }
         else {
             photoCaptureFailureBlock?(CameraError.unknown)
         }
-    }
-    
-    private func generatePhoto(data: Data) -> UIImage {
-        let image = UIImage(data: data)
-        
-        var realImage: UIImage
-        
-        if isSquare {
-            realImage = cropImageToSquare(image: image!)!
-        }
-        else {
-            realImage = image!
-        }
-        
-        return realImage
-    }
-}
-
-//MARK: Save Video
-extension Camera {
-    fileprivate func saveByURL(url: URL, completion: @escaping(_ url: URL?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
-        PHPhotoLibrary.shared().performChanges({ () -> Void in
-            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
-        }, completionHandler: { [weak self] (saved, error) -> Void in
-            if let error = error {
-                failure(error)
-                return
-            }
-            
-            if saved {
-                let options = PHFetchOptions()
-                options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-                
-                let fetchResult = PHAsset.fetchAssets(with: .video, options: options).lastObject
-                let imageManager = PHImageManager()
-                
-                imageManager.requestAVAsset(forVideo: fetchResult!, options: nil, resultHandler: { (avurlAsset, audioMix, dict) -> Void in
-                    let video = avurlAsset as! AVURLAsset
-                    
-                    if video.duration.seconds >= 10.0 || video.duration.seconds >= 30.0 {
-                        self?.selfStop = true
-                        self?.isRecording = false
-                    }
-                    
-                    DispatchQueue.main.async {
-                        completion(video.url)
-                    }
-                })
-            }
-        })
     }
 }
 
@@ -653,10 +566,15 @@ extension Camera: AVCaptureFileOutputRecordingDelegate {
             }
         }
         
-        saveByURL(url: outputFileURL, completion: { (url) -> Void in
-            self.movieCaptureCompletionBlock?(url)
-        }, failure: { (error) -> Void in
-            self.movieCaptureFailureBlock?(error)
+        LFSVideoModel.shared.saveByURL(url: outputFileURL, completion: { [weak self] (video) -> Void in
+            if video.duration.seconds >= 10.0 || video.duration.seconds >= 30.0 {
+                self?.selfStop = true
+                self?.isRecording = false
+            }
+            
+            self?.movieCaptureCompletionBlock?(video.url)
+        }, failure: { [weak self] (error) -> Void in
+            self?.movieCaptureFailureBlock?(error)
         })
     }
 }
