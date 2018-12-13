@@ -13,5 +13,5 @@ internal protocol LFSEditLabelViewModelDelegate: class {
 }
 
 internal protocol LFSEditLabelDelegate: class, NSObjectProtocol {
-    
+    func tappedDoneButton()
 }

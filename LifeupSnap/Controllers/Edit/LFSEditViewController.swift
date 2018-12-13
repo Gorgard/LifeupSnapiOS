@@ -43,6 +43,11 @@ internal class LFSEditViewController: UIViewController {
         binding()
         setupViews()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.begin()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

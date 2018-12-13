@@ -51,6 +51,7 @@ internal class LFSEditLabelViewController: UIViewController {
     
     @IBAction func onTappedDone(_ sender: Any) {
         viewModel.close()
+        delegate?.tappedDoneButton()
     }
     
     @IBAction func onTappedColorPallate(_ sender: Any) {
@@ -61,9 +62,9 @@ internal class LFSEditLabelViewController: UIViewController {
         
     }
     
-    @IBAction func handleSingleTap(_ sender: Any) {
-        messageTextView.resignFirstResponder()
-    }
+//    @IBAction func handleSingleTap(_ sender: Any) {
+//        messageTextView.resignFirstResponder()
+//    }
 }
 
 //MARK: Setups
@@ -80,6 +81,13 @@ extension LFSEditLabelViewController {
         viewModel.openColorPallate = { [unowned self] (alpha) -> Void in
             UIView.animate(withDuration: 0.2, animations: {
                 self.colorPallateView.alpha = alpha
+                self.view.layoutIfNeeded()
+            })
+        }
+        
+        viewModel.changeTextColor = { [unowned self] (color) -> Void in
+            UIView.animate(withDuration: 0.2, animations: {
+                self.messageTextView.textColor = color
                 self.view.layoutIfNeeded()
             })
         }

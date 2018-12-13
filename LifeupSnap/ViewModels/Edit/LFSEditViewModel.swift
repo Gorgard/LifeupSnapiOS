@@ -73,5 +73,7 @@ extension LFSEditViewModel {
 
 //MARK: LFSEditLabelDelegate
 extension LFSEditViewModel: LFSEditLabelDelegate {
-    
+    func tappedDoneButton() {
+        hiddenAllView?(false)
+    }
 }

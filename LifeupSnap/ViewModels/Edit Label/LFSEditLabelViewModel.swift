@@ -16,7 +16,10 @@ internal class LFSEditLabelViewModel: LFSViewModel {
     internal var label: UILabel!
     internal var colorPallateViewAlpha: CGFloat!
     
+    private var textColor: UIColor = .black
+    
     internal var openColorPallate: ((_ alpha: CGFloat) -> Void)?
+    internal var changeTextColor: ((_ color: UIColor) -> Void)?
     
     init(delegate: LFSEditLabelViewModelDelegate) {
         self.delegate = delegate
@@ -64,7 +67,9 @@ extension LFSEditLabelViewModel: LFSCollectionViewPresentable {
     }
     
     internal func didSelected(with collectionView: UICollectionView, at indexPath: IndexPath) {
-        
+        let pallateColor = pallateColors[indexPath.row]
+        textColor = pallateColor.color
+        changeTextColor?(textColor)
     }
 }
 
@@ -73,7 +78,7 @@ extension LFSEditLabelViewModel {
     func textViewDidBeginEditing(textView: UITextView) {
         if textView.text == LFSConstants.LFSPlaceholder.Edit.startTyping && textView.textColor == .lightGray {
             textView.text = ""
-            textView.textColor = UIColor.black
+            textView.textColor = textColor
         }
     }
     
