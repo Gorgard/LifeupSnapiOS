@@ -95,6 +95,7 @@ extension LFSEditViewModel: LFSEditLabelDelegate {
         let size = LFSEditModel.shared.calculateSizeOfTextView(attributeString: attributeString)
         
         textView.frame = CGRect(x: view!.frame.midX, y: view!.frame.midY, width: size.width, height: size.height)
+        textView.sizeToFit()
         
         let center = view!.center
         textView.center = center
@@ -102,26 +103,5 @@ extension LFSEditViewModel: LFSEditLabelDelegate {
         view?.addSubview(textView)
         
         textViews.append(textView)
-    }
-}
-
-//MARK: Pan Gesture
-extension LFSEditViewModel {
-    internal func panView(gesture: UIPanGestureRecognizer) {
-        if let textView = gesture.view as? DragTextView {
-            if textViews.contains(textView) {
-                if let index = textViews.index(of: textView) {
-                    textViews.remove(at: index)
-                }
-                
-                textViews.append(textView)
-                
-                view!.bringSubview(toFront: textViews.last!)
-                let translation = gesture.translation(in: view)
-                textViews.last!.center = CGPoint(x: textViews.last!.center.x + translation.x, y: textViews.last!.center.y + translation.y)
-                
-                gesture.setTranslation(.zero, in: view!)
-            }
-        }
     }
 }

@@ -53,7 +53,7 @@ internal class LFSEditModel: LFSBaseModel {
         let size = (text as NSString).size(withAttributes: attributes)
         
         let width = UIScreen.main.bounds.size.width - 100
-        let height = (size.height + width) * 1.5
+        let height = size.height + width
         
         let realSize = CGSize(width: width, height: height)
         
