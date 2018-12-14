@@ -19,13 +19,13 @@ internal class LFSEditViewModel: LFSViewModel {
     internal var receivedThumbnailImage: ((_ image: UIImage?) -> Void)?
     internal var hiddenAllView: ((_ hidden: Bool) -> Void)?
     
-    private var textViews: [UITextView]!
+    private var textViews: [DragTextView]!
     
     init(delegate: LFSEditViewModelDelegate) {
         super.init()
         self.delegate = delegate
         
-        textViews = [UITextView]()
+        textViews = [DragTextView]()
     }
 }
 
@@ -87,7 +87,7 @@ extension LFSEditViewModel: LFSEditLabelDelegate {
     }
     
     private func handleEditLabel(attributeString: NSMutableAttributedString) {
-        let textView = UITextView()
+        let textView = DragTextView()
         textView.isUserInteractionEnabled = true
         textView.attributedText = attributeString
         textView.backgroundColor = .clear
@@ -108,10 +108,20 @@ extension LFSEditViewModel: LFSEditLabelDelegate {
 //MARK: Pan Gesture
 extension LFSEditViewModel {
     internal func panView(gesture: UIPanGestureRecognizer) {
-        view!.bringSubview(toFront: textViews.first!)
-        let translation = gesture.translation(in: view)
-        textViews.first!.center = CGPoint(x: textViews.first!.center.x + translation.x, y: textViews.first!.center.y + translation.y)
-        
-        gesture.setTranslation(.zero, in: view!)
+        if let textView = gesture.view as? DragTextView {
+            if textViews.contains(textView) {
+                if let index = textViews.index(of: textView) {
+                    textViews.remove(at: index)
+                }
+                
+                textViews.append(textView)
+                
+                view!.bringSubview(toFront: textViews.last!)
+                let translation = gesture.translation(in: view)
+                textViews.last!.center = CGPoint(x: textViews.last!.center.x + translation.x, y: textViews.last!.center.y + translation.y)
+                
+                gesture.setTranslation(.zero, in: view!)
+            }
+        }
     }
 }

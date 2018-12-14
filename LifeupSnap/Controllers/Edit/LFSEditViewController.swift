@@ -21,8 +21,6 @@ internal class LFSEditViewController: UIViewController {
     
     internal var editEvent: EditEvent!
     
-    private var panGesture: UIPanGestureRecognizer!
-    
     internal var image: UIImage?
     internal var url: URL?
     
@@ -110,26 +108,10 @@ extension LFSEditViewController {
         nextButton.layer.shadowOffset = CGSize(width: 0, height: 2)
         nextButton.layer.shadowOpacity = 1
         nextButton.layer.shadowRadius = 0
-        
-        setupDrag()
-    }
-    
-    fileprivate func setupDrag() {
-        panGesture = UIPanGestureRecognizer(target: self, action: #selector(panView(_:)))
-        
-        editingView.isUserInteractionEnabled = true
-        editingView.addGestureRecognizer(panGesture)
     }
 }
 
 //MARK: LFSEditViewModelDelegate
 extension LFSEditViewController: LFSEditViewModelDelegate {
     
-}
-
-//MARK: Pan Gesture
-extension LFSEditViewController {
-    @objc fileprivate func panView(_ gesture: UIPanGestureRecognizer) {
-        viewModel.panView(gesture: gesture)
-    }
 }
