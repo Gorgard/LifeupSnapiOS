@@ -16,6 +16,9 @@ internal class LFSEditLabelViewController: UIViewController {
     @IBOutlet weak var colorPallateView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    //MARK: Constraint
+    @IBOutlet weak var messageTextViewTopConstraint: NSLayoutConstraint!
+    
     private weak var delegate: LFSEditLabelDelegate?
     
     internal var viewModel: LFSEditLabelViewModel!
@@ -98,6 +101,10 @@ extension LFSEditLabelViewController {
                 self.view.layoutIfNeeded()
             })
         }
+        
+        viewModel.messageTextViewMaxHeight = { [unowned self] (height) -> Void in
+            self.messageTextView.maxHeight = height
+        }
     }
     
     fileprivate func setupViews() {
@@ -118,6 +125,8 @@ extension LFSEditLabelViewController {
         messageTextView.returnKeyType = .done
         messageTextView.backgroundColor = .clear
         messageTextView.delegate = self
+        
+        viewModel.messageTextViewTopConstraint = messageTextViewTopConstraint.constant
         
         messageTextView.becomeFirstResponder()
     }
@@ -157,7 +166,7 @@ extension LFSEditLabelViewController: UICollectionViewDelegate, UICollectionView
 //MARK: UITextViewDelegate
 extension LFSEditLabelViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        viewModel.textViewTextChange(textView: textView)
+        viewModel.textViewDidChange(textView: textView)
     }
 }
 

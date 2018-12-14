@@ -20,14 +20,20 @@ internal class LFSEditLabelViewModel: LFSViewModel {
     private var text: String?
     internal var placeholderColor: UIColor!
     
-    internal var isBorder: Bool = false
+    internal var messageTextViewTopConstraint: CGFloat!
+    
+    private var isBorder: Bool = false
     
     internal var openColorPallate: ((_ alpha: CGFloat) -> Void)?
     internal var changeTextAttribute: ((_ attribute: NSMutableAttributedString) -> Void)?
     internal var changePallateButtonImage: ((_ image: UIImage) -> Void)?
+    internal var messageTextViewMaxHeight: ((_ height: CGFloat) -> Void)?
     
     init(delegate: LFSEditLabelViewModelDelegate) {
+        super.init()
         self.delegate = delegate
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
     }
 }
 
@@ -106,7 +112,24 @@ extension LFSEditLabelViewModel: LFSCollectionViewPresentable {
 
 //MARK: Handle UITextViewDelegate
 extension LFSEditLabelViewModel {
-    internal func textViewTextChange(textView: UITextView) {
+    internal func textViewDidChange(textView: UITextView) {
         text = textView.text
+        attributeText()
+    }
+}
+
+//MARK: Handle Keyboard
+extension LFSEditLabelViewModel {
+    @objc private func keyboardWillShow(notification: Notification) {
+        if let keybaordFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRect = keybaordFrame.cgRectValue
+            let keyboardHeight = keyboardRect.size.height
+            setTextViewMaxHeight(keyboardHeight: keyboardHeight)
+        }
+    }
+    
+    fileprivate func setTextViewMaxHeight(keyboardHeight: CGFloat) {
+        let estimateHeight = (UIScreen.main.bounds.height - keyboardHeight) - (messageTextViewTopConstraint + 30)
+        messageTextViewMaxHeight?(estimateHeight)
     }
 }

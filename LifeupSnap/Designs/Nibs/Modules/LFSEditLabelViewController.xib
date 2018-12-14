@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSEditLabelViewController" customModule="LifeupSnap" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSEditLabelViewController" customModule="LifeupSnapTest" customModuleProvider="target">
             <connections>
                 <outlet property="borderButton" destination="4Pg-gl-cYp" id="9El-Fb-1FV"/>
                 <outlet property="collectionView" destination="cdt-Ej-EIL" id="L9R-Ec-St4"/>
@@ -19,6 +19,7 @@
                 <outlet property="colorPallateView" destination="h6j-06-6N5" id="hmJ-Nj-KJc"/>
                 <outlet property="doneButton" destination="ANt-Oh-Yv6" id="ZGL-hG-tcM"/>
                 <outlet property="messageTextView" destination="0cx-yk-aMC" id="AUZ-zj-8Jo"/>
+                <outlet property="messageTextViewTopConstraint" destination="rZf-CX-Pcl" id="qGV-Xc-4Bc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -79,21 +80,13 @@
                                 <constraint firstItem="4Pg-gl-cYp" firstAttribute="width" secondItem="95o-pT-lbL" secondAttribute="width" id="ufF-OU-6Hl"/>
                             </constraints>
                         </stackView>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0cx-yk-aMC" customClass="GrowingTextView" customModule="LifeupSnap" customModuleProvider="target">
-                            <rect key="frame" x="37" y="202" width="300" height="150"/>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0cx-yk-aMC" customClass="GrowingTextView" customModule="LifeupSnapTest" customModuleProvider="target">
+                            <rect key="frame" x="37" y="150" width="300" height="52"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="150" id="NNO-Re-1fw"/>
+                                <constraint firstAttribute="height" constant="52" id="nHB-a6-VTB"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="30"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="minHeight">
-                                    <real key="value" value="50"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="maxHeight">
-                                    <real key="value" value="150"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
                         </textView>
                         <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h6j-06-6N5">
                             <rect key="frame" x="46" y="50" width="321" height="72"/>
@@ -133,7 +126,7 @@
                         <constraint firstItem="ANt-Oh-Yv6" firstAttribute="top" secondItem="en2-kN-BIp" secondAttribute="top" constant="8" id="dlb-Vt-vCz"/>
                         <constraint firstItem="h6j-06-6N5" firstAttribute="top" secondItem="95o-pT-lbL" secondAttribute="top" id="i4M-95-zbw"/>
                         <constraint firstItem="cdt-Ej-EIL" firstAttribute="bottom" secondItem="4Pg-gl-cYp" secondAttribute="bottom" id="moR-F4-7qv"/>
-                        <constraint firstItem="0cx-yk-aMC" firstAttribute="top" secondItem="h6j-06-6N5" secondAttribute="bottom" constant="80" id="rZf-CX-Pcl"/>
+                        <constraint firstItem="0cx-yk-aMC" firstAttribute="top" secondItem="en2-kN-BIp" secondAttribute="top" constant="150" id="rZf-CX-Pcl"/>
                     </constraints>
                 </view>
             </subviews>
