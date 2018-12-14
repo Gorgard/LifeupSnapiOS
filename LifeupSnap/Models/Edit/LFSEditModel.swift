@@ -49,7 +49,7 @@ internal class LFSEditModel: LFSBaseModel {
     
     internal func calculateSizeOfTextView(attributeString: NSMutableAttributedString) -> CGSize {
         let text = attributeString.string
-        let attributes = attributeString.attributes(at: 0, longestEffectiveRange: nil, in: NSRange.init(location: 0, length: attributeString.string.count))
+        let attributes = attributeString.attributes(at: 0, longestEffectiveRange: nil, in: NSRange(location: 0, length: attributeString.string.count))
         let size = (text as NSString).size(withAttributes: attributes)
         
         let width = UIScreen.main.bounds.size.width - 100

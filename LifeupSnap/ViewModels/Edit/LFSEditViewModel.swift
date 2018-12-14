@@ -19,8 +19,13 @@ internal class LFSEditViewModel: LFSViewModel {
     internal var receivedThumbnailImage: ((_ image: UIImage?) -> Void)?
     internal var hiddenAllView: ((_ hidden: Bool) -> Void)?
     
+    private var textViews: [UITextView]!
+    
     init(delegate: LFSEditViewModelDelegate) {
+        super.init()
         self.delegate = delegate
+        
+        textViews = [UITextView]()
     }
 }
 
@@ -95,5 +100,18 @@ extension LFSEditViewModel: LFSEditLabelDelegate {
         textView.center = center
         
         view?.addSubview(textView)
+        
+        textViews.append(textView)
+    }
+}
+
+//MARK: Pan Gesture
+extension LFSEditViewModel {
+    internal func panView(gesture: UIPanGestureRecognizer) {
+        view!.bringSubview(toFront: textViews.first!)
+        let translation = gesture.translation(in: view)
+        textViews.first!.center = CGPoint(x: textViews.first!.center.x + translation.x, y: textViews.first!.center.y + translation.y)
+        
+        gesture.setTranslation(.zero, in: view!)
     }
 }
