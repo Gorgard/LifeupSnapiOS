@@ -84,8 +84,16 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="150" id="NNO-Re-1fw"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="28"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="minHeight">
+                                    <real key="value" value="50"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="maxHeight">
+                                    <real key="value" value="150"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </textView>
                         <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h6j-06-6N5">
                             <rect key="frame" x="46" y="50" width="321" height="72"/>

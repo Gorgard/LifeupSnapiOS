@@ -59,7 +59,7 @@ internal class LFSEditLabelViewController: UIViewController {
     }
     
     @IBAction func onTappedBorder(_ sender: Any) {
-        
+        viewModel.border()
     }
     
 //    @IBAction func handleSingleTap(_ sender: Any) {
@@ -85,9 +85,16 @@ extension LFSEditLabelViewController {
             })
         }
         
-        viewModel.changeTextColor = { [unowned self] (color) -> Void in
+        viewModel.changePallateButtonImage = { [unowned self] (image) -> Void in
             UIView.animate(withDuration: 0.2, animations: {
-                self.messageTextView.textColor = color
+                self.colorPallateButton.setImage(image, for: .normal)
+                self.view.layoutIfNeeded()
+            })
+        }
+        
+        viewModel.changeTextAttribute = { [unowned self] (attribute) -> Void in
+            UIView.animate(withDuration: 0.2, animations: {
+                self.messageTextView.attributedText = attribute
                 self.view.layoutIfNeeded()
             })
         }
@@ -110,6 +117,7 @@ extension LFSEditLabelViewController {
         messageTextView.placeholder = LFSConstants.LFSPlaceholder.Edit.startTyping
         messageTextView.returnKeyType = .done
         messageTextView.backgroundColor = .clear
+        messageTextView.delegate = self
         
         messageTextView.becomeFirstResponder()
     }
@@ -143,6 +151,13 @@ extension LFSEditLabelViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.didSelected(with: collectionView, at: indexPath)
+    }
+}
+
+//MARK: UITextViewDelegate
+extension LFSEditLabelViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        viewModel.textViewTextChange(textView: textView)
     }
 }
 
