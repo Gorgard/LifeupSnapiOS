@@ -12,7 +12,7 @@ internal class LFSEditLabelViewController: UIViewController {
     @IBOutlet weak var colorPallateButton: UIButton!
     @IBOutlet weak var borderButton: UIButton!
     @IBOutlet weak var doneButton: UIView!
-    @IBOutlet weak var messageTextView: UITextView!
+    @IBOutlet weak var messageTextView: GrowingTextView!
     @IBOutlet weak var colorPallateView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -107,15 +107,11 @@ extension LFSEditLabelViewController {
     }
     
     fileprivate func setupTextView() {
-        messageTextView.text = LFSConstants.LFSPlaceholder.Edit.startTyping
-        messageTextView.textColor = .lightGray
+        messageTextView.placeholder = LFSConstants.LFSPlaceholder.Edit.startTyping
         messageTextView.returnKeyType = .done
-        messageTextView.delegate = self
+        messageTextView.backgroundColor = .clear
         
         messageTextView.becomeFirstResponder()
-        
-        viewModel.text = messageTextView.text
-        viewModel.placeholderColor = messageTextView.placeholderColor
     }
     
     fileprivate func setupCollectionView() {
@@ -147,21 +143,6 @@ extension LFSEditLabelViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.didSelected(with: collectionView, at: indexPath)
-    }
-}
-
-//MARK: UITextViewDelegate
-extension LFSEditLabelViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        viewModel.textViewDidBeginEditing(textView: textView)
-    }
-
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        return viewModel.textView(textView: textView, range: range, text: text)
-    }
-
-    func textViewDidEndEditing(_ textView: UITextView) {
-        viewModel.textViewDidEndEditing(textView: textView)
     }
 }
 

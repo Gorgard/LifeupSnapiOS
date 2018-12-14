@@ -75,28 +75,3 @@ extension LFSEditLabelViewModel: LFSCollectionViewPresentable {
         changeTextColor?(textColor)
     }
 }
-
-//MARK: Handle PlaceholderTextView
-extension LFSEditLabelViewModel {
-    func textViewDidBeginEditing(textView: UITextView) {
-        if textView.text == LFSConstants.LFSPlaceholder.Edit.startTyping && textView.textColor == .lightGray {
-            textView.text = ""
-            textView.textColor = textColor
-        }
-    }
-    
-    func textView(textView: UITextView, range: NSRange, text: String) -> Bool {
-        if text == "\n" {
-            textView.resignFirstResponder()
-        }
-        
-        return true
-    }
-    
-    func textViewDidEndEditing(textView: UITextView) {
-        if textView.text == "" && textView.textColor != .lightGray {
-            textView.text = LFSConstants.LFSPlaceholder.Edit.startTyping
-            textView.textColor = UIColor.lightGray
-        }
-    }
-}

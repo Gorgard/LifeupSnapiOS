@@ -18,7 +18,7 @@
                 <outlet property="colorPallateButton" destination="95o-pT-lbL" id="XF1-40-Q3O"/>
                 <outlet property="colorPallateView" destination="h6j-06-6N5" id="hmJ-Nj-KJc"/>
                 <outlet property="doneButton" destination="ANt-Oh-Yv6" id="ZGL-hG-tcM"/>
-                <outlet property="messageTextView" destination="0cx-yk-aMC" id="URy-kh-m58"/>
+                <outlet property="messageTextView" destination="0cx-yk-aMC" id="AUZ-zj-8Jo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -79,7 +79,7 @@
                                 <constraint firstItem="4Pg-gl-cYp" firstAttribute="width" secondItem="95o-pT-lbL" secondAttribute="width" id="ufF-OU-6Hl"/>
                             </constraints>
                         </stackView>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0cx-yk-aMC">
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0cx-yk-aMC" customClass="GrowingTextView" customModule="LifeupSnap" customModuleProvider="target">
                             <rect key="frame" x="37" y="202" width="300" height="150"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="150" id="NNO-Re-1fw"/>
