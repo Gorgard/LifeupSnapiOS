@@ -9,9 +9,10 @@
 import Foundation
 
 internal protocol LFSEditLabelViewModelDelegate: class {
-    
+    func tappedDoneButton()
 }
 
 internal protocol LFSEditLabelDelegate: class, NSObjectProtocol {
-    func tappedDoneButton()
+    func editLabel(attributeString: NSMutableAttributedString)
+    func editedLabel()
 }

@@ -83,6 +83,7 @@ extension LFSEditViewController {
         viewModel.image = image
         viewModel.url = url
         viewModel.viewController = self
+        viewModel.view = editingView
     }
     
     fileprivate func binding() {

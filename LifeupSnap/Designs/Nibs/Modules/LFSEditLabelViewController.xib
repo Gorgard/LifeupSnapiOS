@@ -18,8 +18,8 @@
                 <outlet property="colorPallateButton" destination="95o-pT-lbL" id="XF1-40-Q3O"/>
                 <outlet property="colorPallateView" destination="h6j-06-6N5" id="hmJ-Nj-KJc"/>
                 <outlet property="doneButton" destination="ANt-Oh-Yv6" id="ZGL-hG-tcM"/>
-                <outlet property="messageTextView" destination="0cx-yk-aMC" id="AUZ-zj-8Jo"/>
-                <outlet property="messageTextViewTopConstraint" destination="rZf-CX-Pcl" id="qGV-Xc-4Bc"/>
+                <outlet property="messageTextView" destination="0cx-yk-aMC" id="xiU-C7-vNS"/>
+                <outlet property="messageTextViewTopConstraint" destination="7Nt-8e-rf9" id="FQO-QI-e4z"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -80,14 +80,6 @@
                                 <constraint firstItem="4Pg-gl-cYp" firstAttribute="width" secondItem="95o-pT-lbL" secondAttribute="width" id="ufF-OU-6Hl"/>
                             </constraints>
                         </stackView>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0cx-yk-aMC" customClass="GrowingTextView" customModule="LifeupSnapTest" customModuleProvider="target">
-                            <rect key="frame" x="37" y="150" width="300" height="52"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="52" id="nHB-a6-VTB"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                        </textView>
                         <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h6j-06-6N5">
                             <rect key="frame" x="46" y="50" width="321" height="72"/>
                             <subviews>
@@ -114,19 +106,24 @@
                                 <constraint firstAttribute="bottom" secondItem="cdt-Ej-EIL" secondAttribute="bottom" id="ovP-6D-RrO"/>
                             </constraints>
                         </view>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0cx-yk-aMC" customClass="GrowingTextView" customModule="LifeupSnapTest" customModuleProvider="target">
+                            <rect key="frame" x="37.5" y="150" width="300" height="52"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="ANt-Oh-Yv6" secondAttribute="trailing" constant="8" id="3AS-ex-FMH"/>
-                        <constraint firstItem="0cx-yk-aMC" firstAttribute="centerX" secondItem="en2-kN-BIp" secondAttribute="centerX" id="Bow-Xo-JvZ"/>
+                        <constraint firstItem="0cx-yk-aMC" firstAttribute="top" secondItem="en2-kN-BIp" secondAttribute="top" constant="150" id="7Nt-8e-rf9"/>
+                        <constraint firstItem="0cx-yk-aMC" firstAttribute="width" secondItem="en2-kN-BIp" secondAttribute="width" multiplier="0.8" id="Bey-24-mAL"/>
                         <constraint firstItem="95T-DL-0m8" firstAttribute="top" secondItem="en2-kN-BIp" secondAttribute="top" constant="50" id="FRe-TZ-yZE"/>
-                        <constraint firstItem="0cx-yk-aMC" firstAttribute="width" secondItem="en2-kN-BIp" secondAttribute="width" multiplier="0.8" id="Fhf-9G-7JY"/>
                         <constraint firstAttribute="trailing" secondItem="h6j-06-6N5" secondAttribute="trailing" constant="8" id="Uh5-e5-C8C"/>
                         <constraint firstItem="h6j-06-6N5" firstAttribute="leading" secondItem="95T-DL-0m8" secondAttribute="trailing" constant="8" id="ZnV-YA-nCn"/>
                         <constraint firstItem="95T-DL-0m8" firstAttribute="leading" secondItem="en2-kN-BIp" secondAttribute="leading" constant="8" id="d7P-ec-xR8"/>
                         <constraint firstItem="ANt-Oh-Yv6" firstAttribute="top" secondItem="en2-kN-BIp" secondAttribute="top" constant="8" id="dlb-Vt-vCz"/>
+                        <constraint firstItem="0cx-yk-aMC" firstAttribute="centerX" secondItem="en2-kN-BIp" secondAttribute="centerX" id="h0d-e0-Q28"/>
                         <constraint firstItem="h6j-06-6N5" firstAttribute="top" secondItem="95o-pT-lbL" secondAttribute="top" id="i4M-95-zbw"/>
                         <constraint firstItem="cdt-Ej-EIL" firstAttribute="bottom" secondItem="4Pg-gl-cYp" secondAttribute="bottom" id="moR-F4-7qv"/>
-                        <constraint firstItem="0cx-yk-aMC" firstAttribute="top" secondItem="en2-kN-BIp" secondAttribute="top" constant="150" id="rZf-CX-Pcl"/>
                     </constraints>
                 </view>
             </subviews>

@@ -73,7 +73,27 @@ extension LFSEditViewModel {
 
 //MARK: LFSEditLabelDelegate
 extension LFSEditViewModel: LFSEditLabelDelegate {
-    func tappedDoneButton() {
+    internal func editLabel(attributeString: NSMutableAttributedString) {
+        handleEditLabel(attributeString: attributeString)
+    }
+    
+    internal func editedLabel() {
         hiddenAllView?(false)
+    }
+    
+    private func handleEditLabel(attributeString: NSMutableAttributedString) {
+        let textView = UITextView()
+        textView.isUserInteractionEnabled = true
+        textView.attributedText = attributeString
+        textView.backgroundColor = .clear
+       
+        let size = LFSEditModel.shared.calculateSizeOfTextView(attributeString: attributeString)
+        
+        textView.frame = CGRect(x: view!.frame.midX, y: view!.frame.midY, width: size.width, height: size.height)
+        
+        let center = view!.center
+        textView.center = center
+        
+        view?.addSubview(textView)
     }
 }

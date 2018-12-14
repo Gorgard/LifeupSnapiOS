@@ -14,7 +14,6 @@ internal class LFSEditLabelViewModel: LFSViewModel {
     internal var pallateColors: [LFSColor]!
     private var currentPallateColor: LFSColor?
     
-    internal var label: UILabel!
     internal var colorPallateViewAlpha: CGFloat!
     
     private var text: String?
@@ -22,18 +21,27 @@ internal class LFSEditLabelViewModel: LFSViewModel {
     
     internal var messageTextViewTopConstraint: CGFloat!
     
+    internal var currentAttributeString: NSMutableAttributedString?
+    
     private var isBorder: Bool = false
     
     internal var openColorPallate: ((_ alpha: CGFloat) -> Void)?
     internal var changeTextAttribute: ((_ attribute: NSMutableAttributedString) -> Void)?
     internal var changePallateButtonImage: ((_ image: UIImage) -> Void)?
     internal var messageTextViewMaxHeight: ((_ height: CGFloat) -> Void)?
+    internal var receivedAttributeString: ((_ attribute: NSMutableAttributedString) -> Void)?
     
     init(delegate: LFSEditLabelViewModelDelegate) {
         super.init()
         self.delegate = delegate
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
+    }
+    
+    override func close() {
+        attributeText()
+        delegate?.tappedDoneButton()
+        super.close()
     }
 }
 
@@ -76,8 +84,11 @@ extension LFSEditLabelViewModel {
 extension LFSEditLabelViewModel {
     private func attributeText() {
         guard let attributeString = LFSEditModel.shared.attributeText(text: text, currentPalleteColor: currentPallateColor, isBorder: isBorder) else {
+            currentAttributeString = nil
             return
         }
+        
+        currentAttributeString = attributeString
         
         changeTextAttribute?(attributeString)
     }
@@ -114,7 +125,6 @@ extension LFSEditLabelViewModel: LFSCollectionViewPresentable {
 extension LFSEditLabelViewModel {
     internal func textViewDidChange(textView: UITextView) {
         text = textView.text
-        attributeText()
     }
 }
 
@@ -131,5 +141,14 @@ extension LFSEditLabelViewModel {
     fileprivate func setTextViewMaxHeight(keyboardHeight: CGFloat) {
         let estimateHeight = (UIScreen.main.bounds.height - keyboardHeight) - (messageTextViewTopConstraint + 30)
         messageTextViewMaxHeight?(estimateHeight)
+    }
+}
+
+//MARK: Send Value by LFSEditLabelDelegate
+extension LFSEditLabelViewModel {
+    internal func generateAttributeString() {
+        if let currentAttributeString = currentAttributeString {
+            receivedAttributeString?(currentAttributeString)
+        }
     }
 }

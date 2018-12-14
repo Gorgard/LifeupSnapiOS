@@ -23,7 +23,7 @@ internal class LFSEditLabelViewController: UIViewController {
     
     internal var viewModel: LFSEditLabelViewModel!
 
-    internal var label: UILabel!
+    internal var attributeString: NSMutableAttributedString!
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -54,7 +54,6 @@ internal class LFSEditLabelViewController: UIViewController {
     
     @IBAction func onTappedDone(_ sender: Any) {
         viewModel.close()
-        delegate?.tappedDoneButton()
     }
     
     @IBAction func onTappedColorPallate(_ sender: Any) {
@@ -64,17 +63,13 @@ internal class LFSEditLabelViewController: UIViewController {
     @IBAction func onTappedBorder(_ sender: Any) {
         viewModel.border()
     }
-    
-//    @IBAction func handleSingleTap(_ sender: Any) {
-//        messageTextView.resignFirstResponder()
-//    }
 }
 
 //MARK: Setups
 extension LFSEditLabelViewController {
     fileprivate func setup() {
         viewModel = LFSEditLabelViewModel(delegate: self)
-        viewModel.label = label
+        viewModel.currentAttributeString = attributeString
         viewModel.viewController = self
         
         viewModel.setup()
@@ -104,6 +99,11 @@ extension LFSEditLabelViewController {
         
         viewModel.messageTextViewMaxHeight = { [unowned self] (height) -> Void in
             self.messageTextView.maxHeight = height
+        }
+        
+        viewModel.receivedAttributeString = { [unowned self] (attribute) -> Void in
+            self.delegate?.editLabel(attributeString: attribute)
+            self.delegate?.editedLabel()
         }
     }
     
@@ -172,5 +172,8 @@ extension LFSEditLabelViewController: UITextViewDelegate {
 
 //MARK: LFSEditLabelViewModelDelegate
 extension LFSEditLabelViewController: LFSEditLabelViewModelDelegate {
-    
+    func tappedDoneButton() {
+        messageTextView.resignFirstResponder()
+        viewModel.generateAttributeString()
+    }
 }
