@@ -9,12 +9,14 @@
 import UIKit
 
 internal class DrawView: UIView {
-    internal var lines: [LFSLine]!
-    internal var lastPoint: CGPoint!
-    internal var currentColor: LFSColor!
-    internal var lineWidth: CGFloat!
+    internal var lines: [LFSLine] = [LFSLine]()
     
-    private var deletedLines: [LFSLine]!
+    private var deletedLines: [LFSLine]! = [LFSLine]()
+    
+    internal var lastPoint: CGPoint!
+    
+    internal var currentColor: LFSColor = LFSColor(name: "Black", color: .black)
+    internal var lineWidth: CGFloat = 1
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,8 +39,8 @@ internal class DrawView: UIView {
                 context.move(to: CGPoint(x: line.startX, y: line.startY))
                 context.addLine(to: CGPoint(x: line.endX, y: line.endY))
                 context.setStrokeColor(line.color.cgColor)
-                context.setLineWidth(line.lineWidth)
                 context.strokePath()
+                context.fillPath()
             }
         }
     }
@@ -47,7 +49,6 @@ internal class DrawView: UIView {
         lines = [LFSLine]()
         deletedLines = [LFSLine]()
         currentColor = LFSColor(name: "Black", color: .black)
-        lineWidth = 1
     }
     
     internal func backward() {

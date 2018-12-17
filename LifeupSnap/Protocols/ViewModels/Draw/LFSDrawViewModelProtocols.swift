@@ -9,9 +9,9 @@
 import Foundation
 
 internal protocol LFSDrawViewModelDelegate: class {
-    
+    func tappedDoneButton()
 }
 
 internal protocol LFSDrawDelegate: class, NSObjectProtocol {
-    
+    func didDrawed()
 }

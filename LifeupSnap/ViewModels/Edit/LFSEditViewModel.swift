@@ -63,6 +63,15 @@ extension LFSEditViewModel {
         
         viewController?.present(lfsEditLabelViewController, animated: true, completion: nil)
     }
+    
+    internal func draw() {
+        let lfsDrawViewController = LFSDrawViewController(delegate: self)
+        lfsDrawViewController.modalPresentationStyle = .overFullScreen
+        
+        hiddenAllView?(true)
+        
+        viewController?.present(lfsDrawViewController, animated: true, completion: nil)
+    }
 }
 
 //MARK: Thumbnail
@@ -82,7 +91,7 @@ extension LFSEditViewModel {
 
 //MARK: LFSEditLabelDelegate
 extension LFSEditViewModel: LFSEditLabelDelegate {
-    func editLabel(recieved dragTextView: DragTextView) {
+    internal func editLabel(recieved dragTextView: DragTextView) {
         if !textViews.contains(dragTextView) {
             let center = view!.center
             dragTextView.center = center
@@ -104,5 +113,12 @@ extension LFSEditViewModel {
         if let userInfo = notification.userInfo as? [String: Any], let dragTextView = userInfo["dragTextView"] as? DragTextView {
             label(dragTextView: dragTextView)
         }
+    }
+}
+
+//MARK: LFSDrawDelegate
+extension LFSEditViewModel: LFSDrawDelegate {
+    internal func didDrawed() {
+        hiddenAllView?(false)
     }
 }

@@ -89,10 +89,6 @@ extension LFSEditLabelViewModel {
         isBorder = !isBorder
         attributeText()
     }
-    
-    private func changeTextColor() {
-        
-    }
 }
 
 //MARK: Text Attribute

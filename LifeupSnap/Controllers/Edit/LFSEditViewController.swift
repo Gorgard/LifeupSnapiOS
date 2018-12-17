@@ -67,7 +67,7 @@ internal class LFSEditViewController: UIViewController {
     }
     
     @IBAction func onTappedPainting(_ sender: Any) {
-        
+        viewModel.draw()
     }
     
     @IBAction func onTappedNext(_ sender: Any) {

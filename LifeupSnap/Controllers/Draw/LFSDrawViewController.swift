@@ -17,6 +17,8 @@ class LFSDrawViewController: UIViewController {
     
     private weak var delegate: LFSDrawDelegate?
     
+    internal var viewModel: LFSDrawViewModel!
+    
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -43,23 +45,90 @@ class LFSDrawViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func onTappedDone(_ sender: Any) {
+        viewModel.close()
+    }
+    
+    @IBAction func onTappedColorPallate(_ sender: Any) {
+        viewModel.colorPallate()
+    }
 }
 
 //MARK: Setups
 extension LFSDrawViewController {
     fileprivate func setups() {
+        viewModel = LFSDrawViewModel(delegate: self)
+        viewModel.view = drawView
+        viewModel.viewController = self
         
+        viewModel.setup()
     }
     
     fileprivate func binding() {
+        viewModel.openColorPallate = { [unowned self] (alpha) -> Void in
+            UIView.animate(withDuration: 0.2, animations: {
+                self.colorPallateView.alpha = alpha
+                self.view.layoutIfNeeded()
+            })
+        }
         
+        viewModel.changePallateButtonImage = { [unowned self] (image) -> Void in
+            UIView.animate(withDuration: 0.2, animations: {
+                self.colorPallateButton.setImage(image, for: .normal)
+                self.view.layoutIfNeeded()
+            })
+        }
+        
+        viewModel.didDrawed = { [unowned self] () -> Void in
+            self.delegate?.didDrawed()
+        }
     }
     
     fileprivate func setupViews() {
+        colorPallateView.backgroundColor = .clear
         
+        viewModel.colorPallateViewAlpha = colorPallateView.alpha
+        
+        setupCollectionView()
+    }
+    
+    fileprivate func setupCollectionView() {
+        let nib = UINib(nibName: LFSConstants.LFSNibID.Edit.lsLabelColorCollectionViewCell, bundle: Bundle(for: LFSLabelColorCollectionViewCell.self))
+        collectionView.register(nib, forCellWithReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lsLabelColorCollectionViewCell)
+        
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.itemSize = CGSize(width: 25, height: 25)
+        
+        
+        collectionView.backgroundColor = .clear
     }
 }
+
+//MARK: UICollectionViewDelegate, UICollectionViewDataSource
+extension LFSDrawViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return viewModel.numberOfSections()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.numberOfItems(section: section)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = viewModel.cellForItem(with: collectionView, at: indexPath)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.didSelected(with: collectionView, at: indexPath)
+    }
+}
+
+
 //MARK: LFSDrawViewModelDelegate
 extension LFSDrawViewController: LFSDrawViewModelDelegate {
-    
+    internal func tappedDoneButton() {
+        
+    }
 }
