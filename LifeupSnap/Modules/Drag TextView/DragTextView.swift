@@ -15,6 +15,8 @@ internal class DragTextView: GrowingTextView {
     private let minScale: CGFloat = 0.5
     private let maxScale: CGFloat = 2.0
     
+    internal var currentColor: LFSColor?
+    
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         

@@ -12,7 +12,7 @@ internal class LFSEditLabelViewModel: LFSViewModel {
     private weak var delegate: LFSEditLabelViewModelDelegate?
     
     internal var pallateColors: [LFSColor]!
-    internal var currentColor: UIColor?
+    internal var currentColor: LFSColor?
     
     internal var colorPallateViewAlpha: CGFloat!
     
@@ -60,18 +60,12 @@ extension LFSEditLabelViewModel {
             textColor = dragTextView.textColor
             borderTextColor = dragTextView.borderTextColor
             isBorder = dragTextView.isBorder
-            
-            if dragTextView.isBorder {
-                currentColor = borderTextColor
-            }
-            else {
-                currentColor = textColor
-            }
+            currentColor = dragTextView.currentColor
         }
         else {
-            currentColor = .black
+            currentColor = LFSColor(name: "Black", color: .black)
         }
-        
+
         attributeText()
     }
 }
@@ -106,10 +100,10 @@ extension LFSEditLabelViewModel {
     private func attributeText() {
         if isBorder {
             textColor = .white
-            borderTextColor = currentColor ?? .black
+            borderTextColor = currentColor?.color ?? .black
         }
         else {
-            textColor = currentColor ?? .black
+            textColor = currentColor?.color ?? .black
             borderTextColor = .clear
         }
         
@@ -134,14 +128,23 @@ extension LFSEditLabelViewModel: LFSCollectionViewPresentable {
         
         cell.labelColorView.backgroundColor = pallateColor.color
        
+        if pallateColor.name == currentColor?.name {
+            cell.choosedColorView.backgroundColor = .black
+        }
+        else {
+            cell.choosedColorView.backgroundColor = .clear
+        }
+        
         return cell
     }
     
     internal func didSelected(with collectionView: UICollectionView, at indexPath: IndexPath) {
         let pallateColor = pallateColors[indexPath.row]
-        currentColor = pallateColor.color
+        currentColor = pallateColor
         
         attributeText()
+        
+        delegate?.choosedColor()
     }
 }
 
@@ -171,7 +174,7 @@ extension LFSEditLabelViewModel {
 //MARK: Send Value by LFSEditLabelDelegate
 extension LFSEditLabelViewModel {
     internal func generateDragTextView() {
-        guard let text = text, let textColor = textColor, let borderTextColor = borderTextColor else {
+        guard let text = text, !text.isEmpty, let textColor = textColor, let borderTextColor = borderTextColor else {
             editedLabel?()
             return
         }
@@ -194,6 +197,7 @@ extension LFSEditLabelViewModel {
         dragTextView.textColor = textColor
         dragTextView.borderTextColor = borderTextColor
         dragTextView.isBorder = isBorder
+        dragTextView.currentColor = currentColor
         dragTextView.font = UIFont.systemFont(ofSize: 30, weight: .medium)
         dragTextView.textAlignment = .center
         dragTextView.isUserInteractionEnabled = true

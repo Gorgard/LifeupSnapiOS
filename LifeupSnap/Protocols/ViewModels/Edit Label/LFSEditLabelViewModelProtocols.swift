@@ -10,6 +10,7 @@ import Foundation
 
 internal protocol LFSEditLabelViewModelDelegate: class {
     func tappedDoneButton()
+    func choosedColor()
 }
 
 internal protocol LFSEditLabelDelegate: class, NSObjectProtocol {

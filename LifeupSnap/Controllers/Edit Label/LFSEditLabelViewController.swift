@@ -104,6 +104,7 @@ extension LFSEditLabelViewController {
         
         viewModel.newMessageTextView = { [unowned self] (textColor, borderTextColor) -> Void in
             self.messageTextView.textColor = textColor
+            self.messageTextView.placeholderColor = textColor?.withAlphaComponent(0.4)
             self.messageTextView.borderTextColor = borderTextColor
         }
         
@@ -182,5 +183,9 @@ extension LFSEditLabelViewController: LFSEditLabelViewModelDelegate {
     func tappedDoneButton() {
         messageTextView.resignFirstResponder()
         viewModel.generateDragTextView()
+    }
+    
+    func choosedColor() {
+        collectionView.reloadData()
     }
 }

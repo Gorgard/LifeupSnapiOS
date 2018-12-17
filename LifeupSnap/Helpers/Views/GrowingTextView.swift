@@ -36,7 +36,7 @@ open class GrowingTextView: UITextView {
     @IBInspectable open var placeholder: String? {
         didSet { setNeedsDisplay() }
     }
-    @IBInspectable open var placeholderColor: UIColor = UIColor(white: 0.8, alpha: 1.0) {
+    @IBInspectable open var placeholderColor: UIColor? = UIColor(white: 0.8, alpha: 1.0) {
         didSet { setNeedsDisplay() }
     }
     @IBInspectable open var attributedPlaceholder: NSAttributedString? {

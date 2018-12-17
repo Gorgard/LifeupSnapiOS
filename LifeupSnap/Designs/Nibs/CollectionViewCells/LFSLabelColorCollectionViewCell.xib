@@ -25,41 +25,43 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="23l-o3-DLz">
                                 <rect key="frame" x="3" y="3" width="19" height="19"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Shb-bK-e3D">
-                                        <rect key="frame" x="10" y="10" width="24" height="24"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Shb-bK-e3D">
+                                        <rect key="frame" x="3" y="3" width="13" height="13"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="Shb-bK-e3D" firstAttribute="leading" secondItem="23l-o3-DLz" secondAttribute="leading" constant="10" id="0dq-zZ-3Ui"/>
-                                    <constraint firstAttribute="bottom" secondItem="Shb-bK-e3D" secondAttribute="bottom" constant="10" id="1LI-3z-DHm"/>
-                                    <constraint firstItem="Shb-bK-e3D" firstAttribute="top" secondItem="23l-o3-DLz" secondAttribute="top" constant="10" id="Dm4-xP-jQH"/>
-                                    <constraint firstAttribute="trailing" secondItem="Shb-bK-e3D" secondAttribute="trailing" constant="10" id="ZWq-q9-ZOP"/>
+                                    <constraint firstAttribute="bottom" secondItem="Shb-bK-e3D" secondAttribute="bottom" constant="3" id="4Lu-Dt-Gl1"/>
+                                    <constraint firstItem="Shb-bK-e3D" firstAttribute="leading" secondItem="23l-o3-DLz" secondAttribute="leading" constant="3" id="GGc-hR-VO1"/>
+                                    <constraint firstItem="Shb-bK-e3D" firstAttribute="top" secondItem="23l-o3-DLz" secondAttribute="top" constant="3" id="GMK-y5-zcE"/>
+                                    <constraint firstAttribute="trailing" secondItem="Shb-bK-e3D" secondAttribute="trailing" constant="3" id="RYr-9Y-x7f"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="23l-o3-DLz" secondAttribute="trailing" constant="3" id="5VH-jE-dms"/>
-                            <constraint firstItem="23l-o3-DLz" firstAttribute="top" secondItem="cro-sY-y2M" secondAttribute="top" constant="3" id="AEM-aN-tSE"/>
-                            <constraint firstAttribute="bottom" secondItem="23l-o3-DLz" secondAttribute="bottom" constant="3" id="lGt-B2-5pj"/>
-                            <constraint firstItem="23l-o3-DLz" firstAttribute="leading" secondItem="cro-sY-y2M" secondAttribute="leading" constant="3" id="p2u-33-fvX"/>
+                            <constraint firstItem="23l-o3-DLz" firstAttribute="top" secondItem="cro-sY-y2M" secondAttribute="top" constant="3" id="AAF-mw-ds4"/>
+                            <constraint firstItem="23l-o3-DLz" firstAttribute="leading" secondItem="cro-sY-y2M" secondAttribute="leading" constant="3" id="QYo-UU-tPs"/>
+                            <constraint firstAttribute="bottom" secondItem="23l-o3-DLz" secondAttribute="bottom" constant="3" id="WCI-Mv-rUE"/>
+                            <constraint firstAttribute="trailing" secondItem="23l-o3-DLz" secondAttribute="trailing" constant="3" id="njQ-d3-CCg"/>
                         </constraints>
                     </view>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="cro-sY-y2M" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="0te-uq-Us9"/>
-                <constraint firstItem="cro-sY-y2M" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="751-C6-HfD"/>
-                <constraint firstAttribute="bottom" secondItem="cro-sY-y2M" secondAttribute="bottom" id="AWg-kB-ENz"/>
-                <constraint firstAttribute="trailing" secondItem="cro-sY-y2M" secondAttribute="trailing" id="beK-nH-JJ9"/>
+                <constraint firstItem="cro-sY-y2M" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Dfh-FC-dF4"/>
+                <constraint firstAttribute="trailing" secondItem="cro-sY-y2M" secondAttribute="trailing" id="Kdn-oO-ijn"/>
+                <constraint firstItem="cro-sY-y2M" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Q3E-HP-mnd"/>
+                <constraint firstAttribute="bottom" secondItem="cro-sY-y2M" secondAttribute="bottom" id="sHt-W9-yNc"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="232" height="199"/>
             <connections>
                 <outlet property="choosedColorView" destination="Shb-bK-e3D" id="EDF-10-vz0"/>
                 <outlet property="coverLabelColorView" destination="cro-sY-y2M" id="FAl-ID-Fp2"/>
                 <outlet property="labelColorView" destination="23l-o3-DLz" id="csc-vw-zSw"/>
             </connections>
+            <point key="canvasLocation" x="138" y="-33.5"/>
         </collectionViewCell>
     </objects>
 </document>
