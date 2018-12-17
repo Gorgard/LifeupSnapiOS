@@ -31,6 +31,7 @@ internal class LFSEditLabelViewModel: LFSViewModel {
     internal var changePallateButtonImage: ((_ image: UIImage) -> Void)?
     internal var messageTextViewMaxHeight: ((_ height: CGFloat) -> Void)?
     internal var receivedDragTextView: ((_ dragTextView: DragTextView) -> Void)?
+    internal var editedLabel: (() -> Void)?
     internal var newMessageTextView: ((_ textColor: UIColor?, _ borderTextColor: UIColor?) -> Void)?
     
     init(delegate: LFSEditLabelViewModelDelegate) {
@@ -152,6 +153,7 @@ extension LFSEditLabelViewModel {
 extension LFSEditLabelViewModel {
     internal func generateDragTextView() {
         guard let text = text, let textColor = textColor, let borderTextColor = borderTextColor else {
+            editedLabel?()
             return
         }
         
@@ -163,5 +165,6 @@ extension LFSEditLabelViewModel {
         dragTextView.textAlignment = textAlignment ?? .center
         
         receivedDragTextView?(dragTextView)
+        editedLabel?()
     }
 }

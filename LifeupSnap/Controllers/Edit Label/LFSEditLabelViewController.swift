@@ -100,6 +100,9 @@ extension LFSEditLabelViewController {
         
         viewModel.receivedDragTextView = { [unowned self] (dragTextView) -> Void in
             self.delegate?.editLabel(recieved: dragTextView)
+        }
+        
+        viewModel.editedLabel = { [unowned self] () -> Void in
             self.delegate?.editedLabel()
         }
         

@@ -11,13 +11,20 @@ import UIKit
 internal class DragTextView: GrowingTextView {
     var lastLocation: CGPoint!
     
+    
+    internal var lastScale: CGFloat = 1.0
+    private let minScale: CGFloat = 0.5
+    private let maxScale: CGFloat = 2.0
+    
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         
         lastLocation = CGPoint(x: 0, y: 0)
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panView(_:)))
-        self.gestureRecognizers = [panGesture]
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchView(_:)))
+        
+        self.gestureRecognizers = [panGesture, pinchGesture]
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -32,5 +39,18 @@ internal class DragTextView: GrowingTextView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.superview?.bringSubview(toFront: self)
         lastLocation = center
+    }
+    
+    @objc fileprivate func pinchView(_ gesture: UIPinchGestureRecognizer) {
+        if gesture.state == .began || gesture.state == .changed {
+            let pinchScale: CGFloat = gesture.scale
+            
+            if lastScale * pinchScale < maxScale && lastScale * pinchScale > minScale {
+                lastScale *= pinchScale
+                transform = transform.scaledBy(x: pinchScale, y: pinchScale)
+            }
+            
+            gesture.scale = 1.0
+        }
     }
 }
