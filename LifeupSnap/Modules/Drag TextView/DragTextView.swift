@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class DragTextView: UITextView {
+internal class DragTextView: GrowingTextView {
     var lastLocation: CGPoint!
     
     override init(frame: CGRect, textContainer: NSTextContainer?) {

@@ -17,11 +17,12 @@ internal class LFSEditLabelViewModel: LFSViewModel {
     internal var colorPallateViewAlpha: CGFloat!
     
     private var text: String?
-    internal var placeholderColor: UIColor!
+    private var textColor: UIColor?
+    private var borderTextColor: UIColor?
+    private var font: UIFont?
+    private var textAlignment: NSTextAlignment?
     
     internal var messageTextViewTopConstraint: CGFloat!
-    
-    internal var currentAttributeString: NSMutableAttributedString?
     
     private var isBorder: Bool = false
     
@@ -29,7 +30,8 @@ internal class LFSEditLabelViewModel: LFSViewModel {
     internal var changeTextAttribute: ((_ attribute: NSMutableAttributedString) -> Void)?
     internal var changePallateButtonImage: ((_ image: UIImage) -> Void)?
     internal var messageTextViewMaxHeight: ((_ height: CGFloat) -> Void)?
-    internal var receivedAttributeString: ((_ attribute: NSMutableAttributedString) -> Void)?
+    internal var receivedDragTextView: ((_ dragTextView: DragTextView) -> Void)?
+    internal var newMessageTextView: ((_ textColor: UIColor?, _ borderTextColor: UIColor?) -> Void)?
     
     init(delegate: LFSEditLabelViewModelDelegate) {
         super.init()
@@ -83,14 +85,16 @@ extension LFSEditLabelViewModel {
 //MARK: Text Attribute
 extension LFSEditLabelViewModel {
     private func attributeText() {
-        guard let attributeString = LFSEditModel.shared.attributeText(text: text, currentPalleteColor: currentPallateColor, isBorder: isBorder) else {
-            currentAttributeString = nil
-            return
+        if isBorder {
+            textColor = .white
+            borderTextColor = currentPallateColor?.color ?? .black
+        }
+        else {
+            textColor = currentPallateColor?.color ?? .black
+            borderTextColor = .clear
         }
         
-        currentAttributeString = attributeString
-        
-        changeTextAttribute?(attributeString)
+        newMessageTextView?(textColor, borderTextColor)
     }
 }
 
@@ -146,9 +150,18 @@ extension LFSEditLabelViewModel {
 
 //MARK: Send Value by LFSEditLabelDelegate
 extension LFSEditLabelViewModel {
-    internal func generateAttributeString() {
-        if let currentAttributeString = currentAttributeString {
-            receivedAttributeString?(currentAttributeString)
+    internal func generateDragTextView() {
+        guard let text = text, let textColor = textColor, let borderTextColor = borderTextColor else {
+            return
         }
+        
+        let dragTextView = DragTextView()
+        dragTextView.text = text
+        dragTextView.textColor = textColor
+        dragTextView.borderTextColor = borderTextColor
+        dragTextView.font = font ?? UIFont.systemFont(ofSize: 30, weight: .medium)
+        dragTextView.textAlignment = textAlignment ?? .center
+        
+        receivedDragTextView?(dragTextView)
     }
 }

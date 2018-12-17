@@ -13,6 +13,6 @@ internal protocol LFSEditLabelViewModelDelegate: class {
 }
 
 internal protocol LFSEditLabelDelegate: class, NSObjectProtocol {
-    func editLabel(attributeString: NSMutableAttributedString)
+    func editLabel(recieved dragTextView: DragTextView)
     func editedLabel()
 }
