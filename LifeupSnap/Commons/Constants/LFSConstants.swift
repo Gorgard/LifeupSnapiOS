@@ -31,6 +31,13 @@ internal struct LFSConstants {
         }
     }
     
+    //MARK: NotificationCenter ID
+    internal struct NotificationCenterID {
+        internal struct DragTextView {
+            internal static let editTextView = "edit_text_view_notification_center_identifier"
+        }
+    }
+    
     //MARK: FeatureName
     internal struct LFSFeatureName {
         internal struct Snap {

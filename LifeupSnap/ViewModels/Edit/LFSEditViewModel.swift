@@ -26,6 +26,8 @@ internal class LFSEditViewModel: LFSViewModel {
         self.delegate = delegate
         
         textViews = [DragTextView]()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleEditTextView(notification:)), name: NSNotification.Name(rawValue: LFSConstants.NotificationCenterID.DragTextView.editTextView), object: nil)
     }
 }
 
@@ -51,8 +53,10 @@ extension LFSEditViewModel {
 
 //MARK: Handle Action
 extension LFSEditViewModel {
-    internal func label() {
+    internal func label(dragTextView: DragTextView? = nil) {
         let lfsEditLabelViewController = LFSEditLabelViewController(delegate: self)
+        lfsEditLabelViewController.dragTextView = dragTextView
+        
         lfsEditLabelViewController.modalPresentationStyle = .overFullScreen
         
         hiddenAllView?(true)
@@ -79,25 +83,26 @@ extension LFSEditViewModel {
 //MARK: LFSEditLabelDelegate
 extension LFSEditViewModel: LFSEditLabelDelegate {
     func editLabel(recieved dragTextView: DragTextView) {
-        let textView = dragTextView
-        
-        var text = textView.text.replacingOccurrences(of: "\n", with: "")
-        text = textView.text.inserting(separator: "\n", every: 18)
-        
-        textView.text = text
-        textView.isUserInteractionEnabled = true
-        textView.backgroundColor = .clear
-        textView.sizeToFit()
-        
-        let center = view!.center
-        textView.center = center
-        
-        view?.addSubview(textView)
-        
-        textViews.append(textView)
+        if !textViews.contains(dragTextView) {
+            let center = view!.center
+            dragTextView.center = center
+            
+            view?.addSubview(dragTextView)
+            
+            textViews.append(dragTextView)
+        }
     }
     
     internal func editedLabel() {
         hiddenAllView?(false)
+    }
+}
+
+//MARK: Handle Notification Edit TextView
+extension LFSEditViewModel {
+    @objc fileprivate func handleEditTextView(notification: Notification) {
+        if let userInfo = notification.userInfo as? [String: Any], let dragTextView = userInfo["dragTextView"] as? DragTextView {
+            label(dragTextView: dragTextView)
+        }
     }
 }

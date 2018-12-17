@@ -45,6 +45,7 @@ open class GrowingTextView: UITextView {
     
     //MARK: Border
     var spacing: CGFloat = 0
+    var isBorder: Bool = false
     
     open var borderTextColor: UIColor? = .clear {
         didSet {

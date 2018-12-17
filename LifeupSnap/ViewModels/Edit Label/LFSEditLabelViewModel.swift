@@ -12,24 +12,23 @@ internal class LFSEditLabelViewModel: LFSViewModel {
     private weak var delegate: LFSEditLabelViewModelDelegate?
     
     internal var pallateColors: [LFSColor]!
-    private var currentPallateColor: LFSColor?
+    internal var currentColor: UIColor?
     
     internal var colorPallateViewAlpha: CGFloat!
+    
+    internal var dragTextView: DragTextView?
     
     private var text: String?
     private var textColor: UIColor?
     private var borderTextColor: UIColor?
-    private var font: UIFont?
-    private var textAlignment: NSTextAlignment?
+    private var isBorder: Bool = false
     
     internal var messageTextViewTopConstraint: CGFloat!
     
-    private var isBorder: Bool = false
-    
     internal var openColorPallate: ((_ alpha: CGFloat) -> Void)?
-    internal var changeTextAttribute: ((_ attribute: NSMutableAttributedString) -> Void)?
     internal var changePallateButtonImage: ((_ image: UIImage) -> Void)?
     internal var messageTextViewMaxHeight: ((_ height: CGFloat) -> Void)?
+    internal var textOfMessageTextView: ((_ text: String?) -> Void)?
     internal var receivedDragTextView: ((_ dragTextView: DragTextView) -> Void)?
     internal var editedLabel: (() -> Void)?
     internal var newMessageTextView: ((_ textColor: UIColor?, _ borderTextColor: UIColor?) -> Void)?
@@ -53,8 +52,27 @@ extension LFSEditLabelViewModel {
     internal func setup() {
         let pallateColor = LFSPallateColor()
         pallateColors = pallateColor.colors
+    }
+    
+    internal func binding() {
+        if let dragTextView = dragTextView {
+            text = dragTextView.text
+            textColor = dragTextView.textColor
+            borderTextColor = dragTextView.borderTextColor
+            isBorder = dragTextView.isBorder
+            
+            if dragTextView.isBorder {
+                currentColor = borderTextColor
+            }
+            else {
+                currentColor = textColor
+            }
+        }
+        else {
+            currentColor = .black
+        }
         
-        currentPallateColor = LFSColor(name: "Black", color: .black)
+        attributeText()
     }
 }
 
@@ -79,7 +97,7 @@ extension LFSEditLabelViewModel {
     }
     
     private func changeTextColor() {
-        attributeText()
+        
     }
 }
 
@@ -88,13 +106,14 @@ extension LFSEditLabelViewModel {
     private func attributeText() {
         if isBorder {
             textColor = .white
-            borderTextColor = currentPallateColor?.color ?? .black
+            borderTextColor = currentColor ?? .black
         }
         else {
-            textColor = currentPallateColor?.color ?? .black
+            textColor = currentColor ?? .black
             borderTextColor = .clear
         }
         
+        textOfMessageTextView?(text)
         newMessageTextView?(textColor, borderTextColor)
     }
 }
@@ -120,7 +139,7 @@ extension LFSEditLabelViewModel: LFSCollectionViewPresentable {
     
     internal func didSelected(with collectionView: UICollectionView, at indexPath: IndexPath) {
         let pallateColor = pallateColors[indexPath.row]
-        currentPallateColor = pallateColor
+        currentColor = pallateColor.color
         
         attributeText()
     }
@@ -157,12 +176,28 @@ extension LFSEditLabelViewModel {
             return
         }
         
-        let dragTextView = DragTextView()
+        var dragTextView: DragTextView
+        
+        if let _dragTextView = self.dragTextView {
+            dragTextView = _dragTextView
+        }
+        else {
+            dragTextView = DragTextView()
+        }
+        
+        let size = LFSEditModel.shared.sizeOfString(string: text, constrainedToWidth: 300)
+        let x = dragTextView.frame.origin.x
+        let y = dragTextView.frame.origin.y
+
+        dragTextView.frame = CGRect(x: x, y: y, width: size.width, height: size.height)
         dragTextView.text = text
         dragTextView.textColor = textColor
         dragTextView.borderTextColor = borderTextColor
-        dragTextView.font = font ?? UIFont.systemFont(ofSize: 30, weight: .medium)
-        dragTextView.textAlignment = textAlignment ?? .center
+        dragTextView.isBorder = isBorder
+        dragTextView.font = UIFont.systemFont(ofSize: 30, weight: .medium)
+        dragTextView.textAlignment = .center
+        dragTextView.isUserInteractionEnabled = true
+        dragTextView.backgroundColor = .clear
         
         receivedDragTextView?(dragTextView)
         editedLabel?()
