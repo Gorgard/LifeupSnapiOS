@@ -11,7 +11,7 @@ import UIKit
 internal class LFSEditLabelViewController: UIViewController {
     @IBOutlet weak var colorPallateButton: UIButton!
     @IBOutlet weak var borderButton: UIButton!
-    @IBOutlet weak var doneButton: UIView!
+    @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var messageTextView: GrowingTextView!
     @IBOutlet weak var colorPallateView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!

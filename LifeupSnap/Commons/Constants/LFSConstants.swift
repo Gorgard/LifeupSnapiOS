@@ -21,6 +21,7 @@ internal struct LFSConstants {
             internal static let lfsEditViewController = "LFSEditViewController"
             internal static let lfsEditLabelViewController = "LFSEditLabelViewController"
             internal static let lsLabelColorCollectionViewCell = "LFSLabelColorCollectionViewCell"
+            internal static let lfsDrawViewController = "LFSDrawViewController"
         }
     }
     

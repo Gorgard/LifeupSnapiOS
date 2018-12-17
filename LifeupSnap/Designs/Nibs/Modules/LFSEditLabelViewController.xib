@@ -17,7 +17,7 @@
                 <outlet property="collectionView" destination="cdt-Ej-EIL" id="L9R-Ec-St4"/>
                 <outlet property="colorPallateButton" destination="95o-pT-lbL" id="XF1-40-Q3O"/>
                 <outlet property="colorPallateView" destination="h6j-06-6N5" id="hmJ-Nj-KJc"/>
-                <outlet property="doneButton" destination="ANt-Oh-Yv6" id="ZGL-hG-tcM"/>
+                <outlet property="doneButton" destination="ANt-Oh-Yv6" id="2YS-Ui-ykm"/>
                 <outlet property="messageTextView" destination="0cx-yk-aMC" id="xiU-C7-vNS"/>
                 <outlet property="messageTextViewTopConstraint" destination="7Nt-8e-rf9" id="FQO-QI-e4z"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
