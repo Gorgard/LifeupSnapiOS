@@ -80,6 +80,10 @@ extension LFSDrawViewController {
             })
         }
         
+        viewModel.changePallateColor = { [unowned self] (color) -> Void in
+            self.drawView.currentColor = color
+        }
+        
         viewModel.didDrawed = { [unowned self] () -> Void in
             self.delegate?.didDrawed()
         }
@@ -130,5 +134,9 @@ extension LFSDrawViewController: UICollectionViewDelegate, UICollectionViewDataS
 extension LFSDrawViewController: LFSDrawViewModelDelegate {
     internal func tappedDoneButton() {
         
+    }
+    
+    internal func choosedColor() {
+        collectionView.reloadData()
     }
 }

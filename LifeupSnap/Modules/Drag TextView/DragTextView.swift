@@ -19,7 +19,14 @@ internal class DragTextView: GrowingTextView {
     
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
-        
+        configuration()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    fileprivate func configuration() {
         lastLocation = CGPoint(x: 0, y: 0)
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panView(_:)))
@@ -28,10 +35,8 @@ internal class DragTextView: GrowingTextView {
         tapGesture.numberOfTapsRequired = 2
         
         self.gestureRecognizers = [panGesture, pinchGesture, tapGesture]
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        
+        isScrollEnabled = false
     }
     
     @objc fileprivate func panView(_ gesture: UIPanGestureRecognizer) {

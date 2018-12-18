@@ -92,7 +92,12 @@
                                 <action selector="onTappedDone:" destination="-1" eventType="touchUpInside" id="KeG-6T-PcE"/>
                             </connections>
                         </button>
+                        <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="6Bp-vd-OGq">
+                            <rect key="frame" x="8" y="609" width="118" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </slider>
                     </subviews>
+                    <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="uvl-SI-pQZ" secondAttribute="trailing" constant="8" id="52i-1i-g22"/>
                         <constraint firstItem="uvl-SI-pQZ" firstAttribute="top" secondItem="e2H-Jy-3yU" secondAttribute="top" constant="8" id="ITT-GM-iAL"/>

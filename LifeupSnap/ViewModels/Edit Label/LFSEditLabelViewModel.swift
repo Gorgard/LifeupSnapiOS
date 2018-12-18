@@ -184,7 +184,7 @@ extension LFSEditLabelViewModel {
             dragTextView = DragTextView()
         }
         
-        let size = LFSEditModel.shared.sizeOfString(string: text, constrainedToWidth: 300)
+        let size = LFSEditModel.shared.sizeOfString(string: text, constrainedToWidth: Double(UIScreen.main.bounds.width - 50))
         let x = dragTextView.frame.origin.x
         let y = dragTextView.frame.origin.y
 
@@ -198,6 +198,7 @@ extension LFSEditLabelViewModel {
         dragTextView.textAlignment = .center
         dragTextView.isUserInteractionEnabled = true
         dragTextView.backgroundColor = .clear
+        dragTextView.sizeToFit()
         
         receivedDragTextView?(dragTextView)
         editedLabel?()

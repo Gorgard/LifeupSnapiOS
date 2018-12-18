@@ -20,6 +20,7 @@ internal class LFSDrawViewModel: LFSViewModel {
     
     internal var openColorPallate: ((_ alpha: CGFloat) -> Void)?
     internal var changePallateButtonImage: ((_ image: UIImage) -> Void)?
+    internal var changePallateColor: ((_ color: LFSColor?) -> Void)?
     internal var didDrawed: (() -> Void)?
     
     init(delegate: LFSDrawViewModelDelegate) {
@@ -91,7 +92,8 @@ extension LFSDrawViewModel: LFSCollectionViewPresentable {
     internal func didSelected(with collectionView: UICollectionView, at indexPath: IndexPath) {
         let pallateColor = pallateColors[indexPath.row]
         currentColor = pallateColor
-   
-        //delegate?.choosedColor()
+        
+        changePallateColor?(currentColor)
+        delegate?.choosedColor()
     }
 }

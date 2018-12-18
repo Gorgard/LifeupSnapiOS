@@ -9,22 +9,22 @@
 import UIKit
 
 internal class DrawView: UIView {
-    internal var lines: [LFSLine] = [LFSLine]()
+    internal var lines: [LFSLine]!
     
-    private var deletedLines: [LFSLine]! = [LFSLine]()
+    private var deletedLines: [LFSLine]!
     
     internal var lastPoint: CGPoint!
     
-    internal var currentColor: LFSColor = LFSColor(name: "Black", color: .black)
-    internal var lineWidth: CGFloat = 1
+    internal var currentColor: LFSColor!
+    internal var lineWidth: CGFloat!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configuration()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        configuration()
     }
     
     override func draw(_ rect: CGRect) {
@@ -46,9 +46,13 @@ internal class DrawView: UIView {
     }
     
     fileprivate func configuration() {
+        isOpaque = false
+        backgroundColor = .clear
+        
         lines = [LFSLine]()
         deletedLines = [LFSLine]()
         currentColor = LFSColor(name: "Black", color: .black)
+        lineWidth = 5
     }
     
     internal func backward() {

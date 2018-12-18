@@ -19,14 +19,11 @@ open class GrowingTextView: UITextView {
         didSet { setNeedsDisplay() }
     }
     private weak var heightConstraint: NSLayoutConstraint?
-    
-    // Maximum length of text. 0 means no limit.
+
     @IBInspectable open var maxLength: Int = 0
-    
-    // Trim white space and newline characters when end editing. Default is true
+
     @IBInspectable open var trimWhiteSpaceWhenEndEditing: Bool = true
-    
-    // Customization
+
     @IBInspectable open var minHeight: CGFloat = 0 {
         didSet { forceLayoutSubviews() }
     }
@@ -52,8 +49,7 @@ open class GrowingTextView: UITextView {
             setNeedsDisplay()
         }
     }
-    
-    // Initialize
+
     override public init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         commonInit()
@@ -82,8 +78,6 @@ open class GrowingTextView: UITextView {
     }
     
     private func associateConstraints() {
-        // iterate through all text view's constraints and identify
-        // height,from: https://github.com/legranddamien/MBAutoGrowingTextView
         for constraint in constraints {
             if (constraint.firstAttribute == .height) {
                 if (constraint.relation == .equal) {
@@ -113,20 +107,16 @@ open class GrowingTextView: UITextView {
         
         let size = sizeThatFits(CGSize(width: bounds.size.width, height: CGFloat.greatestFiniteMagnitude))
         var height = size.height
-        
-        // Constrain minimum height
+
         height = minHeight > 0 ? max(height, minHeight) : height
-        
-        // Constrain maximum height
+
         height = maxHeight > 0 ? min(height, maxHeight) : height
-        
-        // Add height constraint if it is not found
+
         if (heightConstraint == nil) {
             heightConstraint = NSLayoutConstraint(item: self, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: height)
             addConstraint(heightConstraint!)
         }
-        
-        // Update height constraint if needed
+     
         if height != heightConstraint!.constant {
             shouldScrollAfterHeightChanged = true
             heightConstraint!.constant = height

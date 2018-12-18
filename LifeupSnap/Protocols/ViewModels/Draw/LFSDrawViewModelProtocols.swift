@@ -10,6 +10,7 @@ import Foundation
 
 internal protocol LFSDrawViewModelDelegate: class {
     func tappedDoneButton()
+    func choosedColor()
 }
 
 internal protocol LFSDrawDelegate: class, NSObjectProtocol {
