@@ -104,10 +104,7 @@ extension LFSDrawViewController {
                 self.penSizeView.layer.cornerRadius = self.penSizeView.bounds.size.height / 2
                 self.view.layoutIfNeeded()
             }, completion: { [unowned self] (finished) in
-                UIView.animate(withDuration: 0.2, delay: 0.5, options: .allowUserInteraction, animations: {
-                    self.penSizeView.alpha = 0
-                    self.view.layoutIfNeeded()
-                }, completion: nil)
+                self.didChangedPenSize()
             })
         }
         
@@ -192,5 +189,15 @@ extension LFSDrawViewController: LFSDrawViewModelDelegate {
     
     internal func choosedColor() {
         collectionView.reloadData()
+    }
+}
+
+//MARK: Handle Change Pen Size
+extension LFSDrawViewController {
+    fileprivate func didChangedPenSize() {
+        UIView.animate(withDuration: 0.2, delay: 0.5, options: .allowUserInteraction, animations: { [unowned self] in
+            self.penSizeView.alpha = 0
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
 }
