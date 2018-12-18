@@ -14,6 +14,13 @@ class LFSDrawViewController: UIViewController {
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var colorPallateView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var coverSliderView: UIView!
+    @IBOutlet weak var slider: UISlider!
+    @IBOutlet weak var penSizeView: UIView!
+    
+    //MARK: Constraint
+    @IBOutlet weak var penSizeViewHeightContraint: NSLayoutConstraint!
+    @IBOutlet weak var penSizeViewWidthConstraint: NSLayoutConstraint!
     
     private weak var delegate: LFSDrawDelegate?
     
@@ -53,6 +60,14 @@ class LFSDrawViewController: UIViewController {
     @IBAction func onTappedColorPallate(_ sender: Any) {
         viewModel.colorPallate()
     }
+    
+    @IBAction func onTappedClear(_ sender: Any) {
+        drawView.clear()
+    }
+    
+    @IBAction func onSlidePenSize(_ sender: Any) {
+        viewModel.penSize(sender: sender)
+    }
 }
 
 //MARK: Setups
@@ -80,8 +95,29 @@ extension LFSDrawViewController {
             })
         }
         
+        viewModel.changePenSizeViewSize = { [unowned self] (width, height) -> Void in
+            self.penSizeView.alpha = 1
+            
+            UIView.animate(withDuration: 0.2, animations: {
+                self.penSizeViewWidthConstraint.constant = width
+                self.penSizeViewHeightContraint.constant = height
+                self.penSizeView.layer.cornerRadius = self.penSizeView.bounds.size.height / 2
+                self.view.layoutIfNeeded()
+            }, completion: { [unowned self] (finished) in
+                UIView.animate(withDuration: 0.2, delay: 0.5, options: .allowUserInteraction, animations: {
+                    self.penSizeView.alpha = 0
+                    self.view.layoutIfNeeded()
+                }, completion: nil)
+            })
+        }
+        
         viewModel.changePallateColor = { [unowned self] (color) -> Void in
             self.drawView.currentColor = color
+            self.penSizeView.layer.shadowColor = self.drawView.currentColor.color.cgColor
+        }
+        
+        viewModel.changeLineWidth = { [unowned self] (width) -> Void in
+            self.drawView.lineWidth = width
         }
         
         viewModel.didDrawed = { [unowned self] () -> Void in
@@ -95,6 +131,8 @@ extension LFSDrawViewController {
         viewModel.colorPallateViewAlpha = colorPallateView.alpha
         
         setupCollectionView()
+        setupSliderView()
+        setupPenSizeView()
     }
     
     fileprivate func setupCollectionView() {
@@ -106,6 +144,22 @@ extension LFSDrawViewController {
         
         
         collectionView.backgroundColor = .clear
+    }
+    
+    fileprivate func setupSliderView() {
+        coverSliderView.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 1.5)
+        coverSliderView.layer.borderColor = UIColor.lightGray.cgColor
+        coverSliderView.layer.borderWidth = 0.5
+        coverSliderView.layer.cornerRadius = coverSliderView.bounds.size.height / 2
+        coverSliderView.backgroundColor = .darkGray
+    }
+    
+    fileprivate func setupPenSizeView() {
+        penSizeView.layer.cornerRadius = penSizeView.bounds.size.height / 2
+        penSizeView.layer.shadowColor = UIColor.black.cgColor
+        penSizeView.layer.shadowOpacity = 1
+        penSizeView.layer.shadowOffset = .zero
+        penSizeView.layer.shadowRadius = 5
     }
 }
 

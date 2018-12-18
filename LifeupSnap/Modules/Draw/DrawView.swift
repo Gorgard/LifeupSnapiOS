@@ -18,6 +18,8 @@ internal class DrawView: UIView {
     internal var currentColor: LFSColor!
     internal var lineWidth: CGFloat!
     
+    private var defaultLineWidth: CGFloat = 5
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -32,13 +34,13 @@ internal class DrawView: UIView {
         
         if let context = UIGraphicsGetCurrentContext() {
             context.setLineCap(.round)
-            context.setLineWidth(lineWidth)
             
             for line in lines {
                 context.beginPath()
                 context.move(to: CGPoint(x: line.startX, y: line.startY))
                 context.addLine(to: CGPoint(x: line.endX, y: line.endY))
                 context.setStrokeColor(line.color.cgColor)
+                context.setLineWidth(line.lineWidth)
                 context.strokePath()
                 context.fillPath()
             }
@@ -52,7 +54,7 @@ internal class DrawView: UIView {
         lines = [LFSLine]()
         deletedLines = [LFSLine]()
         currentColor = LFSColor(name: "Black", color: .black)
-        lineWidth = 5
+        lineWidth = defaultLineWidth
     }
     
     internal func backward() {
@@ -71,6 +73,14 @@ internal class DrawView: UIView {
             
             setNeedsDisplay()
         }
+    }
+    
+    internal func clear() {
+        if lines.count > 0 {
+            lines.removeAll()
+        }
+        
+        setNeedsDisplay()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

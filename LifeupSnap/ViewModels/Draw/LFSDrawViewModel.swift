@@ -17,11 +17,16 @@ internal class LFSDrawViewModel: LFSViewModel {
     private var currentColor: LFSColor?
     
     internal var colorPallateViewAlpha: CGFloat!
+    internal var minimumPenSize: CGFloat!
+    internal var maximumPenSize: CGFloat!
     
     internal var openColorPallate: ((_ alpha: CGFloat) -> Void)?
     internal var changePallateButtonImage: ((_ image: UIImage) -> Void)?
     internal var changePallateColor: ((_ color: LFSColor?) -> Void)?
     internal var didDrawed: (() -> Void)?
+    internal var changePenSizeViewColor: ((_ color: LFSColor?) -> Void)?
+    internal var changePenSizeViewSize: ((_ width: CGFloat, _ height: CGFloat) -> Void)?
+    internal var changeLineWidth: ((_ width: CGFloat) -> Void)?
     
     init(delegate: LFSDrawViewModelDelegate) {
         super.init()
@@ -60,6 +65,13 @@ extension LFSDrawViewModel {
         }
         
         openColorPallate?(colorPallateViewAlpha)
+    }
+    
+    internal func penSize(sender: Any) {
+        let slider = sender as! UISlider
+        let value = CGFloat(slider.value)
+        changePenSizeViewSize?(value, value)
+        changeLineWidth?(value)
     }
 }
 
