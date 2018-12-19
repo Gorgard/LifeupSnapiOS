@@ -105,8 +105,8 @@ extension LFSEditLabelViewController {
         
         viewModel.newMessageTextView = { [unowned self] (textColor, borderTextColor) -> Void in
             self.messageTextView.textColor = textColor
+            self.messageTextView.backgroundColor = borderTextColor
             self.messageTextView.placeholderColor = textColor?.withAlphaComponent(0.4)
-            self.messageTextView.borderTextColor = borderTextColor
         }
         
         viewModel.textOfMessageTextView = { [unowned self] (text) -> Void in
@@ -134,6 +134,9 @@ extension LFSEditLabelViewController {
         messageTextView.returnKeyType = .done
         messageTextView.backgroundColor = .clear
         messageTextView.delegate = self
+        
+        messageTextView.layer.cornerRadius = 8
+        messageTextView.layer.masksToBounds = true
         
         viewModel.messageTextViewTopConstraint = messageTextViewTopConstraint.constant
         

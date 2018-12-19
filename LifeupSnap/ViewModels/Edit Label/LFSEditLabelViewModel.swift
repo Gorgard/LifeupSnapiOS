@@ -30,8 +30,8 @@ internal class LFSEditLabelViewModel: LFSViewModel {
     internal var messageTextViewMaxHeight: ((_ height: CGFloat) -> Void)?
     internal var textOfMessageTextView: ((_ text: String?) -> Void)?
     internal var receivedDragLabel: ((_ dragTextView: DragLabel) -> Void)?
-    internal var editedLabel: (() -> Void)?
     internal var newMessageTextView: ((_ textColor: UIColor?, _ borderTextColor: UIColor?) -> Void)?
+    internal var editedLabel: (() -> Void)?
     
     init(delegate: LFSEditLabelViewModelDelegate) {
         super.init()
@@ -188,10 +188,7 @@ extension LFSEditLabelViewModel {
         dragLabel.isBorder = isBorder
         dragLabel.currentColor = currentColor
         dragLabel.text = text
-        dragLabel.numberOfLines = 0
         dragLabel.textColor = textColor
-        dragLabel.textAlignment = .center
-        dragLabel.font = UIFont.systemFont(ofSize: 30, weight: .medium)
         
         let frame = CGRect(x: dragLabel.frame.origin.x, y: dragLabel.frame.origin.y, width: dragLabel.currentWidth, height: dragLabel.currentHeight)
         dragLabel.frame = frame

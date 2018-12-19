@@ -40,26 +40,16 @@ open class GrowingTextView: UITextView {
         didSet { setNeedsDisplay() }
     }
     
-    //MARK: Border
-    var spacing: CGFloat = 0
-    var isBorder: Bool = false
-    
-    open var borderTextColor: UIColor? = .clear {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
-
     override public init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         commonInit()
-        borderConfiguration()
+        //borderConfiguration()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
-        borderConfiguration()
+        //borderConfiguration()
     }
     
     private func commonInit() {
@@ -166,8 +156,6 @@ open class GrowingTextView: UITextView {
                 placeholder.draw(in: placeholderRect, withAttributes: attributes)
             }
         }
-        
-        newBorder()
     }
     
     // Trim white space and new line characters when end editing.
@@ -191,37 +179,5 @@ open class GrowingTextView: UITextView {
             }
             setNeedsDisplay()
         }
-    }
-}
-
-//MARK: NSLayoutManagerDelegate
-extension GrowingTextView: NSLayoutManagerDelegate {
-    fileprivate func borderConfiguration() {
-        layoutManager.delegate = self
-    }
-    
-    internal func newBorder() {
-        let textRange = NSRange(location: 0, length: text.unicodeScalars.count)
-        
-        layoutManager.enumerateLineFragments(forGlyphRange: textRange, using: { [unowned self] (rect, usedRect, _, _, _) -> Void in
-            let bgRect = CGRect(x: usedRect.origin.x,
-                                y: usedRect.origin.y + 8.5,
-                                width: usedRect.size.width,
-                                height: usedRect.size.height + 1)
-            
-            let bezierPath = UIBezierPath(roundedRect: bgRect, cornerRadius: 8)
-            self.borderTextColor?.set()
-            
-            bezierPath.fill()
-            bezierPath.close()
-        })
-    }
-    
-    public func layoutManager(_ layoutManager: NSLayoutManager, lineSpacingAfterGlyphAt glyphIndex: Int, withProposedLineFragmentRect rect: CGRect) -> CGFloat {
-        return spacing
-    }
-    
-    public func layoutManager(_ layoutManager: NSLayoutManager, shouldUse action: NSLayoutManager.ControlCharacterAction, forControlCharacterAt charIndex: Int) -> NSLayoutManager.ControlCharacterAction {
-        return .lineBreak
     }
 }

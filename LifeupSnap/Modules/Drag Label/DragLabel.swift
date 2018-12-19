@@ -48,6 +48,9 @@ internal class DragLabel: UILabel {
         currentHeight = 300
         
         isUserInteractionEnabled = true
+        numberOfLines = 0
+        textAlignment = .center
+        font = UIFont.systemFont(ofSize: 30, weight: .medium)
     }
     
     internal func setBorderLabel() {
@@ -82,11 +85,6 @@ extension DragLabel {
                 if let view = gesture.view {
                     currentWidth = view.frame.size.width * pinchScale
                     currentHeight = view.frame.size.height * pinchScale
-         
-//                    if currentHeight <= currentHeight / lastScale || currentWidth <= currentWidth / lastScale {
-//                        currentWidth = view.frame.size.width
-//                        currentHeight = (currentHeight * lastScale * pinchScale) * 2
-//                    }
                 }
             }
             
