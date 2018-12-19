@@ -184,18 +184,20 @@ extension LFSEditLabelViewModel {
             dragLabel = DragLabel()
         }
         
-        dragLabel.text = text
-        dragLabel.textColor = textColor
         dragLabel.borderTextColor = borderTextColor
         dragLabel.isBorder = isBorder
         dragLabel.currentColor = currentColor
-        dragLabel.font = UIFont.systemFont(ofSize: 30, weight: .medium)
-        dragLabel.textAlignment = .center
+        dragLabel.text = text
         dragLabel.numberOfLines = 0
+        dragLabel.textColor = textColor
+        dragLabel.textAlignment = .center
+        dragLabel.font = UIFont.systemFont(ofSize: 30, weight: .medium)
         
-        dragLabel.frame = CGRect(x: dragLabel.frame.origin.x, y: dragLabel.frame.origin.y, width: dragLabel.currentWidth, height: dragLabel.currentHeight)
-        
+        let frame = CGRect(x: dragLabel.frame.origin.x, y: dragLabel.frame.origin.y, width: dragLabel.currentWidth, height: dragLabel.currentHeight)
+        dragLabel.frame = frame
         dragLabel.sizeToFit()
+      
+        dragLabel.setBorderLabel()
         
         receivedDragLabel?(dragLabel)
         editedLabel?()

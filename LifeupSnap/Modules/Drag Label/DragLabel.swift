@@ -1,5 +1,5 @@
 //
-//  DragTextView.swift
+//  DragLabel.swift
 //  LifeupSnap
 //
 //  Created by lifeup on 14/12/2561 BE.
@@ -21,6 +21,9 @@ internal class DragLabel: UILabel {
     
     internal var borderTextColor: UIColor?
     internal var isBorder: Bool = false
+
+    private var borderPath: UIBezierPath!
+    private var borderLayer: CAShapeLayer!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,10 +48,19 @@ internal class DragLabel: UILabel {
         currentHeight = 300
         
         isUserInteractionEnabled = true
-        backgroundColor = .clear
-        sizeToFit()
     }
     
+    internal func setBorderLabel() {
+        if isBorder {
+            layer.cornerRadius = 8
+            layer.masksToBounds = true
+            layer.backgroundColor = borderTextColor?.cgColor
+        }
+    }
+}
+
+//MARK: Handle Event
+extension DragLabel {
     @objc fileprivate func panView(_ gesture: UIPanGestureRecognizer) {
         let transition = gesture.translation(in: self.superview)
         center = CGPoint(x: lastLocation.x + transition.x, y: lastLocation.y + transition.y)
@@ -70,14 +82,11 @@ internal class DragLabel: UILabel {
                 if let view = gesture.view {
                     currentWidth = view.frame.size.width * pinchScale
                     currentHeight = view.frame.size.height * pinchScale
-                    
-                    print("current Width: \(currentWidth)")
-                    print("current height: \(currentHeight)")
-                    
-                    if currentHeight <= currentHeight / lastScale || currentWidth <= currentWidth / lastScale {
-                        currentWidth = view.frame.size.width
-                        currentHeight = (currentHeight * lastScale * pinchScale) * 2
-                    }
+         
+//                    if currentHeight <= currentHeight / lastScale || currentWidth <= currentWidth / lastScale {
+//                        currentWidth = view.frame.size.width
+//                        currentHeight = (currentHeight * lastScale * pinchScale) * 2
+//                    }
                 }
             }
             

@@ -37,7 +37,7 @@
 		430F2AE821AFD05400F2293D /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430F2AE721AFD05400F2293D /* Camera.swift */; };
 		430F2AEA21AFD56300F2293D /* CameraError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430F2AE921AFD56300F2293D /* CameraError.swift */; };
 		431264A721C37CD5003B679B /* StringProtocolExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431264A621C37CD5003B679B /* StringProtocolExtension.swift */; };
-		431264AC21C3A534003B679B /* DragTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431264AB21C3A534003B679B /* DragTextView.swift */; };
+		431264AC21C3A534003B679B /* DragLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431264AB21C3A534003B679B /* DragLabel.swift */; };
 		431A139321AD46C1005730E0 /* LifeupSnap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 431A138921AD46C1005730E0 /* LifeupSnap.framework */; };
 		431A139821AD46C1005730E0 /* LifeupSnapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431A139721AD46C1005730E0 /* LifeupSnapTests.swift */; };
 		431A139A21AD46C1005730E0 /* LifeupSnap.h in Headers */ = {isa = PBXBuildFile; fileRef = 431A138C21AD46C1005730E0 /* LifeupSnap.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -190,7 +190,7 @@
 		430F2AE721AFD05400F2293D /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		430F2AE921AFD56300F2293D /* CameraError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraError.swift; sourceTree = "<group>"; };
 		431264A621C37CD5003B679B /* StringProtocolExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringProtocolExtension.swift; sourceTree = "<group>"; };
-		431264AB21C3A534003B679B /* DragTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragTextView.swift; sourceTree = "<group>"; };
+		431264AB21C3A534003B679B /* DragLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragLabel.swift; sourceTree = "<group>"; };
 		431A138921AD46C1005730E0 /* LifeupSnap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LifeupSnap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		431A138C21AD46C1005730E0 /* LifeupSnap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LifeupSnap.h; sourceTree = "<group>"; };
 		431A138D21AD46C1005730E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -366,7 +366,7 @@
 			isa = PBXGroup;
 			children = (
 				4364F06321C793800063C82B /* Draw */,
-				431264AA21C3A519003B679B /* Drag TextView */,
+				431264AA21C3A519003B679B /* Drag Label */,
 				43D8BF8321B639860065B3EB /* Circular Progress */,
 				430F2AE621AFD04200F2293D /* Camera */,
 			);
@@ -381,12 +381,12 @@
 			path = Camera;
 			sourceTree = "<group>";
 		};
-		431264AA21C3A519003B679B /* Drag TextView */ = {
+		431264AA21C3A519003B679B /* Drag Label */ = {
 			isa = PBXGroup;
 			children = (
-				431264AB21C3A534003B679B /* DragTextView.swift */,
+				431264AB21C3A534003B679B /* DragLabel.swift */,
 			);
-			path = "Drag TextView";
+			path = "Drag Label";
 			sourceTree = "<group>";
 		};
 		431A137F21AD46C1005730E0 = {
@@ -1124,7 +1124,7 @@
 				433BC3CA21C2111700DA3C43 /* LFSEditLabelViewModel.swift in Sources */,
 				43D8BF8521B639860065B3EB /* CircularProgress.swift in Sources */,
 				437225DD21AE874200130213 /* LFSSnapViewModel.swift in Sources */,
-				431264AC21C3A534003B679B /* DragTextView.swift in Sources */,
+				431264AC21C3A534003B679B /* DragLabel.swift in Sources */,
 				4364F06B21C79D160063C82B /* LFSDrawViewModelProtocols.swift in Sources */,
 				4383E54021C0F59700B87A30 /* LFSPhotoPreviewViewModel.swift in Sources */,
 				43FCBA4D21BFB75C0022C749 /* LFSVideoPreviewViewController.swift in Sources */,
