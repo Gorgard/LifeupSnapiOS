@@ -23,10 +23,11 @@ internal class LFSDrawViewModel: LFSViewModel {
     internal var openColorPallate: ((_ alpha: CGFloat) -> Void)?
     internal var changePallateButtonImage: ((_ image: UIImage) -> Void)?
     internal var changePallateColor: ((_ color: LFSColor?) -> Void)?
-    internal var didDrawed: (() -> Void)?
     internal var changePenSizeViewColor: ((_ color: LFSColor?) -> Void)?
     internal var changePenSizeViewSize: ((_ width: CGFloat, _ height: CGFloat) -> Void)?
     internal var changeLineWidth: ((_ width: CGFloat) -> Void)?
+    internal var didDrawed: (() -> Void)?
+    internal var didClear: (() -> Void)?
     
     init(delegate: LFSDrawViewModelDelegate) {
         super.init()
@@ -73,6 +74,16 @@ extension LFSDrawViewModel {
         changePenSizeViewSize?(value, value)
         changeLineWidth?(value)
     }
+    
+    internal func clear() {
+        didClear?()
+    }
+    
+    internal func eraser() {
+        currentColor = LFSColor(name: "Clear", color: .clear)
+        changePallateColor?(currentColor)
+        delegate?.choosedColor()
+    }
 }
 
 //MARK: LFSCollectionViewPresentable
@@ -104,7 +115,6 @@ extension LFSDrawViewModel: LFSCollectionViewPresentable {
     internal func didSelected(with collectionView: UICollectionView, at indexPath: IndexPath) {
         let pallateColor = pallateColors[indexPath.row]
         currentColor = pallateColor
-        
         changePallateColor?(currentColor)
         delegate?.choosedColor()
     }

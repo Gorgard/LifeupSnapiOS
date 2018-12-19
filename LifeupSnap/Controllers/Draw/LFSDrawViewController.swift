@@ -12,6 +12,8 @@ class LFSDrawViewController: UIViewController {
     @IBOutlet weak var drawView: DrawView!
     @IBOutlet weak var colorPallateButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var eraserButton: UIButton!
+    @IBOutlet weak var clearButton: UIButton!
     @IBOutlet weak var colorPallateView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var coverSliderView: UIView!
@@ -61,8 +63,12 @@ class LFSDrawViewController: UIViewController {
         viewModel.colorPallate()
     }
     
+    @IBAction func onTappedEraser(_ sender: Any) {
+        viewModel.eraser()
+    }
+    
     @IBAction func onTappedClear(_ sender: Any) {
-        drawView.clear()
+        viewModel.clear()
     }
     
     @IBAction func onSlidePenSize(_ sender: Any) {
@@ -119,6 +125,10 @@ extension LFSDrawViewController {
         
         viewModel.didDrawed = { [unowned self] () -> Void in
             self.delegate?.didDrawed()
+        }
+        
+        viewModel.didClear = { [unowned self] () -> Void in
+            self.drawView.clear()
         }
     }
     

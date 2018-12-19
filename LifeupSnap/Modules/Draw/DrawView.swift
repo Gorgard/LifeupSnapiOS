@@ -39,8 +39,16 @@ internal class DrawView: UIView {
                 context.beginPath()
                 context.move(to: CGPoint(x: line.startX, y: line.startY))
                 context.addLine(to: CGPoint(x: line.endX, y: line.endY))
-                context.setStrokeColor(line.color.cgColor)
                 context.setLineWidth(line.lineWidth)
+                
+                if line.color == .clear {
+                    context.setBlendMode(.clear)
+                }
+                else {
+                    context.setBlendMode(.normal)
+                    context.setStrokeColor(line.color.cgColor)
+                }
+                
                 context.strokePath()
                 context.fillPath()
             }
