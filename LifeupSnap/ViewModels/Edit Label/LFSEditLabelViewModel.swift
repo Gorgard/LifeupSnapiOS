@@ -16,7 +16,7 @@ internal class LFSEditLabelViewModel: LFSViewModel {
     
     internal var colorPallateViewAlpha: CGFloat!
     
-    internal var dragTextView: DragTextView?
+    internal var dragLabel: DragLabel?
     
     private var text: String?
     private var textColor: UIColor?
@@ -29,7 +29,7 @@ internal class LFSEditLabelViewModel: LFSViewModel {
     internal var changePallateButtonImage: ((_ image: UIImage) -> Void)?
     internal var messageTextViewMaxHeight: ((_ height: CGFloat) -> Void)?
     internal var textOfMessageTextView: ((_ text: String?) -> Void)?
-    internal var receivedDragTextView: ((_ dragTextView: DragTextView) -> Void)?
+    internal var receivedDragLabel: ((_ dragTextView: DragLabel) -> Void)?
     internal var editedLabel: (() -> Void)?
     internal var newMessageTextView: ((_ textColor: UIColor?, _ borderTextColor: UIColor?) -> Void)?
     
@@ -55,12 +55,12 @@ extension LFSEditLabelViewModel {
     }
     
     internal func binding() {
-        if let dragTextView = dragTextView {
-            text = dragTextView.text
-            textColor = dragTextView.textColor
-            borderTextColor = dragTextView.borderTextColor
-            isBorder = dragTextView.isBorder
-            currentColor = dragTextView.currentColor
+        if let dragLabel = dragLabel {
+            text = dragLabel.text
+            textColor = dragLabel.textColor
+            borderTextColor = dragLabel.borderTextColor
+            isBorder = dragLabel.isBorder
+            currentColor = dragLabel.currentColor
         }
         else {
             currentColor = LFSColor(name: "Black", color: .black)
@@ -169,38 +169,35 @@ extension LFSEditLabelViewModel {
 
 //MARK: Send Value by LFSEditLabelDelegate
 extension LFSEditLabelViewModel {
-    internal func generateDragTextView() {
+    internal func generateDragLabel() {
         guard let text = text, !text.isEmpty, let textColor = textColor, let borderTextColor = borderTextColor else {
             editedLabel?()
             return
         }
         
-        var dragTextView: DragTextView
+        var dragLabel: DragLabel
         
-        if let _dragTextView = self.dragTextView {
-            dragTextView = _dragTextView
+        if let _dragLabel = self.dragLabel {
+            dragLabel = _dragLabel
         }
         else {
-            dragTextView = DragTextView()
+            dragLabel = DragLabel()
         }
         
-        let size = LFSEditModel.shared.sizeOfString(string: text, constrainedToWidth: Double(UIScreen.main.bounds.width - 50))
-        let x = dragTextView.frame.origin.x
-        let y = dragTextView.frame.origin.y
-
-        dragTextView.frame = CGRect(x: x, y: y, width: size.width, height: size.height)
-        dragTextView.text = text
-        dragTextView.textColor = textColor
-        dragTextView.borderTextColor = borderTextColor
-        dragTextView.isBorder = isBorder
-        dragTextView.currentColor = currentColor
-        dragTextView.font = UIFont.systemFont(ofSize: 30, weight: .medium)
-        dragTextView.textAlignment = .center
-        dragTextView.isUserInteractionEnabled = true
-        dragTextView.backgroundColor = .clear
-        dragTextView.sizeToFit()
+        dragLabel.text = text
+        dragLabel.textColor = textColor
+        dragLabel.borderTextColor = borderTextColor
+        dragLabel.isBorder = isBorder
+        dragLabel.currentColor = currentColor
+        dragLabel.font = UIFont.systemFont(ofSize: 30, weight: .medium)
+        dragLabel.textAlignment = .center
+        dragLabel.numberOfLines = 0
         
-        receivedDragTextView?(dragTextView)
+        dragLabel.frame = CGRect(x: dragLabel.frame.origin.x, y: dragLabel.frame.origin.y, width: dragLabel.currentWidth, height: dragLabel.currentHeight)
+        
+        dragLabel.sizeToFit()
+        
+        receivedDragLabel?(dragLabel)
         editedLabel?()
     }
 }

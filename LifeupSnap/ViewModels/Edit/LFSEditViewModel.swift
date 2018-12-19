@@ -19,15 +19,15 @@ internal class LFSEditViewModel: LFSViewModel {
     internal var receivedThumbnailImage: ((_ image: UIImage?) -> Void)?
     internal var hiddenAllView: ((_ hidden: Bool) -> Void)?
     
-    private var textViews: [DragTextView]!
+    private var labels: [DragLabel]!
     
     init(delegate: LFSEditViewModelDelegate) {
         super.init()
         self.delegate = delegate
         
-        textViews = [DragTextView]()
+        labels = [DragLabel]()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleEditTextView(notification:)), name: NSNotification.Name(rawValue: LFSConstants.NotificationCenterID.DragTextView.editTextView), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleEditTextView(notification:)), name: NSNotification.Name(rawValue: LFSConstants.NotificationCenterID.DragLabel.editLabel), object: nil)
     }
 }
 
@@ -53,9 +53,9 @@ extension LFSEditViewModel {
 
 //MARK: Handle Action
 extension LFSEditViewModel {
-    internal func label(dragTextView: DragTextView? = nil) {
+    internal func label(dragLabel: DragLabel? = nil) {
         let lfsEditLabelViewController = LFSEditLabelViewController(delegate: self)
-        lfsEditLabelViewController.dragTextView = dragTextView
+        lfsEditLabelViewController.dragLabel = dragLabel
         
         lfsEditLabelViewController.modalPresentationStyle = .overFullScreen
         
@@ -91,27 +91,31 @@ extension LFSEditViewModel {
 
 //MARK: LFSEditLabelDelegate
 extension LFSEditViewModel: LFSEditLabelDelegate {
-    internal func editLabel(recieved dragTextView: DragTextView) {
-        if !textViews.contains(dragTextView) {
-            let center = view!.center
-            dragTextView.center = center
-            
-            view?.addSubview(dragTextView)
-            
-            textViews.append(dragTextView)
+    internal func editLabel(recieved dragLabel: DragLabel) {
+        if !labels.contains(dragLabel) {
+            addDragLabel(dragLabel: dragLabel)
         }
     }
     
     internal func editedLabel() {
         hiddenAllView?(false)
     }
+    
+    fileprivate func addDragLabel(dragLabel: DragLabel) {
+        let center = view!.center
+        dragLabel.center = center
+        
+        view?.addSubview(dragLabel)
+        
+        labels.append(dragLabel)
+    }
 }
 
 //MARK: Handle Notification Edit TextView
 extension LFSEditViewModel {
     @objc fileprivate func handleEditTextView(notification: Notification) {
-        if let userInfo = notification.userInfo as? [String: Any], let dragTextView = userInfo["dragTextView"] as? DragTextView {
-            label(dragTextView: dragTextView)
+        if let userInfo = notification.userInfo as? [String: Any], let dragLabel = userInfo["dragLabel"] as? DragLabel {
+            label(dragLabel: dragLabel)
         }
     }
 }

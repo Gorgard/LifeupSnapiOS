@@ -34,8 +34,8 @@ internal struct LFSConstants {
     
     //MARK: NotificationCenter ID
     internal struct NotificationCenterID {
-        internal struct DragTextView {
-            internal static let editTextView = "edit_text_view_notification_center_identifier"
+        internal struct DragLabel {
+            internal static let editLabel = "edit_text_view_notification_center_identifier"
         }
     }
     

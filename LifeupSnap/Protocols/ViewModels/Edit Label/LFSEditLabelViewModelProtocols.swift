@@ -14,6 +14,6 @@ internal protocol LFSEditLabelViewModelDelegate: class {
 }
 
 internal protocol LFSEditLabelDelegate: class, NSObjectProtocol {
-    func editLabel(recieved dragTextView: DragTextView)
+    func editLabel(recieved dragLabel: DragLabel)
     func editedLabel()
 }

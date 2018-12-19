@@ -23,7 +23,7 @@ internal class LFSEditLabelViewController: UIViewController {
     
     internal var viewModel: LFSEditLabelViewModel!
     
-    internal var dragTextView: DragTextView?
+    internal var dragLabel: DragLabel?
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -69,8 +69,9 @@ internal class LFSEditLabelViewController: UIViewController {
 extension LFSEditLabelViewController {
     fileprivate func setup() {
         viewModel = LFSEditLabelViewModel(delegate: self)
-        viewModel.dragTextView = dragTextView
+        viewModel.dragLabel = dragLabel
         viewModel.viewController = self
+        viewModel.view = view
         
         viewModel.setup()
     }
@@ -94,8 +95,8 @@ extension LFSEditLabelViewController {
             self.messageTextView.maxHeight = height
         }
         
-        viewModel.receivedDragTextView = { [unowned self] (dragTextView) -> Void in
-            self.delegate?.editLabel(recieved: dragTextView)
+        viewModel.receivedDragLabel = { [unowned self] (dragLabel) -> Void in
+            self.delegate?.editLabel(recieved: dragLabel)
         }
         
         viewModel.editedLabel = { [unowned self] () -> Void in
@@ -182,7 +183,7 @@ extension LFSEditLabelViewController: UITextViewDelegate {
 extension LFSEditLabelViewController: LFSEditLabelViewModelDelegate {
     func tappedDoneButton() {
         messageTextView.resignFirstResponder()
-        viewModel.generateDragTextView()
+        viewModel.generateDragLabel()
     }
     
     func choosedColor() {

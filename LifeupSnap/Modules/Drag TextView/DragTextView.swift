@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class DragTextView: GrowingTextView {
+internal class DragLabel: UILabel {
     private var lastLocation: CGPoint!
     private var lastScale: CGFloat = 1.0
     
@@ -16,9 +16,14 @@ internal class DragTextView: GrowingTextView {
     private let maxScale: CGFloat = 2.0
     
     internal var currentColor: LFSColor?
+    internal var currentWidth: CGFloat!
+    internal var currentHeight: CGFloat!
     
-    override init(frame: CGRect, textContainer: NSTextContainer?) {
-        super.init(frame: frame, textContainer: textContainer)
+    internal var borderTextColor: UIColor?
+    internal var isBorder: Bool = false
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         configuration()
     }
     
@@ -36,7 +41,12 @@ internal class DragTextView: GrowingTextView {
         
         self.gestureRecognizers = [panGesture, pinchGesture, tapGesture]
         
-        isScrollEnabled = false
+        currentWidth = 300
+        currentHeight = 300
+        
+        isUserInteractionEnabled = true
+        backgroundColor = .clear
+        sizeToFit()
     }
     
     @objc fileprivate func panView(_ gesture: UIPanGestureRecognizer) {
@@ -56,6 +66,19 @@ internal class DragTextView: GrowingTextView {
             if lastScale * pinchScale < maxScale && lastScale * pinchScale > minScale {
                 lastScale *= pinchScale
                 transform = transform.scaledBy(x: pinchScale, y: pinchScale)
+                
+                if let view = gesture.view {
+                    currentWidth = view.frame.size.width * pinchScale
+                    currentHeight = view.frame.size.height * pinchScale
+                    
+                    print("current Width: \(currentWidth)")
+                    print("current height: \(currentHeight)")
+                    
+                    if currentHeight <= currentHeight / lastScale || currentWidth <= currentWidth / lastScale {
+                        currentWidth = view.frame.size.width
+                        currentHeight = (currentHeight * lastScale * pinchScale) * 2
+                    }
+                }
             }
             
             gesture.scale = 1.0
@@ -63,8 +86,8 @@ internal class DragTextView: GrowingTextView {
     }
     
     @objc fileprivate func tapView(_ gesture: UITapGestureRecognizer) {
-        let userInfo: [String: Any] = ["dragTextView": self]
+        let userInfo: [String: Any] = ["dragLabel": self]
         
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: LFSConstants.NotificationCenterID.DragTextView.editTextView), object: nil, userInfo: userInfo)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: LFSConstants.NotificationCenterID.DragLabel.editLabel), object: nil, userInfo: userInfo)
     }
 }
