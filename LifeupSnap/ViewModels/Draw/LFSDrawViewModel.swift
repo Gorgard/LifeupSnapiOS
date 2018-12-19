@@ -25,6 +25,7 @@ internal class LFSDrawViewModel: LFSViewModel {
     internal var changePallateColor: ((_ color: LFSColor?) -> Void)?
     internal var changePenSizeViewColor: ((_ color: LFSColor?) -> Void)?
     internal var changePenSizeViewSize: ((_ width: CGFloat, _ height: CGFloat) -> Void)?
+    internal var receivedDrawView: ((_ drawView: DrawView) -> Void)?
     internal var didDrawed: (() -> Void)?
     internal var didClear: (() -> Void)?
     
@@ -128,6 +129,12 @@ extension LFSDrawViewModel: LFSCollectionViewPresentable {
 //MARK: Send Value by LFSDrawDelegate
 extension LFSDrawViewModel {
     internal func generateDrawView() {
+        guard let drawView = drawView, let lines = drawView.lines, lines.count > 0 else {
+            didDrawed?()
+            return
+        }
         
+        receivedDrawView?(drawView)
+        didDrawed?()
     }
 }

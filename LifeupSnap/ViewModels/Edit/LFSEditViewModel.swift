@@ -27,6 +27,7 @@ internal class LFSEditViewModel: LFSViewModel {
         self.delegate = delegate
         
         labels = [DragLabel]()
+        drawViews = [DrawView]()
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleEditTextView(notification:)), name: NSNotification.Name(rawValue: LFSConstants.NotificationCenterID.DragLabel.editLabel), object: nil)
     }
@@ -124,10 +125,21 @@ extension LFSEditViewModel {
 //MARK: LFSDrawDelegate
 extension LFSEditViewModel: LFSDrawDelegate {
     internal func draw(received drawView: DrawView) {
-        
+        if !drawViews.contains(drawView) {
+            addDrawView(drawView: drawView)
+        }
     }
     
     internal func didDrawed() {
         hiddenAllView?(false)
+    }
+    
+    fileprivate func addDrawView(drawView: DrawView) {
+        let frame = view!.frame
+        drawView.frame = frame
+        
+        view?.addSubview(drawView)
+        
+        drawViews.append(drawView)
     }
 }

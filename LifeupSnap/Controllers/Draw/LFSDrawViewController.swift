@@ -115,7 +115,11 @@ extension LFSDrawViewController {
         }
         
         viewModel.changePallateColor = { [unowned self] (color) -> Void in
-            self.penSizeView.layer.shadowColor = self.drawView.currentColor.color.cgColor
+            self.penSizeView.layer.shadowColor = color?.color.cgColor
+        }
+        
+        viewModel.receivedDrawView = { [unowned self] (drawView) -> Void in
+            self.delegate?.draw(received: drawView)
         }
     
         viewModel.didDrawed = { [unowned self] () -> Void in
@@ -185,7 +189,7 @@ extension LFSDrawViewController: UICollectionViewDelegate, UICollectionViewDataS
 //MARK: LFSDrawViewModelDelegate
 extension LFSDrawViewController: LFSDrawViewModelDelegate {
     internal func tappedDoneButton() {
-        
+        viewModel.generateDrawView()
     }
     
     internal func choosedColor() {
