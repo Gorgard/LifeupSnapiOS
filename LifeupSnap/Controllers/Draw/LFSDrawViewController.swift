@@ -115,20 +115,11 @@ extension LFSDrawViewController {
         }
         
         viewModel.changePallateColor = { [unowned self] (color) -> Void in
-            self.drawView.currentColor = color
             self.penSizeView.layer.shadowColor = self.drawView.currentColor.color.cgColor
         }
-        
-        viewModel.changeLineWidth = { [unowned self] (width) -> Void in
-            self.drawView.lineWidth = width
-        }
-        
+    
         viewModel.didDrawed = { [unowned self] () -> Void in
             self.delegate?.didDrawed()
-        }
-        
-        viewModel.didClear = { [unowned self] () -> Void in
-            self.drawView.clear()
         }
     }
     

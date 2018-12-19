@@ -14,5 +14,6 @@ internal protocol LFSDrawViewModelDelegate: class {
 }
 
 internal protocol LFSDrawDelegate: class, NSObjectProtocol {
+    func draw(received drawView: DrawView)
     func didDrawed()
 }

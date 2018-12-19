@@ -20,6 +20,7 @@ internal class LFSEditViewModel: LFSViewModel {
     internal var hiddenAllView: ((_ hidden: Bool) -> Void)?
     
     private var labels: [DragLabel]!
+    private var drawViews: [DrawView]!
     
     init(delegate: LFSEditViewModelDelegate) {
         super.init()
@@ -122,6 +123,10 @@ extension LFSEditViewModel {
 
 //MARK: LFSDrawDelegate
 extension LFSEditViewModel: LFSDrawDelegate {
+    internal func draw(received drawView: DrawView) {
+        
+    }
+    
     internal func didDrawed() {
         hiddenAllView?(false)
     }

@@ -25,7 +25,6 @@ internal class LFSDrawViewModel: LFSViewModel {
     internal var changePallateColor: ((_ color: LFSColor?) -> Void)?
     internal var changePenSizeViewColor: ((_ color: LFSColor?) -> Void)?
     internal var changePenSizeViewSize: ((_ width: CGFloat, _ height: CGFloat) -> Void)?
-    internal var changeLineWidth: ((_ width: CGFloat) -> Void)?
     internal var didDrawed: (() -> Void)?
     internal var didClear: (() -> Void)?
     
@@ -72,15 +71,18 @@ extension LFSDrawViewModel {
         let slider = sender as! UISlider
         let value = CGFloat(slider.value)
         changePenSizeViewSize?(value, value)
-        changeLineWidth?(value)
+        
+        drawView.lineWidth = value
     }
     
     internal func clear() {
-        didClear?()
+        drawView.clear()
     }
     
     internal func eraser() {
         currentColor = LFSColor(name: "Clear", color: .clear)
+        drawView.currentColor = currentColor
+        
         changePallateColor?(currentColor)
         delegate?.choosedColor()
     }
@@ -115,7 +117,17 @@ extension LFSDrawViewModel: LFSCollectionViewPresentable {
     internal func didSelected(with collectionView: UICollectionView, at indexPath: IndexPath) {
         let pallateColor = pallateColors[indexPath.row]
         currentColor = pallateColor
+        drawView.currentColor = currentColor
+        
         changePallateColor?(currentColor)
+        
         delegate?.choosedColor()
+    }
+}
+
+//MARK: Send Value by LFSDrawDelegate
+extension LFSDrawViewModel {
+    internal func generateDrawView() {
+        
     }
 }
