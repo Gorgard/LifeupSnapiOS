@@ -167,8 +167,6 @@
 		439C346E21CB38B300BDDC28 /* EmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439C346D21CB38B300BDDC28 /* EmojiView.swift */; };
 		439C347421CB3B8100BDDC28 /* LFSEmojiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439C347221CB3B8100BDDC28 /* LFSEmojiViewController.swift */; };
 		439C347521CB3B8100BDDC28 /* LFSEmojiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439C347321CB3B8100BDDC28 /* LFSEmojiViewController.xib */; };
-		439C347821CB3C3800BDDC28 /* LFSEmojiCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439C347621CB3C3800BDDC28 /* LFSEmojiCollectionViewCell.swift */; };
-		439C347921CB3C3800BDDC28 /* LFSEmojiCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439C347721CB3C3800BDDC28 /* LFSEmojiCollectionViewCell.xib */; };
 		439C347C21CB3C7D00BDDC28 /* LFSEmojiViewModelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439C347B21CB3C7D00BDDC28 /* LFSEmojiViewModelProtocols.swift */; };
 		439C347F21CB3D6500BDDC28 /* LFSEmojiViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439C347E21CB3D6500BDDC28 /* LFSEmojiViewModel.swift */; };
 		439C356221CB456900BDDC28 /* Emo57@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 439C348121CB456900BDDC28 /* Emo57@3x.png */; };
@@ -622,6 +620,10 @@
 		439C372221CB458500BDDC28 /* Emo5@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = 439C356021CB456900BDDC28 /* Emo5@2x.png */; };
 		439C372321CB458500BDDC28 /* Emo50@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = 439C356121CB456900BDDC28 /* Emo50@2x.png */; };
 		439C372621CB46EA00BDDC28 /* LFSEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439C372521CB46EA00BDDC28 /* LFSEmoji.swift */; };
+		43B8E5A021CB54A40057E02C /* LFSEmojiLabelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B8E59E21CB54A40057E02C /* LFSEmojiLabelCollectionViewCell.swift */; };
+		43B8E5A121CB54A40057E02C /* LFSEmojiLabelCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43B8E59F21CB54A40057E02C /* LFSEmojiLabelCollectionViewCell.xib */; };
+		43B8E5A621CB54CE0057E02C /* LFSEmojiImageSystemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B8E5A421CB54CE0057E02C /* LFSEmojiImageSystemCollectionViewCell.swift */; };
+		43B8E5A721CB54CE0057E02C /* LFSEmojiImageSystemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43B8E5A521CB54CE0057E02C /* LFSEmojiImageSystemCollectionViewCell.xib */; };
 		43D8BF8521B639860065B3EB /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D8BF8421B639860065B3EB /* CircularProgress.swift */; };
 		43E9866B21C260C100F92FD6 /* GrowingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E9866A21C260C100F92FD6 /* GrowingTextView.swift */; };
 		43E9F74E21B4C1A600E91AAE /* CameraFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E9F74D21B4C1A600E91AAE /* CameraFeature.swift */; };
@@ -739,8 +741,6 @@
 		439C346D21CB38B300BDDC28 /* EmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiView.swift; sourceTree = "<group>"; };
 		439C347221CB3B8100BDDC28 /* LFSEmojiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEmojiViewController.swift; sourceTree = "<group>"; };
 		439C347321CB3B8100BDDC28 /* LFSEmojiViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSEmojiViewController.xib; sourceTree = "<group>"; };
-		439C347621CB3C3800BDDC28 /* LFSEmojiCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEmojiCollectionViewCell.swift; sourceTree = "<group>"; };
-		439C347721CB3C3800BDDC28 /* LFSEmojiCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSEmojiCollectionViewCell.xib; sourceTree = "<group>"; };
 		439C347B21CB3C7D00BDDC28 /* LFSEmojiViewModelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEmojiViewModelProtocols.swift; sourceTree = "<group>"; };
 		439C347E21CB3D6500BDDC28 /* LFSEmojiViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEmojiViewModel.swift; sourceTree = "<group>"; };
 		439C348121CB456900BDDC28 /* Emo57@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Emo57@3x.png"; sourceTree = "<group>"; };
@@ -969,6 +969,10 @@
 		439C356021CB456900BDDC28 /* Emo5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Emo5@2x.png"; sourceTree = "<group>"; };
 		439C356121CB456900BDDC28 /* Emo50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Emo50@2x.png"; sourceTree = "<group>"; };
 		439C372521CB46EA00BDDC28 /* LFSEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEmoji.swift; sourceTree = "<group>"; };
+		43B8E59E21CB54A40057E02C /* LFSEmojiLabelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEmojiLabelCollectionViewCell.swift; sourceTree = "<group>"; };
+		43B8E59F21CB54A40057E02C /* LFSEmojiLabelCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSEmojiLabelCollectionViewCell.xib; sourceTree = "<group>"; };
+		43B8E5A421CB54CE0057E02C /* LFSEmojiImageSystemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEmojiImageSystemCollectionViewCell.swift; sourceTree = "<group>"; };
+		43B8E5A521CB54CE0057E02C /* LFSEmojiImageSystemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSEmojiImageSystemCollectionViewCell.xib; sourceTree = "<group>"; };
 		43D8BF8421B639860065B3EB /* CircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
 		43E9866A21C260C100F92FD6 /* GrowingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrowingTextView.swift; sourceTree = "<group>"; };
 		43E9F74D21B4C1A600E91AAE /* CameraFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFeature.swift; sourceTree = "<group>"; };
@@ -1224,8 +1228,9 @@
 		433BC3D721C233B500DA3C43 /* CollectionViewCells */ = {
 			isa = PBXGroup;
 			children = (
-				439C347621CB3C3800BDDC28 /* LFSEmojiCollectionViewCell.swift */,
 				433BC3D821C233E300DA3C43 /* LFSLabelColorCollectionViewCell.swift */,
+				43B8E59E21CB54A40057E02C /* LFSEmojiLabelCollectionViewCell.swift */,
+				43B8E5A421CB54CE0057E02C /* LFSEmojiImageSystemCollectionViewCell.swift */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -1247,8 +1252,9 @@
 		433BC3DD21C2341700DA3C43 /* CollectionViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				43B8E5A521CB54CE0057E02C /* LFSEmojiImageSystemCollectionViewCell.xib */,
+				43B8E59F21CB54A40057E02C /* LFSEmojiLabelCollectionViewCell.xib */,
 				433BC3D921C233E300DA3C43 /* LFSLabelColorCollectionViewCell.xib */,
-				439C347721CB3C3800BDDC28 /* LFSEmojiCollectionViewCell.xib */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -2024,6 +2030,7 @@
 				4386783421B90CD000B31B92 /* ic_main_close.png in Resources */,
 				439C35C421CB456900BDDC28 /* Emo4@2x.png in Resources */,
 				439C35D821CB456900BDDC28 /* Emo73.png in Resources */,
+				43B8E5A721CB54CE0057E02C /* LFSEmojiImageSystemCollectionViewCell.xib in Resources */,
 				439C35D421CB456900BDDC28 /* Emo57.png in Resources */,
 				439C360821CB456A00BDDC28 /* Emo58@3x.png in Resources */,
 				439C35A221CB456900BDDC28 /* Emo52.png in Resources */,
@@ -2034,6 +2041,7 @@
 				439C35D121CB456900BDDC28 /* Emo30@3x.png in Resources */,
 				439C358D21CB456900BDDC28 /* Emo61@2x.png in Resources */,
 				439C362921CB456A00BDDC28 /* Emo16.png in Resources */,
+				43B8E5A121CB54A40057E02C /* LFSEmojiLabelCollectionViewCell.xib in Resources */,
 				439C358421CB456900BDDC28 /* Emo37.png in Resources */,
 				439C359B21CB456900BDDC28 /* Emo34@2x.png in Resources */,
 				439C35ED21CB456900BDDC28 /* Emo59.png in Resources */,
@@ -2252,7 +2260,6 @@
 				439C35EE21CB456900BDDC28 /* Emo56@3x.png in Resources */,
 				439C358721CB456900BDDC28 /* Emo36.png in Resources */,
 				439C362721CB456A00BDDC28 /* Emo13.png in Resources */,
-				439C347921CB3C3800BDDC28 /* LFSEmojiCollectionViewCell.xib in Resources */,
 				439C35FC21CB456A00BDDC28 /* Emo61.png in Resources */,
 				439C362E21CB456A00BDDC28 /* Emo66@2x.png in Resources */,
 				439C363521CB456A00BDDC28 /* Emo74@2x.png in Resources */,
@@ -2331,7 +2338,6 @@
 				436FCB2E21C1FF0C008EBBC7 /* EditEvent.swift in Sources */,
 				436FCB3121C1FFBC008EBBC7 /* LFSVideoModel.swift in Sources */,
 				4364F06821C793F00063C82B /* LFSLine.swift in Sources */,
-				439C347821CB3C3800BDDC28 /* LFSEmojiCollectionViewCell.swift in Sources */,
 				436FCB2B21C1FE06008EBBC7 /* LFSEditViewModelProtocols.swift in Sources */,
 				43FCBA8421BFBBDC0022C749 /* LFSVideoPreviewViewModelProtocols.swift in Sources */,
 				4383E53D21C0F58600B87A30 /* LFSPhotoPreviewViewModelProtocols.swift in Sources */,
@@ -2441,6 +2447,7 @@
 				439C36B821CB458500BDDC28 /* Emo67.png in Sources */,
 				439C36B721CB458500BDDC28 /* Emo42.png in Sources */,
 				439C36B621CB458500BDDC28 /* Emo56.png in Sources */,
+				43B8E5A021CB54A40057E02C /* LFSEmojiLabelCollectionViewCell.swift in Sources */,
 				439C36B521CB458500BDDC28 /* Emo57.png in Sources */,
 				439C36B421CB458500BDDC28 /* Emo43.png in Sources */,
 				439C36B321CB458500BDDC28 /* Emo16@2x.png in Sources */,
@@ -2537,6 +2544,7 @@
 				439C365821CB458500BDDC28 /* Emo24.png in Sources */,
 				439C365721CB458500BDDC28 /* Emo30.png in Sources */,
 				439C365621CB458500BDDC28 /* Emo10@3x.png in Sources */,
+				43B8E5A621CB54CE0057E02C /* LFSEmojiImageSystemCollectionViewCell.swift in Sources */,
 				439C365521CB458500BDDC28 /* Emo18.png in Sources */,
 				439C365421CB458500BDDC28 /* Emo36@2x.png in Sources */,
 				439C365321CB458500BDDC28 /* Emo55@2x.png in Sources */,

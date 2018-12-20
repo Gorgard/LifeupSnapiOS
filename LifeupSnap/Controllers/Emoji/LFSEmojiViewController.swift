@@ -13,6 +13,7 @@ class LFSEmojiViewController: UIViewController {
     @IBOutlet weak var slideDownButton: UIButton!
     @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     internal var viewModel: LFSEmojiViewModel!
     
@@ -39,7 +40,12 @@ class LFSEmojiViewController: UIViewController {
         binding()
         setupViews()
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.setup()
+        super.viewWillAppear(animated)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -55,12 +61,12 @@ extension LFSEmojiViewController {
     fileprivate func setup() {
         viewModel = LFSEmojiViewModel(delegate: self)
         viewModel.viewController = self
-        
-        viewModel.setup()
     }
     
     fileprivate func binding() {
-        
+        viewModel.didChoose = { [unowned self] () -> Void in
+            self.delegate?.dismissedView()
+        }
     }
     
     fileprivate func setupViews() {
@@ -68,29 +74,35 @@ extension LFSEmojiViewController {
     }
     
     fileprivate func setupCollectionView() {
-        let nib = UINib(nibName: LFSConstants.LFSNibID.Edit.lfsEmojiCollectionViewCell, bundle: Bundle(for: LFSEmojiCollectionViewCell.self))
-        collectionView.register(nib, forCellWithReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lfsEmojiCollectionViewCell)
+        let nibLabel = UINib(nibName: LFSConstants.LFSNibID.Edit.lfsEmojiLabelCollectionViewCell, bundle: Bundle(for: LFSEmojiLabelCollectionViewCell.self))
+        let nibImageSystem = UINib(nibName: LFSConstants.LFSNibID.Edit.lfsEmojiImageSystemCollectionViewCell, bundle: Bundle(for: LFSEmojiImageSystemCollectionViewCell.self))
         
+        collectionView.register(nibLabel, forCellWithReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lfsEmojiLabelCollectionViewCell)
+        collectionView.register(nibImageSystem, forCellWithReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lfsEmojiImageSystemCollectionViewCell)
+        
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.itemSize = CGSize(width: 50, height: 50)
+
         collectionView.backgroundColor = .clear
     }
 }
 
-//MARK: UICollectionViewDelegate, UICollectionViewDataSource
-extension LFSEmojiViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+//MARK: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
+extension LFSEmojiViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    internal func numberOfSections(in collectionView: UICollectionView) -> Int {
         return viewModel.numberOfSections()
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.numberOfItems(section: section)
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = viewModel.cellForItem(with: collectionView, at: indexPath)
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    internal func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.didSelected(with: collectionView, at: indexPath)
     }
 }
@@ -99,5 +111,10 @@ extension LFSEmojiViewController: UICollectionViewDelegate, UICollectionViewData
 extension LFSEmojiViewController: LFSEmojiViewModelDelegate {
     func dismissedView() {
         
+    }
+    
+    func fetchedEmoji() {
+        collectionView.reloadData()
+        indicatorView.stopAnimating()
     }
 }

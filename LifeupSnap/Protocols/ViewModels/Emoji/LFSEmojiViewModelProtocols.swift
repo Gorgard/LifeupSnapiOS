@@ -10,6 +10,7 @@ import Foundation
 
 internal protocol LFSEmojiViewModelDelegate: class {
     func dismissedView()
+    func fetchedEmoji()
 }
 
 internal protocol LFSEmojiDelegate: class, NSObjectProtocol {

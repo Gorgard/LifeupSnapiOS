@@ -15,4 +15,16 @@ internal class LFSEditModel: LFSBaseModel {
         let _emojis = emojis.filter({ $0.section == section })
         return _emojis
     }
+    
+    internal func getEmojiSections(emojis: [LFSEmoji]) -> [String] {
+        var sections = [String]()
+    
+        for emoji in emojis {
+            if !sections.contains(emoji.section) {
+                sections.append(emoji.section)
+            }
+        }
+        
+        return sections
+    }
 }
