@@ -20,14 +20,14 @@ internal class LFSEditViewModel: LFSViewModel {
     internal var hiddenAllView: ((_ hidden: Bool) -> Void)?
     
     private var labels: [DragLabel]!
-    private var drawViews: [DrawView]!
+    private var images: [UIImage]!
     
     init(delegate: LFSEditViewModelDelegate) {
         super.init()
         self.delegate = delegate
         
         labels = [DragLabel]()
-        drawViews = [DrawView]()
+        images = [UIImage]()
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleEditTextView(notification:)), name: NSNotification.Name(rawValue: LFSConstants.NotificationCenterID.DragLabel.editLabel), object: nil)
     }
@@ -125,8 +125,10 @@ extension LFSEditViewModel {
 //MARK: LFSDrawDelegate
 extension LFSEditViewModel: LFSDrawDelegate {
     internal func draw(received drawView: DrawView) {
-        if !drawViews.contains(drawView) {
-            addDrawView(drawView: drawView)
+        let image = drawView.image()
+        
+        if !images.contains(image) {
+            addImage(image: image)
         }
     }
     
@@ -134,12 +136,12 @@ extension LFSEditViewModel: LFSDrawDelegate {
         hiddenAllView?(false)
     }
     
-    fileprivate func addDrawView(drawView: DrawView) {
-        let frame = view!.frame
-        drawView.frame = frame
+    fileprivate func addImage(image: UIImage) {
+        let imageView = UIImageView(frame: view!.bounds)
+        imageView.image = image
         
-        view?.addSubview(drawView)
+        view?.addSubview(imageView)
         
-        drawViews.append(drawView)
+        images.append(image)
     }
 }
