@@ -625,6 +625,7 @@
 		43B8E88821CB7D290057E02C /* LFSEmojiSystemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43B8E88621CB7D290057E02C /* LFSEmojiSystemCollectionViewCell.xib */; };
 		43B8E88B21CB7DD50057E02C /* LFSEmojiSelfCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B8E88921CB7DD50057E02C /* LFSEmojiSelfCollectionViewCell.swift */; };
 		43B8E88C21CB7DD50057E02C /* LFSEmojiSelfCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43B8E88A21CB7DD50057E02C /* LFSEmojiSelfCollectionViewCell.xib */; };
+		43B8EB6B21CB877B0057E02C /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B8EB6A21CB877B0057E02C /* UIImageExtension.swift */; };
 		43D8BF8521B639860065B3EB /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D8BF8421B639860065B3EB /* CircularProgress.swift */; };
 		43E9866B21C260C100F92FD6 /* GrowingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E9866A21C260C100F92FD6 /* GrowingTextView.swift */; };
 		43E9F74E21B4C1A600E91AAE /* CameraFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E9F74D21B4C1A600E91AAE /* CameraFeature.swift */; };
@@ -975,6 +976,7 @@
 		43B8E88621CB7D290057E02C /* LFSEmojiSystemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSEmojiSystemCollectionViewCell.xib; sourceTree = "<group>"; };
 		43B8E88921CB7DD50057E02C /* LFSEmojiSelfCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEmojiSelfCollectionViewCell.swift; sourceTree = "<group>"; };
 		43B8E88A21CB7DD50057E02C /* LFSEmojiSelfCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSEmojiSelfCollectionViewCell.xib; sourceTree = "<group>"; };
+		43B8EB6A21CB877B0057E02C /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		43D8BF8421B639860065B3EB /* CircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
 		43E9866A21C260C100F92FD6 /* GrowingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrowingTextView.swift; sourceTree = "<group>"; };
 		43E9F74D21B4C1A600E91AAE /* CameraFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFeature.swift; sourceTree = "<group>"; };
@@ -1513,6 +1515,7 @@
 				4380FA2821B0CF5200177F64 /* SafeArray.swift */,
 				431264A621C37CD5003B679B /* StringProtocolExtension.swift */,
 				43B8E88321CB7C5A0057E02C /* StringExtension.swift */,
+				43B8EB6A21CB877B0057E02C /* UIImageExtension.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2472,6 +2475,7 @@
 				439C36A521CB458500BDDC28 /* Emo4@2x.png in Sources */,
 				439C36A421CB458500BDDC28 /* Emo40.png in Sources */,
 				439C36A321CB458500BDDC28 /* Emo54.png in Sources */,
+				43B8EB6B21CB877B0057E02C /* UIImageExtension.swift in Sources */,
 				439C36A221CB458500BDDC28 /* Emo51@2x.png in Sources */,
 				439C36A121CB458500BDDC28 /* Emo68.png in Sources */,
 				439C36A021CB458500BDDC28 /* Emo8@2x.png in Sources */,

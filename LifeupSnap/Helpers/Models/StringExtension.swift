@@ -12,7 +12,7 @@ extension String {
     func image() -> UIImage? {
         let size: CGFloat = 50
         let outputImageSize = CGSize.init(width: size, height: size)
-        let baseSize = (self as NSString).boundingRect(with: CGSize(width: 2048, height: 2048),
+        let baseSize = (self as NSString).boundingRect(with: CGSize(width: size, height: size),
                                          options: .usesLineFragmentOrigin,
                                          attributes: [.font: UIFont.systemFont(ofSize: CGFloat(size / 2))], context: nil).size
         let fontSize = outputImageSize.width / max(baseSize.width, baseSize.height) * (outputImageSize.width / 2)

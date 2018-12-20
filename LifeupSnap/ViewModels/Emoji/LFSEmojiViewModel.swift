@@ -14,6 +14,8 @@ internal class LFSEmojiViewModel: LFSViewModel {
     private var emojis: [LFSEmoji]!
     private var emojiSetions: [String]!
     
+    private var initialed: Bool = false
+    
     internal var didChoose: (() -> Void)?
     
     init(delegate: LFSEmojiViewModelDelegate) {
@@ -44,7 +46,7 @@ extension LFSEmojiViewModel {
     
     fileprivate func generateEmojiSystem() {
         for i in 0..<LFSConstants.LFSEmoji.allEmojis.count {
-            if let image = LFSConstants.LFSEmoji.allEmojis[i].image() {
+            if let image = LFSConstants.LFSEmoji.allEmojis[i].image()?.resizeWithWidth(width: 50) {
                 let emoji = LFSEmoji(name: "EmojiSystem\(i)", section: LFSConstants.LFSEmoji.emojiSystemSection, value: image)
                 
                 emojis.append(emoji)
@@ -54,7 +56,7 @@ extension LFSEmojiViewModel {
     
     fileprivate func generateEmojiSelf() {
         for i in 1...75 {
-            if let image = UIImage(named: "Emo\(i)") {
+            if let image = UIImage(named: "Emo\(i)")?.resizeWithWidth(width: 50) {
                 let emoji = LFSEmoji(name: "EmojiSelf\(i)", section: LFSConstants.LFSEmoji.emojiSelfSection, value: image)
                 
                 emojis.append(emoji)
