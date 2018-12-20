@@ -43,10 +43,12 @@ extension LFSEmojiViewModel {
     }
     
     fileprivate func generateEmojiSystem() {
-        for value in LFSConstants.LFSEmoji.allEmojis {
-            let emoji = LFSEmoji(name: "EmojiSystem\(value)", section: LFSConstants.LFSEmoji.emojiSystemSection, value: value)
-            
-            emojis.append(emoji)
+        for i in 0..<LFSConstants.LFSEmoji.allEmojis.count {
+            if let image = LFSConstants.LFSEmoji.allEmojis[i].image() {
+                let emoji = LFSEmoji(name: "EmojiSystem\(i)", section: LFSConstants.LFSEmoji.emojiSystemSection, value: image)
+                
+                emojis.append(emoji)
+            }
         }
     }
     
@@ -97,11 +99,11 @@ extension LFSEmojiViewModel: LFSCollectionViewPresentable {
 //MARK: Handle Emoji System Cell
 extension LFSEmojiViewModel {
     fileprivate func cellForEmojiSystem(collectionView: UICollectionView, section: String, indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lfsEmojiLabelCollectionViewCell, for: indexPath) as! LFSEmojiLabelCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lfsEmojiSystemCollectionViewCell, for: indexPath) as! LFSEmojiSystemCollectionViewCell
         let _emojis = LFSEditModel.shared.filterEmojisInEachSection(emojis: emojis, section: section)
         let emoji = _emojis[indexPath.row]
         
-        cell.emojiLabel.text = emoji.value as? String
+        cell.emojiImageView.image = emoji.value as? UIImage
         
         return cell
     }
@@ -110,11 +112,11 @@ extension LFSEmojiViewModel {
 //MARK: Handle Emoji Self Cell
 extension LFSEmojiViewModel {
     fileprivate func cellForEmojiSelf(collectionView: UICollectionView, section: String, indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lfsEmojiImageSystemCollectionViewCell, for: indexPath) as! LFSEmojiImageSystemCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lfsEmojiSelfCollectionViewCell, for: indexPath) as! LFSEmojiSelfCollectionViewCell
         let _emojis = LFSEditModel.shared.filterEmojisInEachSection(emojis: emojis, section: section)
         let emoji = _emojis[indexPath.row]
       
-        cell.emojiSystemImageView.image = emoji.value as? UIImage
+        cell.emojiImageView.image = emoji.value as? UIImage
         
         return cell
     }

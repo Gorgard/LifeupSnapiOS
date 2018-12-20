@@ -24,8 +24,8 @@ internal struct LFSConstants {
             internal static let lfsEmojiViewController = "LFSEmojiViewController"
             
             internal static let lfsLabelColorCollectionViewCell = "LFSLabelColorCollectionViewCell"
-            internal static let lfsEmojiLabelCollectionViewCell = "LFSEmojiLabelCollectionViewCell"
-            internal static let lfsEmojiImageSystemCollectionViewCell = "LFSEmojiImageSystemCollectionViewCell"
+            internal static let lfsEmojiSystemCollectionViewCell = "LFSEmojiSystemCollectionViewCell"
+            internal static let lfsEmojiSelfCollectionViewCell = "LFSEmojiSelfCollectionViewCell"
         }
     }
     
@@ -33,8 +33,8 @@ internal struct LFSConstants {
     internal struct LFSCollectionViewCellID {
         internal struct Edit {
             internal static let lfsLabelColorCollectionViewCell = "LFSLabelColorCollectionViewCellIdentifier"
-            internal static let lfsEmojiLabelCollectionViewCell = "LFSEmojiLabelCollectionViewCellIdentifier"
-            internal static let lfsEmojiImageSystemCollectionViewCell = "LFSEmojiImageSystemCollectionViewCellIdentifier"
+            internal static let lfsEmojiSystemCollectionViewCell = "LFSEmojiSystemCollectionViewCellIdentifier"
+            internal static let lfsEmojiSelfCollectionViewCell = "LFSEmojiSelfCollectionViewCellIdentifier"
         }
     }
     

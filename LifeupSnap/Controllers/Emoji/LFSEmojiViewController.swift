@@ -74,14 +74,16 @@ extension LFSEmojiViewController {
     }
     
     fileprivate func setupCollectionView() {
-        let nibLabel = UINib(nibName: LFSConstants.LFSNibID.Edit.lfsEmojiLabelCollectionViewCell, bundle: Bundle(for: LFSEmojiLabelCollectionViewCell.self))
-        let nibImageSystem = UINib(nibName: LFSConstants.LFSNibID.Edit.lfsEmojiImageSystemCollectionViewCell, bundle: Bundle(for: LFSEmojiImageSystemCollectionViewCell.self))
+        let nibSystem = UINib(nibName: LFSConstants.LFSNibID.Edit.lfsEmojiSystemCollectionViewCell, bundle: Bundle(for: LFSEmojiSystemCollectionViewCell.self))
+        let nibSelf = UINib(nibName: LFSConstants.LFSNibID.Edit.lfsEmojiSelfCollectionViewCell, bundle: Bundle(for: LFSEmojiSelfCollectionViewCell.self))
         
-        collectionView.register(nibLabel, forCellWithReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lfsEmojiLabelCollectionViewCell)
-        collectionView.register(nibImageSystem, forCellWithReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lfsEmojiImageSystemCollectionViewCell)
+        collectionView.register(nibSystem, forCellWithReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lfsEmojiSystemCollectionViewCell)
+        collectionView.register(nibSelf, forCellWithReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lfsEmojiSelfCollectionViewCell)
         
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: 50, height: 50)
+        
+        collectionView.collectionViewLayout = UICollectionViewFlowLayout()
 
         collectionView.backgroundColor = .clear
     }
@@ -104,6 +106,10 @@ extension LFSEmojiViewController: UICollectionViewDelegate, UICollectionViewData
     
     internal func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.didSelected(with: collectionView, at: indexPath)
+    }
+    
+    internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(10, 10, 10, 10)
     }
 }
 

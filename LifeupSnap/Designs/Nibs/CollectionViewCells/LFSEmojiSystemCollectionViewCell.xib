@@ -12,27 +12,27 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LFSEmojiImageSystemCollectionViewCellIdentifier" id="gTV-IL-0wX" customClass="LFSEmojiImageSystemCollectionViewCell" customModule="LifeupSnap" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LFSEmojiSystemCollectionViewCellIdentifier" id="gTV-IL-0wX" customClass="LFSEmojiSystemCollectionViewCell" customModule="LifeupSnap" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FqU-WR-GgD">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hUa-hc-O7R">
                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                     </imageView>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="FqU-WR-GgD" secondAttribute="bottom" id="Dl2-hM-bRd"/>
-                <constraint firstItem="FqU-WR-GgD" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ulL-OO-EFY"/>
-                <constraint firstAttribute="trailing" secondItem="FqU-WR-GgD" secondAttribute="trailing" id="wyM-mW-IFY"/>
-                <constraint firstItem="FqU-WR-GgD" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="zFy-9z-pIC"/>
+                <constraint firstItem="hUa-hc-O7R" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="1mZ-YR-L8X"/>
+                <constraint firstAttribute="trailing" secondItem="hUa-hc-O7R" secondAttribute="trailing" id="IpR-6N-c2N"/>
+                <constraint firstItem="hUa-hc-O7R" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="spK-pO-7Y5"/>
+                <constraint firstAttribute="bottom" secondItem="hUa-hc-O7R" secondAttribute="bottom" id="yxk-tM-cfJ"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <connections>
-                <outlet property="emojiSystemImageView" destination="FqU-WR-GgD" id="AhY-wM-3kg"/>
+                <outlet property="emojiImageView" destination="hUa-hc-O7R" id="tgL-Dr-WRM"/>
             </connections>
         </collectionViewCell>
     </objects>

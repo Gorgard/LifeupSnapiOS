@@ -1,5 +1,5 @@
 //
-//  LFSEmojiImageSystemCollectionViewCell.swift
+//  LFSEmojiSystemCollectionViewCell.swift
 //  LifeupSnap
 //
 //  Created by lifeup on 20/12/2561 BE.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class LFSEmojiImageSystemCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var emojiSystemImageView: UIImageView!
+class LFSEmojiSystemCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var emojiImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
