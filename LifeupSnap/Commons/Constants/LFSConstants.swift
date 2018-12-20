@@ -20,15 +20,19 @@ internal struct LFSConstants {
         internal struct Edit {
             internal static let lfsEditViewController = "LFSEditViewController"
             internal static let lfsEditLabelViewController = "LFSEditLabelViewController"
-            internal static let lsLabelColorCollectionViewCell = "LFSLabelColorCollectionViewCell"
             internal static let lfsDrawViewController = "LFSDrawViewController"
+            internal static let lfsEmojiViewController = "LFSEmojiViewController"
+            
+            internal static let lfsLabelColorCollectionViewCell = "LFSLabelColorCollectionViewCell"
+            internal static let lfsEmojiCollectionViewCell = "LFSEmojiCollectionViewCell"
         }
     }
     
     //MARK: CollectionViewCell Identifier
     internal struct LFSCollectionViewCellID {
         internal struct Edit {
-            internal static let lsLabelColorCollectionViewCell = "LFSLabelColorCollectionViewCellIdentifier"
+            internal static let lfsLabelColorCollectionViewCell = "LFSLabelColorCollectionViewCellIdentifier"
+            internal static let lfsEmojiCollectionViewCell = "LFSEmojiCollectionViewCellIdentifier"
         }
     }
     
@@ -71,5 +75,16 @@ internal struct LFSConstants {
         internal struct Edit {
             internal static let startTyping = "Start Typing"
         }
+    }
+    
+    //MARK: Emoji From System
+    internal struct LFSEmoji {
+        internal static let emojiRanges = [0x1F601...0x1F64F,
+                                           0x2702...0x27B0,
+                                           0x1F680...0x1F6C0,
+                                           0x1F170...0x1F251]
+        
+        internal static let emojiSystemSection = "emoji_system_section"
+        internal static let emojiSelfSection = "emoji_self_section"
     }
 }

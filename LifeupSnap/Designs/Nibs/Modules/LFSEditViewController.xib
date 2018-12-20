@@ -14,11 +14,11 @@
             <connections>
                 <outlet property="backButton" destination="JQz-Rh-VPp" id="OhA-cy-geZ"/>
                 <outlet property="editingView" destination="PiN-M0-fBc" id="zcY-Pc-He8"/>
+                <outlet property="emojiButton" destination="2fO-VX-5Ia" id="5Qm-2x-0NA"/>
                 <outlet property="labelButton" destination="NJ1-9h-mYN" id="5J8-7p-gAu"/>
                 <outlet property="nextButton" destination="eAa-JA-B81" id="P9W-Fr-kSW"/>
                 <outlet property="paintingButton" destination="1ZM-9u-f4l" id="Rzw-x7-zYE"/>
                 <outlet property="previewImageView" destination="hSP-jU-Ycz" id="9vA-qr-yfK"/>
-                <outlet property="stickerButton" destination="2fO-VX-5Ia" id="X8K-Yu-zqz"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -60,7 +60,7 @@
                             </constraints>
                             <state key="normal" image="ic_edit_sticker.png"/>
                             <connections>
-                                <action selector="onTappedSticker:" destination="-1" eventType="touchUpInside" id="vyD-DF-s8v"/>
+                                <action selector="onTappedEmoji:" destination="-1" eventType="touchUpInside" id="DZZ-q0-1ge"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NJ1-9h-mYN">

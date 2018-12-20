@@ -119,7 +119,7 @@ extension LFSEditLabelViewModel: LFSCollectionViewPresentable {
     }
     
     internal func cellForItem(with collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lsLabelColorCollectionViewCell, for: indexPath) as! LFSLabelColorCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lfsLabelColorCollectionViewCell, for: indexPath) as! LFSLabelColorCollectionViewCell
         let pallateColor = pallateColors[indexPath.row]
         
         cell.labelColorView.backgroundColor = pallateColor.color

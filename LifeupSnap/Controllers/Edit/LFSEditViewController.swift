@@ -10,7 +10,7 @@ import UIKit
 
 internal class LFSEditViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var stickerButton: UIButton!
+    @IBOutlet weak var emojiButton: UIButton!
     @IBOutlet weak var labelButton: UIButton!
     @IBOutlet weak var paintingButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
@@ -58,8 +58,8 @@ internal class LFSEditViewController: UIViewController {
         viewModel.close()
     }
     
-    @IBAction func onTappedSticker(_ sender: Any) {
-        
+    @IBAction func onTappedEmoji(_ sender: Any) {
+        viewModel.emoji()
     }
     
     @IBAction func onTappedLabel(_ sender: Any) {
@@ -93,7 +93,7 @@ extension LFSEditViewController {
         
         viewModel.hiddenAllView = { [unowned self] (hidden) -> Void in
             self.backButton.isHidden = hidden
-            self.stickerButton.isHidden = hidden
+            self.emojiButton.isHidden = hidden
             self.labelButton.isHidden = hidden
             self.paintingButton.isHidden = hidden
             self.nextButton.isHidden = hidden

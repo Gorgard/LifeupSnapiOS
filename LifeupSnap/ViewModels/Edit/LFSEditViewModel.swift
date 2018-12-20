@@ -74,6 +74,15 @@ extension LFSEditViewModel {
         
         viewController?.present(lfsDrawViewController, animated: true, completion: nil)
     }
+    
+    internal func emoji() {
+        let lfsEmojiViewController = LFSEmojiViewController(delegate: self)
+        lfsEmojiViewController.modalPresentationStyle = .overFullScreen
+        
+        hiddenAllView?(true)
+        
+        viewController?.present(lfsEmojiViewController, animated: true, completion: nil)
+    }
 }
 
 //MARK: Thumbnail
@@ -113,15 +122,6 @@ extension LFSEditViewModel: LFSEditLabelDelegate {
     }
 }
 
-//MARK: Handle Notification Edit TextView
-extension LFSEditViewModel {
-    @objc fileprivate func handleEditTextView(notification: Notification) {
-        if let userInfo = notification.userInfo as? [String: Any], let dragLabel = userInfo["dragLabel"] as? DragLabel {
-            label(dragLabel: dragLabel)
-        }
-    }
-}
-
 //MARK: LFSDrawDelegate
 extension LFSEditViewModel: LFSDrawDelegate {
     internal func draw(received drawView: DrawView) {
@@ -143,5 +143,25 @@ extension LFSEditViewModel: LFSDrawDelegate {
         view?.addSubview(imageView)
         
         images.append(image)
+    }
+}
+
+//MARK: LFSEmojiDelegate
+extension LFSEditViewModel: LFSEmojiDelegate {
+    func emoji(recieved emojiView: EmojiView) {
+        
+    }
+    
+    func dismissedView() {
+        hiddenAllView?(false)
+    }
+}
+
+//MARK: Handle Notification Edit TextView
+extension LFSEditViewModel {
+    @objc fileprivate func handleEditTextView(notification: Notification) {
+        if let userInfo = notification.userInfo as? [String: Any], let dragLabel = userInfo["dragLabel"] as? DragLabel {
+            label(dragLabel: dragLabel)
+        }
     }
 }

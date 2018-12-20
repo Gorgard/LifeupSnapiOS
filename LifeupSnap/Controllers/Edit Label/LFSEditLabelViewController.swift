@@ -144,12 +144,11 @@ extension LFSEditLabelViewController {
     }
     
     fileprivate func setupCollectionView() {
-        let nib = UINib(nibName: LFSConstants.LFSNibID.Edit.lsLabelColorCollectionViewCell, bundle: Bundle(for: LFSLabelColorCollectionViewCell.self))
-        collectionView.register(nib, forCellWithReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lsLabelColorCollectionViewCell)
+        let nib = UINib(nibName: LFSConstants.LFSNibID.Edit.lfsLabelColorCollectionViewCell, bundle: Bundle(for: LFSLabelColorCollectionViewCell.self))
+        collectionView.register(nib, forCellWithReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lfsLabelColorCollectionViewCell)
         
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: 25, height: 25)
-        
         
         collectionView.backgroundColor = .clear
     }
