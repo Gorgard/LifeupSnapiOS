@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class LFSEmojiSync: LFSBaseModel {
+internal class LFSEmojiSync: NSObject {
     internal var emojis: [UIImage]!
 
     private var allEmojis: [String]! = ["😀","😁","😂","😃","😄","😅","😆","😇","😈","👿","😉","😊","☺️","😋","😌","😍","😎","😏",

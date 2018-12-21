@@ -11,9 +11,9 @@ import UIKit
 internal struct LFSEmoji {
     var name: String
     var section: String
-    var value: Any
+    var value: UIImage
     
-    internal init(name: String, section: String, value: Any) {
+    internal init(name: String, section: String, value: UIImage) {
         self.name = name
         self.section = section
         self.value = value

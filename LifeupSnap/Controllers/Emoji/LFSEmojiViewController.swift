@@ -45,6 +45,11 @@ class LFSEmojiViewController: UIViewController {
         setupViews()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.setup()
+        super.viewWillAppear(animated)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -60,8 +65,6 @@ extension LFSEmojiViewController {
     fileprivate func setup() {
         viewModel = LFSEmojiViewModel(delegate: self)
         viewModel.viewController = self
-        
-        viewModel.setup()
     }
     
     fileprivate func binding() {

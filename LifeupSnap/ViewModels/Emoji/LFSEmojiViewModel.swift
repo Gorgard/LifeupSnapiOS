@@ -57,7 +57,7 @@ extension LFSEmojiViewModel {
     
     fileprivate func generateEmojiSystem() {
         var allEmojis = emojiSync.emojis
-        
+
         for i in 0..<allEmojis!.count - 1 {
             if let image = allEmojis?[i] {
                 let emoji = LFSEmoji(name: "EmojiSystem\(i)", section: LFSConstants.LFSEmoji.emojiSystemSection, value: image)
@@ -119,7 +119,7 @@ extension LFSEmojiViewModel {
         let _emojis = LFSEditModel.shared.filterEmojisInEachSection(emojis: emojis, section: section)
         let emoji = _emojis[indexPath.row]
         
-        cell.emojiImageView.image = emoji.value as? UIImage
+        cell.emojiImageView.image = emoji.value
         
         return cell
     }
@@ -132,7 +132,7 @@ extension LFSEmojiViewModel {
         let _emojis = LFSEditModel.shared.filterEmojisInEachSection(emojis: emojis, section: section)
         let emoji = _emojis[indexPath.row]
       
-        cell.emojiImageView.image = emoji.value as? UIImage
+        cell.emojiImageView.image = emoji.value
         
         return cell
     }
@@ -146,12 +146,11 @@ extension LFSEmojiViewModel {
             return
         }
         
-        if let image = emoji.value as? UIImage {
-            let emojiView = EmojiView(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
-            emojiView.addImage(image: image)
-            
-            receivedEmojiView?(emojiView)
-        }
+        let image = emoji.value
+        let emojiView = EmojiView(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
+        emojiView.addImage(image: image)
+        
+        receivedEmojiView?(emojiView)
         
         didChoose?()
     }
@@ -165,5 +164,6 @@ extension LFSEmojiViewModel {
         emojiSetions = nil
         didChoose = nil
         emojiSync = nil
+        receivedEmojiView = nil
     }
 }
