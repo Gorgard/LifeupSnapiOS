@@ -25,5 +25,13 @@ class LFSViewModel: NSObject, LFSViewPresentable {
         else {
             viewController?.dismiss(animated: true, completion: nil)
         }
+        
+        viewController = nil
+        navigationController = nil
+        boomerangView = nil
+        squareView = nil
+        originalView = nil
+        videoView = nil
+        view = nil
     }
 }

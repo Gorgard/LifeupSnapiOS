@@ -21,6 +21,10 @@ internal class LFSVideoPreviewViewModel: LFSViewModel {
         self.delegate = delegate
     }
     
+    deinit {
+        removeAll()
+    }
+    
     private func setup() {
         if let url = url {
             player = AVPlayer(url: url)
@@ -58,5 +62,15 @@ internal class LFSVideoPreviewViewModel: LFSViewModel {
         lfsEditViewController.editEvent = .video
         
         viewController?.present(lfsEditViewController, animated: true, completion: nil)
+    }
+}
+
+//MARK: Remove all
+extension LFSVideoPreviewViewModel {
+    fileprivate func removeAll() {
+        delegate = nil
+        url = nil
+        player = nil
+        playerLayer = nil
     }
 }

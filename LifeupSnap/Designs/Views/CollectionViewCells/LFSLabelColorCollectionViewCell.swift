@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LFSLabelColorCollectionViewCell: UICollectionViewCell {
+internal class LFSLabelColorCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var coverLabelColorView: UIView!
     @IBOutlet weak var labelColorView: UIView!
     @IBOutlet weak var choosedColorView: UIView!

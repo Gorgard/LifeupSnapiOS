@@ -8,8 +8,8 @@
 
 import UIKit
 
-extension UIImage {
-    func resizeWithPercent(percentage: CGFloat) -> UIImage? {
+internal extension UIImage {
+    internal func resizeWithPercent(percentage: CGFloat) -> UIImage? {
         let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: size.width * percentage, height: size.height * percentage)))
         imageView.contentMode = .scaleAspectFit
         imageView.image = self
@@ -21,7 +21,7 @@ extension UIImage {
         return result
     }
     
-    func resizeWithWidth(width: CGFloat) -> UIImage? {
+    internal func resizeWithWidth(width: CGFloat) -> UIImage? {
         let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))))
         imageView.contentMode = .scaleAspectFit
         imageView.image = self

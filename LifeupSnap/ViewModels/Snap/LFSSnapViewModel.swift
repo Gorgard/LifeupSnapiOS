@@ -44,6 +44,10 @@ internal class LFSSnapViewModel: LFSViewModel {
         self.delegate = delegate
         camera = Camera()
     }
+    
+    deinit {
+        removeAll()
+    }
 }
 
 //MARK: Base
@@ -478,5 +482,28 @@ extension LFSSnapViewModel {
         if let _ = circularProgress {
             circularProgress.hideProgressView()
         }
+    }
+}
+
+//MARK: Remove all
+extension LFSSnapViewModel {
+    fileprivate func removeAll() {
+        delegate = nil
+        viewFeatures = nil
+        features = nil
+        feature = nil
+        camera = nil
+        circularProgress = nil
+        snapButtonBounds = nil
+        coverCaptureViewBounds = nil
+        receivedFeature = nil
+        hiddenBlurView = nil
+        changeSnapButtonColor = nil
+        enableAllView = nil
+        changeSnapButtonRadius = nil
+        changeImageFlashButton = nil
+        changeImageSnapButton = nil
+        changeSquareViewHeight = nil
+        hiddenLoadingView = nil
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LFSEmojiSelfCollectionViewCell: UICollectionViewCell {
+internal class LFSEmojiSelfCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var emojiImageView: UIImageView!
     
     override func awakeFromNib() {
@@ -16,4 +16,7 @@ class LFSEmojiSelfCollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
 
+    deinit {
+        emojiImageView = nil
+    }
 }

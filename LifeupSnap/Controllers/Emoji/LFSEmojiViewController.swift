@@ -34,16 +34,15 @@ class LFSEmojiViewController: UIViewController {
         super.init(coder: aDecoder)
     }
 
+    deinit {
+        removeAll()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
         binding()
         setupViews()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        viewModel.setup()
-        super.viewWillAppear(animated)
     }
     
     override func didReceiveMemoryWarning() {
@@ -61,11 +60,17 @@ extension LFSEmojiViewController {
     fileprivate func setup() {
         viewModel = LFSEmojiViewModel(delegate: self)
         viewModel.viewController = self
+        
+        viewModel.setup()
     }
     
     fileprivate func binding() {
         viewModel.didChoose = { [unowned self] () -> Void in
             self.delegate?.dismissedView()
+        }
+        
+        viewModel.receivedEmojiView = { [unowned self] (emojiView) -> Void in
+            self.delegate?.emoji(recieved: emojiView)
         }
     }
     
@@ -115,6 +120,11 @@ extension LFSEmojiViewController: UICollectionViewDelegate, UICollectionViewData
 
 //MARK: LFSEmojiViewModelDelegate
 extension LFSEmojiViewController: LFSEmojiViewModelDelegate {
+    func choosedEmoji() {
+        viewModel.generateEmoji()
+        viewModel.close()
+    }
+    
     func dismissedView() {
         
     }
@@ -122,5 +132,18 @@ extension LFSEmojiViewController: LFSEmojiViewModelDelegate {
     func fetchedEmoji() {
         collectionView.reloadData()
         indicatorView.stopAnimating()
+    }
+}
+
+//MARK: Remove all
+extension LFSEmojiViewController {
+    fileprivate func removeAll() {
+        emojiView = nil
+        slideDownButton = nil
+        blurView = nil
+        collectionView = nil
+        indicatorView = nil
+        delegate = nil
+        viewModel = nil
     }
 }

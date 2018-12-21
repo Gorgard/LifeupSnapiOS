@@ -30,6 +30,10 @@ class LFSPhotoPreviewViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
+    deinit {
+        removeAll()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -72,4 +76,13 @@ extension LFSPhotoPreviewViewController {
 //MARK: LFSPhotoPreviewViewModelDelegate
 extension LFSPhotoPreviewViewController: LFSPhotoPreviewViewModelDelegate {
     
+}
+
+//MARK: Remove all
+extension LFSPhotoPreviewViewController {
+    fileprivate func removeAll() {
+        previewImageView = nil
+        nextButton = nil
+        backButton = nil
+    }
 }

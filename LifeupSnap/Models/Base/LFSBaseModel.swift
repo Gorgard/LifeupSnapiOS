@@ -25,7 +25,7 @@ internal class LFSBaseModel: NSObject {
         return tempPath
     }
     
-    internal func saveByURL(url: URL, completion: @escaping(_ video: AVURLAsset) -> Void, failure: @escaping(_ error: Error?) -> Void) {
+    internal func saveVideoByURL(url: URL, completion: @escaping(_ video: AVURLAsset) -> Void, failure: @escaping(_ error: Error?) -> Void) {
         PHPhotoLibrary.shared().performChanges({ () -> Void in
             PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
         }, completionHandler: { (saved, error) -> Void in

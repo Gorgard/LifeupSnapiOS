@@ -163,6 +163,7 @@
 		438E971E21C34304005DC176 /* ic_edit_close@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = 438E971921C342F7005DC176 /* ic_edit_close@2x.png */; };
 		438E971F21C34304005DC176 /* ic_edit_close@3x.png in Sources */ = {isa = PBXBuildFile; fileRef = 438E971721C342F6005DC176 /* ic_edit_close@3x.png */; };
 		438E980021C35262005DC176 /* LFSEditModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438E97FF21C35262005DC176 /* LFSEditModel.swift */; };
+		438EEC9821CC858300E85A55 /* LFSEmojiSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438EEC9721CC858300E85A55 /* LFSEmojiSync.swift */; };
 		439871C321AF7CB300EDCE53 /* PickerViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439871C221AF7CB300EDCE53 /* PickerViewPresentable.swift */; };
 		439C346E21CB38B300BDDC28 /* EmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439C346D21CB38B300BDDC28 /* EmojiView.swift */; };
 		439C347421CB3B8100BDDC28 /* LFSEmojiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439C347221CB3B8100BDDC28 /* LFSEmojiViewController.swift */; };
@@ -739,6 +740,7 @@
 		438E971821C342F7005DC176 /* ic_edit_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_edit_close.png; sourceTree = "<group>"; };
 		438E971921C342F7005DC176 /* ic_edit_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_edit_close@2x.png"; sourceTree = "<group>"; };
 		438E97FF21C35262005DC176 /* LFSEditModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEditModel.swift; sourceTree = "<group>"; };
+		438EEC9721CC858300E85A55 /* LFSEmojiSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEmojiSync.swift; sourceTree = "<group>"; };
 		439871C221AF7CB300EDCE53 /* PickerViewPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewPresentable.swift; sourceTree = "<group>"; };
 		439C346D21CB38B300BDDC28 /* EmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiView.swift; sourceTree = "<group>"; };
 		439C347221CB3B8100BDDC28 /* LFSEmojiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEmojiViewController.swift; sourceTree = "<group>"; };
@@ -1120,9 +1122,10 @@
 				430F2A2D21AF9E6E00F2293D /* Helpers */,
 				4380FA2621B0CE3600177F64 /* Models */,
 				430F2AE521AFD02700F2293D /* Modules */,
-				438677FD21B909BC00B31B92 /* Resources */,
 				430F2A8B21AFB37800F2293D /* Objects */,
 				4372254A21AE484100130213 /* Protocols */,
+				438677FD21B909BC00B31B92 /* Resources */,
+				438EEC9521CC853F00E85A55 /* Syncs */,
 				4372252B21AE2B3300130213 /* ViewModels */,
 			);
 			path = LifeupSnap;
@@ -1583,6 +1586,22 @@
 				438E97FF21C35262005DC176 /* LFSEditModel.swift */,
 			);
 			path = Edit;
+			sourceTree = "<group>";
+		};
+		438EEC9521CC853F00E85A55 /* Syncs */ = {
+			isa = PBXGroup;
+			children = (
+				438EEC9621CC856100E85A55 /* Emoji */,
+			);
+			path = Syncs;
+			sourceTree = "<group>";
+		};
+		438EEC9621CC856100E85A55 /* Emoji */ = {
+			isa = PBXGroup;
+			children = (
+				438EEC9721CC858300E85A55 /* LFSEmojiSync.swift */,
+			);
+			path = Emoji;
 			sourceTree = "<group>";
 		};
 		439C346C21CB388A00BDDC28 /* Emoji View */ = {
@@ -2414,6 +2433,7 @@
 				439C36E121CB458500BDDC28 /* Emo13@3x.png in Sources */,
 				439C36E021CB458500BDDC28 /* Emo48@2x.png in Sources */,
 				439C36DF21CB458500BDDC28 /* Emo70@3x.png in Sources */,
+				438EEC9821CC858300E85A55 /* LFSEmojiSync.swift in Sources */,
 				439C36DE21CB458500BDDC28 /* Emo3@2x.png in Sources */,
 				439C36DD21CB458500BDDC28 /* Emo61.png in Sources */,
 				439C36DC21CB458500BDDC28 /* Emo75.png in Sources */,

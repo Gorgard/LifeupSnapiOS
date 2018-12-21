@@ -53,6 +53,10 @@ public class LFSSnapViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
+    deinit {
+        removeAll()
+    }
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -260,4 +264,34 @@ extension LFSSnapViewController {
 //MARK: LFSSnapViewModelDelegate
 extension LFSSnapViewController: LFSSnapViewModelDelegate {
     
+}
+
+//MARK: Remove all
+extension LFSSnapViewController {
+    fileprivate func removeAll() {
+        coverPickerView = nil
+        pickerView = nil
+        captureView = nil
+        coverCaptureView = nil
+        coverSnapView = nil
+        lineInCoverSnapView = nil
+        snapButton = nil
+        flipButton = nil
+        flashButton = nil
+        closeButton = nil
+        blurView = nil
+        loadingView = nil
+        circularProgress = nil
+        pickerViewHeightConstraint = nil
+        pickerViewWidthConstraint = nil
+        topSquareViewHeightConstraint = nil
+        bottomSquareViewHeightConstraint = nil
+        swipeBlurViewLeftGesture = nil
+        swipeBlurViewRightGesture = nil
+        swipeCaptureViewLeftGesture = nil
+        swipeCaptureViewRightGesture = nil
+        viewModel = nil
+        features = nil
+        delegate = nil
+    }
 }

@@ -566,7 +566,7 @@ extension Camera: AVCaptureFileOutputRecordingDelegate {
             }
         }
         
-        LFSVideoModel.shared.saveByURL(url: outputFileURL, completion: { [weak self] (video) -> Void in
+        LFSVideoModel.shared.saveVideoByURL(url: outputFileURL, completion: { [weak self] (video) -> Void in
             if video.duration.seconds >= 10.0 || video.duration.seconds >= 30.0 {
                 self?.selfStop = true
                 self?.isRecording = false

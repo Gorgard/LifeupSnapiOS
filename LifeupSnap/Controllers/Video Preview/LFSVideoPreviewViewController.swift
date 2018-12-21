@@ -30,6 +30,10 @@ internal class LFSVideoPreviewViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    deinit {
+        removeAll()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,4 +87,16 @@ extension LFSVideoPreviewViewController {
 //MARK: LFSVideoPreviewViewModelDelegate
 extension LFSVideoPreviewViewController: LFSVideoPreviewViewModelDelegate {
     
+}
+
+//MARK: Remove all
+extension LFSVideoPreviewViewController {
+    fileprivate func removeAll() {
+        videoView = nil
+        backButton = nil
+        replayButton = nil
+        nextButton = nil
+        viewModel = nil
+        url = nil
+    }
 }

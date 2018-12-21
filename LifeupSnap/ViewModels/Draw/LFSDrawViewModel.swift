@@ -34,6 +34,10 @@ internal class LFSDrawViewModel: LFSViewModel {
         self.delegate = delegate
     }
     
+    deinit {
+        removeAll()
+    }
+    
     override func close() {
         delegate?.tappedDoneButton()
         didDrawed?()
@@ -136,5 +140,26 @@ extension LFSDrawViewModel {
         
         receivedDrawView?(drawView)
         didDrawed?()
+    }
+}
+
+//MARK: Remove all
+extension LFSDrawViewModel {
+    fileprivate func removeAll() {
+        delegate = nil
+        drawView = nil
+        pallateColors = nil
+        currentColor = nil
+        colorPallateViewAlpha = nil
+        minimumPenSize = nil
+        maximumPenSize = nil
+        openColorPallate = nil
+        changePallateButtonImage = nil
+        changePallateColor = nil
+        changePenSizeViewColor = nil
+        changePenSizeViewSize = nil
+        receivedDrawView = nil
+        didDrawed = nil
+        didClear = nil
     }
 }

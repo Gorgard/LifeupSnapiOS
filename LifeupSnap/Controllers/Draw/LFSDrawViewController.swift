@@ -43,6 +43,10 @@ class LFSDrawViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
+    deinit {
+        removeAll()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setups()
@@ -204,5 +208,25 @@ extension LFSDrawViewController {
             self.penSizeView.alpha = 0
             self.view.layoutIfNeeded()
         }, completion: nil)
+    }
+}
+
+//MARK: Remove all
+extension LFSDrawViewController {
+    fileprivate func removeAll() {
+        drawView = nil
+        colorPallateButton = nil
+        doneButton = nil
+        eraserButton = nil
+        clearButton = nil
+        colorPallateView = nil
+        collectionView = nil
+        coverSliderView = nil
+        slider = nil
+        penSizeView = nil
+        penSizeViewHeightContraint = nil
+        penSizeViewWidthConstraint = nil
+        delegate = nil
+        viewModel = nil
     }
 }

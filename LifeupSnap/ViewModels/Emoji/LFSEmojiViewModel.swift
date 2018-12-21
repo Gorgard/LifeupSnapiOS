@@ -11,19 +11,30 @@ import UIKit
 internal class LFSEmojiViewModel: LFSViewModel {
     private weak var delegate: LFSEmojiViewModelDelegate?
     
+    private var emojiSync: LFSEmojiSync!
+    
     private var emojis: [LFSEmoji]!
     private var emojiSetions: [String]!
     
+    private var emoji: LFSEmoji!
+    
     private var initialed: Bool = false
     
+    internal var receivedEmojiView: ((_ emojiView: EmojiView) -> Void)?
     internal var didChoose: (() -> Void)?
     
     init(delegate: LFSEmojiViewModelDelegate) {
         super.init()
         self.delegate = delegate
         
+        emojiSync = LFSEmojiSync()
+        
         emojis = [LFSEmoji]()
         emojiSetions = [String]()
+    }
+    
+    deinit {
+        removeAll()
     }
     
     override func close() {
@@ -45,10 +56,11 @@ extension LFSEmojiViewModel {
     }
     
     fileprivate func generateEmojiSystem() {
-        for i in 0..<LFSConstants.LFSEmoji.allEmojis.count {
-            if let image = LFSConstants.LFSEmoji.allEmojis[i].image()?.resizeWithWidth(width: 50) {
+        var allEmojis = emojiSync.emojis
+        
+        for i in 0..<allEmojis!.count - 1 {
+            if let image = allEmojis?[i] {
                 let emoji = LFSEmoji(name: "EmojiSystem\(i)", section: LFSConstants.LFSEmoji.emojiSystemSection, value: image)
-                
                 emojis.append(emoji)
             }
         }
@@ -94,7 +106,9 @@ extension LFSEmojiViewModel: LFSCollectionViewPresentable {
     }
     
     internal func didSelected(with collectionView: UICollectionView, at indexPath: IndexPath) {
-        
+        let _emojis = LFSEditModel.shared.filterEmojisInEachSection(emojis: emojis, section: emojiSetions[indexPath.section])
+        emoji = _emojis[indexPath.row]
+        delegate?.choosedEmoji()
     }
 }
 
@@ -126,5 +140,30 @@ extension LFSEmojiViewModel {
 
 //MARK: Send Value by LFSEmojiDelegate
 extension LFSEmojiViewModel {
-    
+    internal func generateEmoji() {
+        guard let emoji = emoji else {
+            didChoose?()
+            return
+        }
+        
+        if let image = emoji.value as? UIImage {
+            let emojiView = EmojiView(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
+            emojiView.addImage(image: image)
+            
+            receivedEmojiView?(emojiView)
+        }
+        
+        didChoose?()
+    }
+}
+
+//MARK: Remove All
+extension LFSEmojiViewModel {
+    fileprivate func removeAll() {
+        delegate = nil
+        emojis = nil
+        emojiSetions = nil
+        didChoose = nil
+        emojiSync = nil
+    }
 }

@@ -40,6 +40,10 @@ internal class LFSEditLabelViewModel: LFSViewModel {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
     }
     
+    deinit {
+        removeAll()
+    }
+    
     override func close() {
         attributeText()
         delegate?.tappedDoneButton()
@@ -198,5 +202,27 @@ extension LFSEditLabelViewModel {
         
         receivedDragLabel?(dragLabel)
         editedLabel?()
+    }
+}
+
+//MARK: Remove all
+extension LFSEditLabelViewModel {
+    fileprivate func removeAll() {
+        delegate = nil
+        pallateColors = nil
+        currentColor = nil
+        colorPallateViewAlpha = nil
+        dragLabel = nil
+        text = nil
+        textColor = nil
+        borderTextColor = nil
+        messageTextViewTopConstraint = nil
+        openColorPallate = nil
+        changePallateButtonImage = nil
+        messageTextViewMaxHeight = nil
+        textOfMessageTextView = nil
+        receivedDragLabel = nil
+        newMessageTextView = nil
+        editedLabel = nil
     }
 }

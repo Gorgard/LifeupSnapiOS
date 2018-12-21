@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class EmojiView: UIImageView {
+internal class EmojiView: UIView {
     private var lastLocation: CGPoint!
     private var lastScale: CGFloat = 1.0
     
@@ -29,10 +29,21 @@ internal class EmojiView: UIImageView {
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panView(_:)))
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchView(_:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTapView(_:)))
+        tapGesture.numberOfTapsRequired = 2
         
-        self.gestureRecognizers = [panGesture, pinchGesture]
+        self.gestureRecognizers = [panGesture, pinchGesture, tapGesture]
         
         isUserInteractionEnabled = true
+        backgroundColor = .clear
+    }
+    
+    internal func addImage(image: UIImage) {
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 110, height: 110))
+        imageView.image = image
+        imageView.isUserInteractionEnabled = true
+        
+        addSubview(imageView)
     }
 }
 
@@ -59,5 +70,13 @@ extension EmojiView {
             
             gesture.scale = 1.0
         }
+    }
+    
+    @objc fileprivate func doubleTapView(_ gesture: UITapGestureRecognizer) {
+        lastScale = 1
+        
+        UIView.animate(withDuration: 0.3, animations: { [unowned self] in
+            self.transform = .identity
+        })
     }
 }

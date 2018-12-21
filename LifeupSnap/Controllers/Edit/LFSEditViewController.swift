@@ -37,6 +37,10 @@ internal class LFSEditViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
+    deinit {
+        removeAll()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -114,4 +118,21 @@ extension LFSEditViewController {
 //MARK: LFSEditViewModelDelegate
 extension LFSEditViewController: LFSEditViewModelDelegate {
     
+}
+
+//MARK: Remove all
+extension LFSEditViewController {
+    fileprivate func removeAll() {
+        backButton = nil
+        emojiButton = nil
+        labelButton = nil
+        paintingButton = nil
+        nextButton = nil
+        previewImageView = nil
+        editingView = nil
+        viewModel = nil
+        editEvent = nil
+        image = nil
+        url = nil
+    }
 }

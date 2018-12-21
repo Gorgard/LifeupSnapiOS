@@ -21,6 +21,7 @@ internal class LFSEditViewModel: LFSViewModel {
     
     private var labels: [DragLabel]!
     private var images: [UIImage]!
+    private var emojis: [EmojiView]!
     
     init(delegate: LFSEditViewModelDelegate) {
         super.init()
@@ -28,6 +29,7 @@ internal class LFSEditViewModel: LFSViewModel {
         
         labels = [DragLabel]()
         images = [UIImage]()
+        emojis = [EmojiView]()
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleEditTextView(notification:)), name: NSNotification.Name(rawValue: LFSConstants.NotificationCenterID.DragLabel.editLabel), object: nil)
     }
@@ -76,9 +78,9 @@ extension LFSEditViewModel {
     }
     
     internal func emoji() {
-        let lfsEmojiViewController = LFSEmojiViewController(delegate: self)
+        let lfsEmojiViewController: LFSEmojiViewController = LFSEmojiViewController(delegate: self)
         lfsEmojiViewController.modalPresentationStyle = .overFullScreen
-        
+      
         hiddenAllView?(true)
         
         viewController?.present(lfsEmojiViewController, animated: true, completion: nil)
@@ -113,8 +115,7 @@ extension LFSEditViewModel: LFSEditLabelDelegate {
     }
     
     fileprivate func addDragLabel(dragLabel: DragLabel) {
-        let center = view!.center
-        dragLabel.center = center
+        dragLabel.center = view!.center
         
         view?.addSubview(dragLabel)
         
@@ -148,12 +149,22 @@ extension LFSEditViewModel: LFSDrawDelegate {
 
 //MARK: LFSEmojiDelegate
 extension LFSEditViewModel: LFSEmojiDelegate {
-    func emoji(recieved emojiView: EmojiView) {
-        
+    internal func emoji(recieved emojiView: EmojiView) {
+        if !emojis.contains(emojiView) {
+            addEmoji(emojiView: emojiView)
+        }
     }
     
-    func dismissedView() {
+    internal func dismissedView() {
         hiddenAllView?(false)
+    }
+    
+    fileprivate func addEmoji(emojiView: EmojiView) {
+        emojiView.center = view!.center
+        
+        view?.addSubview(emojiView)
+        
+        emojis.append(emojiView)
     }
 }
 
@@ -163,5 +174,19 @@ extension LFSEditViewModel {
         if let userInfo = notification.userInfo as? [String: Any], let dragLabel = userInfo["dragLabel"] as? DragLabel {
             label(dragLabel: dragLabel)
         }
+    }
+}
+
+//MARK: Remove all
+extension LFSEditViewModel {
+    fileprivate func removeAll() {
+        delegate = nil
+        editEvent = nil
+        image = nil
+        url = nil
+        receivedThumbnailImage = nil
+        hiddenAllView = nil
+        labels = nil
+        images = nil
     }
 }

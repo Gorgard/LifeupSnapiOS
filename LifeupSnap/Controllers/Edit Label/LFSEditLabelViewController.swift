@@ -40,6 +40,10 @@ internal class LFSEditLabelViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
+    deinit {
+        removeAll()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -190,5 +194,21 @@ extension LFSEditLabelViewController: LFSEditLabelViewModelDelegate {
     
     func choosedColor() {
         collectionView.reloadData()
+    }
+}
+
+//MARK: Remove all
+extension LFSEditLabelViewController {
+    fileprivate func removeAll() {
+        colorPallateButton = nil
+        borderButton = nil
+        doneButton = nil
+        messageTextView = nil
+        colorPallateView = nil
+        collectionView = nil
+        messageTextViewTopConstraint = nil
+        delegate = nil
+        viewModel = nil
+        dragLabel = nil
     }
 }
