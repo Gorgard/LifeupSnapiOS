@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Photos
 
 internal class LFSBaseModel: NSObject {
     
@@ -24,32 +23,5 @@ internal class LFSBaseModel: NSObject {
         }
         
         return tempPath
-    }
-    
-    internal func saveVideoByURL(url: URL, completion: @escaping(_ video: AVURLAsset) -> Void, failure: @escaping(_ error: Error?) -> Void) {
-        PHPhotoLibrary.shared().performChanges({ () -> Void in
-            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
-        }, completionHandler: { (saved, error) -> Void in
-            if let error = error {
-                failure(error)
-                return
-            }
-            
-            if saved {
-                let options = PHFetchOptions()
-                options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-                
-                let fetchResult = PHAsset.fetchAssets(with: .video, options: options).lastObject
-                let imageManager = PHImageManager()
-                
-                imageManager.requestAVAsset(forVideo: fetchResult!, options: nil, resultHandler: { (avurlAsset, audioMix, dict) -> Void in
-                    let video = avurlAsset as! AVURLAsset
-                    
-                    taskMain {
-                        completion(video)
-                    }
-                })
-            }
-        })
     }
 }

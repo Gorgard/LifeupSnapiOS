@@ -75,7 +75,7 @@ internal class LFSEditViewController: UIViewController {
     }
     
     @IBAction func onTappedNext(_ sender: Any) {
-        
+        viewModel.next()
     }
 }
 

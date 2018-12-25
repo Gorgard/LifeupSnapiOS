@@ -92,17 +92,8 @@ internal class DrawView: UIView {
     }
     
     internal func image() -> UIImage {
-        let rendererImage = renderImage()
+        let rendererImage = LFSEditModel.shared.renderImage(view: self)
         return rendererImage
-    }
-    
-    fileprivate func renderImage() -> UIImage {
-        let renderer = UIGraphicsImageRenderer(bounds: bounds)
-        let image = renderer.image(actions: { [unowned self] (rendererContext) in
-            self.layer.render(in: rendererContext.cgContext)
-        })
-        
-        return image
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

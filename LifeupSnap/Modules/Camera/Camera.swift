@@ -384,141 +384,14 @@ extension Camera {
 //MARK: Boomerang
 extension Camera {
     func reverse(originalURL: URL, completion: @escaping(_ url: URL?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
-        let original = AVAsset(url: originalURL)
-        
-        var reader: AVAssetReader!
-        
-        do {
-            reader = try AVAssetReader(asset: original)
-        } catch {
-            failure(CameraError.inputsAreInvalid)
-            return
-        }
-        
-        guard let videoTrack = original.tracks(withMediaType: .video).last else {
-            failure(CameraError.inputsAreInvalid)
-            return
-        }
-        
-        let readerOutputSettings: [String: Any] = [kCVPixelBufferPixelFormatTypeKey as String : Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)]
-        let readerOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings: readerOutputSettings)
-        reader.add(readerOutput)
-        
-        reader.startReading()
-        
-        var samples: [CMSampleBuffer] = []
-        while let sample = readerOutput.copyNextSampleBuffer() {
-            samples.append(sample)
-        }
-        
-        let fileName = "\(LFSConstants.LFSVideoName.Snap.snapReversedVideo)\(Date())"
-        let reversePath = LFSVideoModel.shared.outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mov)!
-        
-        let writer: AVAssetWriter
-        
-        do {
-            writer = try AVAssetWriter(outputURL: reversePath, fileType: .mov)
-        } catch let error {
-            failure(error)
-            return
-        }
-        
-        let videoCompositionProps = [AVVideoAverageBitRateKey: videoTrack.estimatedDataRate]
-        
-        let writerOutputSettings = [
-            AVVideoCodecKey: AVVideoCodecH264,
-            AVVideoWidthKey: videoTrack.naturalSize.width,
-            AVVideoHeightKey: videoTrack.naturalSize.height,
-            AVVideoCompressionPropertiesKey: videoCompositionProps] as [String : Any]
-        
-        let writerInput = AVAssetWriterInput(mediaType: .video, outputSettings: writerOutputSettings)
-        writerInput.expectsMediaDataInRealTime = false
-        writerInput.transform = videoTrack.preferredTransform
-        
-        let pixelBufferAdaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerInput, sourcePixelBufferAttributes: nil)
-        
-        writer.add(writerInput)
-        writer.startWriting()
-        writer.startSession(atSourceTime: CMSampleBufferGetPresentationTimeStamp(samples.first!))
-        
-        for (index, sample) in samples.enumerated() {
-            let presentationTime = CMSampleBufferGetPresentationTimeStamp(sample)
-            let imageBufferRef = CMSampleBufferGetImageBuffer(samples[samples.count - 1 - index])
-            while !writerInput.isReadyForMoreMediaData {
-                Thread.sleep(forTimeInterval: 0.1)
-            }
-            pixelBufferAdaptor.append(imageBufferRef!, withPresentationTime: presentationTime)
-            
-        }
-        
-        writer.finishWriting {
-            self.mergeReversed(originalURL: originalURL, reversePath: reversePath, completion: completion)
-        }
-    }
-    
-    fileprivate func mergeReversed(originalURL: URL, reversePath: URL, completion: @escaping(_ url: URL?) -> Void) {
-        let videos = [originalURL, reversePath]
-        
-        let composition = AVMutableComposition()
-        let videoTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
-        
-        var currentVideoTime = kCMTimeZero
-        
-        for video in videos {
-            let asset = AVAsset(url: video)
-            let videoAssetTrack = asset.tracks(withMediaType: .video).first!
-            
-            do {
-                try videoTrack?.insertTimeRange(CMTimeRangeMake(kCMTimeZero, videoAssetTrack.timeRange.duration), of: videoAssetTrack, at: currentVideoTime)
-            }
-            catch {
-                print("Cannot merged reversed video.")
-            }
-            
-            let scaleDuration = CMTimeMultiplyByFloat64(videoAssetTrack.timeRange.duration, Float64(0.5))
-            videoTrack?.scaleTimeRange(CMTimeRangeMake(currentVideoTime, videoAssetTrack.timeRange.duration), toDuration: scaleDuration)
-            currentVideoTime = CMTimeAdd(currentVideoTime, scaleDuration)
-        }
-        
-        videoTrack?.preferredTransform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
-
-        let fileName = "\(LFSConstants.LFSVideoName.Snap.snapMergedVideo)\(Date())"
-        let mergedPath = LFSVideoModel.shared.outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mov)!
-        
-        let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality)
-        exporter?.outputURL = mergedPath
-        exporter?.shouldOptimizeForNetworkUse = true
-        exporter?.outputFileType = .mov
-        
-        exporter?.exportAsynchronously {
-            taskMain {
-                completion(exporter?.outputURL)
-            }
-        }
+        LFSVideoModel.shared.reverse(originalURL: originalURL, completion: completion, failure: failure)
     }
 }
 
 //MARK: Orientation
 extension Camera {
     fileprivate func currentVideoOrientation() -> AVCaptureVideoOrientation {
-        var orientation: AVCaptureVideoOrientation
-        
-        switch UIDevice.current.orientation {
-        case .portrait:
-            orientation = .portrait
-            break
-        case .landscapeRight:
-            orientation = .landscapeLeft
-            break
-        case .landscapeLeft:
-            orientation = .landscapeRight
-            break
-        default:
-            orientation = .portrait
-            break
-        }
-        
-        return orientation
+        return LFSVideoModel.shared.orientation()
     }
 }
 

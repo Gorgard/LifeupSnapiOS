@@ -85,6 +85,10 @@ extension LFSEditViewModel {
         
         viewController?.present(lfsEmojiViewController, animated: true, completion: nil)
     }
+    
+    internal func next() {
+        merge()
+    }
 }
 
 //MARK: Thumbnail
@@ -174,6 +178,32 @@ extension LFSEditViewModel {
         if let userInfo = notification.userInfo as? [String: Any], let dragLabel = userInfo["dragLabel"] as? DragLabel {
             label(dragLabel: dragLabel)
         }
+    }
+}
+
+//MARK: Merge
+extension LFSEditViewModel {
+    fileprivate func merge() {
+        switch editEvent {
+        case .photo:
+            mergePhoto()
+            break
+        case .video:
+            mergeVideo()
+            break
+        default:
+            break
+        }
+    }
+    
+    fileprivate func mergePhoto() {
+        
+    }
+    
+    fileprivate func mergeVideo() {
+        LFSVideoModel.shared.mergeEditedVideo(url: url!, view: view!, completion: { [unowned self] (_url) -> Void in
+            LFSVideoModel.shared.playSimpleVideo(url: _url!, viewController: self.viewController!)
+        })
     }
 }
 

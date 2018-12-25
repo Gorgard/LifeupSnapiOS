@@ -61,6 +61,7 @@ internal struct LFSConstants {
             internal static let snapVideo = "LFSSNAPVIDEO-"
             internal static let snapReversedVideo = "LFSSNAPREVERSEVIDEO-"
             internal static let snapMergedVideo = "LFSSNAPMERGEDVIDEO-"
+            internal static let snapMergeEditedVideo = "LFSSNAPMERGEDEDITEDVIDEO-"
         }
     }
     

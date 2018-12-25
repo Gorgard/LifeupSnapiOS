@@ -16,11 +16,6 @@ internal class LFSEmojiModel: LFSEditModel {
     
     private var loadedEmojiSelf: Bool = false
     
-    override init() {
-        super.init()
-    }
-    
-
     internal func loadMoreEmojiSystems() -> [LFSEmoji] {
         var emojiSystems = [LFSEmoji]()
         

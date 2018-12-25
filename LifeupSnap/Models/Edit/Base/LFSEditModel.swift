@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 internal class LFSEditModel: LFSBaseModel {
     internal static let shared: LFSEditModel = LFSEditModel()
@@ -19,5 +20,14 @@ internal class LFSEditModel: LFSBaseModel {
     internal func getEmojiSections() -> [String] {
         let sections = [LFSConstants.LFSEmoji.emojiSelfSection, LFSConstants.LFSEmoji.emojiSystemSection, LFSConstants.LFSEmoji.emojiCustomSection]
         return sections
+    }
+    
+    internal func renderImage(view: UIView) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(bounds: view.bounds)
+        let image = renderer.image(actions: { (rendererContext) in
+            view.layer.render(in: rendererContext.cgContext)
+        })
+        
+        return image
     }
 }
