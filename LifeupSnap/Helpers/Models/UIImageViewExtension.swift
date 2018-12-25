@@ -31,6 +31,14 @@ internal extension UIImageView {
     }
     
     internal func lfsImageCache(with urlString: String?) {
+        var loadingView: UIActivityIndicatorView? = UIActivityIndicatorView(frame: bounds)
+        loadingView?.center = center
+        loadingView?.color = .darkGray
+        loadingView?.hidesWhenStopped = true
+        loadingView?.startAnimating()
+        
+        addSubview(loadingView!)
+        
         weak var oldTask = currentTask
         currentTask = nil
         oldTask?.cancel()
@@ -40,6 +48,10 @@ internal extension UIImageView {
         guard let urlString = urlString else { return }
         
         if let cachedImage = LFSImageCache.shared.image(forKey: urlString) {
+            loadingView?.removeFromSuperview()
+            loadingView?.stopAnimating()
+            loadingView = nil
+            
             image = cachedImage
             return
         }
@@ -70,6 +82,10 @@ internal extension UIImageView {
                     
                     if url == self?.currentURL {
                         taskMain {
+                            loadingView?.removeFromSuperview()
+                            loadingView?.stopAnimating()
+                            loadingView = nil
+                            
                             self?.image = downloadedImage
                         }
                     }

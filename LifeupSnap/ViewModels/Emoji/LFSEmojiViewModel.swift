@@ -11,9 +11,9 @@ import UIKit
 internal class LFSEmojiViewModel: LFSViewModel {
     private weak var delegate: LFSEmojiViewModelDelegate?
     
-    //private var emojiSync: LFSEmojiSync!
+    private var emojiModel: LFSEmojiModel!
     
-    private var emojis: [LFSEmoji]!
+    private var emojis: [LFSEmoji] = [LFSEmoji]()
     private var emojiSetions: [String]!
     
     private var emoji: LFSEmoji!
@@ -27,9 +27,8 @@ internal class LFSEmojiViewModel: LFSViewModel {
         super.init()
         self.delegate = delegate
         
-        //emojiSync = LFSEmojiSync()
-        
-        emojis = [LFSEmoji]()
+        emojiModel = LFSEmojiModel()
+  
         emojiSetions = [String]()
     }
     
@@ -48,26 +47,19 @@ internal class LFSEmojiViewModel: LFSViewModel {
 extension LFSEmojiViewModel {
     internal func setup() {
         taskMain { [unowned self] in
-            self.generateEmojiSystem()
             self.generateEmojiSelf()
+            self.generateEmojiSystem()
             self.getSection()
             self.delegate?.fetchedEmoji()
         }
     }
     
     fileprivate func generateEmojiSystem() {
-//        emojiSync.getEmojiSystem()
-//        emojis = emojiSync.emojiSystems
+        emojis += emojiModel.loadMoreEmojiSystems()
     }
     
     fileprivate func generateEmojiSelf() {
-        for i in 1...75 {
-            if let image = UIImage(named: "Emo\(i)")?.resizeWithWidth(width: 50) {
-                let emoji = LFSEmoji(name: "EmojiSelf\(i)", section: LFSConstants.LFSEmoji.emojiSelfSection, value: image)
-
-                emojis.append(emoji)
-            }
-        }
+        emojis = emojiModel.loadMoreEmojiSelfs()
     }
     
     fileprivate func getSection() {
@@ -104,6 +96,15 @@ extension LFSEmojiViewModel: LFSCollectionViewPresentable {
         emoji = _emojis[indexPath.row]
         delegate?.choosedEmoji()
     }
+    
+    internal func willDisplay(with collectionView: UICollectionView, cell: UICollectionViewCell, indexPath: IndexPath) {
+        let _emojis = LFSEditModel.shared.filterEmojisInEachSection(emojis: emojis, section: emojiSetions[indexPath.section])
+        if indexPath.row == _emojis.count - 1 {
+            loadMore(completion: { [weak self] in
+                self?.delegate?.fetchedEmoji()
+            })
+        }
+    }
 }
 
 //MARK: Handle Emoji System Cell
@@ -113,7 +114,7 @@ extension LFSEmojiViewModel {
         let _emojis = LFSEditModel.shared.filterEmojisInEachSection(emojis: emojis, section: section)
         let emoji = _emojis[indexPath.row]
         
-        cell.emojiImageView.image = emoji.value
+        cell.emojiImageView.lfsImageCache(with: emoji.value as? String)
         
         return cell
     }
@@ -126,7 +127,7 @@ extension LFSEmojiViewModel {
         let _emojis = LFSEditModel.shared.filterEmojisInEachSection(emojis: emojis, section: section)
         let emoji = _emojis[indexPath.row]
       
-        cell.emojiImageView.image = emoji.value
+        cell.emojiImageView.image = emoji.value as? UIImage
         
         return cell
     }
@@ -140,34 +141,34 @@ extension LFSEmojiViewModel {
             return
         }
         
-        let image = emoji.value
-        let emojiView = EmojiView(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
-        emojiView.addImage(image: image)
+        if let selfImage = emoji.value as? UIImage {
+            let emojiView = EmojiView(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
+            emojiView.addImage(image: selfImage)
+            
+            receivedEmojiView?(emojiView)
+        }
         
-        receivedEmojiView?(emojiView)
+        if let systemString = emoji.value as? String {
+            if let image = LFSImageCache.shared.image(forKey: systemString) {
+                let emojiView = EmojiView(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
+                emojiView.addImage(image: image)
+                
+                receivedEmojiView?(emojiView)
+            }
+        }
         
         didChoose?()
     }
 }
 
-//MARK: UIScrollViewDelegate
-extension LFSEmojiViewModel {
-    internal func scrollViewDidScroll(scrollView: UIScrollView) {
-        let currentOffset: CGFloat = scrollView.contentOffset.y
-        let maxmumOffset: CGFloat = scrollView.contentSize.height - scrollView.frame.size.height
-        
-        if maxmumOffset - currentOffset <= 10.0 {
-            loadMore(completion: { [unowned self] in
-                self.delegate?.fetchedEmoji()
-            })
-        }
-    }
-    
+//MARK: Load more
+extension LFSEmojiViewModel {    
     fileprivate func loadMore(completion: @escaping() -> Void) {
-        self.generateEmojiSystem()
-        taskMain { [unowned self] in
+        generateEmojiSystem()
+        
+        taskMainAfter(deadline: .now() + 1, {
             completion()
-        }
+        })
     }
 }
 
@@ -175,10 +176,10 @@ extension LFSEmojiViewModel {
 extension LFSEmojiViewModel {
     fileprivate func removeAll() {
         delegate = nil
-        emojis = nil
+        emojis.removeAll()
         emojiSetions = nil
         didChoose = nil
-        //emojiSync = nil
+        emojiModel = nil
         receivedEmojiView = nil
     }
 }

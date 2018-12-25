@@ -116,6 +116,10 @@ extension LFSEmojiViewController: UICollectionViewDelegate, UICollectionViewData
         viewModel.didSelected(with: collectionView, at: indexPath)
     }
     
+    internal func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        viewModel.willDisplay(with: collectionView, cell: cell, indexPath: indexPath)
+    }
+    
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsetsMake(10, 10, 10, 10)
     }
@@ -135,13 +139,6 @@ extension LFSEmojiViewController: LFSEmojiViewModelDelegate {
     func fetchedEmoji() {
         collectionView.reloadData()
         indicatorView.stopAnimating()
-    }
-}
-
-//MARK: UIScrollViewDelegate
-extension LFSEmojiViewController: UIScrollViewDelegate {
-    internal func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        viewModel.scrollViewDidScroll(scrollView: scrollView)
     }
 }
 

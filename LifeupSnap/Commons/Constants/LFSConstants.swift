@@ -85,4 +85,9 @@ internal struct LFSConstants {
         internal static let emojiSelfSection = "emoji_self_section"
         internal static let emojiCustomSection = "emoji_custom_section"
     }
+    
+    //MARK: Emoji Path
+    internal struct LFSEmojiPath {
+        internal static let emojiSystem = "http://core.lifeuptest.life/storage/emoji/"
+    }
 }

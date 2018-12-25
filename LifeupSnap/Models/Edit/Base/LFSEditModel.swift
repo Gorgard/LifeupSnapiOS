@@ -17,7 +17,7 @@ internal class LFSEditModel: LFSBaseModel {
     }
     
     internal func getEmojiSections() -> [String] {
-        let sections = [LFSConstants.LFSEmoji.emojiSystemSection, LFSConstants.LFSEmoji.emojiSelfSection, LFSConstants.LFSEmoji.emojiCustomSection]
+        let sections = [LFSConstants.LFSEmoji.emojiSelfSection, LFSConstants.LFSEmoji.emojiSystemSection, LFSConstants.LFSEmoji.emojiCustomSection]
         return sections
     }
 }

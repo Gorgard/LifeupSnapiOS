@@ -14,4 +14,5 @@ import UIKit
     func cellForItem(with collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell
     
     @objc optional func didSelected(with collectionView: UICollectionView, at indexPath: IndexPath)
+    @objc optional func willDisplay(with collectionView: UICollectionView, cell: UICollectionViewCell, indexPath: IndexPath)
 }
