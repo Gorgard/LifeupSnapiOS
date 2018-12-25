@@ -16,24 +16,11 @@ internal class LFSEmojiModel: LFSEditModel {
     
     private var loadedEmojiSelf: Bool = false
     
-//    internal var emojiSystems: [LFSEmoji]!
-//
-//    internal var emojiSelfs: [LFSEmoji]!
-    
     override init() {
         super.init()
-//        emojiSystems = [LFSEmoji]()
-//        emojiSelfs = [LFSEmoji]()
     }
     
-    deinit {
-//        emojiSystems.removeAll()
-//        emojiSelfs.removeAll()
-//
-//        emojiSystems = nil
-//        emojiSelfs = nil
-    }
-    
+
     internal func loadMoreEmojiSystems() -> [LFSEmoji] {
         var emojiSystems = [LFSEmoji]()
         
@@ -53,18 +40,6 @@ internal class LFSEmojiModel: LFSEditModel {
     }
     
     internal func loadMoreEmojiSelfs() -> [LFSEmoji] {
-//        if emojiSystems.count == emojiSystemCount && !loadedEmojiSelf {
-//            for i in 1...75 {
-//                if let image = UIImage(named: "Emo\(i)")?.resizeWithWidth(width: 50) {
-//                    let emoji = LFSEmoji(name: "EmojiSelf\(i)", section: LFSConstants.LFSEmoji.emojiSelfSection, value: image)
-//
-//                    emojiSelfs?.append(emoji)
-//                }
-//            }
-//
-//            loadedEmojiSelf = true
-//        }
-        
         var emojiSelfs = [LFSEmoji]()
         
         for i in 1...75 {
