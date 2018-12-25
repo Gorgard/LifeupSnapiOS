@@ -138,6 +138,13 @@ extension LFSEmojiViewController: LFSEmojiViewModelDelegate {
     }
 }
 
+//MARK: UIScrollViewDelegate
+extension LFSEmojiViewController: UIScrollViewDelegate {
+    internal func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        viewModel.scrollViewDidScroll(scrollView: scrollView)
+    }
+}
+
 //MARK: Remove all
 extension LFSEmojiViewController {
     fileprivate func removeAll() {

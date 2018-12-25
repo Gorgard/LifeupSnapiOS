@@ -83,5 +83,6 @@ internal struct LFSConstants {
     internal struct LFSEmoji {
         internal static let emojiSystemSection = "emoji_system_section"
         internal static let emojiSelfSection = "emoji_self_section"
+        internal static let emojiCustomSection = "emoji_custom_section"
     }
 }

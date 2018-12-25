@@ -48,7 +48,7 @@ internal class Camera: NSObject {
             return
         }
         
-        DispatchQueue.main.async { [unowned self] in
+        taskMain { [unowned self] in
             do {
                 self.createCaptureSession()
                 try self.configurationCaptureDevice()
@@ -58,7 +58,7 @@ internal class Camera: NSObject {
                 try self.configurationMovieOutput()
             }
             catch {
-                DispatchQueue.main.async {
+                taskMain {
                     failure(error)
                 }
                 
@@ -190,13 +190,13 @@ extension Camera {
             captureSession.addOutput(movieOutput!)
         }
         
-        DispatchQueue.main.async { [weak self] in
+        taskMain { [weak self] in
             self?.captureSession?.startRunning()
         }
     }
     
     internal func renewMovieOutput() {
-        DispatchQueue(label: "renewMovieOutputBackground").async { [unowned self] in
+        taskBackground(label: "renewMovieOutputBackground", { [unowned self] in
             guard let captureSession = self.captureSession else {
                 return
             }
@@ -206,7 +206,7 @@ extension Camera {
             }
             
             try? self.configurationMovieOutput()
-        }
+        })
     }
 }
 
@@ -243,9 +243,9 @@ extension Camera {
     }
     
     internal func begin() {
-        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+        taskQOS(qos: .userInteractive, { [weak self] in
             self?.captureSession?.startRunning()
-        }
+        })
     }
     
     internal func switchCamera() throws {
@@ -491,7 +491,7 @@ extension Camera {
         exporter?.outputFileType = .mov
         
         exporter?.exportAsynchronously {
-            DispatchQueue.main.async {
+            taskMain {
                 completion(exporter?.outputURL)
             }
         }

@@ -89,7 +89,7 @@ extension LFSSnapViewModel {
         
         receivedFeature?(currentIndex)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { [unowned self] in
+        taskMainAfter(deadline: .now() + 1, { [unowned self] in
             self.hiddenBlurView?(0)
         })
         
@@ -183,7 +183,7 @@ extension LFSSnapViewModel {
     }
     
     fileprivate func snapBoomerang() {
-        DispatchQueue.main.async { [unowned self] in
+        taskMain { [unowned self] in
             self.changeSnapButtonRadius?(8, CGRect(x: 0, y: 0, width: 40, height: 40))
             self.enableAllView?(false)
         }
@@ -201,7 +201,7 @@ extension LFSSnapViewModel {
     }
     
     fileprivate func snapVideo() {
-        DispatchQueue.main.async { [unowned self] in
+        taskMain { [unowned self] in
             self.changeSnapButtonRadius?(8, CGRect(x: 0, y: 0, width: 40, height: 40))
             self.enableAllView?(false)
         }
@@ -310,7 +310,7 @@ extension LFSSnapViewModel {
     }
     
     private func handleRecord(url: URL?) {
-        DispatchQueue.main.async { [unowned self] in
+        taskMain { [unowned self] in
             self.hiddenLoadingView?(false)
         }
         
@@ -333,7 +333,7 @@ extension LFSSnapViewModel {
     }
     
     fileprivate func finishedSnapBoomerang() {
-        DispatchQueue.main.async { [unowned self] in
+        taskMain { [unowned self] in
             self.changeSnapButtonRadius?(self.snapButtonBounds.size.height / 2, self.snapButtonBounds)
             self.enableAllView?(true)
         }
@@ -345,7 +345,7 @@ extension LFSSnapViewModel {
         let lfsVideoPreviewViewController = LFSVideoPreviewViewController()
         lfsVideoPreviewViewController.url = url
         
-        DispatchQueue.main.async { [unowned self] in
+        taskMain { [unowned self] in
             self.hiddenLoadingView?(true)
             self.viewController?.present(lfsVideoPreviewViewController, animated: true, completion: nil)
         }
@@ -417,7 +417,7 @@ extension LFSSnapViewModel {
     }
     
     private func handleVideoRecord(url: URL?) {
-        DispatchQueue.main.async { [unowned self] in
+        taskMain { [unowned self] in
             self.hiddenLoadingView?(false)
         }
         
@@ -436,7 +436,7 @@ extension LFSSnapViewModel {
     }
     
     fileprivate func finishedSnapVideo() {
-        DispatchQueue.main.async { [unowned self] in
+        taskMain { [unowned self] in
             self.changeSnapButtonRadius?(self.snapButtonBounds.size.height / 2, self.snapButtonBounds)
             self.enableAllView?(true)
         }
@@ -448,7 +448,7 @@ extension LFSSnapViewModel {
         let lfsVideoPreviewViewController = LFSVideoPreviewViewController()
         lfsVideoPreviewViewController.url = url
         
-        DispatchQueue.main.async { [unowned self] in
+        taskMain { [unowned self] in
             self.hiddenLoadingView?(true)
             self.viewController?.present(lfsVideoPreviewViewController, animated: true, completion: nil)
         }
