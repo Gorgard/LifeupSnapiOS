@@ -630,10 +630,6 @@
 		43D8BF8521B639860065B3EB /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D8BF8421B639860065B3EB /* CircularProgress.swift */; };
 		43E9866B21C260C100F92FD6 /* GrowingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E9866A21C260C100F92FD6 /* GrowingTextView.swift */; };
 		43E9F74E21B4C1A600E91AAE /* CameraFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E9F74D21B4C1A600E91AAE /* CameraFeature.swift */; };
-		43F73AC421D1C767007EE262 /* LFSJsonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F73AC321D1C767007EE262 /* LFSJsonUtils.swift */; };
-		43F73AC821D1C8E1007EE262 /* LFSConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F73AC721D1C8E1007EE262 /* LFSConfig.swift */; };
-		43F73ACB21D1C9A2007EE262 /* LFSURLSuffixs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F73ACA21D1C9A2007EE262 /* LFSURLSuffixs.swift */; };
-		43F73ACE21D1CA2C007EE262 /* LFSHTTPMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F73ACD21D1CA2C007EE262 /* LFSHTTPMethods.swift */; };
 		43F73AD021D1CAC3007EE262 /* LFSThreadUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F73ACF21D1CAC3007EE262 /* LFSThreadUtils.swift */; };
 		43F73AD621D1CB87007EE262 /* LFSGraphDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F73AD521D1CB87007EE262 /* LFSGraphDecoder.swift */; };
 		43F73AD821D1CBF6007EE262 /* LFSGraphError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F73AD721D1CBF6007EE262 /* LFSGraphError.swift */; };
@@ -991,10 +987,6 @@
 		43D8BF8421B639860065B3EB /* CircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
 		43E9866A21C260C100F92FD6 /* GrowingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrowingTextView.swift; sourceTree = "<group>"; };
 		43E9F74D21B4C1A600E91AAE /* CameraFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFeature.swift; sourceTree = "<group>"; };
-		43F73AC321D1C767007EE262 /* LFSJsonUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSJsonUtils.swift; sourceTree = "<group>"; };
-		43F73AC721D1C8E1007EE262 /* LFSConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSConfig.swift; sourceTree = "<group>"; };
-		43F73ACA21D1C9A2007EE262 /* LFSURLSuffixs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSURLSuffixs.swift; sourceTree = "<group>"; };
-		43F73ACD21D1CA2C007EE262 /* LFSHTTPMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSHTTPMethods.swift; sourceTree = "<group>"; };
 		43F73ACF21D1CAC3007EE262 /* LFSThreadUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSThreadUtils.swift; sourceTree = "<group>"; };
 		43F73AD521D1CB87007EE262 /* LFSGraphDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSGraphDecoder.swift; sourceTree = "<group>"; };
 		43F73AD721D1CBF6007EE262 /* LFSGraphError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSGraphError.swift; sourceTree = "<group>"; };
@@ -1067,7 +1059,6 @@
 		430F2AE021AFCE6F00F2293D /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				43F73ACC21D1CA17007EE262 /* API */,
 				436FCB2C21C1FEFD008EBBC7 /* Models */,
 				430F2AE121AFCE7900F2293D /* Modules */,
 			);
@@ -1136,7 +1127,6 @@
 				431A138D21AD46C1005730E0 /* Info.plist */,
 				431A138C21AD46C1005730E0 /* LifeupSnap.h */,
 				4372252F21AE2B3300130213 /* Commons */,
-				43F73AC521D1C8BA007EE262 /* Configs */,
 				4372252C21AE2B3300130213 /* Controllers */,
 				4372253021AE2B3600130213 /* Designs */,
 				430F2AE021AFCE6F00F2293D /* Enums */,
@@ -1434,7 +1424,6 @@
 		4372253C21AE313000130213 /* Uitls */ = {
 			isa = PBXGroup;
 			children = (
-				43F73AC321D1C767007EE262 /* LFSJsonUtils.swift */,
 				43F73ACF21D1CAC3007EE262 /* LFSThreadUtils.swift */,
 			);
 			path = Uitls;
@@ -1892,39 +1881,6 @@
 				43D8BF8421B639860065B3EB /* CircularProgress.swift */,
 			);
 			path = "Circular Progress";
-			sourceTree = "<group>";
-		};
-		43F73AC521D1C8BA007EE262 /* Configs */ = {
-			isa = PBXGroup;
-			children = (
-				43F73AC921D1C989007EE262 /* URLSuffixs */,
-				43F73AC621D1C8D0007EE262 /* Developer */,
-			);
-			path = Configs;
-			sourceTree = "<group>";
-		};
-		43F73AC621D1C8D0007EE262 /* Developer */ = {
-			isa = PBXGroup;
-			children = (
-				43F73AC721D1C8E1007EE262 /* LFSConfig.swift */,
-			);
-			path = Developer;
-			sourceTree = "<group>";
-		};
-		43F73AC921D1C989007EE262 /* URLSuffixs */ = {
-			isa = PBXGroup;
-			children = (
-				43F73ACA21D1C9A2007EE262 /* LFSURLSuffixs.swift */,
-			);
-			path = URLSuffixs;
-			sourceTree = "<group>";
-		};
-		43F73ACC21D1CA17007EE262 /* API */ = {
-			isa = PBXGroup;
-			children = (
-				43F73ACD21D1CA2C007EE262 /* LFSHTTPMethods.swift */,
-			);
-			path = API;
 			sourceTree = "<group>";
 		};
 		43F73AD221D1CB53007EE262 /* Graphs */ = {
@@ -2451,7 +2407,6 @@
 				4380FA2921B0CF5200177F64 /* SafeArray.swift in Sources */,
 				430F2AEA21AFD56300F2293D /* CameraError.swift in Sources */,
 				430F2A8E21AFB39B00F2293D /* LFSFeature.swift in Sources */,
-				43F73ACE21D1CA2C007EE262 /* LFSHTTPMethods.swift in Sources */,
 				437225E121AE878B00130213 /* LFSSnapViewModelProtocols.swift in Sources */,
 				433BC3CA21C2111700DA3C43 /* LFSEditLabelViewModel.swift in Sources */,
 				43D8BF8521B639860065B3EB /* CircularProgress.swift in Sources */,
@@ -2539,7 +2494,6 @@
 				439C36DB21CB458500BDDC28 /* Emo56@2x.png in Sources */,
 				439C36DA21CB458500BDDC28 /* Emo49.png in Sources */,
 				439C36D921CB458500BDDC28 /* Emo27@2x.png in Sources */,
-				43F73AC821D1C8E1007EE262 /* LFSConfig.swift in Sources */,
 				439C36D821CB458500BDDC28 /* Emo39@2x.png in Sources */,
 				439C36D721CB458500BDDC28 /* Emo62@3x.png in Sources */,
 				439C36D621CB458500BDDC28 /* Emo44@2x.png in Sources */,
@@ -2649,7 +2603,6 @@
 				439C367521CB458500BDDC28 /* Emo28@3x.png in Sources */,
 				439C367421CB458500BDDC28 /* Emo73@2x.png in Sources */,
 				439C367321CB458500BDDC28 /* Emo55@3x.png in Sources */,
-				43F73AC421D1C767007EE262 /* LFSJsonUtils.swift in Sources */,
 				439C367221CB458500BDDC28 /* Emo36@3x.png in Sources */,
 				439C367121CB458500BDDC28 /* Emo34.png in Sources */,
 				439C367021CB458500BDDC28 /* Emo20.png in Sources */,
@@ -2691,7 +2644,6 @@
 				439C364C21CB458500BDDC28 /* Emo45@3x.png in Sources */,
 				439C364B21CB458500BDDC28 /* Emo31.png in Sources */,
 				439C364A21CB458500BDDC28 /* Emo25.png in Sources */,
-				43F73ACB21D1C9A2007EE262 /* LFSURLSuffixs.swift in Sources */,
 				439C364921CB458500BDDC28 /* Emo34@3x.png in Sources */,
 				439C364821CB458500BDDC28 /* Emo49@3x.png in Sources */,
 				439C364721CB458500BDDC28 /* Emo4.png in Sources */,
