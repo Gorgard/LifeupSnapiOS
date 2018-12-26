@@ -37,19 +37,19 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7DC-ZO-XZH">
                     <rect key="frame" x="0.0" y="133.5" width="375" height="533.5"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fS3-XA-MIO">
-                            <rect key="frame" x="169.5" y="8" width="35" height="35"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fS3-XA-MIO">
+                            <rect key="frame" x="169.5" y="8" width="35" height="20"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="35" id="nNe-LQ-GzQ"/>
+                                <constraint firstAttribute="height" constant="20" id="nNe-LQ-GzQ"/>
                                 <constraint firstAttribute="width" constant="35" id="pKU-r0-c3k"/>
                             </constraints>
-                            <state key="normal" title="Drop"/>
+                            <state key="normal" image="ic_edit_down_arrow.png"/>
                             <connections>
                                 <action selector="onTappedSlideDown:" destination="-1" eventType="touchUpInside" id="chl-Z3-lMm"/>
                             </connections>
                         </button>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="JGw-Aj-PW8">
-                            <rect key="frame" x="5" y="53" width="365" height="470.5"/>
+                            <rect key="frame" x="5" y="38" width="365" height="485.5"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2Rc-g1-Lv5">
                                 <size key="itemSize" width="50" height="50"/>
@@ -92,4 +92,7 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>
     </objects>
+    <resources>
+        <image name="ic_edit_down_arrow.png" width="35" height="35"/>
+    </resources>
 </document>

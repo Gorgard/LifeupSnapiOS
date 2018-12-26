@@ -57,13 +57,13 @@
                         <action selector="onTappedNext:" destination="-1" eventType="touchUpInside" id="xK2-nK-2XC"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1f4-kK-ubp">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1f4-kK-ubp">
                     <rect key="frame" x="8" y="619" width="40" height="40"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="40" id="QgB-VF-Hbe"/>
                         <constraint firstAttribute="height" constant="40" id="dcp-dD-t4L"/>
                     </constraints>
-                    <state key="normal" title="Save">
+                    <state key="normal" image="ic_edit_save.png">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <connections>
@@ -100,6 +100,7 @@
         </view>
     </objects>
     <resources>
+        <image name="ic_edit_save.png" width="35" height="35"/>
         <image name="ic_main_close.png" width="30" height="30"/>
         <image name="ic_preview_next.png" width="20" height="20"/>
     </resources>
