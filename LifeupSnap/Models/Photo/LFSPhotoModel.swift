@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 internal class LFSPhotoModel: LFSBaseModel {
     internal static let shared: LFSPhotoModel = LFSPhotoModel()
@@ -54,5 +55,22 @@ internal class LFSPhotoModel: LFSBaseModel {
         }
         
         return nil
+    }
+    
+    internal func savePhotoToAlbum(image: UIImage, completion: @escaping() -> Void, failure: @escaping(_ error: Error?) -> Void) {
+        PHPhotoLibrary.shared().performChanges({
+            PHAssetChangeRequest.creationRequestForAsset(from: image)
+        }, completionHandler: { (saved, error) -> Void in
+            if error != nil {
+                failure(error)
+            }
+            
+            if saved {
+                completion()
+            }
+            else {
+                failure(nil)
+            }
+        })
     }
 }

@@ -206,6 +206,7 @@ extension LFSEditViewModel {
         let backgroundImageView = UIImageView(frame: view.bounds)
         backgroundImageView.contentMode = .scaleAspectFit
         backgroundImageView.image = image
+        backgroundImageView.backgroundColor = .clear
         
         let editedImageView = UIImageView(frame: view.bounds)
         editedImageView.image = renderedEditedImage

@@ -33,7 +33,13 @@ extension LFSPhotoEditedPreviewViewModel {
     }
     
     internal func save() {
+        guard let image = image else { return }
         
+        LFSPhotoModel.shared.savePhotoToAlbum(image: image, completion: { () -> Void in
+            
+        }, failure: { (error) -> Void in
+            
+        })
     }
 }
 
