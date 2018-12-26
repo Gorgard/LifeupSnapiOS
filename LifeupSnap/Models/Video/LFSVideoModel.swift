@@ -291,13 +291,13 @@ extension LFSVideoModel {
                 print("Cannot merged reversed video.")
             }
             
+            videoTrack?.preferredTransform = videoAssetTrack.preferredTransform
+            
             let scaleDuration = CMTimeMultiplyByFloat64(videoAssetTrack.timeRange.duration, Float64(0.5))
             videoTrack?.scaleTimeRange(CMTimeRangeMake(currentVideoTime, videoAssetTrack.timeRange.duration), toDuration: scaleDuration)
             currentVideoTime = CMTimeAdd(currentVideoTime, scaleDuration)
         }
-        
-        videoTrack?.preferredTransform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
-        
+
         let fileName = "\(LFSConstants.LFSVideoName.Snap.snapMergedVideo)\(Date())"
         let mergedPath = LFSVideoModel.shared.outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mov)!
         

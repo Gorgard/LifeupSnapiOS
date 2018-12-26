@@ -264,10 +264,16 @@ extension LFSSnapViewModel {
     internal func prepareCamera() {
         camera.prepare(completion: { [unowned self] () -> Void in
             try? self.camera.displayPreview()
-            self.camera.addPreviewLayer(view: self.view!)
+            self.addPreviewLayer(view: self.view)
         }, failure: { (error) -> Void in
             print(error?.localizedDescription ?? "")
         })
+    }
+    
+    fileprivate func addPreviewLayer(view: UIView?) {
+        if let view = view {
+            camera.addPreviewLayer(view: view)
+        }
     }
     
     internal func beginCamera() {
