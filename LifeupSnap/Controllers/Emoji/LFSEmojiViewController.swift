@@ -50,6 +50,11 @@ class LFSEmojiViewController: UIViewController {
         super.viewWillAppear(animated)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        layoutSubView()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -79,6 +84,10 @@ extension LFSEmojiViewController {
     
     fileprivate func setupViews() {
         setupCollectionView()
+    }
+    
+    fileprivate func layoutSubView() {
+        emojiView.roundCorners(corners: [.topLeft, .topRight], radius: 8)
     }
     
     fileprivate func setupCollectionView() {

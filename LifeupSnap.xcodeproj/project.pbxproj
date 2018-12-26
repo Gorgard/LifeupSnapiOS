@@ -81,6 +81,7 @@
 		4364F06821C793F00063C82B /* LFSLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4364F06721C793F00063C82B /* LFSLine.swift */; };
 		4364F06B21C79D160063C82B /* LFSDrawViewModelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4364F06A21C79D160063C82B /* LFSDrawViewModelProtocols.swift */; };
 		4364F06E21C79D960063C82B /* LFSDrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4364F06D21C79D960063C82B /* LFSDrawViewModel.swift */; };
+		436FADD521D33ED2009303D8 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FADD421D33ED2009303D8 /* UIViewExtension.swift */; };
 		436FCB2321C1FAF9008EBBC7 /* LFSEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FCB2121C1FAF9008EBBC7 /* LFSEditViewController.swift */; };
 		436FCB2421C1FAF9008EBBC7 /* LFSEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 436FCB2221C1FAF9008EBBC7 /* LFSEditViewController.xib */; };
 		436FCB2721C1FDEE008EBBC7 /* LFSEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FCB2621C1FDEE008EBBC7 /* LFSEditViewModel.swift */; };
@@ -691,6 +692,7 @@
 		4364F06721C793F00063C82B /* LFSLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSLine.swift; sourceTree = "<group>"; };
 		4364F06A21C79D160063C82B /* LFSDrawViewModelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSDrawViewModelProtocols.swift; sourceTree = "<group>"; };
 		4364F06D21C79D960063C82B /* LFSDrawViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSDrawViewModel.swift; sourceTree = "<group>"; };
+		436FADD421D33ED2009303D8 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		436FCB2121C1FAF9008EBBC7 /* LFSEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEditViewController.swift; sourceTree = "<group>"; };
 		436FCB2221C1FAF9008EBBC7 /* LFSEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSEditViewController.xib; sourceTree = "<group>"; };
 		436FCB2621C1FDEE008EBBC7 /* LFSEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEditViewModel.swift; sourceTree = "<group>"; };
@@ -1047,6 +1049,7 @@
 			children = (
 				430F2A9421AFBC0300F2293D /* PageViewScroll.swift */,
 				43E9866A21C260C100F92FD6 /* GrowingTextView.swift */,
+				436FADD421D33ED2009303D8 /* UIViewExtension.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2548,6 +2551,7 @@
 				439C368B21CB458500BDDC28 /* Emo51.png in Sources */,
 				439C368A21CB458500BDDC28 /* Emo75@3x.png in Sources */,
 				439C368921CB458500BDDC28 /* Emo6@2x.png in Sources */,
+				436FADD521D33ED2009303D8 /* UIViewExtension.swift in Sources */,
 				439C368821CB458500BDDC28 /* Emo53@2x.png in Sources */,
 				439C368721CB458500BDDC28 /* Emo30@2x.png in Sources */,
 				439C368621CB458500BDDC28 /* Emo16@3x.png in Sources */,
