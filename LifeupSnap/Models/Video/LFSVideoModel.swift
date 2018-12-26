@@ -100,11 +100,14 @@ extension LFSVideoModel {
         
         guard let videoTrack = mixComposition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) else { return}
         guard let videoAssetTrack = videoAsset.tracks(withMediaType: .video).first else { return }
+        guard let audioTrack = mixComposition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) else { return }
+        guard let audoAssetTrack = videoAsset.tracks(withMediaType: .audio).first else { return }
         
         let timeRange = CMTimeRangeMake(kCMTimeZero, videoAsset.duration)
         
         do {
             try videoTrack.insertTimeRange(timeRange, of: videoAssetTrack, at: kCMTimeZero)
+            try audioTrack.insertTimeRange(timeRange, of: audoAssetTrack, at: kCMTimeZero)
         }
         catch {
             print(error.localizedDescription)
