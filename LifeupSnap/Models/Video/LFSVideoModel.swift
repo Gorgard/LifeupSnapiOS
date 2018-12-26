@@ -95,67 +95,105 @@ internal class LFSVideoModel: LFSBaseModel {
 //MARK: Merge Video
 extension LFSVideoModel {
     internal func mergeEditedVideo(url: URL, view: UIView, completion: @escaping(_ url: URL?) -> Void) {
-        let composition = AVMutableComposition()
-        let asset = AVURLAsset(url: url)
+        let videoAsset = AVAsset(url: url)
+        let mixComposition = AVMutableComposition()
         
-        let tracks = asset.tracks(withMediaType: .video)
+        guard let videoTrack = mixComposition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) else { return}
+        guard let videoAssetTrack = videoAsset.tracks(withMediaType: .video).first else { return }
         
-        if let videoTrack = tracks.last {
-            let timeRange = CMTimeRangeMake(kCMTimeZero, asset.duration)
-            
-            let compositionVideoTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: videoTrack.trackID)
-            
-            do {
-                try compositionVideoTrack?.insertTimeRange(timeRange, of: videoTrack, at: kCMTimeZero)
-                compositionVideoTrack?.preferredTransform = videoTrack.preferredTransform
-            }
-            catch {
-                print(error.localizedDescription)
-            }
-            
-            let size = videoTrack.naturalSize
-            
-            let overlayView = LFSEditModel.shared.renderImage(view: view)
-            
-            let overlayLayer = CALayer()
-            overlayLayer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-            overlayLayer.contents = overlayView.cgImage
-            overlayLayer.opacity = 1
-            
-            let videoLayer = CALayer()
-            videoLayer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-            
-            let parentLayer = CALayer()
-            parentLayer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-            parentLayer.addSublayer(videoLayer)
-            parentLayer.addSublayer(overlayLayer)
-            
-            let layerComposition = AVMutableVideoComposition()
-            layerComposition.frameDuration = CMTimeMake(1, 30)
-            layerComposition.renderSize = CGSize(width: size.width, height: size.height)
-            layerComposition.renderScale = 1.0
-            layerComposition.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayer: videoLayer, in: parentLayer)
-            
-            let instruction = AVMutableVideoCompositionInstruction()
-            instruction.timeRange = CMTimeRangeMake(kCMTimeZero, composition.duration)
-            
-            let layerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: compositionVideoTrack!)
-            instruction.layerInstructions = [layerInstruction]
-            
-            layerComposition.instructions = [instruction]
-            
-            let fileName = "\(LFSConstants.LFSVideoName.Snap.snapMergeEditedVideo)\(Date())"
-            let outputURL = super.outputPathURL(fileName: fileName, fileType: "mp4")
-            
-            guard let assetExport = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality) else { return }
-            assetExport.videoComposition = layerComposition
-            assetExport.outputFileType = .mp4
-            assetExport.outputURL = outputURL
-            
-            assetExport.exportAsynchronously {
-                completion(outputURL)
+        let timeRange = CMTimeRangeMake(kCMTimeZero, videoAsset.duration)
+        
+        do {
+            try videoTrack.insertTimeRange(timeRange, of: videoAssetTrack, at: kCMTimeZero)
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+        
+        let mainInstruction = AVMutableVideoCompositionInstruction()
+        mainInstruction.timeRange = timeRange
+        
+        let videoLayerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: videoTrack)
+        
+        var videoOrientation: UIImageOrientation = .up
+        var isVideoAssetPortrait: Bool = false
+        
+        let videoTransform = videoAssetTrack.preferredTransform
+        
+        if videoTransform.a == 0 && videoTransform.b == 1.0 && videoTransform.c == -1.0 && videoTransform.d == 0 {
+            videoOrientation = .right
+            isVideoAssetPortrait = true
+        }
+        if videoTransform.a == 0 && videoTransform.b == -1.0 && videoTransform.c == 1.0 && videoTransform.d == 0 {
+            videoOrientation = .left
+            isVideoAssetPortrait = true
+        }
+        if videoTransform.a == 1.0 && videoTransform.b == 0 && videoTransform.c == 0 && videoTransform.d == 1.0 {
+            videoOrientation = .up
+        }
+        if videoTransform.a == -1.0 && videoTransform.b == 0 && videoTransform.c == 0 && videoTransform.d == -1.0 {
+            videoOrientation = .down
+        }
+        
+        videoLayerInstruction.setTransform(videoAssetTrack.preferredTransform, at: kCMTimeZero)
+        videoLayerInstruction.setOpacity(0.0, at: videoAsset.duration)
+        
+        mainInstruction.layerInstructions = [videoLayerInstruction]
+        
+        let mainComposition = AVMutableVideoComposition()
+        
+        let naturalSize: CGSize
+        
+        if isVideoAssetPortrait {
+            naturalSize = CGSize(width: videoAssetTrack.naturalSize.height, height: videoAssetTrack.naturalSize.width)
+        }
+        else {
+            naturalSize = videoAssetTrack.naturalSize
+        }
+        
+        let renderWidth = naturalSize.width
+        let renderHeight = naturalSize.height
+        
+        mainComposition.renderSize = CGSize(width: renderWidth, height: renderHeight)
+        mainComposition.instructions = [mainInstruction]
+        mainComposition.frameDuration = CMTimeMake(1, 30)
+        
+        addViewToVideo(compostion: mainComposition, view: view, size: naturalSize)
+        
+        let fileName = "\(LFSConstants.LFSVideoName.Snap.snapMergeEditedVideo)\(Date())"
+        let outputURL = super.outputPathURL(fileName: fileName, fileType: "mp4")
+        
+        guard let exporter = AVAssetExportSession(asset: mixComposition, presetName: AVAssetExportPresetHighestQuality) else { return }
+        exporter.outputURL = outputURL
+        exporter.outputFileType = .mp4
+        exporter.shouldOptimizeForNetworkUse = true
+        exporter.videoComposition = mainComposition
+        
+        exporter.exportAsynchronously {
+            taskMain {
+                completion(exporter.outputURL)
             }
         }
+    }
+
+    fileprivate func addViewToVideo(compostion: AVMutableVideoComposition, view: UIView, size: CGSize) {
+        let image = LFSEditModel.shared.renderImage(view: view)
+        
+        let overlayLayer = CALayer()
+        overlayLayer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        overlayLayer.contents = image.cgImage
+        overlayLayer.masksToBounds = true
+        
+        let parentLayer = CALayer()
+        parentLayer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        
+        let videoLayer = CALayer()
+        videoLayer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        
+        parentLayer.addSublayer(videoLayer)
+        parentLayer.addSublayer(overlayLayer)
+        
+        compostion.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayer: videoLayer, in: parentLayer)
     }
 }
 
