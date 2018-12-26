@@ -27,6 +27,11 @@ internal struct LFSConstants {
             internal static let lfsEmojiSystemCollectionViewCell = "LFSEmojiSystemCollectionViewCell"
             internal static let lfsEmojiSelfCollectionViewCell = "LFSEmojiSelfCollectionViewCell"
         }
+        
+        internal struct Edited {
+            internal static let lfsVideoEditedPreviewViewController = "LFSVideoEditedPreviewViewController"
+            internal static let lfsPhotoEditedPreviewViewController = "LFSPhotoEditedPreviewViewController"
+        }
     }
     
     //MARK: CollectionViewCell Identifier

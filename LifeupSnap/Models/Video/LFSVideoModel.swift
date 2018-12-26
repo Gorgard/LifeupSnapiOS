@@ -94,20 +94,29 @@ internal class LFSVideoModel: LFSBaseModel {
 
 //MARK: Merge Video
 extension LFSVideoModel {
-    internal func mergeEditedVideo(url: URL, view: UIView, completion: @escaping(_ url: URL?) -> Void) {
+    internal func mergeEditedVideo(url: URL, originalVideo: Bool, view: UIView, completion: @escaping(_ url: URL?) -> Void) {
         let videoAsset = AVAsset(url: url)
         let mixComposition = AVMutableComposition()
         
         guard let videoTrack = mixComposition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) else { return}
         guard let videoAssetTrack = videoAsset.tracks(withMediaType: .video).first else { return }
-        guard let audioTrack = mixComposition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid) else { return }
-        guard let audoAssetTrack = videoAsset.tracks(withMediaType: .audio).first else { return }
+        
+        var audioTrack: AVMutableCompositionTrack? = nil
+        var audioAssetTrack: AVAssetTrack? = nil
+        
+        if originalVideo {
+            audioTrack = mixComposition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
+            audioAssetTrack = videoAsset.tracks(withMediaType: .audio).first
+        }
         
         let timeRange = CMTimeRangeMake(kCMTimeZero, videoAsset.duration)
         
         do {
             try videoTrack.insertTimeRange(timeRange, of: videoAssetTrack, at: kCMTimeZero)
-            try audioTrack.insertTimeRange(timeRange, of: audoAssetTrack, at: kCMTimeZero)
+            
+            if originalVideo {
+                try audioTrack?.insertTimeRange(timeRange, of: audioAssetTrack!, at: kCMTimeZero)
+            }
         }
         catch {
             print(error.localizedDescription)

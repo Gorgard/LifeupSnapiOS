@@ -1,23 +1,23 @@
 //
-//  LFSVideoPreviewViewModel.swift
+//  LFSVideoEditedPreviewViewModel.swift
 //  LifeupSnap
 //
-//  Created by lifeup on 11/12/2561 BE.
+//  Created by lifeup on 26/12/2561 BE.
 //  Copyright © 2561 Khwan Siricharoenporn. All rights reserved.
 //
 
 import UIKit
 import AVFoundation
 
-internal class LFSVideoPreviewViewModel: LFSViewModel {
-    private weak var delegate: LFSVideoPreviewViewModelDelegate?
+internal class LFSVideoEditedPreviewViewModel: LFSViewModel {
+    private weak var delegate: LFSVideoEditedPreviewViewModelDelegate?
     
     internal var url: URL?
     
     internal var player: AVPlayer!
     internal var playerLayer: AVPlayerLayer!
     
-    init(delegate: LFSVideoPreviewViewModelDelegate) {
+    init(delegate: LFSVideoEditedPreviewViewModelDelegate) {
         self.delegate = delegate
     }
     
@@ -26,8 +26,7 @@ internal class LFSVideoPreviewViewModel: LFSViewModel {
     }
 }
 
-//MARK: Base
-extension LFSVideoPreviewViewModel {
+extension LFSVideoEditedPreviewViewModel {
     private func setup() {
         if let url = url {
             player = AVPlayer(url: url)
@@ -46,7 +45,7 @@ extension LFSVideoPreviewViewModel {
 }
 
 //MARK: Handle Media
-extension LFSVideoPreviewViewModel {
+extension LFSVideoEditedPreviewViewModel {
     internal func preview() {
         setup()
         play()
@@ -63,16 +62,26 @@ extension LFSVideoPreviewViewModel {
     }
     
     internal func next() {
-        let lfsEditViewController = LFSEditViewController()
-        lfsEditViewController.url = url
-        lfsEditViewController.editEvent = .video
+//        let lfsEditViewController = LFSEditViewController()
+//        lfsEditViewController.url = url
+//        lfsEditViewController.editEvent = .video
+//
+//        viewController?.present(lfsEditViewController, animated: true, completion: nil)
+    }
+    
+    internal func save() {
+        guard let url = url else { return }
         
-        viewController?.present(lfsEditViewController, animated: true, completion: nil)
+        LFSVideoModel.shared.saveVideoByURL(url: url, completion: { (savedURL) -> Void in
+            
+        }, failure: { (error) -> Void in
+            
+        })
     }
 }
 
 //MARK: Remove all
-extension LFSVideoPreviewViewModel {
+extension LFSVideoEditedPreviewViewModel {
     fileprivate func removeAll() {
         delegate = nil
         url = nil

@@ -197,13 +197,54 @@ extension LFSEditViewModel {
     }
     
     fileprivate func mergePhoto() {
+        guard let image = image, let view = view else { return }
+        let renderedEditedImage = LFSEditModel.shared.renderImage(view: view)
         
+        let backgroundImageView = UIImageView(frame: view.bounds)
+        backgroundImageView.contentMode = .scaleAspectFit
+        backgroundImageView.image = image
+        
+        let editedImageView = UIImageView(frame: view.bounds)
+        editedImageView.image = renderedEditedImage
+        
+        let baseView = UIView(frame: view.bounds)
+        baseView.addSubview(backgroundImageView)
+        baseView.addSubview(editedImageView)
+        
+        let renderedCompleteImage = LFSEditModel.shared.renderImage(view: baseView)
+        
+        gotoPhotoEditedPreview(image: renderedCompleteImage)
+    }
+    
+    fileprivate func gotoPhotoEditedPreview(image: UIImage) {
+        let lfsPhotoEditedPreviewViewController = LFSPhotoEditedPreviewViewController()
+        lfsPhotoEditedPreviewViewController.image = image
+        lfsPhotoEditedPreviewViewController.modalPresentationStyle = .overFullScreen
+        
+        viewController?.present(lfsPhotoEditedPreviewViewController, animated: true, completion: nil)
     }
     
     fileprivate func mergeVideo() {
-        LFSVideoModel.shared.mergeEditedVideo(url: url!, view: view!, completion: { [unowned self] (_url) -> Void in
-            LFSVideoModel.shared.playSimpleVideo(url: _url!, viewController: self.viewController!)
+        guard let url = url, let view = view else { return }
+        
+        var originalVideo: Bool = true
+        if url.absoluteString.contains(LFSConstants.LFSVideoName.Snap.snapMergedVideo) {
+            originalVideo = false
+        }
+        
+        LFSVideoModel.shared.mergeEditedVideo(url: url, originalVideo: originalVideo, view: view, completion: { [unowned self] (editedURL) -> Void in
+            self.goToVideoEditedPreview(url: editedURL)
         })
+    }
+    
+    fileprivate func goToVideoEditedPreview(url: URL?) {
+        guard let url = url else { return }
+        
+        let lfsVideoEditedPreviewViewController = LFSVideoEditedPreviewViewController()
+        lfsVideoEditedPreviewViewController.url = url
+        lfsVideoEditedPreviewViewController.modalPresentationStyle = .overFullScreen
+        
+        viewController?.present(lfsVideoEditedPreviewViewController, animated: true, completion: nil)
     }
 }
 

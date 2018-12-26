@@ -20,7 +20,10 @@ internal class LFSPhotoPreviewViewModel: LFSViewModel {
     deinit {
         removeAll()
     }
-    
+}
+
+//MARK: Handle Action
+extension LFSPhotoPreviewViewModel {
     internal func next() {
         let lfsEditViewController = LFSEditViewController()
         lfsEditViewController.image = image

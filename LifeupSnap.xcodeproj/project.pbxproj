@@ -82,6 +82,14 @@
 		4364F06B21C79D160063C82B /* LFSDrawViewModelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4364F06A21C79D160063C82B /* LFSDrawViewModelProtocols.swift */; };
 		4364F06E21C79D960063C82B /* LFSDrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4364F06D21C79D960063C82B /* LFSDrawViewModel.swift */; };
 		436FADD521D33ED2009303D8 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FADD421D33ED2009303D8 /* UIViewExtension.swift */; };
+		436FADDC21D357C6009303D8 /* LFSVideoEditedPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FADDA21D357C6009303D8 /* LFSVideoEditedPreviewViewController.swift */; };
+		436FADDD21D357C6009303D8 /* LFSVideoEditedPreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 436FADDB21D357C6009303D8 /* LFSVideoEditedPreviewViewController.xib */; };
+		436FADE021D3580F009303D8 /* LFSPhotoEditedPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FADDE21D3580F009303D8 /* LFSPhotoEditedPreviewViewController.swift */; };
+		436FADE121D3580F009303D8 /* LFSPhotoEditedPreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 436FADDF21D3580F009303D8 /* LFSPhotoEditedPreviewViewController.xib */; };
+		436FADE421D35A04009303D8 /* LFSVideoEditedPreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FADE321D35A04009303D8 /* LFSVideoEditedPreviewViewModel.swift */; };
+		436FADE721D35A26009303D8 /* LFSVideoEditedPreviewViewModelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FADE621D35A26009303D8 /* LFSVideoEditedPreviewViewModelProtocols.swift */; };
+		436FADEA21D35D7E009303D8 /* LFSPhotoEditedPreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FADE921D35D7E009303D8 /* LFSPhotoEditedPreviewViewModel.swift */; };
+		436FADED21D35D9D009303D8 /* LFSPhotoEditedPreviewViewModelProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FADEC21D35D9D009303D8 /* LFSPhotoEditedPreviewViewModelProtocols.swift */; };
 		436FCB2321C1FAF9008EBBC7 /* LFSEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FCB2121C1FAF9008EBBC7 /* LFSEditViewController.swift */; };
 		436FCB2421C1FAF9008EBBC7 /* LFSEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 436FCB2221C1FAF9008EBBC7 /* LFSEditViewController.xib */; };
 		436FCB2721C1FDEE008EBBC7 /* LFSEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436FCB2621C1FDEE008EBBC7 /* LFSEditViewModel.swift */; };
@@ -693,6 +701,14 @@
 		4364F06A21C79D160063C82B /* LFSDrawViewModelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSDrawViewModelProtocols.swift; sourceTree = "<group>"; };
 		4364F06D21C79D960063C82B /* LFSDrawViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSDrawViewModel.swift; sourceTree = "<group>"; };
 		436FADD421D33ED2009303D8 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		436FADDA21D357C6009303D8 /* LFSVideoEditedPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSVideoEditedPreviewViewController.swift; sourceTree = "<group>"; };
+		436FADDB21D357C6009303D8 /* LFSVideoEditedPreviewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSVideoEditedPreviewViewController.xib; sourceTree = "<group>"; };
+		436FADDE21D3580F009303D8 /* LFSPhotoEditedPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSPhotoEditedPreviewViewController.swift; sourceTree = "<group>"; };
+		436FADDF21D3580F009303D8 /* LFSPhotoEditedPreviewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSPhotoEditedPreviewViewController.xib; sourceTree = "<group>"; };
+		436FADE321D35A04009303D8 /* LFSVideoEditedPreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSVideoEditedPreviewViewModel.swift; sourceTree = "<group>"; };
+		436FADE621D35A26009303D8 /* LFSVideoEditedPreviewViewModelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSVideoEditedPreviewViewModelProtocols.swift; sourceTree = "<group>"; };
+		436FADE921D35D7E009303D8 /* LFSPhotoEditedPreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSPhotoEditedPreviewViewModel.swift; sourceTree = "<group>"; };
+		436FADEC21D35D9D009303D8 /* LFSPhotoEditedPreviewViewModelProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSPhotoEditedPreviewViewModelProtocols.swift; sourceTree = "<group>"; };
 		436FCB2121C1FAF9008EBBC7 /* LFSEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEditViewController.swift; sourceTree = "<group>"; };
 		436FCB2221C1FAF9008EBBC7 /* LFSEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSEditViewController.xib; sourceTree = "<group>"; };
 		436FCB2621C1FDEE008EBBC7 /* LFSEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSEditViewModel.swift; sourceTree = "<group>"; };
@@ -1254,6 +1270,8 @@
 		433BC3DC21C2340900DA3C43 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				436FADDF21D3580F009303D8 /* LFSPhotoEditedPreviewViewController.xib */,
+				436FADDB21D357C6009303D8 /* LFSVideoEditedPreviewViewController.xib */,
 				439C347321CB3B8100BDDC28 /* LFSEmojiViewController.xib */,
 				4364F06021C7934C0063C82B /* LFSDrawViewController.xib */,
 				433BC3C521C2106700DA3C43 /* LFSEditLabelViewController.xib */,
@@ -1315,6 +1333,54 @@
 			path = Draw;
 			sourceTree = "<group>";
 		};
+		436FADD821D3578E009303D8 /* Video Edited Preview */ = {
+			isa = PBXGroup;
+			children = (
+				436FADDA21D357C6009303D8 /* LFSVideoEditedPreviewViewController.swift */,
+			);
+			path = "Video Edited Preview";
+			sourceTree = "<group>";
+		};
+		436FADD921D3579D009303D8 /* Photo Edited Preview */ = {
+			isa = PBXGroup;
+			children = (
+				436FADDE21D3580F009303D8 /* LFSPhotoEditedPreviewViewController.swift */,
+			);
+			path = "Photo Edited Preview";
+			sourceTree = "<group>";
+		};
+		436FADE221D359E3009303D8 /* Video Edited Preview */ = {
+			isa = PBXGroup;
+			children = (
+				436FADE321D35A04009303D8 /* LFSVideoEditedPreviewViewModel.swift */,
+			);
+			path = "Video Edited Preview";
+			sourceTree = "<group>";
+		};
+		436FADE521D35A17009303D8 /* Video Edited Preview */ = {
+			isa = PBXGroup;
+			children = (
+				436FADE621D35A26009303D8 /* LFSVideoEditedPreviewViewModelProtocols.swift */,
+			);
+			path = "Video Edited Preview";
+			sourceTree = "<group>";
+		};
+		436FADE821D35D64009303D8 /* Photo Edited Preview */ = {
+			isa = PBXGroup;
+			children = (
+				436FADE921D35D7E009303D8 /* LFSPhotoEditedPreviewViewModel.swift */,
+			);
+			path = "Photo Edited Preview";
+			sourceTree = "<group>";
+		};
+		436FADEB21D35D90009303D8 /* Photo Edited Preview */ = {
+			isa = PBXGroup;
+			children = (
+				436FADEC21D35D9D009303D8 /* LFSPhotoEditedPreviewViewModelProtocols.swift */,
+			);
+			path = "Photo Edited Preview";
+			sourceTree = "<group>";
+		};
 		436FCB2021C1FAE5008EBBC7 /* Edit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1366,6 +1432,8 @@
 		4372252B21AE2B3300130213 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				436FADE821D35D64009303D8 /* Photo Edited Preview */,
+				436FADE221D359E3009303D8 /* Video Edited Preview */,
 				439C347D21CB3D5400BDDC28 /* Emoji */,
 				4364F06C21C79D830063C82B /* Draw */,
 				433BC3C821C2110600DA3C43 /* Edit Label */,
@@ -1381,6 +1449,8 @@
 		4372252C21AE2B3300130213 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				436FADD921D3579D009303D8 /* Photo Edited Preview */,
+				436FADD821D3578E009303D8 /* Video Edited Preview */,
 				439C346F21CB3B5F00BDDC28 /* Emoji */,
 				4364F05C21C793090063C82B /* Draw */,
 				433BC3C321C2104E00DA3C43 /* Edit Label */,
@@ -1492,6 +1562,8 @@
 		437225DE21AE876000130213 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				436FADEB21D35D90009303D8 /* Photo Edited Preview */,
+				436FADE521D35A17009303D8 /* Video Edited Preview */,
 				439C347A21CB3C6B00BDDC28 /* Emoji */,
 				4364F06921C79D000063C82B /* Draw */,
 				433BC3CB21C2113600DA3C43 /* Edit Label */,
@@ -2121,6 +2193,7 @@
 				439C356221CB456900BDDC28 /* Emo57@3x.png in Resources */,
 				439C35A121CB456900BDDC28 /* Emo46.png in Resources */,
 				439C360721CB456A00BDDC28 /* Emo48.png in Resources */,
+				436FADDD21D357C6009303D8 /* LFSVideoEditedPreviewViewController.xib in Resources */,
 				439C35AA21CB456900BDDC28 /* Emo51.png in Resources */,
 				439C35A721CB456900BDDC28 /* Emo53@2x.png in Resources */,
 				439C359121CB456900BDDC28 /* Emo36@3x.png in Resources */,
@@ -2323,6 +2396,7 @@
 				433BC30221C20C9600DA3C43 /* ic_edit_sticker@3x.png in Resources */,
 				439C35E621CB456900BDDC28 /* Emo46@2x.png in Resources */,
 				433BC3E221C2396C00DA3C43 /* ic_edit_pallate@3x.png in Resources */,
+				436FADE121D3580F009303D8 /* LFSPhotoEditedPreviewViewController.xib in Resources */,
 				439C364021CB456A00BDDC28 /* Emo15@3x.png in Resources */,
 				439C35E121CB456900BDDC28 /* Emo70.png in Resources */,
 				439C359D21CB456900BDDC28 /* Emo49@2x.png in Resources */,
@@ -2407,6 +2481,7 @@
 				433BC30B21C20CA800DA3C43 /* ic_edit_sticker@3x.png in Sources */,
 				433BC30C21C20CA800DA3C43 /* ic_edit_sticker@2x.png in Sources */,
 				433BC30D21C20CA800DA3C43 /* ic_edit_paint@3x.png in Sources */,
+				436FADED21D35D9D009303D8 /* LFSPhotoEditedPreviewViewModelProtocols.swift in Sources */,
 				433BC30E21C20CA800DA3C43 /* ic_edit_label@2x.png in Sources */,
 				433BC30F21C20CA800DA3C43 /* ic_edit_label@3x.png in Sources */,
 				433BC31021C20CA800DA3C43 /* ic_edit_label.png in Sources */,
@@ -2415,8 +2490,10 @@
 				433BC3D421C21A4200DA3C43 /* LFSPallateColor.swift in Sources */,
 				433BC31221C20CA800DA3C43 /* ic_edit_paint@2x.png in Sources */,
 				433BC31321C20CA800DA3C43 /* ic_edit_sticker.png in Sources */,
+				436FADDC21D357C6009303D8 /* LFSVideoEditedPreviewViewController.swift in Sources */,
 				4383E5D821C0F8E600B87A30 /* ic_preview_next.png in Sources */,
 				4383E5D921C0F8E600B87A30 /* ic_preview_next@2x.png in Sources */,
+				436FADEA21D35D7E009303D8 /* LFSPhotoEditedPreviewViewModel.swift in Sources */,
 				4383E5DA21C0F8E600B87A30 /* ic_preview_next@3x.png in Sources */,
 				4383E53321C0ECEB00B87A30 /* ic_preview_replay.png in Sources */,
 				4383E53421C0ECEB00B87A30 /* ic_preview_replay@2x.png in Sources */,
@@ -2429,6 +2506,7 @@
 				4386784221B911FE00B31B92 /* ic_main_camera_flip@2x.png in Sources */,
 				4386784321B911FE00B31B92 /* ic_main_camera_flip@3x.png in Sources */,
 				4386784421B911FE00B31B92 /* ic_main_close.png in Sources */,
+				436FADE721D35A26009303D8 /* LFSVideoEditedPreviewViewModelProtocols.swift in Sources */,
 				4386784521B911FE00B31B92 /* ic_main_close@2x.png in Sources */,
 				43E9866B21C260C100F92FD6 /* GrowingTextView.swift in Sources */,
 				4386784621B911FE00B31B92 /* ic_main_close@3x.png in Sources */,
@@ -2438,6 +2516,7 @@
 				4386784A21B911FE00B31B92 /* ic_main_flash_on.png in Sources */,
 				433BC3DA21C233E300DA3C43 /* LFSLabelColorCollectionViewCell.swift in Sources */,
 				4386784B21B911FE00B31B92 /* ic_main_flash_on@2x.png in Sources */,
+				436FADE421D35A04009303D8 /* LFSVideoEditedPreviewViewModel.swift in Sources */,
 				4386784C21B911FE00B31B92 /* ic_main_flash_on@3x.png in Sources */,
 				433BC3E421C2397900DA3C43 /* ic_edit_pallate.png in Sources */,
 				433BC3E521C2397900DA3C43 /* ic_edit_pallate@2x.png in Sources */,
@@ -2667,6 +2746,7 @@
 				439C370F21CB458500BDDC28 /* Emo66@2x.png in Sources */,
 				439C371021CB458500BDDC28 /* Emo17@2x.png in Sources */,
 				439C371121CB458500BDDC28 /* Emo29.png in Sources */,
+				436FADE021D3580F009303D8 /* LFSPhotoEditedPreviewViewController.swift in Sources */,
 				439C371221CB458500BDDC28 /* Emo15.png in Sources */,
 				439C371321CB458500BDDC28 /* Emo31@3x.png in Sources */,
 				439C371421CB458500BDDC28 /* Emo52@3x.png in Sources */,
