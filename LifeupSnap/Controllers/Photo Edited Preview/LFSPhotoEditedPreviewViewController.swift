@@ -31,6 +31,10 @@ class LFSPhotoEditedPreviewViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
+    deinit {
+        removeAll()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -82,4 +86,14 @@ extension LFSPhotoEditedPreviewViewController {
 //MARK: LFSPhotoEditedPreviewViewModelDelegate
 extension LFSPhotoEditedPreviewViewController: LFSPhotoEditedPreviewViewModelDelegate {
     
+}
+
+//MARK: Remove all
+extension LFSPhotoEditedPreviewViewController {
+    fileprivate func removeAll() {
+        previewImageView = nil
+        nextButton = nil
+        saveButton = nil
+        backButton = nil
+    }
 }

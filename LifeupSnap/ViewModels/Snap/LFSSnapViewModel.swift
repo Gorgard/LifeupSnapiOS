@@ -326,7 +326,7 @@ extension LFSSnapViewModel {
         
         if let _url = url {
             camera.reverse(originalURL: _url, completion: { (reversedURL) -> Void in
-                self.boomerangPreview(url: reversedURL!)
+                self.boomerangEdit(url: reversedURL!)
             }, failure: { (error) -> Void in
                 print(error?.localizedDescription ?? "")
             })
@@ -347,13 +347,14 @@ extension LFSSnapViewModel {
         removeCircularProgress()
     }
     
-    fileprivate func boomerangPreview(url: URL) {
-        let lfsVideoPreviewViewController = LFSVideoPreviewViewController()
-        lfsVideoPreviewViewController.url = url
+    fileprivate func boomerangEdit(url: URL) {
+        let lfsEditViewController = LFSEditViewController()
+        lfsEditViewController.url = url
+        lfsEditViewController.editEvent = .video
         
         taskMain { [unowned self] in
             self.hiddenLoadingView?(true)
-            self.viewController?.present(lfsVideoPreviewViewController, animated: true, completion: nil)
+            self.viewController?.present(lfsEditViewController, animated: true, completion: nil)
         }
     }
     
@@ -376,10 +377,11 @@ extension LFSSnapViewModel {
     fileprivate func handleOriginalCapture(image: UIImage?) {
         self.image = image
         
-        let lfsPhotoPreviewViewController = LFSPhotoPreviewViewController()
-        lfsPhotoPreviewViewController.image = self.image
+        let lfsEditViewController = LFSEditViewController()
+        lfsEditViewController.image = self.image
+        lfsEditViewController.editEvent = .photo
         
-        viewController?.present(lfsPhotoPreviewViewController, animated: true, completion: nil)
+        viewController?.present(lfsEditViewController, animated: true, completion: nil)
     }
 }
 
@@ -396,10 +398,11 @@ extension LFSSnapViewModel {
     fileprivate func handleSquareCapture(image: UIImage?) {
         self.image = image
         
-        let lfsPhotoPreviewViewController = LFSPhotoPreviewViewController()
-        lfsPhotoPreviewViewController.image = self.image
+        let lfsEditViewController = LFSEditViewController()
+        lfsEditViewController.image = self.image
+        lfsEditViewController.editEvent = .photo
         
-        viewController?.present(lfsPhotoPreviewViewController, animated: true, completion: nil)
+        viewController?.present(lfsEditViewController, animated: true, completion: nil)
     }
 }
 
@@ -432,7 +435,7 @@ extension LFSSnapViewModel {
         }
         
         if let _url = url {
-            videoPreview(url: _url)
+            videoEdit(url: _url)
         }
     }
     
@@ -450,13 +453,14 @@ extension LFSSnapViewModel {
         removeCircularProgress()
     }
     
-    fileprivate func videoPreview(url: URL) {
-        let lfsVideoPreviewViewController = LFSVideoPreviewViewController()
-        lfsVideoPreviewViewController.url = url
+    fileprivate func videoEdit(url: URL) {
+        let lfsEditViewController = LFSEditViewController()
+        lfsEditViewController.url = url
+        lfsEditViewController.editEvent = .video
         
         taskMain { [unowned self] in
             self.hiddenLoadingView?(true)
-            self.viewController?.present(lfsVideoPreviewViewController, animated: true, completion: nil)
+            self.viewController?.present(lfsEditViewController, animated: true, completion: nil)
         }
     }
     
