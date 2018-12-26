@@ -16,6 +16,7 @@
                 <outlet property="editingView" destination="PiN-M0-fBc" id="zcY-Pc-He8"/>
                 <outlet property="emojiButton" destination="2fO-VX-5Ia" id="5Qm-2x-0NA"/>
                 <outlet property="labelButton" destination="NJ1-9h-mYN" id="5J8-7p-gAu"/>
+                <outlet property="loadingView" destination="o8Z-XR-mrV" id="zfc-z2-Kya"/>
                 <outlet property="nextButton" destination="eAa-JA-B81" id="P9W-Fr-kSW"/>
                 <outlet property="paintingButton" destination="1ZM-9u-f4l" id="Rzw-x7-zYE"/>
                 <outlet property="previewImageView" destination="hSP-jU-Ycz" id="9vA-qr-yfK"/>
@@ -85,6 +86,20 @@
                         <constraint firstItem="1ZM-9u-f4l" firstAttribute="height" secondItem="2fO-VX-5Ia" secondAttribute="height" id="oMa-EE-3uU"/>
                     </constraints>
                 </stackView>
+                <view hidden="YES" alpha="0.60000002384185791" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o8Z-XR-mrV">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="2Ug-2q-Jet">
+                            <rect key="frame" x="177.5" y="313.5" width="20" height="20"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="2Ug-2q-Jet" firstAttribute="centerX" secondItem="o8Z-XR-mrV" secondAttribute="centerX" id="4C7-cM-GpL"/>
+                        <constraint firstItem="2Ug-2q-Jet" firstAttribute="centerY" secondItem="sEY-Br-r62" secondAttribute="centerY" id="lqs-do-3a3"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="sEY-Br-r62"/>
+                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQz-Rh-VPp">
                     <rect key="frame" x="8" y="28" width="40" height="40"/>
                     <constraints>
@@ -120,14 +135,19 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="nWa-PP-zm9" secondAttribute="trailing" id="CPm-lE-dL3"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="eAa-JA-B81" secondAttribute="bottom" constant="8" id="Fa9-9U-wKD"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="QOQ-2A-V5e" secondAttribute="bottom" constant="8" id="Oxh-2f-3lU"/>
+                <constraint firstItem="o8Z-XR-mrV" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="VJ7-I0-g16"/>
+                <constraint firstItem="o8Z-XR-mrV" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="WGb-Xp-tlS"/>
                 <constraint firstItem="QOQ-2A-V5e" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="b5q-pI-Zza"/>
                 <constraint firstItem="JQz-Rh-VPp" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="btZ-Dt-9TT"/>
                 <constraint firstItem="nWa-PP-zm9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="eBf-CW-2ib"/>
                 <constraint firstItem="nWa-PP-zm9" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="sid-QL-VgY"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="nWa-PP-zm9" secondAttribute="bottom" id="un2-rP-eqG"/>
+                <constraint firstItem="o8Z-XR-mrV" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="xLl-qH-O33"/>
+                <constraint firstItem="o8Z-XR-mrV" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="yfZ-nA-Bxg"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="eAa-JA-B81" secondAttribute="trailing" constant="8" id="ziJ-ez-E8T"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
     </objects>
     <resources>

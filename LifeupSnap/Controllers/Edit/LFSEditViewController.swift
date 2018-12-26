@@ -16,7 +16,8 @@ internal class LFSEditViewController: UIViewController {
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var previewImageView: UIImageView!
     @IBOutlet weak var editingView: UIView!
-
+    @IBOutlet weak var loadingView: UIView!
+    
     internal var viewModel: LFSEditViewModel!
     
     internal var editEvent: EditEvent!
@@ -101,6 +102,10 @@ extension LFSEditViewController {
             self.labelButton.isHidden = hidden
             self.paintingButton.isHidden = hidden
             self.nextButton.isHidden = hidden
+        }
+        
+        viewModel.hiddenLoadingView = { [unowned self] (hidden) -> Void in
+            self.loadingView.isHidden = hidden
         }
         
         viewModel.binding()

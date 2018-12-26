@@ -17,6 +17,7 @@ internal class LFSEditViewModel: LFSViewModel {
     internal var url: URL?
     
     internal var receivedThumbnailImage: ((_ image: UIImage?) -> Void)?
+    internal var hiddenLoadingView: ((_ hidden: Bool) -> Void)?
     internal var hiddenAllView: ((_ hidden: Bool) -> Void)?
     
     private var labels: [DragLabel]!
@@ -87,6 +88,8 @@ extension LFSEditViewModel {
     }
     
     internal func next() {
+        hiddenLoadingView?(false)
+        hiddenAllView?(true)
         merge()
     }
 }
@@ -222,6 +225,9 @@ extension LFSEditViewModel {
         lfsPhotoEditedPreviewViewController.modalPresentationStyle = .overFullScreen
         
         viewController?.present(lfsPhotoEditedPreviewViewController, animated: true, completion: nil)
+        
+        hiddenLoadingView?(true)
+        hiddenAllView?(false)
     }
     
     fileprivate func mergeVideo() {
@@ -245,6 +251,9 @@ extension LFSEditViewModel {
         lfsVideoEditedPreviewViewController.modalPresentationStyle = .overFullScreen
         
         viewController?.present(lfsVideoEditedPreviewViewController, animated: true, completion: nil)
+        
+        hiddenLoadingView?(true)
+        hiddenAllView?(false)
     }
 }
 
