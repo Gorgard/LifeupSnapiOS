@@ -96,4 +96,20 @@ internal struct LFSConstants {
     internal struct LFSEmojiPath {
         internal static let emojiSystem = "http://core.lifeuptest.life/storage/emoji/"
     }
+    
+    //MARK: Alert Wording
+    internal struct LFSAlertWording {
+        internal static let keep = "Keep Editing"
+        internal static let discard = "Discard"
+        internal static let discardTitle = "Discard Photo?"
+        internal static let photoWillDelete = "Your photo will be delete"
+        
+        internal static let ok = "OK"
+        internal static let resave = "Resave"
+        internal static let cancel = "Cancel"
+        internal static let saved = "Saved"
+        internal static let photoSaved = "Your Photo or Video is saved"
+        internal static let saveFailure = "Save Failure"
+        internal static let areYouResave = "Are you need you resave"
+    }
 }

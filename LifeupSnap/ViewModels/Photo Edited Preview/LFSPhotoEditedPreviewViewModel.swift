@@ -35,10 +35,29 @@ extension LFSPhotoEditedPreviewViewModel {
     internal func save() {
         guard let image = image else { return }
         
-        LFSPhotoModel.shared.savePhotoToAlbum(image: image, completion: { () -> Void in
-            
-        }, failure: { (error) -> Void in
-            
+        LFSPhotoModel.shared.savePhotoToAlbum(image: image, completion: { [unowned self] () -> Void in
+            self.handleSaveSuccess()
+        }, failure: { [unowned self] (error) -> Void in
+            self.handleSaveFailure()
+        })
+    }
+    
+    internal func handleSaveSuccess() {
+        let alertController = AlertController(title: LFSConstants.LFSAlertWording.saved, message: LFSConstants.LFSAlertWording.photoSaved, acceptButtonTitle: LFSConstants.LFSAlertWording.ok, cancelButtonTitle: nil)
+        alertController.shouldHaveCancelButton = false
+        
+        alertController.show(viewController: viewController!, accept: { (alert) -> Void in
+            super.close()
+        }, cancel: nil)
+    }
+    
+    internal func handleSaveFailure() {
+        let alertController = AlertController(title: LFSConstants.LFSAlertWording.saveFailure, message: LFSConstants.LFSAlertWording.areYouResave, acceptButtonTitle: LFSConstants.LFSAlertWording.resave, cancelButtonTitle: LFSConstants.LFSAlertWording.cancel)
+        
+        alertController.show(viewController: viewController!, accept: { [unowned self] (alert) -> Void in
+            self.save()
+        }, cancel: { (alert) -> Void in
+            super.close()
         })
     }
 }

@@ -34,6 +34,14 @@ internal class LFSEditViewModel: LFSViewModel {
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleEditTextView(notification:)), name: NSNotification.Name(rawValue: LFSConstants.NotificationCenterID.DragLabel.editLabel), object: nil)
     }
+    
+    override func close() {
+        handleClose(accept: { () -> Void in
+            
+        }, cancel: { () -> Void in
+            super.close()
+        })
+    }
 }
 
 //MARK: Base
@@ -53,6 +61,27 @@ extension LFSEditViewModel {
     
     internal func begin() {
         hiddenAllView?(false)
+    }
+}
+
+//MARK: Handle Close
+extension LFSEditViewModel {
+    fileprivate func handleClose(accept: @escaping() -> Void, cancel: @escaping() -> Void) {
+        if labels.count > 0 || images.count > 0 || emojis.count > 0 {
+            let alertController = AlertController(title: LFSConstants.LFSAlertWording.discardTitle,
+                                                  message: LFSConstants.LFSAlertWording.photoWillDelete,
+                                                  acceptButtonTitle: LFSConstants.LFSAlertWording.keep,
+                                                  cancelButtonTitle: LFSConstants.LFSAlertWording.discard)
+            
+            alertController.show(viewController: viewController!, accept: { (alert) -> Void in
+                accept()
+            }, cancel: { (alert) -> Void in
+                cancel()
+            })
+        }
+        else {
+            cancel()
+        }
     }
 }
 
