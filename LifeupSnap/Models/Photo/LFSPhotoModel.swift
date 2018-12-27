@@ -73,4 +73,10 @@ internal class LFSPhotoModel: LFSBaseModel {
             }
         })
     }
+    
+    internal func imageBundle(named: String, fromClass: AnyClass) -> UIImage? {
+        let bundle = Bundle(for: fromClass.self)
+        let image = UIImage(named: named, in: bundle, compatibleWith: nil)
+        return image
+    }
 }

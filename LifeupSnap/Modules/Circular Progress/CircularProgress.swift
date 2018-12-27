@@ -67,12 +67,12 @@ internal class CircularProgress: UIView {
         layer.addSublayer(progressLayer)
     }
     
-    func hideProgressView() {
+    internal func hideProgressView() {
         progressLayer.strokeEnd = 0
         progressLayer.removeAllAnimations()
     }
     
-    func animateProgressView() {
+    internal func animateProgressView() {
         progressLayer.strokeEnd = 0
         
         let animation = CABasicAnimation(keyPath: "strokeEnd")

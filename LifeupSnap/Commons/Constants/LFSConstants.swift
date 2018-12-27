@@ -94,7 +94,7 @@ internal struct LFSConstants {
     
     //MARK: Emoji Path
     internal struct LFSEmojiPath {
-        internal static let emojiSystem = "http://core.lifeuptest.life/storage/emoji/"
+        internal static let emojiSystem = "https://core.lifeuptest.life/storage/emoji/"
     }
     
     //MARK: Alert Wording

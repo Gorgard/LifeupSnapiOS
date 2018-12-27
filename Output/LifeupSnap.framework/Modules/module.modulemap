@@ -1,0 +1,11 @@
+framework module LifeupSnap {
+  umbrella header "LifeupSnap.h"
+
+  export *
+  module * { export * }
+}
+
+module LifeupSnap.Swift {
+    header "LifeupSnap-Swift.h"
+    requires objc
+}

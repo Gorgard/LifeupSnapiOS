@@ -38,7 +38,7 @@ internal class LFSEmojiModel: LFSEditModel {
         var emojiSelfs = [LFSEmoji]()
         
         for i in 1...75 {
-            if let image = UIImage(named: "Emo\(i)")?.resizeWithWidth(width: 50) {
+            if let image = LFSPhotoModel.shared.imageBundle(named: "Emo\(i)", fromClass: LFSEmojiModel.self)?.resizeWithWidth(width: 50) {
                 let emoji = LFSEmoji(name: "EmojiSelf\(i)", section: LFSConstants.LFSEmoji.emojiSelfSection, value: image)
                 
                 emojiSelfs.append(emoji)

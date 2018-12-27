@@ -97,7 +97,7 @@ extension LFSSnapViewModel {
         })
         
         changeSnapButtonColor?(feature.rawValue == CameraFeature.video.rawValue ? .red : .white)
-        changeImageSnapButton?(feature.rawValue == CameraFeature.boomerang.rawValue ? #imageLiteral(resourceName: "ic_main_infinity.png") : nil)
+        changeImageSnapButton?(feature.rawValue == CameraFeature.boomerang.rawValue ? LFSPhotoModel.shared.imageBundle(named: "ic_main_infinity", fromClass: LFSEditLabelViewModel.self)! : nil) //changeImageSnapButton?(feature.rawValue == CameraFeature.boomerang.rawValue ? #imageLiteral(resourceName: "ic_main_infinity.png") : nil)
         changeSquareViewHeight?(feature.rawValue == CameraFeature.square.rawValue ? 60 : 0)
         
         if let camera = camera {
@@ -158,10 +158,10 @@ extension LFSSnapViewModel {
     
     internal func flash() {
         if Camera.flashMode == .off {
-            changeImageFlashButton?(#imageLiteral(resourceName: "ic_main_flash_on.png"))
+            changeImageFlashButton?(LFSPhotoModel.shared.imageBundle(named: "ic_main_flash_on", fromClass: LFSSnapViewModel.self)!) //changeImageFlashButton?(#imageLiteral(resourceName: "ic_main_flash_on.png"))
         }
         else {
-            changeImageFlashButton?(#imageLiteral(resourceName: "ic_main_flash_off.png"))
+            changeImageFlashButton?(LFSPhotoModel.shared.imageBundle(named: "ic_main_flash_off", fromClass: LFSSnapViewModel.self)!) //changeImageFlashButton?(#imageLiteral(resourceName: "ic_main_flash_off.png"))
         }
         
         flashCamera()

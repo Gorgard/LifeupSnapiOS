@@ -79,11 +79,11 @@ extension LFSEditLabelViewModel {
     internal func colorPallate() {
         if colorPallateViewAlpha == 0 {
             colorPallateViewAlpha = 1
-            changePallateButtonImage?(#imageLiteral(resourceName: "ic_edit_close.png"))
+            changePallateButtonImage?(LFSPhotoModel.shared.imageBundle(named: "ic_edit_close", fromClass: LFSEditLabelViewModel.self)!) //changePallateButtonImage?(#imageLiteral(resourceName: "ic_edit_close.png"))
         }
         else {
             colorPallateViewAlpha = 0
-            changePallateButtonImage?(#imageLiteral(resourceName: "ic_edit_pallate.png"))
+            changePallateButtonImage?(LFSPhotoModel.shared.imageBundle(named: "ic_edit_pallate", fromClass: LFSEditLabelViewModel.self)!) //changePallateButtonImage?(#imageLiteral(resourceName: "ic_edit_pallate.png"))
         }
         
         openColorPallate?(colorPallateViewAlpha)
