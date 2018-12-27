@@ -6,7 +6,11 @@
 //  Copyright © 2561 Khwan Siricharoenporn. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-public protocol LFSSnapDelegate: class {
+@objc public protocol LFSSnapDelegate: class {
+    @objc optional func snapVideo(whenSaved receiveURL: URL)
+    @objc optional func snapVideo(whenNextAfterEdited receiveVideo: Data)
+    @objc optional func snapPhoto(whenSaved receivePhoto: UIImage)
+    @objc optional func snapPhoto(whenNextAfterEdited receivePhoto: UIImage)
 }

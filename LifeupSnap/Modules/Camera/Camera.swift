@@ -30,6 +30,7 @@ internal class Camera: NSObject {
     internal var micInput: AVCaptureDeviceInput?
 
     internal var previewLayer: AVCaptureVideoPreviewLayer?
+    internal var currentView: UIView?
     
     internal var photoOutput: AVCapturePhotoOutput?
     internal var movieOutput: AVCaptureMovieFileOutput?
@@ -41,14 +42,43 @@ internal class Camera: NSObject {
     internal var selfStop: Bool = false
     
     private var isSquare: Bool = false
+    private var adjustingExposureContext: String = ""
+    
+    //MARK: Gesture
+    private var focusTapGesture: UITapGestureRecognizer!
+    private var exposureTapGesture: UITapGestureRecognizer!
+    
+    private var focusImageView: UIImageView!
+    private var exposureImageView: UIImageView!
+    
+    override init() {
+        super.init()
+        setup()
+    }
 
+    fileprivate func setup() {
+        focusTapGesture = UITapGestureRecognizer(target: self, action: #selector(focusTap(_:)))
+        focusTapGesture.numberOfTapsRequired = 1
+        
+        exposureTapGesture = UITapGestureRecognizer(target: self, action: #selector(exposureTap(_:)))
+        exposureTapGesture.numberOfTapsRequired = 2
+        
+        focusImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
+        focusImageView.image = #imageLiteral(resourceName: "ic_camera_focus.png")
+        focusImageView.isHidden = true
+        
+        exposureImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
+        exposureImageView.image = #imageLiteral(resourceName: "ic_camera_exposure.png")
+        exposureImageView.isHidden = true
+    }
+    
     internal func prepare(completion: @escaping() -> Void, failure: @escaping(_ error: Error?) -> Void) {
         if initialed {
             completion()
             return
         }
         
-        DispatchQueue.main.async { [unowned self] in
+        taskMain { [unowned self] in
             do {
                 self.createCaptureSession()
                 try self.configurationCaptureDevice()
@@ -58,7 +88,7 @@ internal class Camera: NSObject {
                 try self.configurationMovieOutput()
             }
             catch {
-                DispatchQueue.main.async {
+                taskMain {
                     failure(error)
                 }
                 
@@ -190,13 +220,13 @@ extension Camera {
             captureSession.addOutput(movieOutput!)
         }
         
-        DispatchQueue.main.async { [weak self] in
+        taskMain { [weak self] in
             self?.captureSession?.startRunning()
         }
     }
     
     internal func renewMovieOutput() {
-        DispatchQueue(label: "renewMovieOutputBackground").async { [unowned self] in
+        taskBackground(label: "renewMovieOutputBackground", { [unowned self] in
             guard let captureSession = self.captureSession else {
                 return
             }
@@ -206,7 +236,7 @@ extension Camera {
             }
             
             try? self.configurationMovieOutput()
-        }
+        })
     }
 }
 
@@ -229,6 +259,16 @@ extension Camera {
         connection.videoOrientation = currentVideoOrientation()
         previewLayer?.frame = view.bounds
         view.layer.addSublayer(previewLayer!)
+        
+        if !view.gestureRecognizers!.contains(focusTapGesture) || !view.gestureRecognizers!.contains(exposureTapGesture) {
+            view.addGestureRecognizer(focusTapGesture)
+            view.addGestureRecognizer(exposureTapGesture)
+        }
+        
+        view.addSubview(focusImageView)
+        view.addSubview(exposureImageView)
+        
+        currentView = view
     }
     
     internal func resetPreviewLayer(view: UIView) {
@@ -243,9 +283,9 @@ extension Camera {
     }
     
     internal func begin() {
-        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+        taskQOS(qos: .userInteractive, { [weak self] in
             self?.captureSession?.startRunning()
-        }
+        })
     }
     
     internal func switchCamera() throws {
@@ -351,34 +391,6 @@ extension Camera {
         photoCaptureCompletionBlock = completion
         photoCaptureFailureBlock = failure
     }
-    
-    private func cropImageToSquare(image: UIImage) -> UIImage? {
-        var imageHeight = image.size.height
-        var imageWidth = image.size.width
-        
-        if imageHeight > imageWidth {
-            imageHeight = imageWidth
-        }
-        else {
-            imageWidth = imageHeight
-        }
-        
-        let size = CGSize(width: imageWidth, height: imageHeight)
-        
-        let refWidth = CGFloat(image.cgImage!.width)
-        let refHeight = CGFloat(image.cgImage!.height)
-        
-        let x = (refWidth - size.width) / 2
-        let y = (refHeight - size.height) / 2
-        
-        let cropRect = CGRect(x: x, y: y, width: size.height, height: size.width)
-        
-        if let imageRef = image.cgImage!.cropping(to: cropRect) {
-            return UIImage(cgImage: imageRef, scale: 3, orientation: image.imageOrientation)
-        }
-        
-        return nil
-    }
 }
 
 //MARK: Record
@@ -390,8 +402,10 @@ extension Camera {
         }
         
         connection.videoOrientation = currentVideoOrientation()
+        
         let fileName = "\(LFSConstants.LFSVideoName.Snap.snapVideo)\(Date())"
-        let path = outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mp4)!
+        let path = LFSVideoModel.shared.outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mp4)!
+        
         movieOutput?.startRecording(to: path, recordingDelegate: self)
         
         movieCaptureCompletionBlock = completion
@@ -405,157 +419,19 @@ extension Camera {
         movieOutput?.stopRecording()
         isRecording = false
     }
-    
-    fileprivate func outputPathURL(fileName: String, fileType: String) -> URL? {
-        let tempPath = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first)?.appendingPathComponent(fileName).appendingPathExtension(fileType)
-        
-        if FileManager.default.fileExists(atPath: tempPath?.absoluteString ?? "") {
-            do {
-                try FileManager.default.removeItem(at: tempPath!)
-            }
-            catch {
-                print(error)
-            }
-        }
-
-        return tempPath
-    }
 }
 
 //MARK: Boomerang
 extension Camera {
     func reverse(originalURL: URL, completion: @escaping(_ url: URL?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
-        let original = AVAsset(url: originalURL)
-        
-        var reader: AVAssetReader!
-        
-        do {
-            reader = try AVAssetReader(asset: original)
-        } catch {
-            failure(CameraError.inputsAreInvalid)
-            return
-        }
-        
-        guard let videoTrack = original.tracks(withMediaType: .video).last else {
-            failure(CameraError.inputsAreInvalid)
-            return
-        }
-        
-        let readerOutputSettings: [String: Any] = [kCVPixelBufferPixelFormatTypeKey as String : Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)]
-        let readerOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings: readerOutputSettings)
-        reader.add(readerOutput)
-        
-        reader.startReading()
-        
-        var samples: [CMSampleBuffer] = []
-        while let sample = readerOutput.copyNextSampleBuffer() {
-            samples.append(sample)
-        }
-        
-        let writer: AVAssetWriter
-        let fileName = "\(LFSConstants.LFSVideoName.Snap.snapReversedVideo)\(Date())"
-        let reversePath = outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mov)!
-        do {
-            writer = try AVAssetWriter(outputURL: reversePath, fileType: .mov)
-        } catch let error {
-            failure(error)
-            return
-        }
-        
-        let videoCompositionProps = [AVVideoAverageBitRateKey: videoTrack.estimatedDataRate]
-        let writerOutputSettings = [
-            AVVideoCodecKey: AVVideoCodecH264,
-            AVVideoWidthKey: videoTrack.naturalSize.width,
-            AVVideoHeightKey: videoTrack.naturalSize.height,
-            AVVideoCompressionPropertiesKey: videoCompositionProps] as [String : Any]
-        
-        let writerInput = AVAssetWriterInput(mediaType: .video, outputSettings: writerOutputSettings)
-        writerInput.expectsMediaDataInRealTime = false
-        writerInput.transform = videoTrack.preferredTransform
-        
-        let pixelBufferAdaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerInput, sourcePixelBufferAttributes: nil)
-        
-        writer.add(writerInput)
-        writer.startWriting()
-        writer.startSession(atSourceTime: CMSampleBufferGetPresentationTimeStamp(samples.first!))
-        
-        for (index, sample) in samples.enumerated() {
-            let presentationTime = CMSampleBufferGetPresentationTimeStamp(sample)
-            let imageBufferRef = CMSampleBufferGetImageBuffer(samples[samples.count - 1 - index])
-            while !writerInput.isReadyForMoreMediaData {
-                Thread.sleep(forTimeInterval: 0.1)
-            }
-            pixelBufferAdaptor.append(imageBufferRef!, withPresentationTime: presentationTime)
-            
-        }
-        
-        writer.finishWriting {
-            self.mergeReversed(originalURL: originalURL, reversePath: reversePath, completion: completion)
-        }
-    }
-    
-    fileprivate func mergeReversed(originalURL: URL, reversePath: URL, completion: @escaping(_ url: URL?) -> Void) {
-        let videos = [originalURL, reversePath]
-        
-        let composition = AVMutableComposition()
-        let videoTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
-        
-        var currentVideoTime = kCMTimeZero
-        
-        for video in videos {
-            let asset = AVAsset(url: video)
-            let videoAssetTrack = asset.tracks(withMediaType: .video).first!
-            
-            do {
-                try videoTrack?.insertTimeRange(CMTimeRangeMake(kCMTimeZero, videoAssetTrack.timeRange.duration), of: videoAssetTrack, at: currentVideoTime)
-            }
-            catch {
-                print("Cannot merged reversed video.")
-            }
-            
-            let scaleDuration = CMTimeMultiplyByFloat64(videoAssetTrack.timeRange.duration, Float64(0.5))
-            videoTrack?.scaleTimeRange(CMTimeRangeMake(currentVideoTime, videoAssetTrack.timeRange.duration), toDuration: scaleDuration)
-            currentVideoTime = CMTimeAdd(currentVideoTime, scaleDuration)
-        }
-        
-        videoTrack?.preferredTransform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
-
-        let fileName = "\(LFSConstants.LFSVideoName.Snap.snapMergedVideo)\(Date())"
-        let mergedPath = outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mov)!
-        let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality)
-        exporter?.outputURL = mergedPath
-        exporter?.shouldOptimizeForNetworkUse = true
-        exporter?.outputFileType = .mov
-        
-        exporter?.exportAsynchronously {
-            DispatchQueue.main.async {
-                completion(exporter?.outputURL)
-            }
-        }
+        LFSVideoModel.shared.reverse(originalURL: originalURL, completion: completion, failure: failure)
     }
 }
 
 //MARK: Orientation
 extension Camera {
     fileprivate func currentVideoOrientation() -> AVCaptureVideoOrientation {
-        var orientation: AVCaptureVideoOrientation
-        
-        switch UIDevice.current.orientation {
-        case .portrait:
-            orientation = .portrait
-            break
-        case .landscapeRight:
-            orientation = .landscapeLeft
-            break
-        case .landscapeLeft:
-            orientation = .landscapeRight
-            break
-        default:
-            orientation = .portrait
-            break
-        }
-        
-        return orientation
+        return LFSVideoModel.shared.orientation()
     }
 }
 
@@ -569,7 +445,7 @@ extension Camera: AVCapturePhotoCaptureDelegate {
         }
 
         if let buffer = photoSampleBuffer, let data = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: buffer, previewPhotoSampleBuffer: nil) {
-            let image = generatePhoto(data: data)
+            let image = LFSPhotoModel.shared.generatePhoto(data: data, isSquare: isSquare)
             photoCaptureCompletionBlock?(image)
         }
         else {
@@ -580,62 +456,12 @@ extension Camera: AVCapturePhotoCaptureDelegate {
     @available(iOS 11.0, *)
     internal func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let data = photo.fileDataRepresentation() {
-            let image = generatePhoto(data: data)
+            let image = LFSPhotoModel.shared.generatePhoto(data: data, isSquare: isSquare)
             photoCaptureCompletionBlock?(image)
         }
         else {
             photoCaptureFailureBlock?(CameraError.unknown)
         }
-    }
-    
-    private func generatePhoto(data: Data) -> UIImage {
-        let image = UIImage(data: data)
-        
-        var realImage: UIImage
-        
-        if isSquare {
-            realImage = cropImageToSquare(image: image!)!
-        }
-        else {
-            realImage = image!
-        }
-        
-        return realImage
-    }
-}
-
-//MARK: Save Video
-extension Camera {
-    fileprivate func saveByURL(url: URL, completion: @escaping(_ url: URL?) -> Void, failure: @escaping(_ error: Error?) -> Void) {
-        PHPhotoLibrary.shared().performChanges({ () -> Void in
-            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
-        }, completionHandler: { [weak self] (saved, error) -> Void in
-            if let error = error {
-                failure(error)
-                return
-            }
-            
-            if saved {
-                let options = PHFetchOptions()
-                options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-                
-                let fetchResult = PHAsset.fetchAssets(with: .video, options: options).lastObject
-                let imageManager = PHImageManager()
-                
-                imageManager.requestAVAsset(forVideo: fetchResult!, options: nil, resultHandler: { (avurlAsset, audioMix, dict) -> Void in
-                    let video = avurlAsset as! AVURLAsset
-                    
-                    if video.duration.seconds >= 10.0 || video.duration.seconds >= 30.0 {
-                        self?.selfStop = true
-                        self?.isRecording = false
-                    }
-                    
-                    DispatchQueue.main.async {
-                        completion(video.url)
-                    }
-                })
-            }
-        })
     }
 }
 
@@ -653,10 +479,162 @@ extension Camera: AVCaptureFileOutputRecordingDelegate {
             }
         }
         
-        saveByURL(url: outputFileURL, completion: { (url) -> Void in
-            self.movieCaptureCompletionBlock?(url)
-        }, failure: { (error) -> Void in
-            self.movieCaptureFailureBlock?(error)
+        LFSVideoModel.shared.saveVideoByURL(url: outputFileURL, completion: { [weak self] (video) -> Void in
+            if video.duration.seconds >= 10.0 || video.duration.seconds >= 30.0 {
+                self?.selfStop = true
+                self?.isRecording = false
+            }
+            
+            self?.movieCaptureCompletionBlock?(video.url)
+        }, failure: { [weak self] (error) -> Void in
+            self?.movieCaptureFailureBlock?(error)
+        })
+    }
+}
+
+//MARK: Handle Gesture
+extension Camera {
+    @objc fileprivate func focusTap(_ gesture: UITapGestureRecognizer) {
+        focusFrontCamera(gesture: gesture)
+        focusRearCamera(gesture: gesture)
+    }
+    
+    @objc fileprivate func exposureTap(_ gesture: UITapGestureRecognizer) {
+        exposureFrontCamera(gesture: gesture)
+        exposureRearCamera(gesture: gesture)
+    }
+    
+    //MARK: Focus
+    fileprivate func focusFrontCamera(gesture: UITapGestureRecognizer) {
+        if let frontCameraInput = frontCameraInput, let captureSession = captureSession, captureSession.inputs.contains(frontCameraInput) {
+            if frontCameraInput.device.isFocusPointOfInterestSupported {
+                if let previewLayer = previewLayer {
+                    let point = gesture.location(in: currentView)
+                    let pointOfInterest = previewLayer.captureDevicePointConverted(fromLayerPoint: point)
+                    
+                    showMarker(point: point, marker: focusImageView)
+                    focusAtPoint(point: pointOfInterest, input: frontCameraInput)
+                }
+            }
+        }
+    }
+    
+    fileprivate func focusRearCamera(gesture: UITapGestureRecognizer) {
+        if let rearCameraInput = rearCameraInput, let captureSession = captureSession, captureSession.inputs.contains(rearCameraInput) {
+            if rearCameraInput.device.isFocusPointOfInterestSupported {
+                if let previewLayer = previewLayer {
+                    let point = gesture.location(in: currentView)
+                    let pointOfInterest = previewLayer.captureDevicePointConverted(fromLayerPoint: point)
+                    
+                    showMarker(point: point, marker: focusImageView)
+                    focusAtPoint(point: pointOfInterest, input: rearCameraInput)
+                }
+            }
+        }
+    }
+    
+    fileprivate func focusAtPoint(point: CGPoint, input: AVCaptureDeviceInput) {
+        let device = input.device
+        
+        if device.isFocusPointOfInterestSupported && device.isFocusModeSupported(.autoFocus) {
+            do {
+                try device.lockForConfiguration()
+                device.focusPointOfInterest = point
+                device.focusMode = .autoFocus
+                device.unlockForConfiguration()
+            }
+            catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    //MARK: Exposure
+    fileprivate func exposureFrontCamera(gesture: UITapGestureRecognizer) {
+        if let frontCameraInput = frontCameraInput, let captureSession = captureSession, captureSession.inputs.contains(frontCameraInput) {
+            if frontCameraInput.device.isFocusPointOfInterestSupported {
+                if let previewLayer = previewLayer {
+                    let point = gesture.location(in: currentView)
+                    let pointOfInterest = previewLayer.captureDevicePointConverted(fromLayerPoint: point)
+                    
+                    showMarker(point: point, marker: exposureImageView)
+                    exposeAtPoint(point: pointOfInterest, input: frontCameraInput)
+                }
+            }
+        }
+    }
+    
+    fileprivate func exposureRearCamera(gesture: UITapGestureRecognizer) {
+        if let rearCameraInput = rearCameraInput, let captureSession = captureSession, captureSession.inputs.contains(rearCameraInput) {
+            if rearCameraInput.device.isFocusPointOfInterestSupported {
+                if let previewLayer = previewLayer {
+                    let point = gesture.location(in: currentView)
+                    let pointOfInterest = previewLayer.captureDevicePointConverted(fromLayerPoint: point)
+                    
+                    showMarker(point: point, marker: exposureImageView)
+                    exposeAtPoint(point: pointOfInterest, input: rearCameraInput)
+                }
+            }
+        }
+    }
+    
+    fileprivate func exposeAtPoint(point: CGPoint, input: AVCaptureDeviceInput) {
+        let device = input.device
+        
+        if device.isExposurePointOfInterestSupported && device.isExposureModeSupported(.continuousAutoExposure) {
+            DispatchQueue.main.async { [unowned self] in
+                do {
+                    try device.lockForConfiguration()
+                    device.exposurePointOfInterest = point
+                    device.exposureMode = .continuousAutoExposure
+                    
+                    if device.isExposureModeSupported(.locked) {
+                        device.addObserver(self, forKeyPath: "adjustingExposure", options: NSKeyValueObservingOptions.new, context: &self.adjustingExposureContext)
+                        device.unlockForConfiguration()
+                    }
+                }
+                catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    internal override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if context == &adjustingExposureContext {
+            let device = object as! AVCaptureDevice
+            
+            if !device.isAdjustingExposure && device.isExposureModeSupported(.locked) {
+                device.removeObserver(self, forKeyPath: "adjustingExposure", context: &adjustingExposureContext)
+                
+                DispatchQueue.main.async {
+                    do {
+                        try device.lockForConfiguration()
+                        device.exposureMode = .locked
+                        device.unlockForConfiguration()
+                    }
+                    catch {
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+            else {
+                //super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+            }
+        }
+    }
+    
+    fileprivate func showMarker(point: CGPoint, marker: UIImageView) {
+        marker.center = point
+        marker.isHidden = false
+        
+        UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: { () -> Void in
+            marker.layer.transform = CATransform3DMakeScale(0.5, 0.5, 1.0)
+        }, completion: { (finished) -> Void in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                marker.isHidden = true
+                marker.transform = .identity
+            })
         })
     }
 }

@@ -53,6 +53,10 @@ public class LFSSnapViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
+    deinit {
+        removeAll()
+    }
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -98,6 +102,7 @@ extension LFSSnapViewController {
     fileprivate func setup() {
         viewModel = LFSSnapViewModel(delegate: self)
         viewModel.features = features
+        viewModel.baseDelegate = delegate
         viewModel.viewController = self
         viewModel.view = captureView
         
@@ -260,4 +265,49 @@ extension LFSSnapViewController {
 //MARK: LFSSnapViewModelDelegate
 extension LFSSnapViewController: LFSSnapViewModelDelegate {
     
+}
+
+//MARK: Orientation
+extension LFSSnapViewController {
+    public override var shouldAutorotate: Bool {
+        return false
+    }
+    
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    public override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
+    }
+}
+
+//MARK: Remove all
+extension LFSSnapViewController {
+    fileprivate func removeAll() {
+        coverPickerView = nil
+        pickerView = nil
+        captureView = nil
+        coverCaptureView = nil
+        coverSnapView = nil
+        lineInCoverSnapView = nil
+        snapButton = nil
+        flipButton = nil
+        flashButton = nil
+        closeButton = nil
+        blurView = nil
+        loadingView = nil
+        circularProgress = nil
+        pickerViewHeightConstraint = nil
+        pickerViewWidthConstraint = nil
+        topSquareViewHeightConstraint = nil
+        bottomSquareViewHeightConstraint = nil
+        swipeBlurViewLeftGesture = nil
+        swipeBlurViewRightGesture = nil
+        swipeCaptureViewLeftGesture = nil
+        swipeCaptureViewRightGesture = nil
+        viewModel = nil
+        features = nil
+        delegate = nil
+    }
 }

@@ -16,4 +16,27 @@ internal class LFSPhotoPreviewViewModel: LFSViewModel {
     init(delegate: LFSPhotoPreviewViewModelDelegate) {
         self.delegate = delegate
     }
+    
+    deinit {
+        removeAll()
+    }
+}
+
+//MARK: Handle Action
+extension LFSPhotoPreviewViewModel {
+    internal func next() {
+        let lfsEditViewController = LFSEditViewController()
+        lfsEditViewController.image = image
+        lfsEditViewController.editEvent = .photo
+        
+        viewController?.present(lfsEditViewController, animated: true, completion: nil)
+    }
+}
+
+//MARK: Remove all
+extension LFSPhotoPreviewViewModel {
+    fileprivate func removeAll() {
+        delegate = nil
+        image = nil
+    }
 }

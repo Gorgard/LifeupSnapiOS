@@ -30,6 +30,10 @@ internal class LFSVideoPreviewViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    deinit {
+        removeAll()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +60,7 @@ internal class LFSVideoPreviewViewController: UIViewController {
     }
     
     @IBAction func onTappedNext(_ sender: Any) {
-        
+        viewModel.next()
     }
 }
 
@@ -83,4 +87,31 @@ extension LFSVideoPreviewViewController {
 //MARK: LFSVideoPreviewViewModelDelegate
 extension LFSVideoPreviewViewController: LFSVideoPreviewViewModelDelegate {
     
+}
+
+//MARK: Orientation
+extension LFSVideoPreviewViewController {
+    public override var shouldAutorotate: Bool {
+        return false
+    }
+    
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    public override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
+    }
+}
+
+//MARK: Remove all
+extension LFSVideoPreviewViewController {
+    fileprivate func removeAll() {
+        videoView = nil
+        backButton = nil
+        replayButton = nil
+        nextButton = nil
+        viewModel = nil
+        url = nil
+    }
 }

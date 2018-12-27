@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal protocol PageViewPresentable {
+internal protocol PageViewPresentable: NSObjectProtocol {
     func beforeViewController(pageViewController: UIPageViewController, viewController: UIViewController) -> UIViewController?
     func afterViewController(pageViewController: UIPageViewController, viewController: UIViewController) -> UIViewController?
 }

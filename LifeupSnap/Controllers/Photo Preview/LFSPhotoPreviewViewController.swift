@@ -30,6 +30,10 @@ class LFSPhotoPreviewViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
+    deinit {
+        removeAll()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -46,7 +50,7 @@ class LFSPhotoPreviewViewController: UIViewController {
     }
     
     @IBAction func onTappedNext(_ sender: Any) {
-        
+        viewModel.next()
     }
 }
 
@@ -72,4 +76,28 @@ extension LFSPhotoPreviewViewController {
 //MARK: LFSPhotoPreviewViewModelDelegate
 extension LFSPhotoPreviewViewController: LFSPhotoPreviewViewModelDelegate {
     
+}
+
+//MARK: Orientation
+extension LFSPhotoPreviewViewController {
+    public override var shouldAutorotate: Bool {
+        return false
+    }
+    
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    public override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
+    }
+}
+
+//MARK: Remove all
+extension LFSPhotoPreviewViewController {
+    fileprivate func removeAll() {
+        previewImageView = nil
+        nextButton = nil
+        backButton = nil
+    }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-@objc internal protocol PickerViewPresentable {
+@objc internal protocol PickerViewPresentable: NSObjectProtocol {
     func numberOfComponents(pickerView: UIPickerView) -> Int
     func numberOfRowsInComponent(pickerView: UIPickerView, component: Int) -> Int
     
