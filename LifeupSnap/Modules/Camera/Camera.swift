@@ -48,15 +48,30 @@ internal class Camera: NSObject {
     private var focusTapGesture: UITapGestureRecognizer!
     private var exposureTapGesture: UITapGestureRecognizer!
     
+    private var focusImageView: UIImageView!
+    private var exposureImageView: UIImageView!
+    
     override init() {
         super.init()
+        setup()
+    }
+
+    fileprivate func setup() {
         focusTapGesture = UITapGestureRecognizer(target: self, action: #selector(focusTap(_:)))
         focusTapGesture.numberOfTapsRequired = 1
         
         exposureTapGesture = UITapGestureRecognizer(target: self, action: #selector(exposureTap(_:)))
         exposureTapGesture.numberOfTapsRequired = 2
+        
+        focusImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
+        focusImageView.image = #imageLiteral(resourceName: "ic_camera_focus.png")
+        focusImageView.isHidden = true
+        
+        exposureImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
+        exposureImageView.image = #imageLiteral(resourceName: "ic_camera_exposure.png")
+        exposureImageView.isHidden = true
     }
-
+    
     internal func prepare(completion: @escaping() -> Void, failure: @escaping(_ error: Error?) -> Void) {
         if initialed {
             completion()
@@ -245,10 +260,13 @@ extension Camera {
         previewLayer?.frame = view.bounds
         view.layer.addSublayer(previewLayer!)
         
-        if !(view.gestureRecognizers!.contains(focusTapGesture)) || !(view.gestureRecognizers!.contains(exposureTapGesture)) {
+        if !view.gestureRecognizers!.contains(focusTapGesture) || !view.gestureRecognizers!.contains(exposureTapGesture) {
             view.addGestureRecognizer(focusTapGesture)
             view.addGestureRecognizer(exposureTapGesture)
         }
+        
+        view.addSubview(focusImageView)
+        view.addSubview(exposureImageView)
         
         currentView = view
     }
@@ -494,6 +512,7 @@ extension Camera {
                     let point = gesture.location(in: currentView)
                     let pointOfInterest = previewLayer.captureDevicePointConverted(fromLayerPoint: point)
                     
+                    showMarker(point: point, marker: focusImageView)
                     focusAtPoint(point: pointOfInterest, input: frontCameraInput)
                 }
             }
@@ -507,6 +526,7 @@ extension Camera {
                     let point = gesture.location(in: currentView)
                     let pointOfInterest = previewLayer.captureDevicePointConverted(fromLayerPoint: point)
                     
+                    showMarker(point: point, marker: focusImageView)
                     focusAtPoint(point: pointOfInterest, input: rearCameraInput)
                 }
             }
@@ -537,6 +557,7 @@ extension Camera {
                     let point = gesture.location(in: currentView)
                     let pointOfInterest = previewLayer.captureDevicePointConverted(fromLayerPoint: point)
                     
+                    showMarker(point: point, marker: exposureImageView)
                     exposeAtPoint(point: pointOfInterest, input: frontCameraInput)
                 }
             }
@@ -550,6 +571,7 @@ extension Camera {
                     let point = gesture.location(in: currentView)
                     let pointOfInterest = previewLayer.captureDevicePointConverted(fromLayerPoint: point)
                     
+                    showMarker(point: point, marker: exposureImageView)
                     exposeAtPoint(point: pointOfInterest, input: rearCameraInput)
                 }
             }
@@ -600,5 +622,19 @@ extension Camera {
                 //super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
             }
         }
+    }
+    
+    fileprivate func showMarker(point: CGPoint, marker: UIImageView) {
+        marker.center = point
+        marker.isHidden = false
+        
+        UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: { () -> Void in
+            marker.layer.transform = CATransform3DMakeScale(0.5, 0.5, 1.0)
+        }, completion: { (finished) -> Void in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                marker.isHidden = true
+                marker.transform = .identity
+            })
+        })
     }
 }
