@@ -36,6 +36,7 @@ internal class LFSSnapViewModel: LFSViewModel {
     internal var changeImageSnapButton: ((_ image: UIImage?) -> Void)?
     internal var changeSquareViewHeight: ((_ height: CGFloat) -> Void)?
     internal var hiddenLoadingView: ((_ hidden: Bool) -> Void)?
+    internal var enableSnapButton: ((_ enable: Bool) -> Void)?
     
     //MARK: Camera value
     private var image: UIImage?
@@ -92,10 +93,11 @@ extension LFSSnapViewModel {
         
         taskMainAfter(deadline: .now() + 1, { [unowned self] in
             self.hiddenBlurView?(0)
+            self.enableSnapButton?(true)
         })
         
         changeSnapButtonColor?(feature.rawValue == CameraFeature.video.rawValue ? .red : .white)
-        changeImageSnapButton?(feature.rawValue == CameraFeature.boomerang.rawValue ? #imageLiteral(resourceName: "ic_main_infinity.png") : nil)
+        changeImageSnapButton?(feature.rawValue == CameraFeature.boomerang.rawValue ? LFSPhotoModel.shared.imageBundle(named: "ic_main_infinity", fromClass: LFSEditLabelViewModel.self)! : nil) //changeImageSnapButton?(feature.rawValue == CameraFeature.boomerang.rawValue ? #imageLiteral(resourceName: "ic_main_infinity.png") : nil)
         changeSquareViewHeight?(feature.rawValue == CameraFeature.square.rawValue ? 60 : 0)
         
         if let camera = camera {
@@ -139,6 +141,7 @@ extension LFSSnapViewModel: PickerViewPresentable {
     
     func didSelected(pickerView: UIPickerView, row: Int, component: Int) {
         hiddenBlurView?(1)
+        enableSnapButton?(false)
         
         currentIndex = row
         setNotCurrent(currentIndex: currentIndex)
@@ -155,10 +158,10 @@ extension LFSSnapViewModel {
     
     internal func flash() {
         if Camera.flashMode == .off {
-            changeImageFlashButton?(#imageLiteral(resourceName: "ic_main_flash_on.png"))
+            changeImageFlashButton?(LFSPhotoModel.shared.imageBundle(named: "ic_main_flash_on", fromClass: LFSSnapViewModel.self)!) //changeImageFlashButton?(#imageLiteral(resourceName: "ic_main_flash_on.png"))
         }
         else {
-            changeImageFlashButton?(#imageLiteral(resourceName: "ic_main_flash_off.png"))
+            changeImageFlashButton?(LFSPhotoModel.shared.imageBundle(named: "ic_main_flash_off", fromClass: LFSSnapViewModel.self)!) //changeImageFlashButton?(#imageLiteral(resourceName: "ic_main_flash_off.png"))
         }
         
         flashCamera()
@@ -230,6 +233,7 @@ extension LFSSnapViewModel {
         }
         
         hiddenBlurView?(1)
+        enableSnapButton?(false)
         
         setNotCurrent(currentIndex: currentIndex)
         
@@ -244,7 +248,8 @@ extension LFSSnapViewModel {
         currentIndex -= 1
         
         hiddenBlurView?(1)
-
+        enableSnapButton?(false)
+        
         setNotCurrent(currentIndex: currentIndex)
         
         binding()

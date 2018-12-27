@@ -64,11 +64,11 @@ internal class Camera: NSObject {
         exposureTapGesture.numberOfTapsRequired = 2
         
         focusImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
-        focusImageView.image = #imageLiteral(resourceName: "ic_camera_focus.png")
+        focusImageView.image = LFSPhotoModel.shared.imageBundle(named: "ic_camera_focus", fromClass: Camera.self) // #imageLiteral(resourceName: "ic_camera_focus.png")
         focusImageView.isHidden = true
         
         exposureImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
-        exposureImageView.image = #imageLiteral(resourceName: "ic_camera_exposure.png")
+        exposureImageView.image = LFSPhotoModel.shared.imageBundle(named: "ic_camera_exposure", fromClass: Camera.self) // #imageLiteral(resourceName: "ic_camera_exposure.png")
         exposureImageView.isHidden = true
     }
     

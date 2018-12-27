@@ -28,7 +28,8 @@ Pod::Spec.new do |s|
 			'LifeupSnap/Enums/**/*.swift',
 			'LifeupSnap/Models/**/*.swift',
 			'LifeupSnap/Helpers/**/*.swift',
-			'LifeupSnap/Modules/**/*.swift'
+			'LifeupSnap/Modules/**/*.swift',
+			'LifeupSnap/Resources/**/**'
 
   end
 end

@@ -220,6 +220,10 @@ extension LFSSnapViewController {
             self.loadingView.isHidden = hidden
         }
         
+        viewModel.enableSnapButton = { [unowned self] (enable) -> Void in
+            self.snapButton.isEnabled = enable
+        }
+        
         viewModel.binding()
     }
 }
