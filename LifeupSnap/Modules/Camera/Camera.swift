@@ -30,6 +30,7 @@ internal class Camera: NSObject {
     internal var micInput: AVCaptureDeviceInput?
 
     internal var previewLayer: AVCaptureVideoPreviewLayer?
+    internal var currentView: UIView?
     
     internal var photoOutput: AVCapturePhotoOutput?
     internal var movieOutput: AVCaptureMovieFileOutput?
@@ -41,6 +42,19 @@ internal class Camera: NSObject {
     internal var selfStop: Bool = false
     
     private var isSquare: Bool = false
+    
+    //MARK: Gesture
+    private var focusTapGesture: UITapGestureRecognizer!
+    private var exposureTapGesture: UITapGestureRecognizer!
+    
+    override init() {
+        super.init()
+        focusTapGesture = UITapGestureRecognizer(target: self, action: #selector(focusTap(_:)))
+        focusTapGesture.numberOfTapsRequired = 1
+        
+        exposureTapGesture = UITapGestureRecognizer(target: self, action: #selector(exposureTap(_:)))
+        exposureTapGesture.numberOfTapsRequired = 2
+    }
 
     internal func prepare(completion: @escaping() -> Void, failure: @escaping(_ error: Error?) -> Void) {
         if initialed {
@@ -229,6 +243,13 @@ extension Camera {
         connection.videoOrientation = currentVideoOrientation()
         previewLayer?.frame = view.bounds
         view.layer.addSublayer(previewLayer!)
+        
+        if !(view.gestureRecognizers!.contains(focusTapGesture)) || !(view.gestureRecognizers!.contains(exposureTapGesture)) {
+            view.addGestureRecognizer(focusTapGesture)
+            view.addGestureRecognizer(exposureTapGesture)
+        }
+        
+        currentView = view
     }
     
     internal func resetPreviewLayer(view: UIView) {
@@ -449,5 +470,59 @@ extension Camera: AVCaptureFileOutputRecordingDelegate {
         }, failure: { [weak self] (error) -> Void in
             self?.movieCaptureFailureBlock?(error)
         })
+    }
+}
+
+//MARK: Handle Gesture
+extension Camera {
+    @objc fileprivate func focusTap(_ gesture: UITapGestureRecognizer) {
+        focusFrontCamera(gesture: gesture)
+        focusRearCamera(gesture: gesture)
+    }
+    
+    fileprivate func focusFrontCamera(gesture: UITapGestureRecognizer) {
+        if let frontCameraInput = frontCameraInput, let captureSession = captureSession, captureSession.inputs.contains(frontCameraInput) {
+            if frontCameraInput.device.isFocusPointOfInterestSupported {
+                if let previewLayer = previewLayer {
+                    let point = gesture.location(in: currentView)
+                    let pointOfInterest = previewLayer.captureDevicePointConverted(fromLayerPoint: point)
+                    
+                    focusAtPoint(point: pointOfInterest, input: frontCameraInput)
+                }
+            }
+        }
+    }
+    
+    fileprivate func focusRearCamera(gesture: UITapGestureRecognizer) {
+        if let rearCameraInput = rearCameraInput, let captureSession = captureSession, captureSession.inputs.contains(rearCameraInput) {
+            if rearCameraInput.device.isFocusPointOfInterestSupported {
+                if let previewLayer = previewLayer {
+                    let point = gesture.location(in: currentView)
+                    let pointOfInterest = previewLayer.captureDevicePointConverted(fromLayerPoint: point)
+                    
+                    focusAtPoint(point: pointOfInterest, input: rearCameraInput)
+                }
+            }
+        }
+    }
+    
+    fileprivate func focusAtPoint(point: CGPoint, input: AVCaptureDeviceInput) {
+        let device = input.device
+        
+        if device.isFocusPointOfInterestSupported && device.isFocusModeSupported(.autoFocus) {
+            do {
+                try device.lockForConfiguration()
+                device.focusPointOfInterest = point
+                device.focusMode = .autoFocus
+                device.unlockForConfiguration()
+            }
+            catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    @objc fileprivate func exposureTap(_ gesture: UITapGestureRecognizer) {
+        
     }
 }
