@@ -91,12 +91,42 @@ extension LFSVideoEditedPreviewViewController {
         nextButton.layer.shadowOffset = CGSize(width: 0, height: 2)
         nextButton.layer.shadowOpacity = 1
         nextButton.layer.shadowRadius = 0
+        
+        replayButton.layer.shadowColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+        replayButton.layer.shadowOffset = CGSize(width: 0, height: 2)
+        replayButton.layer.shadowOpacity = 1
+        replayButton.layer.shadowRadius = 0
+        
+        backButton.layer.shadowColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+        backButton.layer.shadowOffset = CGSize(width: 0, height: 2)
+        backButton.layer.shadowOpacity = 1
+        backButton.layer.shadowRadius = 0
+        
+        saveButton.layer.shadowColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+        saveButton.layer.shadowOffset = CGSize(width: 0, height: 2)
+        saveButton.layer.shadowOpacity = 1
+        saveButton.layer.shadowRadius = 0
     }
 }
 
 //MARK: LFSVideoEditedPreviewViewModelDelegate
 extension LFSVideoEditedPreviewViewController: LFSVideoEditedPreviewViewModelDelegate {
     
+}
+
+//MARK: Orientation
+extension LFSVideoEditedPreviewViewController {
+    public override var shouldAutorotate: Bool {
+        return false
+    }
+    
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    public override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
+    }
 }
 
 //MARK: Remove all

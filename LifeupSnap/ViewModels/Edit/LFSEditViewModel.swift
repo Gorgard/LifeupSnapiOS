@@ -212,6 +212,7 @@ extension LFSEditViewModel {
         editedImageView.image = renderedEditedImage
         
         let baseView = UIView(frame: view.bounds)
+        baseView.backgroundColor = .clear
         baseView.addSubview(backgroundImageView)
         baseView.addSubview(editedImageView)
         

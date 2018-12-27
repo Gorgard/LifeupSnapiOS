@@ -197,6 +197,21 @@ extension LFSEditLabelViewController: LFSEditLabelViewModelDelegate {
     }
 }
 
+//MARK: Orientation
+extension LFSEditLabelViewController {
+    public override var shouldAutorotate: Bool {
+        return false
+    }
+    
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    public override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
+    }
+}
+
 //MARK: Remove all
 extension LFSEditLabelViewController {
     fileprivate func removeAll() {

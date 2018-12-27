@@ -266,6 +266,21 @@ extension LFSSnapViewController: LFSSnapViewModelDelegate {
     
 }
 
+//MARK: Orientation
+extension LFSSnapViewController {
+    public override var shouldAutorotate: Bool {
+        return false
+    }
+    
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    public override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
+    }
+}
+
 //MARK: Remove all
 extension LFSSnapViewController {
     fileprivate func removeAll() {

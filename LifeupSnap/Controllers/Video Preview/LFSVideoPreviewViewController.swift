@@ -89,6 +89,21 @@ extension LFSVideoPreviewViewController: LFSVideoPreviewViewModelDelegate {
     
 }
 
+//MARK: Orientation
+extension LFSVideoPreviewViewController {
+    public override var shouldAutorotate: Bool {
+        return false
+    }
+    
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    public override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
+    }
+}
+
 //MARK: Remove all
 extension LFSVideoPreviewViewController {
     fileprivate func removeAll() {

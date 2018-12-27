@@ -201,6 +201,21 @@ extension LFSDrawViewController: LFSDrawViewModelDelegate {
     }
 }
 
+//MARK: Orientation
+extension LFSDrawViewController {
+    public override var shouldAutorotate: Bool {
+        return false
+    }
+    
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    public override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
+    }
+}
+
 //MARK: Handle Change Pen Size
 extension LFSDrawViewController {
     fileprivate func didChangedPenSize() {

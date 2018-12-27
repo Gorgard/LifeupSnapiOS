@@ -78,6 +78,21 @@ extension LFSPhotoPreviewViewController: LFSPhotoPreviewViewModelDelegate {
     
 }
 
+//MARK: Orientation
+extension LFSPhotoPreviewViewController {
+    public override var shouldAutorotate: Bool {
+        return false
+    }
+    
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    public override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
+    }
+}
+
 //MARK: Remove all
 extension LFSPhotoPreviewViewController {
     fileprivate func removeAll() {

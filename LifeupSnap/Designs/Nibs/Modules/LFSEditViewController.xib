@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSEditViewController" customModule="LifeupSnap" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LFSEditViewController" customModule="LifeupSnapTest" customModuleProvider="target">
             <connections>
                 <outlet property="backButton" destination="JQz-Rh-VPp" id="OhA-cy-geZ"/>
                 <outlet property="editingView" destination="PiN-M0-fBc" id="zcY-Pc-He8"/>
@@ -20,6 +20,7 @@
                 <outlet property="nextButton" destination="eAa-JA-B81" id="P9W-Fr-kSW"/>
                 <outlet property="paintingButton" destination="1ZM-9u-f4l" id="Rzw-x7-zYE"/>
                 <outlet property="previewImageView" destination="hSP-jU-Ycz" id="9vA-qr-yfK"/>
+                <outlet property="toolStackView" destination="QOQ-2A-V5e" id="bJf-fO-hST"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

@@ -17,6 +17,7 @@ internal class LFSEditViewController: UIViewController {
     @IBOutlet weak var previewImageView: UIImageView!
     @IBOutlet weak var editingView: UIView!
     @IBOutlet weak var loadingView: UIView!
+    @IBOutlet weak var toolStackView: UIStackView!
     
     internal var viewModel: LFSEditViewModel!
     
@@ -117,12 +118,37 @@ extension LFSEditViewController {
         nextButton.layer.shadowOffset = CGSize(width: 0, height: 2)
         nextButton.layer.shadowOpacity = 1
         nextButton.layer.shadowRadius = 0
+        
+        backButton.layer.shadowColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+        backButton.layer.shadowOffset = CGSize(width: 0, height: 2)
+        backButton.layer.shadowOpacity = 1
+        backButton.layer.shadowRadius = 0
+        
+        toolStackView.layer.shadowColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+        toolStackView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        toolStackView.layer.shadowOpacity = 1
+        toolStackView.layer.shadowRadius = 0
     }
 }
 
 //MARK: LFSEditViewModelDelegate
 extension LFSEditViewController: LFSEditViewModelDelegate {
     
+}
+
+//MARK: Orientation
+extension LFSEditViewController {
+    public override var shouldAutorotate: Bool {
+        return false
+    }
+    
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    public override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
+    }
 }
 
 //MARK: Remove all

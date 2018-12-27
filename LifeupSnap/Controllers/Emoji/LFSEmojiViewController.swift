@@ -151,6 +151,21 @@ extension LFSEmojiViewController: LFSEmojiViewModelDelegate {
     }
 }
 
+//MARK: Orientation
+extension LFSEmojiViewController {
+    public override var shouldAutorotate: Bool {
+        return false
+    }
+    
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    public override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
+    }
+}
+
 //MARK: Remove all
 extension LFSEmojiViewController {
     fileprivate func removeAll() {

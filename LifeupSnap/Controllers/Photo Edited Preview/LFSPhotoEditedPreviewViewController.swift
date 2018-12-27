@@ -79,6 +79,16 @@ extension LFSPhotoEditedPreviewViewController {
         nextButton.layer.shadowOpacity = 1
         nextButton.layer.shadowRadius = 0
         
+        backButton.layer.shadowColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+        backButton.layer.shadowOffset = CGSize(width: 0, height: 2)
+        backButton.layer.shadowOpacity = 1
+        backButton.layer.shadowRadius = 0
+        
+        saveButton.layer.shadowColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+        saveButton.layer.shadowOffset = CGSize(width: 0, height: 2)
+        saveButton.layer.shadowOpacity = 1
+        saveButton.layer.shadowRadius = 0
+        
         previewImageView.image = image
     }
 }
@@ -86,6 +96,21 @@ extension LFSPhotoEditedPreviewViewController {
 //MARK: LFSPhotoEditedPreviewViewModelDelegate
 extension LFSPhotoEditedPreviewViewController: LFSPhotoEditedPreviewViewModelDelegate {
     
+}
+
+//MARK: Orientation
+extension LFSPhotoEditedPreviewViewController {
+    public override var shouldAutorotate: Bool {
+        return false
+    }
+    
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
+    public override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
+    }
 }
 
 //MARK: Remove all
