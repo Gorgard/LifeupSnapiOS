@@ -6,6 +6,7 @@ internal class CircularProgress: UIView {
     private var progressLayer: CAShapeLayer!
 
     internal var duration: CFTimeInterval!
+    private var varianceDuration: CFTimeInterval = 8
     
     internal var bgColor: CGColor? = nil {
         willSet(_bgColor) {
@@ -77,7 +78,7 @@ internal class CircularProgress: UIView {
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.fromValue = 0
         animation.toValue = 1
-        animation.duration = duration
+        animation.duration = duration + varianceDuration
         animation.isRemovedOnCompletion = true
         animation.isAdditive = true
         animation.fillMode = kCAFillModeForwards

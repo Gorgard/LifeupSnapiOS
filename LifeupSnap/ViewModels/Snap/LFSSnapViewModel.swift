@@ -36,6 +36,7 @@ internal class LFSSnapViewModel: LFSViewModel {
     internal var changeImageSnapButton: ((_ image: UIImage?) -> Void)?
     internal var changeSquareViewHeight: ((_ height: CGFloat) -> Void)?
     internal var hiddenLoadingView: ((_ hidden: Bool) -> Void)?
+    internal var enableSnapButton: ((_ enable: Bool) -> Void)?
     
     //MARK: Camera value
     private var image: UIImage?
@@ -92,6 +93,7 @@ extension LFSSnapViewModel {
         
         taskMainAfter(deadline: .now() + 1, { [unowned self] in
             self.hiddenBlurView?(0)
+            self.enableSnapButton?(true)
         })
         
         changeSnapButtonColor?(feature.rawValue == CameraFeature.video.rawValue ? .red : .white)
@@ -139,6 +141,7 @@ extension LFSSnapViewModel: PickerViewPresentable {
     
     func didSelected(pickerView: UIPickerView, row: Int, component: Int) {
         hiddenBlurView?(1)
+        enableSnapButton?(false)
         
         currentIndex = row
         setNotCurrent(currentIndex: currentIndex)
@@ -230,6 +233,7 @@ extension LFSSnapViewModel {
         }
         
         hiddenBlurView?(1)
+        enableSnapButton?(false)
         
         setNotCurrent(currentIndex: currentIndex)
         
@@ -244,7 +248,8 @@ extension LFSSnapViewModel {
         currentIndex -= 1
         
         hiddenBlurView?(1)
-
+        enableSnapButton?(false)
+        
         setNotCurrent(currentIndex: currentIndex)
         
         binding()
