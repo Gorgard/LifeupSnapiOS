@@ -500,6 +500,10 @@ extension Camera {
     }
     
     @objc fileprivate func exposureTap(_ gesture: UITapGestureRecognizer) {
+        if !focusImageView.isHidden {
+            focusImageView.isHidden = true
+        }
+        
         exposureFrontCamera(gesture: gesture)
         exposureRearCamera(gesture: gesture)
     }
