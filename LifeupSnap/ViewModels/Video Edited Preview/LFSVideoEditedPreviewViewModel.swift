@@ -11,11 +11,14 @@ import AVFoundation
 
 internal class LFSVideoEditedPreviewViewModel: LFSViewModel {
     private weak var delegate: LFSVideoEditedPreviewViewModelDelegate?
+    internal weak var baseDelegate: LFSSnapDelegate?
     
     internal var url: URL?
     
     internal var player: AVPlayer!
     internal var playerLayer: AVPlayerLayer!
+    
+    private var savedURL: AVURLAsset?
     
     init(delegate: LFSVideoEditedPreviewViewModelDelegate) {
         self.delegate = delegate
@@ -62,17 +65,14 @@ extension LFSVideoEditedPreviewViewModel {
     }
     
     internal func next() {
-//        let lfsEditViewController = LFSEditViewController()
-//        lfsEditViewController.url = url
-//        lfsEditViewController.editEvent = .video
-//
-//        viewController?.present(lfsEditViewController, animated: true, completion: nil)
+        delegate?.pressedNext()
     }
     
     internal func save() {
         guard let url = url else { return }
         
         LFSVideoModel.shared.saveVideoByURL(url: url, completion: { [unowned self] (savedURL) -> Void in
+            self.savedURL = savedURL
             self.handleSaveSuccess()
         }, failure: { [unowned self] (error) -> Void in
             self.handleSaveFailure()
@@ -84,7 +84,7 @@ extension LFSVideoEditedPreviewViewModel {
         alertController.shouldHaveCancelButton = false
         
         alertController.show(viewController: viewController!, accept: { (alert) -> Void in
-            super.closeToRoot()
+            self.delegate?.videoSaved()
         }, cancel: nil)
     }
     
@@ -94,8 +94,27 @@ extension LFSVideoEditedPreviewViewModel {
         alertController.show(viewController: viewController!, accept: { [unowned self] (alert) -> Void in
             self.save()
         }, cancel: { (alert) -> Void in
-            super.closeToRoot()
+            self.delegate?.videoSaved()
         })
+    }
+}
+
+//MARK: Handle Self Protocol
+extension LFSVideoEditedPreviewViewModel {
+    internal func videoSaved() {
+        if let savedURL = savedURL {
+            baseDelegate?.snapVideo?(whenSaved: savedURL.url)
+        }
+        
+        super.closeToRoot()
+    }
+    
+    internal func pressedNext() {
+        if let url = url, let data = try? Data(contentsOf: url) {
+            baseDelegate?.snapVideo?(whenNextAfterEdited: data)
+        }
+        
+        super.closeToRoot()
     }
 }
 

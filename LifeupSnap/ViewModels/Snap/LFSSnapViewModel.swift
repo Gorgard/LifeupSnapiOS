@@ -11,6 +11,7 @@ import AVKit
 
 internal class LFSSnapViewModel: LFSViewModel {
     private weak var delegate: LFSSnapViewModelDelegate?
+    internal weak var baseDelegate: LFSSnapDelegate?
     
     internal var viewFeatures: [LFSFeature]!
     internal var features: [CameraFeature]!
@@ -351,6 +352,7 @@ extension LFSSnapViewModel {
         let lfsEditViewController = LFSEditViewController()
         lfsEditViewController.url = url
         lfsEditViewController.editEvent = .video
+        lfsEditViewController.baseDelegate = baseDelegate
         
         taskMain { [unowned self] in
             self.hiddenLoadingView?(true)
@@ -380,6 +382,7 @@ extension LFSSnapViewModel {
         let lfsEditViewController = LFSEditViewController()
         lfsEditViewController.image = self.image
         lfsEditViewController.editEvent = .photo
+        lfsEditViewController.baseDelegate = baseDelegate
         
         viewController?.present(lfsEditViewController, animated: true, completion: nil)
     }
@@ -401,6 +404,7 @@ extension LFSSnapViewModel {
         let lfsEditViewController = LFSEditViewController()
         lfsEditViewController.image = self.image
         lfsEditViewController.editEvent = .photo
+        lfsEditViewController.baseDelegate = baseDelegate
         
         viewController?.present(lfsEditViewController, animated: true, completion: nil)
     }
@@ -457,6 +461,7 @@ extension LFSSnapViewModel {
         let lfsEditViewController = LFSEditViewController()
         lfsEditViewController.url = url
         lfsEditViewController.editEvent = .video
+        lfsEditViewController.baseDelegate = baseDelegate
         
         taskMain { [unowned self] in
             self.hiddenLoadingView?(true)

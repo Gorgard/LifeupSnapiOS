@@ -10,6 +10,7 @@ import UIKit
 
 internal class LFSPhotoEditedPreviewViewModel: LFSViewModel {
     private weak var delegate: LFSPhotoEditedPreviewViewModelDelegate?
+    internal weak var baseDelegate: LFSSnapDelegate?
     
     internal var image: UIImage?
     
@@ -25,11 +26,7 @@ internal class LFSPhotoEditedPreviewViewModel: LFSViewModel {
 //MARK: Handle Action
 extension LFSPhotoEditedPreviewViewModel {
     internal func next() {
-//        let lfsEditViewController = LFSEditViewController()
-//        lfsEditViewController.image = image
-//        lfsEditViewController.editEvent = .photo
-//
-//        viewController?.present(lfsEditViewController, animated: true, completion: nil)
+        delegate?.pressedNext()
     }
     
     internal func save() {
@@ -47,7 +44,7 @@ extension LFSPhotoEditedPreviewViewModel {
         alertController.shouldHaveCancelButton = false
         
         alertController.show(viewController: viewController!, accept: { (alert) -> Void in
-            super.closeToRoot()
+            self.delegate?.photoSaved()
         }, cancel: nil)
     }
     
@@ -57,8 +54,27 @@ extension LFSPhotoEditedPreviewViewModel {
         alertController.show(viewController: viewController!, accept: { [unowned self] (alert) -> Void in
             self.save()
         }, cancel: { (alert) -> Void in
-            super.closeToRoot()
+            self.delegate?.photoSaved()
         })
+    }
+}
+
+//MARK: Handle Self Protocol
+extension LFSPhotoEditedPreviewViewModel {
+    internal func photoSaved() {
+        if let image = image {
+            baseDelegate?.snapPhoto?(whenSaved: image)
+        }
+        
+        super.closeToRoot()
+    }
+    
+    internal func pressedNext() {
+        if let image = image {
+            baseDelegate?.snapPhoto?(whenNextAfterEdited: image)
+        }
+        
+        super.closeToRoot()
     }
 }
 

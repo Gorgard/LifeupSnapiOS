@@ -14,6 +14,8 @@ class LFSPhotoEditedPreviewViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     
+    internal weak var baseDelegate: LFSSnapDelegate?
+    
     internal var viewModel: LFSPhotoEditedPreviewViewModel!
     
     internal var image: UIImage?
@@ -65,6 +67,7 @@ extension LFSPhotoEditedPreviewViewController {
     fileprivate func setup() {
         viewModel = LFSPhotoEditedPreviewViewModel(delegate: self)
         viewModel.image = image
+        viewModel.baseDelegate = baseDelegate
         viewModel.viewController = self
         viewModel.view = view
     }
@@ -96,7 +99,13 @@ extension LFSPhotoEditedPreviewViewController {
 
 //MARK: LFSPhotoEditedPreviewViewModelDelegate
 extension LFSPhotoEditedPreviewViewController: LFSPhotoEditedPreviewViewModelDelegate {
+    internal func photoSaved() {
+        viewModel.photoSaved()
+    }
     
+    internal func pressedNext() {
+        viewModel.pressedNext()
+    }
 }
 
 //MARK: Orientation

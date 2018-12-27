@@ -9,5 +9,6 @@
 import Foundation
 
 internal protocol LFSPhotoEditedPreviewViewModelDelegate: class {
-    
+    func photoSaved()
+    func pressedNext()
 }

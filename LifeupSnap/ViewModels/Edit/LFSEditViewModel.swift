@@ -10,6 +10,7 @@ import UIKit
 
 internal class LFSEditViewModel: LFSViewModel {
     private weak var delegate: LFSEditViewModelDelegate?
+    internal weak var baseDelegate: LFSSnapDelegate?
     
     internal var editEvent: EditEvent!
     
@@ -253,6 +254,7 @@ extension LFSEditViewModel {
     fileprivate func gotoPhotoEditedPreview(image: UIImage) {
         let lfsPhotoEditedPreviewViewController = LFSPhotoEditedPreviewViewController()
         lfsPhotoEditedPreviewViewController.image = image
+        lfsPhotoEditedPreviewViewController.baseDelegate = baseDelegate
         lfsPhotoEditedPreviewViewController.modalPresentationStyle = .overFullScreen
         
         viewController?.present(lfsPhotoEditedPreviewViewController, animated: true, completion: nil)
@@ -279,6 +281,7 @@ extension LFSEditViewModel {
         
         let lfsVideoEditedPreviewViewController = LFSVideoEditedPreviewViewController()
         lfsVideoEditedPreviewViewController.url = url
+        lfsVideoEditedPreviewViewController.baseDelegate = baseDelegate
         lfsVideoEditedPreviewViewController.modalPresentationStyle = .overFullScreen
         
         viewController?.present(lfsVideoEditedPreviewViewController, animated: true, completion: nil)

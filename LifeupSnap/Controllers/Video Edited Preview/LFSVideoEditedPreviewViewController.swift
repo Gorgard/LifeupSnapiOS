@@ -15,6 +15,8 @@ internal class LFSVideoEditedPreviewViewController: UIViewController {
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     
+    internal weak var baseDelegate: LFSSnapDelegate?
+    
     internal var viewModel: LFSVideoEditedPreviewViewModel!
     
     internal var url: URL?
@@ -75,6 +77,7 @@ extension LFSVideoEditedPreviewViewController {
     fileprivate func setup() {
         viewModel = LFSVideoEditedPreviewViewModel(delegate: self)
         viewModel.url = url
+        viewModel.baseDelegate = baseDelegate
         viewModel.viewController = self
         viewModel.view = videoView
         
@@ -111,7 +114,13 @@ extension LFSVideoEditedPreviewViewController {
 
 //MARK: LFSVideoEditedPreviewViewModelDelegate
 extension LFSVideoEditedPreviewViewController: LFSVideoEditedPreviewViewModelDelegate {
+    internal func videoSaved() {
+        viewModel.videoSaved()
+    }
     
+    internal func pressedNext() {
+        viewModel.pressedNext()
+    }
 }
 
 //MARK: Orientation

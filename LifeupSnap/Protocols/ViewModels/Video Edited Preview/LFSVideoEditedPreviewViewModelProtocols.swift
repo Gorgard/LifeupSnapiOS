@@ -9,5 +9,6 @@
 import Foundation
 
 internal protocol LFSVideoEditedPreviewViewModelDelegate: class {
-    
+    func videoSaved()
+    func pressedNext()
 }

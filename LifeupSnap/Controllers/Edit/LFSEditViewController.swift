@@ -19,6 +19,8 @@ internal class LFSEditViewController: UIViewController {
     @IBOutlet weak var loadingView: UIView!
     @IBOutlet weak var toolStackView: UIStackView!
     
+    internal weak var baseDelegate: LFSSnapDelegate?
+    
     internal var viewModel: LFSEditViewModel!
     
     internal var editEvent: EditEvent!
@@ -88,6 +90,7 @@ extension LFSEditViewController {
         viewModel.editEvent = editEvent
         viewModel.image = image
         viewModel.url = url
+        viewModel.baseDelegate = baseDelegate
         viewModel.viewController = self
         viewModel.view = editingView
     }
