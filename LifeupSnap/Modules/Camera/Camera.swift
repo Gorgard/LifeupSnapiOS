@@ -42,6 +42,7 @@ internal class Camera: NSObject {
     internal var selfStop: Bool = false
     
     private var isSquare: Bool = false
+    private var adjustingExposureContext: String = ""
     
     //MARK: Gesture
     private var focusTapGesture: UITapGestureRecognizer!
@@ -480,6 +481,12 @@ extension Camera {
         focusRearCamera(gesture: gesture)
     }
     
+    @objc fileprivate func exposureTap(_ gesture: UITapGestureRecognizer) {
+        exposureFrontCamera(gesture: gesture)
+        exposureRearCamera(gesture: gesture)
+    }
+    
+    //MARK: Focus
     fileprivate func focusFrontCamera(gesture: UITapGestureRecognizer) {
         if let frontCameraInput = frontCameraInput, let captureSession = captureSession, captureSession.inputs.contains(frontCameraInput) {
             if frontCameraInput.device.isFocusPointOfInterestSupported {
@@ -522,7 +529,76 @@ extension Camera {
         }
     }
     
-    @objc fileprivate func exposureTap(_ gesture: UITapGestureRecognizer) {
+    //MARK: Exposure
+    fileprivate func exposureFrontCamera(gesture: UITapGestureRecognizer) {
+        if let frontCameraInput = frontCameraInput, let captureSession = captureSession, captureSession.inputs.contains(frontCameraInput) {
+            if frontCameraInput.device.isFocusPointOfInterestSupported {
+                if let previewLayer = previewLayer {
+                    let point = gesture.location(in: currentView)
+                    let pointOfInterest = previewLayer.captureDevicePointConverted(fromLayerPoint: point)
+                    
+                    exposeAtPoint(point: pointOfInterest, input: frontCameraInput)
+                }
+            }
+        }
+    }
+    
+    fileprivate func exposureRearCamera(gesture: UITapGestureRecognizer) {
+        if let rearCameraInput = rearCameraInput, let captureSession = captureSession, captureSession.inputs.contains(rearCameraInput) {
+            if rearCameraInput.device.isFocusPointOfInterestSupported {
+                if let previewLayer = previewLayer {
+                    let point = gesture.location(in: currentView)
+                    let pointOfInterest = previewLayer.captureDevicePointConverted(fromLayerPoint: point)
+                    
+                    exposeAtPoint(point: pointOfInterest, input: rearCameraInput)
+                }
+            }
+        }
+    }
+    
+    fileprivate func exposeAtPoint(point: CGPoint, input: AVCaptureDeviceInput) {
+        let device = input.device
         
+        if device.isExposurePointOfInterestSupported && device.isExposureModeSupported(.continuousAutoExposure) {
+            DispatchQueue.main.async { [unowned self] in
+                do {
+                    try device.lockForConfiguration()
+                    device.exposurePointOfInterest = point
+                    device.exposureMode = .continuousAutoExposure
+                    
+                    if device.isExposureModeSupported(.locked) {
+                        device.addObserver(self, forKeyPath: "adjustingExposure", options: NSKeyValueObservingOptions.new, context: &self.adjustingExposureContext)
+                        device.unlockForConfiguration()
+                    }
+                }
+                catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    internal override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if context == &adjustingExposureContext {
+            let device = object as! AVCaptureDevice
+            
+            if !device.isAdjustingExposure && device.isExposureModeSupported(.locked) {
+                device.removeObserver(self, forKeyPath: "adjustingExposure", context: &adjustingExposureContext)
+                
+                DispatchQueue.main.async {
+                    do {
+                        try device.lockForConfiguration()
+                        device.exposureMode = .locked
+                        device.unlockForConfiguration()
+                    }
+                    catch {
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+            else {
+                //super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+            }
+        }
     }
 }
