@@ -99,8 +99,14 @@ extension LFSEditLabelViewModel {
 extension LFSEditLabelViewModel {
     private func attributeText() {
         if isBorder {
-            textColor = .white
-            borderTextColor = currentColor?.color ?? .black
+            if currentColor?.color == .white {
+                textColor = .black
+                borderTextColor = currentColor?.color ?? .white
+            }
+            else {
+                textColor = .white
+                borderTextColor = currentColor?.color ?? .black
+            }
         }
         else {
             textColor = currentColor?.color ?? .black

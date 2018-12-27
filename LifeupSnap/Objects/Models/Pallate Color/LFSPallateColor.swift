@@ -24,7 +24,6 @@ internal struct LFSPallateColor {
         self.colors.append(LFSColor(name: "Gray", color: UIColor.gray))
         self.colors.append(LFSColor(name: "Red", color: UIColor.red))
         self.colors.append(LFSColor(name: "Green", color: UIColor.green))
-        self.colors.append(LFSColor(name: "Red", color: UIColor.red))
         self.colors.append(LFSColor(name: "Blue", color: UIColor.blue))
         self.colors.append(LFSColor(name: "Cyan", color: UIColor.cyan))
         self.colors.append(LFSColor(name: "Yellow", color: UIColor.yellow))
