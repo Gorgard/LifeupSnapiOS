@@ -84,7 +84,7 @@ extension LFSVideoEditedPreviewViewModel {
         alertController.shouldHaveCancelButton = false
         
         alertController.show(viewController: viewController!, accept: { (alert) -> Void in
-            super.close()
+            super.closeToRoot()
         }, cancel: nil)
     }
     
@@ -93,8 +93,8 @@ extension LFSVideoEditedPreviewViewModel {
         
         alertController.show(viewController: viewController!, accept: { [unowned self] (alert) -> Void in
             self.save()
-            }, cancel: { (alert) -> Void in
-                super.close()
+        }, cancel: { (alert) -> Void in
+            super.closeToRoot()
         })
     }
 }

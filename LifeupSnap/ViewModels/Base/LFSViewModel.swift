@@ -34,4 +34,10 @@ class LFSViewModel: NSObject, LFSViewPresentable {
         videoView = nil
         view = nil
     }
+    
+    internal func closeToRoot() {
+        if let view = view {
+            view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        }
+    }
 }

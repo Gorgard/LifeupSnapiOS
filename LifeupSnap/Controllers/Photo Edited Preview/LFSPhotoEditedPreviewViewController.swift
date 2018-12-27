@@ -66,6 +66,7 @@ extension LFSPhotoEditedPreviewViewController {
         viewModel = LFSPhotoEditedPreviewViewModel(delegate: self)
         viewModel.image = image
         viewModel.viewController = self
+        viewModel.view = view
     }
     
     fileprivate func binding() {

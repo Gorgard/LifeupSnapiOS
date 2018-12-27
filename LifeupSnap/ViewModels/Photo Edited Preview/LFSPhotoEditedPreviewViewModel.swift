@@ -47,7 +47,7 @@ extension LFSPhotoEditedPreviewViewModel {
         alertController.shouldHaveCancelButton = false
         
         alertController.show(viewController: viewController!, accept: { (alert) -> Void in
-            super.close()
+            super.closeToRoot()
         }, cancel: nil)
     }
     
@@ -57,7 +57,7 @@ extension LFSPhotoEditedPreviewViewModel {
         alertController.show(viewController: viewController!, accept: { [unowned self] (alert) -> Void in
             self.save()
         }, cancel: { (alert) -> Void in
-            super.close()
+            super.closeToRoot()
         })
     }
 }
