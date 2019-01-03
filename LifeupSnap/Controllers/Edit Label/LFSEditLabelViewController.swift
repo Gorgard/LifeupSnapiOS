@@ -31,7 +31,7 @@ internal class LFSEditLabelViewController: UIViewController {
     
     internal init(delegate: LFSEditLabelDelegate) {
         let bundle = Bundle(for: LFSEditLabelViewController.self)
-        super.init(nibName: LFSConstants.LFSNibID.Edit.lfsEditLabelViewController, bundle: bundle)
+        super.init(nibName: kLfsEditLabelViewController, bundle: bundle)
         
         self.delegate = delegate
     }
@@ -148,8 +148,8 @@ extension LFSEditLabelViewController {
     }
     
     fileprivate func setupCollectionView() {
-        let nib = UINib(nibName: LFSConstants.LFSNibID.Edit.lfsLabelColorCollectionViewCell, bundle: Bundle(for: LFSLabelColorCollectionViewCell.self))
-        collectionView.register(nib, forCellWithReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lfsLabelColorCollectionViewCell)
+        let nib = UINib(nibName: kLfsLabelColorCollectionViewCellNib, bundle: Bundle(for: LFSLabelColorCollectionViewCell.self))
+        collectionView.register(nib, forCellWithReuseIdentifier: kLfsLabelColorCollectionViewCell)
         
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: 25, height: 25)

@@ -146,7 +146,7 @@ open class GrowingTextView: UITextView {
                 let paragraphStyle = NSMutableParagraphStyle()
                 paragraphStyle.alignment = textAlignment
                 var attributes: [NSAttributedStringKey: Any] = [
-                    .foregroundColor: placeholderColor,
+                    .foregroundColor: placeholderColor ?? UIColor.lightGray,
                     .paragraphStyle: paragraphStyle
                 ]
                 if let font = font {

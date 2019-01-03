@@ -127,24 +127,19 @@ extension LFSVideoModel {
         
         let videoLayerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: videoTrack)
         
-        var videoOrientation: UIImageOrientation = .up
         var isVideoAssetPortrait: Bool = false
         
         let videoTransform = videoAssetTrack.preferredTransform
         
         if videoTransform.a == 0 && videoTransform.b == 1.0 && videoTransform.c == -1.0 && videoTransform.d == 0 {
-            videoOrientation = .right
             isVideoAssetPortrait = true
         }
         if videoTransform.a == 0 && videoTransform.b == -1.0 && videoTransform.c == 1.0 && videoTransform.d == 0 {
-            videoOrientation = .left
             isVideoAssetPortrait = true
         }
         if videoTransform.a == 1.0 && videoTransform.b == 0 && videoTransform.c == 0 && videoTransform.d == 1.0 {
-            videoOrientation = .up
         }
         if videoTransform.a == -1.0 && videoTransform.b == 0 && videoTransform.c == 0 && videoTransform.d == -1.0 {
-            videoOrientation = .down
         }
         
         videoLayerInstruction.setTransform(videoAssetTrack.preferredTransform, at: kCMTimeZero)
@@ -288,7 +283,7 @@ extension LFSVideoModel {
         let videos = [originalURL, reversePath]
         
         let composition = AVMutableComposition()
-        let videoTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid)
+        guard let videoTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) else { return }
         
         var currentVideoTime = kCMTimeZero
         
@@ -297,30 +292,30 @@ extension LFSVideoModel {
             let videoAssetTrack = asset.tracks(withMediaType: .video).first!
             
             do {
-                try videoTrack?.insertTimeRange(CMTimeRangeMake(kCMTimeZero, videoAssetTrack.timeRange.duration), of: videoAssetTrack, at: currentVideoTime)
+                try videoTrack.insertTimeRange(CMTimeRangeMake(kCMTimeZero, videoAssetTrack.timeRange.duration), of: videoAssetTrack, at: currentVideoTime)
             }
             catch {
                 print("Cannot merged reversed video.")
             }
             
-            videoTrack?.preferredTransform = videoAssetTrack.preferredTransform
+            videoTrack.preferredTransform = videoAssetTrack.preferredTransform
             
             let scaleDuration = CMTimeMultiplyByFloat64(videoAssetTrack.timeRange.duration, Float64(0.5))
-            videoTrack?.scaleTimeRange(CMTimeRangeMake(currentVideoTime, videoAssetTrack.timeRange.duration), toDuration: scaleDuration)
+            videoTrack.scaleTimeRange(CMTimeRangeMake(currentVideoTime, videoAssetTrack.timeRange.duration), toDuration: scaleDuration)
             currentVideoTime = CMTimeAdd(currentVideoTime, scaleDuration)
         }
 
         let fileName = "\(LFSConstants.LFSVideoName.Snap.snapMergedVideo)\(Date())"
         let mergedPath = LFSVideoModel.shared.outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mov)!
         
-        let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality)
-        exporter?.outputURL = mergedPath
-        exporter?.shouldOptimizeForNetworkUse = true
-        exporter?.outputFileType = .mov
+        guard let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality) else { return }
+        exporter.outputURL = mergedPath
+        exporter.shouldOptimizeForNetworkUse = true
+        exporter.outputFileType = .mov
         
-        exporter?.exportAsynchronously {
+        exporter.exportAsynchronously {
             taskMain {
-                completion(exporter?.outputURL)
+                completion(exporter.outputURL)
             }
         }
     }

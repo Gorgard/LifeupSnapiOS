@@ -25,7 +25,7 @@ class LFSEmojiViewController: UIViewController {
     
     internal init(delegate: LFSEmojiDelegate) {
         let bundle = Bundle(for: LFSEmojiViewController.self)
-        super.init(nibName: LFSConstants.LFSNibID.Edit.lfsEmojiViewController, bundle: bundle)
+        super.init(nibName: kLfsEmojiViewController, bundle: bundle)
         
         self.delegate = delegate
     }
@@ -91,11 +91,11 @@ extension LFSEmojiViewController {
     }
     
     fileprivate func setupCollectionView() {
-        let nibSystem = UINib(nibName: LFSConstants.LFSNibID.Edit.lfsEmojiSystemCollectionViewCell, bundle: Bundle(for: LFSEmojiSystemCollectionViewCell.self))
-        let nibSelf = UINib(nibName: LFSConstants.LFSNibID.Edit.lfsEmojiSelfCollectionViewCell, bundle: Bundle(for: LFSEmojiSelfCollectionViewCell.self))
+        let nibSystem = UINib(nibName: kLfsEmojiSystemCollectionViewCellNib, bundle: Bundle(for: LFSEmojiSystemCollectionViewCell.self))
+        let nibSelf = UINib(nibName: kLfsEmojiSelfCollectionViewCellNib, bundle: Bundle(for: LFSEmojiSelfCollectionViewCell.self))
         
-        collectionView.register(nibSystem, forCellWithReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lfsEmojiSystemCollectionViewCell)
-        collectionView.register(nibSelf, forCellWithReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lfsEmojiSelfCollectionViewCell)
+        collectionView.register(nibSystem, forCellWithReuseIdentifier: kLfsEmojiSystemCollectionViewCell)
+        collectionView.register(nibSelf, forCellWithReuseIdentifier: kLfsEmojiSelfCollectionViewCell)
         
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: 50, height: 50)

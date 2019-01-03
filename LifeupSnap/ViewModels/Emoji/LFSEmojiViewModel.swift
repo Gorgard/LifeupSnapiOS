@@ -110,7 +110,7 @@ extension LFSEmojiViewModel: LFSCollectionViewPresentable {
 //MARK: Handle Emoji System Cell
 extension LFSEmojiViewModel {
     fileprivate func cellForEmojiSystem(collectionView: UICollectionView, section: String, indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lfsEmojiSystemCollectionViewCell, for: indexPath) as! LFSEmojiSystemCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kLfsEmojiSystemCollectionViewCell, for: indexPath) as! LFSEmojiSystemCollectionViewCell
         let _emojis = LFSEditModel.shared.filterEmojisInEachSection(emojis: emojis, section: section)
         let emoji = _emojis[indexPath.row]
         
@@ -123,7 +123,7 @@ extension LFSEmojiViewModel {
 //MARK: Handle Emoji Self Cell
 extension LFSEmojiViewModel {
     fileprivate func cellForEmojiSelf(collectionView: UICollectionView, section: String, indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lfsEmojiSelfCollectionViewCell, for: indexPath) as! LFSEmojiSelfCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kLfsEmojiSelfCollectionViewCell, for: indexPath) as! LFSEmojiSelfCollectionViewCell
         let _emojis = LFSEditModel.shared.filterEmojisInEachSection(emojis: emojis, section: section)
         let emoji = _emojis[indexPath.row]
       

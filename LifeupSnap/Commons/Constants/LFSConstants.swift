@@ -9,40 +9,6 @@
 import Foundation
 
 internal struct LFSConstants {
-    //MARK: StoryboardID
-    internal struct LFSNibID {
-        internal struct Snap {
-            internal static let lfsSnapViewController = "LFSSnapViewController"
-            internal static let lfsVideoPreviewController = "LFSVideoPreviewViewController"
-            internal static let lfsPhotoPreviewController = "LFSPhotoPreviewViewController"
-        }
-        
-        internal struct Edit {
-            internal static let lfsEditViewController = "LFSEditViewController"
-            internal static let lfsEditLabelViewController = "LFSEditLabelViewController"
-            internal static let lfsDrawViewController = "LFSDrawViewController"
-            internal static let lfsEmojiViewController = "LFSEmojiViewController"
-            
-            internal static let lfsLabelColorCollectionViewCell = "LFSLabelColorCollectionViewCell"
-            internal static let lfsEmojiSystemCollectionViewCell = "LFSEmojiSystemCollectionViewCell"
-            internal static let lfsEmojiSelfCollectionViewCell = "LFSEmojiSelfCollectionViewCell"
-        }
-        
-        internal struct Edited {
-            internal static let lfsVideoEditedPreviewViewController = "LFSVideoEditedPreviewViewController"
-            internal static let lfsPhotoEditedPreviewViewController = "LFSPhotoEditedPreviewViewController"
-        }
-    }
-    
-    //MARK: CollectionViewCell Identifier
-    internal struct LFSCollectionViewCellID {
-        internal struct Edit {
-            internal static let lfsLabelColorCollectionViewCell = "LFSLabelColorCollectionViewCellIdentifier"
-            internal static let lfsEmojiSystemCollectionViewCell = "LFSEmojiSystemCollectionViewCellIdentifier"
-            internal static let lfsEmojiSelfCollectionViewCell = "LFSEmojiSelfCollectionViewCellIdentifier"
-        }
-    }
-    
     //MARK: NotificationCenter ID
     internal struct NotificationCenterID {
         internal struct DragLabel {

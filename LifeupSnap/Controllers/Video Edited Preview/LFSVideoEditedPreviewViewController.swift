@@ -27,7 +27,7 @@ internal class LFSVideoEditedPreviewViewController: UIViewController {
     
     internal init() {
         let bundle = Bundle(for: LFSVideoEditedPreviewViewController.self)
-        super.init(nibName: LFSConstants.LFSNibID.Edited.lfsVideoEditedPreviewViewController, bundle: bundle)
+        super.init(nibName: kLfsVideoEditedPreviewViewController, bundle: bundle)
     }
     
     required init?(coder aDecoder: NSCoder) {

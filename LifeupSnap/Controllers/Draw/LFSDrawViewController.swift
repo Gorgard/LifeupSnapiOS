@@ -34,7 +34,7 @@ class LFSDrawViewController: UIViewController {
     
     internal init(delegate: LFSDrawDelegate) {
         let bundle = Bundle(for: LFSDrawViewController.self)
-        super.init(nibName: LFSConstants.LFSNibID.Edit.lfsDrawViewController, bundle: bundle)
+        super.init(nibName: kLfsDrawViewController, bundle: bundle)
         
         self.delegate = delegate
     }
@@ -142,8 +142,8 @@ extension LFSDrawViewController {
     }
     
     fileprivate func setupCollectionView() {
-        let nib = UINib(nibName: LFSConstants.LFSNibID.Edit.lfsLabelColorCollectionViewCell, bundle: Bundle(for: LFSLabelColorCollectionViewCell.self))
-        collectionView.register(nib, forCellWithReuseIdentifier: LFSConstants.LFSCollectionViewCellID.Edit.lfsLabelColorCollectionViewCell)
+        let nib = UINib(nibName: kLfsLabelColorCollectionViewCellNib, bundle: Bundle(for: LFSLabelColorCollectionViewCell.self))
+        collectionView.register(nib, forCellWithReuseIdentifier: kLfsLabelColorCollectionViewCell)
         
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.itemSize = CGSize(width: 25, height: 25)
