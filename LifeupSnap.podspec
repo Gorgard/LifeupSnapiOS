@@ -11,5 +11,4 @@ Pod::Spec.new do |s|
 
   s.ios.vendored_frameworks = 'LifeupSnap.framework'
 
-  end
 end
