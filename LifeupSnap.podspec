@@ -9,6 +9,18 @@ Pod::Spec.new do |s|
   s.source       = { :git => 'https://github.com/Gorgard/LifeupSnapiOS.git',:tag => s.version.to_s}
   s.ios.deployment_target = '9.0'
 
-  s.ios.vendored_frameworks = 'LifeupSnap.framework'
+  s.frameworks  = 'UIKit', 'AVFoundation'
+  s.requires_arc = true
+  s.static_framework = false
+  s.default_subspec = 'All'
+
+  s.subspec 'All' do |ss|
+    ss.ios.dependency 'LifeupSnap/LifeupSnap'
+  end
+
+  s.subspec 'LifeupSnap' do |ss|
+    ss.source_files  = 'LifeupSnap.framework'
+
+  end
 
 end
