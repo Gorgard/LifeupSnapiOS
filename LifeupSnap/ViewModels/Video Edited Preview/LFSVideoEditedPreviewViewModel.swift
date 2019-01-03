@@ -117,8 +117,8 @@ extension LFSVideoEditedPreviewViewModel {
     }
     
     internal func pressedNext() {
-        if let url = url, let data = try? Data(contentsOf: url) {
-            baseDelegate?.snapVideo?(whenNextAfterEdited: data)
+        if let url = url {
+            baseDelegate?.snapVideo?(whenNextAfterEdited: url)
         }
         
         super.closeToRoot()

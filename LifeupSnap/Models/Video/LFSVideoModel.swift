@@ -256,11 +256,22 @@ extension LFSVideoModel {
         
         let videoCompositionProps = [AVVideoAverageBitRateKey: videoTrack.estimatedDataRate]
         
-        let writerOutputSettings: [String: Any] = [
+        var writerOutputSettings: [String: Any]
+        
+        if #available(iOS 11.0, *) {
+            writerOutputSettings = [
+            AVVideoCodecKey: AVVideoCodecType.h264,
+            AVVideoWidthKey: videoTrack.naturalSize.width,
+            AVVideoHeightKey: videoTrack.naturalSize.height,
+            AVVideoCompressionPropertiesKey: videoCompositionProps]
+        }
+        else {
+            writerOutputSettings = [
             AVVideoCodecKey: AVVideoCodecH264,
             AVVideoWidthKey: videoTrack.naturalSize.width,
             AVVideoHeightKey: videoTrack.naturalSize.height,
             AVVideoCompressionPropertiesKey: videoCompositionProps]
+        }
         
         let writerInput = AVAssetWriterInput(mediaType: .video, outputSettings: writerOutputSettings)
         writerInput.expectsMediaDataInRealTime = false

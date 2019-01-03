@@ -218,7 +218,7 @@ SWIFT_PROTOCOL("_TtP10LifeupSnap15LFSSnapDelegate_")
 @protocol LFSSnapDelegate
 @optional
 - (void)snapVideoWhenSaved:(NSURL * _Nonnull)receiveURL;
-- (void)snapVideoWhenNextAfterEdited:(NSData * _Nonnull)receiveVideo;
+- (void)snapVideoWhenNextAfterEdited:(NSURL * _Nonnull)receiveURL;
 - (void)snapPhotoWhenSaved:(UIImage * _Nonnull)receivePhoto;
 - (void)snapPhotoWhenNextAfterEdited:(UIImage * _Nonnull)receivePhoto;
 @end

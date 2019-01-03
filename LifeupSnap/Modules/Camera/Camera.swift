@@ -80,17 +80,20 @@ internal class Camera: NSObject {
         
         taskMain { [unowned self] in
             do {
-                self.createCaptureSession()
-                try self.configurationCaptureDevice()
-                try self.configurationDeviceInputs()
-                try self.configurationPhotoOutput()
-                try self.configurationMicInput()
-                try self.configurationMovieOutput()
+                if !UIDevice.current.isSimulator {
+                    self.createCaptureSession()
+                    try self.configurationCaptureDevice()
+                    try self.configurationDeviceInputs()
+                    try self.configurationPhotoOutput()
+                    try self.configurationMicInput()
+                    try self.configurationMovieOutput()
+                }
+                else {
+                    failure(nil)
+                }
             }
             catch {
-                taskMain {
-                    failure(error)
-                }
+                failure(error)
                 
                 return
             }
@@ -176,7 +179,13 @@ extension Camera {
         }
         
         photoOutput = AVCapturePhotoOutput()
-        photoOutput?.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecJPEG])], completionHandler: nil)
+        
+        if #available(iOS 11.0, *) {
+            photoOutput?.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])], completionHandler: nil)
+        }
+        else {
+            photoOutput?.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecJPEG])], completionHandler: nil)
+        }
         
         if captureSession.canAddOutput(photoOutput!) {
             captureSession.addOutput(photoOutput!)
