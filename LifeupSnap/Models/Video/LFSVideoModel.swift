@@ -37,7 +37,10 @@ internal class LFSVideoModel: LFSBaseModel {
             PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
         }, completionHandler: { (saved, error) -> Void in
             if let error = error {
-                failure(error)
+                taskMain {
+                    failure(error)
+                }
+                
                 return
             }
             
@@ -55,6 +58,11 @@ internal class LFSVideoModel: LFSBaseModel {
                         completion(video)
                     }
                 })
+            }
+            else {
+                taskMain {
+                    failure(nil)
+                }
             }
         })
     }
@@ -94,7 +102,7 @@ internal class LFSVideoModel: LFSBaseModel {
 
 //MARK: Merge Video
 extension LFSVideoModel {
-    internal func mergeEditedVideo(url: URL, originalVideo: Bool, view: UIView, completion: @escaping(_ url: URL?) -> Void) {
+    internal func mergeEditedVideo(url: URL, isLoop: Bool, view: UIView, completion: @escaping(_ url: URL?) -> Void) {
         let videoAsset = AVAsset(url: url)
         let mixComposition = AVMutableComposition()
         
@@ -104,7 +112,7 @@ extension LFSVideoModel {
         var audioTrack: AVMutableCompositionTrack? = nil
         var audioAssetTrack: AVAssetTrack? = nil
         
-        if originalVideo {
+        if isLoop {
             audioTrack = mixComposition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
             audioAssetTrack = videoAsset.tracks(withMediaType: .audio).first
         }
@@ -114,7 +122,7 @@ extension LFSVideoModel {
         do {
             try videoTrack.insertTimeRange(timeRange, of: videoAssetTrack, at: kCMTimeZero)
             
-            if originalVideo {
+            if isLoop {
                 try audioTrack?.insertTimeRange(timeRange, of: audioAssetTrack!, at: kCMTimeZero)
             }
         }
@@ -167,8 +175,8 @@ extension LFSVideoModel {
         
         addViewToVideo(compostion: mainComposition, view: view, size: naturalSize)
         
-        let fileName = "\(LFSConstants.LFSVideoName.Snap.snapMergeEditedVideo)\(Date())"
-        let outputURL = super.outputPathURL(fileName: fileName, fileType: "mp4")
+        let fileName = LFSConstants.LFSVideoName.Snap.kSnapMergeEditedVideo + "\(Date())"
+        let outputURL = super.outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mp4)
         
         guard let exporter = AVAssetExportSession(asset: mixComposition, presetName: AVAssetExportPresetHighestQuality) else { return }
         exporter.outputURL = outputURL
@@ -234,7 +242,7 @@ extension LFSVideoModel {
             samples.append(sample)
         }
         
-        let fileName = "\(LFSConstants.LFSVideoName.Snap.snapReversedVideo)\(Date())"
+        let fileName = LFSConstants.LFSVideoName.Snap.kSnapReversedVideo + "\(Date())"
         let reversePath = LFSVideoModel.shared.outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mov)!
         
         let writer: AVAssetWriter
@@ -275,12 +283,12 @@ extension LFSVideoModel {
         }
         
         writer.finishWriting { [unowned self] in
-            self.mergeReversed(originalURL: originalURL, reversePath: reversePath, completion: completion)
+            self.covertToLoopVideo(originalURL: originalURL, reversePath: reversePath, completion: completion)
         }
     }
     
-    private func mergeReversed(originalURL: URL, reversePath: URL, completion: @escaping(_ url: URL?) -> Void) {
-        let videos = [originalURL, reversePath]
+    private func covertToLoopVideo(originalURL: URL, reversePath: URL, completion: @escaping(_ url: URL?) -> Void) {
+        let videos = [originalURL, reversePath, originalURL, reversePath]
         
         let composition = AVMutableComposition()
         guard let videoTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid) else { return }
@@ -305,7 +313,7 @@ extension LFSVideoModel {
             currentVideoTime = CMTimeAdd(currentVideoTime, scaleDuration)
         }
 
-        let fileName = "\(LFSConstants.LFSVideoName.Snap.snapMergedVideo)\(Date())"
+        let fileName = LFSConstants.LFSVideoName.Snap.kSnapLoopedVideo + "\(Date())"
         let mergedPath = LFSVideoModel.shared.outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mov)!
         
         guard let exporter = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality) else { return }

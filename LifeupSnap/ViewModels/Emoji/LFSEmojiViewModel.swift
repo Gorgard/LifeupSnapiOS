@@ -82,9 +82,9 @@ extension LFSEmojiViewModel: LFSCollectionViewPresentable {
         let section = emojiSetions[indexPath.section]
         
         switch section {
-        case LFSConstants.LFSEmoji.emojiSystemSection:
+        case LFSConstants.LFSEmoji.kEmojiSystemSection:
             return cellForEmojiSystem(collectionView: collectionView, section: section, indexPath: indexPath)
-        case LFSConstants.LFSEmoji.emojiSelfSection:
+        case LFSConstants.LFSEmoji.kEmojiSelfSection:
             return cellForEmojiSelf(collectionView: collectionView, section: section, indexPath: indexPath)
         default:
             return UICollectionViewCell()

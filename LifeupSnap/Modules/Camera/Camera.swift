@@ -403,7 +403,7 @@ extension Camera {
         
         connection.videoOrientation = currentVideoOrientation()
         
-        let fileName = "\(LFSConstants.LFSVideoName.Snap.snapVideo)\(Date())"
+        let fileName = "\(LFSConstants.LFSVideoName.Snap.kSnapVideo)\(Date())"
         let path = LFSVideoModel.shared.outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mp4)!
         
         movieOutput?.startRecording(to: path, recordingDelegate: self)

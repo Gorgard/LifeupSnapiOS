@@ -80,7 +80,11 @@ extension LFSVideoEditedPreviewViewModel {
     }
     
     internal func handleSaveSuccess() {
-        let alertController = AlertController(title: LFSConstants.LFSAlertWording.saved, message: LFSConstants.LFSAlertWording.photoSaved, acceptButtonTitle: LFSConstants.LFSAlertWording.ok, cancelButtonTitle: nil)
+        let alertController = AlertController(title: LFSConstants.LFSWording.saved,
+                                              message: LFSConstants.LFSWording.photoSaved,
+                                              acceptButtonTitle: LFSConstants.LFSWording.ok,
+                                              cancelButtonTitle: nil)
+        
         alertController.shouldHaveCancelButton = false
         
         alertController.show(viewController: viewController!, accept: { (alert) -> Void in
@@ -89,7 +93,10 @@ extension LFSVideoEditedPreviewViewModel {
     }
     
     internal func handleSaveFailure() {
-        let alertController = AlertController(title: LFSConstants.LFSAlertWording.saveFailure, message: LFSConstants.LFSAlertWording.areYouResave, acceptButtonTitle: LFSConstants.LFSAlertWording.resave, cancelButtonTitle: LFSConstants.LFSAlertWording.cancel)
+        let alertController = AlertController(title: LFSConstants.LFSWording.saveFailure,
+                                              message: LFSConstants.LFSWording.areYouResave,
+                                              acceptButtonTitle: LFSConstants.LFSWording.resave,
+                                              cancelButtonTitle: LFSConstants.LFSWording.cancel)
         
         alertController.show(viewController: viewController!, accept: { [unowned self] (alert) -> Void in
             self.save()
