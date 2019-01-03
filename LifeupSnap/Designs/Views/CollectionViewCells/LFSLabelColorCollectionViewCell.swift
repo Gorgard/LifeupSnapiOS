@@ -17,6 +17,12 @@ internal class LFSLabelColorCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         setup()
     }
+    
+    deinit {
+        coverLabelColorView = nil
+        labelColorView = nil
+        choosedColorView = nil
+    }
 
     fileprivate func setup() {
         coverLabelColorView.layer.cornerRadius = coverLabelColorView.bounds.size.height / 2

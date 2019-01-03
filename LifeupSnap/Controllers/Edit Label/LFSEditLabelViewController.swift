@@ -134,7 +134,7 @@ extension LFSEditLabelViewController {
     }
     
     fileprivate func setupTextView() {
-        messageTextView.placeholder = LFSConstants.LFSPlaceholder.Edit.startTyping
+        messageTextView.placeholder = LFSConstants.LFSWording.startTyping
         messageTextView.returnKeyType = .done
         messageTextView.backgroundColor = .clear
         messageTextView.delegate = self

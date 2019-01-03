@@ -14,19 +14,9 @@ internal class LFSPhotoModel: LFSBaseModel {
     
     private override init() {}
     
-    internal func generatePhoto(data: Data, isSquare: Bool) -> UIImage {
+    internal func generatePhoto(data: Data, isSquare: Bool) -> UIImage? {
         let image = UIImage(data: data)
-        
-        var realImage: UIImage
-        
-        if isSquare {
-            realImage = cropImageToSquare(image: image!)!
-        }
-        else {
-            realImage = image!
-        }
-        
-        return realImage
+        return isSquare ? cropImageToSquare(image: image!) : image
     }
     
     private func cropImageToSquare(image: UIImage) -> UIImage? {
@@ -42,15 +32,17 @@ internal class LFSPhotoModel: LFSBaseModel {
         
         let size = CGSize(width: imageWidth, height: imageHeight)
         
-        let refWidth = CGFloat(image.cgImage!.width)
-        let refHeight = CGFloat(image.cgImage!.height)
+        guard let cgImage = image.cgImage else { return nil }
+        
+        let refWidth = CGFloat(cgImage.width)
+        let refHeight = CGFloat(cgImage.height)
         
         let x = (refWidth - size.width) / 2
         let y = (refHeight - size.height) / 2
         
         let cropRect = CGRect(x: x, y: y, width: size.height, height: size.width)
         
-        if let imageRef = image.cgImage!.cropping(to: cropRect) {
+        if let imageRef = cgImage.cropping(to: cropRect) {
             return UIImage(cgImage: imageRef, scale: 3, orientation: image.imageOrientation)
         }
         
@@ -75,7 +67,7 @@ internal class LFSPhotoModel: LFSBaseModel {
     }
     
     internal func imageBundle(named: String, fromClass: AnyClass) -> UIImage? {
-        let bundle = Bundle(for: fromClass.self)
+        let bundle = Bundle(for: fromClass)
         let image = UIImage(named: named, in: bundle, compatibleWith: nil)
         return image
     }
