@@ -173,7 +173,7 @@ extension LFSVideoModel {
         mainComposition.instructions = [mainInstruction]
         mainComposition.frameDuration = CMTimeMake(1, 30)
         
-        addViewToVideo(compostion: mainComposition, view: view, size: naturalSize)
+        mergeComponent(compostion: mainComposition, view: view, size: naturalSize)
         
         let fileName = LFSConstants.LFSVideoName.Snap.kSnapMergeEditedVideo + "\(Date())"
         let outputURL = super.outputPathURL(fileName: fileName, fileType: LFSConstants.LFSFileType.Snap.mp4)
@@ -191,7 +191,7 @@ extension LFSVideoModel {
         }
     }
 
-    fileprivate func addViewToVideo(compostion: AVMutableVideoComposition, view: UIView, size: CGSize) {
+    fileprivate func mergeComponent(compostion: AVMutableVideoComposition, view: UIView, size: CGSize) {
         let image = LFSEditModel.shared.renderImage(view: view)
         
         let overlayLayer = CALayer()
@@ -256,11 +256,11 @@ extension LFSVideoModel {
         
         let videoCompositionProps = [AVVideoAverageBitRateKey: videoTrack.estimatedDataRate]
         
-        let writerOutputSettings = [
+        let writerOutputSettings: [String: Any] = [
             AVVideoCodecKey: AVVideoCodecH264,
             AVVideoWidthKey: videoTrack.naturalSize.width,
             AVVideoHeightKey: videoTrack.naturalSize.height,
-            AVVideoCompressionPropertiesKey: videoCompositionProps] as [String : Any]
+            AVVideoCompressionPropertiesKey: videoCompositionProps]
         
         let writerInput = AVAssetWriterInput(mediaType: .video, outputSettings: writerOutputSettings)
         writerInput.expectsMediaDataInRealTime = false
