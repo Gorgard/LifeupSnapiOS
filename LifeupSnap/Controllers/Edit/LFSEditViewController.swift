@@ -34,7 +34,7 @@ internal class LFSEditViewController: UIViewController {
     
     internal init() {
         let bundle = Bundle(for: LFSEditViewController.self)
-        super.init(nibName: LFSConstants.LFSNibID.Edit.lfsEditViewController, bundle: bundle)
+        super.init(nibName: kLfsEditViewController, bundle: bundle)
     }
     
     required init?(coder aDecoder: NSCoder) {

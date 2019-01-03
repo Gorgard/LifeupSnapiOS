@@ -26,7 +26,7 @@ class LFSPhotoEditedPreviewViewController: UIViewController {
     
     internal init() {
         let bundle = Bundle(for: LFSPhotoEditedPreviewViewController.self)
-        super.init(nibName: LFSConstants.LFSNibID.Edited.lfsPhotoEditedPreviewViewController, bundle: bundle)
+        super.init(nibName: kLfsPhotoEditedPreviewViewController, bundle: bundle)
     }
     
     required init?(coder aDecoder: NSCoder) {

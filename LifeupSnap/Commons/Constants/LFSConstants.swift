@@ -9,40 +9,6 @@
 import Foundation
 
 internal struct LFSConstants {
-    //MARK: StoryboardID
-    internal struct LFSNibID {
-        internal struct Snap {
-            internal static let lfsSnapViewController = "LFSSnapViewController"
-            internal static let lfsVideoPreviewController = "LFSVideoPreviewViewController"
-            internal static let lfsPhotoPreviewController = "LFSPhotoPreviewViewController"
-        }
-        
-        internal struct Edit {
-            internal static let lfsEditViewController = "LFSEditViewController"
-            internal static let lfsEditLabelViewController = "LFSEditLabelViewController"
-            internal static let lfsDrawViewController = "LFSDrawViewController"
-            internal static let lfsEmojiViewController = "LFSEmojiViewController"
-            
-            internal static let lfsLabelColorCollectionViewCell = "LFSLabelColorCollectionViewCell"
-            internal static let lfsEmojiSystemCollectionViewCell = "LFSEmojiSystemCollectionViewCell"
-            internal static let lfsEmojiSelfCollectionViewCell = "LFSEmojiSelfCollectionViewCell"
-        }
-        
-        internal struct Edited {
-            internal static let lfsVideoEditedPreviewViewController = "LFSVideoEditedPreviewViewController"
-            internal static let lfsPhotoEditedPreviewViewController = "LFSPhotoEditedPreviewViewController"
-        }
-    }
-    
-    //MARK: CollectionViewCell Identifier
-    internal struct LFSCollectionViewCellID {
-        internal struct Edit {
-            internal static let lfsLabelColorCollectionViewCell = "LFSLabelColorCollectionViewCellIdentifier"
-            internal static let lfsEmojiSystemCollectionViewCell = "LFSEmojiSystemCollectionViewCellIdentifier"
-            internal static let lfsEmojiSelfCollectionViewCell = "LFSEmojiSelfCollectionViewCellIdentifier"
-        }
-    }
-    
     //MARK: NotificationCenter ID
     internal struct NotificationCenterID {
         internal struct DragLabel {
@@ -63,10 +29,10 @@ internal struct LFSConstants {
     //MARK: VIDEO Name
     internal struct LFSVideoName {
         internal struct Snap {
-            internal static let snapVideo = "LFSSNAPVIDEO-"
-            internal static let snapReversedVideo = "LFSSNAPREVERSEVIDEO-"
-            internal static let snapMergedVideo = "LFSSNAPMERGEDVIDEO-"
-            internal static let snapMergeEditedVideo = "LFSSNAPMERGEDEDITEDVIDEO-"
+            internal static let kSnapVideo = "LFSSNAPVIDEO-"
+            internal static let kSnapReversedVideo = "LFSSNAPREVERSEVIDEO-"
+            internal static let kSnapLoopedVideo = "LFSSNAPLOOPEDVIDEO-"
+            internal static let kSnapMergeEditedVideo = "LFSSNAPMERGEDEDITEDVIDEO-"
         }
     }
     
@@ -78,18 +44,11 @@ internal struct LFSConstants {
         }
     }
     
-    //MARK: Placeholder
-    internal struct LFSPlaceholder {
-        internal struct Edit {
-            internal static let startTyping = "Start Typing"
-        }
-    }
-    
     //MARK: Emoji From System
     internal struct LFSEmoji {
-        internal static let emojiSystemSection = "emoji_system_section"
-        internal static let emojiSelfSection = "emoji_self_section"
-        internal static let emojiCustomSection = "emoji_custom_section"
+        internal static let kEmojiSystemSection = "emoji_system_section"
+        internal static let kEmojiSelfSection = "emoji_self_section"
+        internal static let kEmojiCustomSection = "emoji_custom_section"
     }
     
     //MARK: Emoji Path
@@ -98,7 +57,9 @@ internal struct LFSConstants {
     }
     
     //MARK: Alert Wording
-    internal struct LFSAlertWording {
+    internal struct LFSWording {
+        internal static let startTyping = "Start Typing"
+        
         internal static let keep = "Keep Editing"
         internal static let discard = "Discard"
         internal static let discardTitle = "Discard Photo?"

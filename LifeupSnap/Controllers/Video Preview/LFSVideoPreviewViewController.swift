@@ -24,7 +24,7 @@ internal class LFSVideoPreviewViewController: UIViewController {
     
     internal init() {
         let bundle = Bundle(for: LFSVideoPreviewViewController.self)
-        super.init(nibName: LFSConstants.LFSNibID.Snap.lfsVideoPreviewController, bundle: bundle)
+        super.init(nibName: kLfsVideoPreviewController, bundle: bundle)
     }
     
     required init?(coder aDecoder: NSCoder) {

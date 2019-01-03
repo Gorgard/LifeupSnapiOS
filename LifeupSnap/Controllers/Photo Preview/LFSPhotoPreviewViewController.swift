@@ -23,7 +23,7 @@ class LFSPhotoPreviewViewController: UIViewController {
     
     internal init() {
         let bundle = Bundle(for: LFSPhotoPreviewViewController.self)
-        super.init(nibName: LFSConstants.LFSNibID.Snap.lfsPhotoPreviewController, bundle: bundle)
+        super.init(nibName: kLfsPhotoPreviewController, bundle: bundle)
     }
     
     required init?(coder aDecoder: NSCoder) {

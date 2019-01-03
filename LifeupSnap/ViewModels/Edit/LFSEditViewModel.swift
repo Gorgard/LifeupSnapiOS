@@ -69,10 +69,10 @@ extension LFSEditViewModel {
 extension LFSEditViewModel {
     fileprivate func handleClose(accept: @escaping() -> Void, cancel: @escaping() -> Void) {
         if labels.count > 0 || images.count > 0 || emojis.count > 0 {
-            let alertController = AlertController(title: LFSConstants.LFSAlertWording.discardTitle,
-                                                  message: LFSConstants.LFSAlertWording.photoWillDelete,
-                                                  acceptButtonTitle: LFSConstants.LFSAlertWording.keep,
-                                                  cancelButtonTitle: LFSConstants.LFSAlertWording.discard)
+            let alertController = AlertController(title: LFSConstants.LFSWording.discardTitle,
+                                                  message: LFSConstants.LFSWording.photoWillDelete,
+                                                  acceptButtonTitle: LFSConstants.LFSWording.keep,
+                                                  cancelButtonTitle: LFSConstants.LFSWording.discard)
             
             alertController.show(viewController: viewController!, accept: { (alert) -> Void in
                 accept()
@@ -239,7 +239,9 @@ extension LFSEditViewModel {
         backgroundImageView.backgroundColor = .clear
         
         let editedImageView = UIImageView(frame: view.bounds)
+        editedImageView.contentMode = .scaleAspectFit
         editedImageView.image = renderedEditedImage
+        editedImageView.backgroundColor = .clear
         
         let baseView = UIView(frame: view.bounds)
         baseView.backgroundColor = .clear
@@ -266,12 +268,12 @@ extension LFSEditViewModel {
     fileprivate func mergeVideo() {
         guard let url = url, let view = view else { return }
         
-        var originalVideo: Bool = true
-        if url.absoluteString.contains(LFSConstants.LFSVideoName.Snap.snapMergedVideo) {
-            originalVideo = false
+        var isLoop: Bool = true
+        if url.absoluteString.contains(LFSConstants.LFSVideoName.Snap.kSnapLoopedVideo) {
+            isLoop = false
         }
         
-        LFSVideoModel.shared.mergeEditedVideo(url: url, originalVideo: originalVideo, view: view, completion: { [unowned self] (editedURL) -> Void in
+        LFSVideoModel.shared.mergeEditedVideo(url: url, isLoop: isLoop, view: view, completion: { [unowned self] (editedURL) -> Void in
             self.goToVideoEditedPreview(url: editedURL)
         })
     }

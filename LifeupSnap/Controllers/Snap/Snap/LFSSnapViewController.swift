@@ -46,7 +46,7 @@ public class LFSSnapViewController: UIViewController {
 
     public init() {
         let bundle = Bundle(for: LFSSnapViewController.self)
-        super.init(nibName: LFSConstants.LFSNibID.Snap.lfsSnapViewController, bundle: bundle)
+        super.init(nibName: kLfsSnapViewController, bundle: bundle)
     }
     
     required public init?(coder aDecoder: NSCoder) {

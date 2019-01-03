@@ -12,8 +12,8 @@ internal class EmojiView: UIView {
     private var lastLocation: CGPoint!
     private var lastScale: CGFloat = 1.0
     
-    private let minScale: CGFloat = 0.5
-    private let maxScale: CGFloat = 2.0
+    private let kMinScale: CGFloat = 0.5
+    private let kMaxScale: CGFloat = 2.0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -63,7 +63,7 @@ extension EmojiView {
         if gesture.state == .began || gesture.state == .changed {
             let pinchScale: CGFloat = gesture.scale
             
-            if lastScale * pinchScale < maxScale && lastScale * pinchScale > minScale {
+            if lastScale * pinchScale < kMaxScale && lastScale * pinchScale > kMinScale {
                 lastScale *= pinchScale
                 transform = transform.scaledBy(x: pinchScale, y: pinchScale)
             }

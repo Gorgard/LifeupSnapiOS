@@ -9,26 +9,32 @@
 import UIKit
 
 internal class LFSEmojiModel: LFSEditModel {
-    private let emojiSystemCount: Int = 2347
+    //MARK: Emoji System
+    private let kEmojiSystemCount: Int = 2347
+    private let kEmojiSystemIncreaseRange: Int = 200
+    private var emojiSystemStartRange: Int = 1
+    private var emojiSystemChangeRage: Int = 60
     
-    private var emojiCurrentRange: Int = 1
-    private var emojiChangeRage: Int = 60
+    //MARK: Emoji Self
+    private let kEmojiSelfCount: Int = 75
+    private let emojiSelfStartRange: Int = 1
     
-    private var loadedEmojiSelf: Bool = false
+    //MARK: Commons
+    internal let kImageWidth: CGFloat = 50
     
     internal func loadMoreEmojiSystems() -> [LFSEmoji] {
         var emojiSystems = [LFSEmoji]()
         
-        if emojiCurrentRange <= emojiSystemCount {
-            for i in emojiCurrentRange...emojiChangeRage {
-                if i <= emojiSystemCount {
-                    let emoji = LFSEmoji(name: "emo_system_\(i)", section: LFSConstants.LFSEmoji.emojiSystemSection, value: LFSConstants.LFSEmojiPath.emojiSystem + "emo_system_\(i).png")
+        if emojiSystemStartRange <= kEmojiSystemCount {
+            for i in emojiSystemStartRange...emojiSystemChangeRage {
+                if i <= kEmojiSystemCount {
+                    let emoji = LFSEmoji(name: "emo_system_\(i)", section: LFSConstants.LFSEmoji.kEmojiSystemSection, value: LFSConstants.LFSEmojiPath.emojiSystem + "emo_system_\(i).png")
                     emojiSystems.append(emoji)
                 }
             }
             
-            emojiCurrentRange = emojiChangeRage
-            emojiChangeRage += 200
+            emojiSystemStartRange = emojiSystemChangeRage
+            emojiSystemChangeRage += kEmojiSystemIncreaseRange
         }
         
         return emojiSystems
@@ -37,9 +43,9 @@ internal class LFSEmojiModel: LFSEditModel {
     internal func loadMoreEmojiSelfs() -> [LFSEmoji] {
         var emojiSelfs = [LFSEmoji]()
         
-        for i in 1...75 {
-            if let image = LFSPhotoModel.shared.imageBundle(named: "Emo\(i)", fromClass: LFSEmojiModel.self)?.resizeWithWidth(width: 50) {
-                let emoji = LFSEmoji(name: "EmojiSelf\(i)", section: LFSConstants.LFSEmoji.emojiSelfSection, value: image)
+        for i in emojiSelfStartRange...kEmojiSelfCount {
+            if let image = LFSPhotoModel.shared.imageBundle(named: "Emo\(i)", fromClass: LFSEmojiModel.self)?.resizeWithWidth(width: kImageWidth) {
+                let emoji = LFSEmoji(name: "emoji_self_\(i)", section: LFSConstants.LFSEmoji.kEmojiSelfSection, value: image)
                 
                 emojiSelfs.append(emoji)
             }
