@@ -17,12 +17,12 @@ beta 0.1.6 -> pod 'LifupSnap', '0.1.6'
 ```
 
 ## Screen Shots
-![Alt Text](https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/1.PNG)
-![Alt Text](https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/2.PNG)
-![Alt Text](https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/3.PNG)
-![Alt Text](https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/4.PNG)
-![Alt Text](https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/5.PNG)
-![Alt Text](https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/6.PNG)
+![image](https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/1.PNG) {:height="178px" width="100px"}
+![image](https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/2.PNG) {:height="178px" width="100px"}
+![image](https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/3.PNG) {:height="178px" width="100px"}
+![image](https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/4.PNG) {:height="178px" width="100px"}
+![image](https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/5.PNG) {:height="178px" width="100px"}
+![image](https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/6.PNG) {:height="178px" width="100px"}
 
 ## Features
 
