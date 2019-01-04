@@ -17,12 +17,12 @@ beta 0.1.6 -> pod 'LifupSnap', '0.1.6'
 ```
 
 ## Screen Shots
-![image](https://drive.google.com/uc?export=view&id=1IrkQK_N-PF4_dXJ4Y7F4O8WrtctlSoKV)
-![image](https://drive.google.com/uc?export=view&id=1T8ixMt8a0e9WnyJNc-O9SGXJyRUYsJU8)
-![image](https://drive.google.com/uc?export=view&id=10gMpEOnTaumI-2d_EH1XJ4-JvGUpqfu9)
-![image](https://drive.google.com/uc?export=view&id=1XjwRSMUAPU7zrqD-RdWDADedtIezdZFg)
-![image](https://drive.google.com/uc?export=view&id=1XwZOHR-lJPnA6681bQXQSzkj4m0aYO5l)
-![image](https://drive.google.com/uc?export=view&id=1wQW4Uf74Xiw27RemfdfhSb3W8BAGZGVZ)
+![Alt Text](https://drive.google.com/file/d/1IrkQK_N-PF4_dXJ4Y7F4O8WrtctlSoKV/view?usp=sharing)
+![Alt Text](https://drive.google.com/file/d/1T8ixMt8a0e9WnyJNc-O9SGXJyRUYsJU8/view?usp=sharing)
+![Alt Text](https://drive.google.com/file/d/10gMpEOnTaumI-2d_EH1XJ4-JvGUpqfu9/view?usp=sharing)
+![Alt Text](https://drive.google.com/file/d/1XjwRSMUAPU7zrqD-RdWDADedtIezdZFg/view?usp=sharing)
+![Alt Text](https://drive.google.com/file/d/1XwZOHR-lJPnA6681bQXQSzkj4m0aYO5l/view?usp=sharing)
+![Alt Text](https://drive.google.com/file/d/1wQW4Uf74Xiw27RemfdfhSb3W8BAGZGVZ/view?usp=sharing)
 
 ## Features
 
