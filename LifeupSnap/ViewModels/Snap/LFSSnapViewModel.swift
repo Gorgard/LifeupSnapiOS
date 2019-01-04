@@ -151,12 +151,7 @@ extension LFSSnapViewModel {
     }
     
     internal func flash() {
-        if Camera.flashMode == .off {
-            changeImageFlashButton?(LFSPhotoModel.shared.imageBundle(named: kIconMainFlashOn, fromClass: LFSSnapViewModel.self)!)
-        }
-        else {
-            changeImageFlashButton?(LFSPhotoModel.shared.imageBundle(named: kIconMainFlashOff, fromClass: LFSSnapViewModel.self)!)
-        }
+        changeImageFlashButton?(LFSPhotoModel.shared.imageBundle(named: Camera.flashMode == .off ? kIconMainFlashOn : kIconMainFlashOff, fromClass: LFSSnapViewModel.self)!)
         
         flashCamera()
     }
