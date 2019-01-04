@@ -17,12 +17,12 @@ beta 0.1.6 -> pod 'LifupSnap', '0.1.6'
 ```
 
 ## Screen Shots
-<img src="https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/1.PNG" width="100" height="178") 
-<img src="https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/2.PNG" width="100" height="178")
-<img src="https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/3.PNG" width="100" height="178")
-<img src="https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/4.PNG" width="100" height="178")
-<img src="https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/5.PNG" width="100" height="178")
-<img src="https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/6.PNG" width="100" height="178")
+<img src="https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/1.PNG" width="100" height="178">
+<img src="https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/2.PNG" width="100" height="178">
+<img src="https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/3.PNG" width="100" height="178">
+<img src="https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/4.PNG" width="100" height="178">
+<img src="https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/5.PNG" width="100" height="178">
+<img src="https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/6.PNG" width="100" height="178">
 
 ## Features
 
