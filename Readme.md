@@ -13,16 +13,16 @@ pod 'LifeupSnap'
 
 ## Version
 ```bash
-beta 0.1.5 -> pod 'LifupSnap', '0.1.5'
+beta 0.1.6 -> pod 'LifupSnap', '0.1.6'
 ```
 
 ## Screen Shots
-![alt text](https://raw.githubusercontent.com/Gorgard/LifeupSnapiOS/master/Screenshots/1.png)
-![alt text](https://raw.githubusercontent.com/Gorgard/LifeupSnapiOS/master/Screenshots/2.png)
-![alt text](https://raw.githubusercontent.com/Gorgard/LifeupSnapiOS/master/Screenshots/3.png)
-![alt text](https://raw.githubusercontent.com/Gorgard/LifeupSnapiOS/master/Screenshots/4.png)
-![alt text](https://raw.githubusercontent.com/Gorgard/LifeupSnapiOS/master/Screenshots/5.png)
-![alt text](https://raw.githubusercontent.com/Gorgard/LifeupSnapiOS/master/Screenshots/6.png)
+![image](https://drive.google.com/open?id=1IrkQK_N-PF4_dXJ4Y7F4O8WrtctlSoKV)
+![image](https://drive.google.com/open?id=1T8ixMt8a0e9WnyJNc-O9SGXJyRUYsJU8)
+![image](https://drive.google.com/open?id=10gMpEOnTaumI-2d_EH1XJ4-JvGUpqfu9)
+![image](https://drive.google.com/open?id=1XjwRSMUAPU7zrqD-RdWDADedtIezdZFg)
+![image](https://drive.google.com/open?id=1XwZOHR-lJPnA6681bQXQSzkj4m0aYO5l)
+![image](https://drive.google.com/open?id=1wQW4Uf74Xiw27RemfdfhSb3W8BAGZGVZ)
 
 ## Features
 
