@@ -13,7 +13,8 @@ internal class LFSEmojiViewModel: LFSViewModel {
     
     private var emojiModel: LFSEmojiModel!
     
-    private var emojis: [LFSEmoji] = [LFSEmoji]()
+    private var emojiSystems: [LFSEmoji] = [LFSEmoji]()
+    private var emojiSelfs: [LFSEmoji] = [LFSEmoji]()
     private var emojiSetions: [String]!
     
     private var emoji: LFSEmoji!
@@ -26,9 +27,7 @@ internal class LFSEmojiViewModel: LFSViewModel {
     init(delegate: LFSEmojiViewModelDelegate) {
         super.init()
         self.delegate = delegate
-        
         emojiModel = LFSEmojiModel()
-  
         emojiSetions = [String]()
     }
     
@@ -55,11 +54,11 @@ extension LFSEmojiViewModel {
     }
     
     fileprivate func generateEmojiSystem() {
-        emojis += emojiModel.loadMoreEmojiSystems()
+        emojiSystems += emojiModel.loadMoreEmojiSystems()
     }
     
     fileprivate func generateEmojiSelf() {
-        emojis = emojiModel.loadMoreEmojiSelfs()
+        emojiSelfs = emojiModel.loadMoreEmojiSelfs()
     }
     
     fileprivate func getSection() {
@@ -74,8 +73,16 @@ extension LFSEmojiViewModel: LFSCollectionViewPresentable {
     }
     
     internal func numberOfItems(section: Int) -> Int {
-        let _emojis = LFSEditModel.shared.filterEmojisInEachSection(emojis: emojis, section: emojiSetions[section])
-        return _emojis.count
+        let section = emojiSetions[section]
+        
+        switch section {
+        case LFSConstants.LFSEmoji.kEmojiSystemSection:
+            return emojiSystems.count
+        case LFSConstants.LFSEmoji.kEmojiSelfSection:
+            return emojiSelfs.count
+        default:
+            return 0
+        }
     }
     
     internal func cellForItem(with collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
@@ -92,14 +99,34 @@ extension LFSEmojiViewModel: LFSCollectionViewPresentable {
     }
     
     internal func didSelected(with collectionView: UICollectionView, at indexPath: IndexPath) {
-        let _emojis = LFSEditModel.shared.filterEmojisInEachSection(emojis: emojis, section: emojiSetions[indexPath.section])
-        emoji = _emojis[indexPath.row]
+        let section = emojiSetions[indexPath.section]
+
+        switch section {
+        case LFSConstants.LFSEmoji.kEmojiSystemSection:
+            emoji = emojiSystems[indexPath.row]
+        case LFSConstants.LFSEmoji.kEmojiSelfSection:
+            emoji = emojiSelfs[indexPath.row]
+        default:
+            break
+        }
+        
         delegate?.choosedEmoji()
     }
     
     internal func willDisplay(with collectionView: UICollectionView, cell: UICollectionViewCell, indexPath: IndexPath) {
-        let _emojis = LFSEditModel.shared.filterEmojisInEachSection(emojis: emojis, section: emojiSetions[indexPath.section])
-        if indexPath.row == _emojis.count - 1 {
+        let section = emojiSetions[indexPath.section]
+        var emojis: [LFSEmoji] = [LFSEmoji]()
+        
+        switch section {
+        case LFSConstants.LFSEmoji.kEmojiSystemSection:
+            emojis = emojiSystems
+        case LFSConstants.LFSEmoji.kEmojiSelfSection:
+            emojis = emojiSelfs
+        default:
+            break
+        }
+        
+        if indexPath.row == emojis.count - 1 {
             loadMore(completion: { [weak self] in
                 self?.delegate?.fetchedEmoji()
             })
@@ -111,8 +138,7 @@ extension LFSEmojiViewModel: LFSCollectionViewPresentable {
 extension LFSEmojiViewModel {
     fileprivate func cellForEmojiSystem(collectionView: UICollectionView, section: String, indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kLfsEmojiSystemCollectionViewCell, for: indexPath) as! LFSEmojiSystemCollectionViewCell
-        let _emojis = LFSEditModel.shared.filterEmojisInEachSection(emojis: emojis, section: section)
-        let emoji = _emojis[indexPath.row]
+        let emoji = emojiSystems[indexPath.row]
         
         cell.emojiImageView.lfsImageCache(with: emoji.value as? String)
         
@@ -124,8 +150,7 @@ extension LFSEmojiViewModel {
 extension LFSEmojiViewModel {
     fileprivate func cellForEmojiSelf(collectionView: UICollectionView, section: String, indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kLfsEmojiSelfCollectionViewCell, for: indexPath) as! LFSEmojiSelfCollectionViewCell
-        let _emojis = LFSEditModel.shared.filterEmojisInEachSection(emojis: emojis, section: section)
-        let emoji = _emojis[indexPath.row]
+        let emoji = emojiSelfs[indexPath.row]
       
         cell.emojiImageView.image = emoji.value as? UIImage
         
@@ -176,7 +201,8 @@ extension LFSEmojiViewModel {
 extension LFSEmojiViewModel {
     fileprivate func removeAll() {
         delegate = nil
-        emojis.removeAll()
+        emojiSystems.removeAll()
+        emojiSelfs.removeAll()
         emojiSetions = nil
         didChoose = nil
         emojiModel = nil

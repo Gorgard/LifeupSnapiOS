@@ -12,11 +12,6 @@ import AVFoundation
 internal class LFSEditModel: LFSBaseModel {
     internal static let shared: LFSEditModel = LFSEditModel()
     
-    internal func filterEmojisInEachSection(emojis: [LFSEmoji], section: String) -> [LFSEmoji] {
-        let _emojis = emojis.filter({ $0.section == section })
-        return _emojis
-    }
-    
     internal func getEmojiSections() -> [String] {
         let sections = [LFSConstants.LFSEmoji.kEmojiSelfSection, LFSConstants.LFSEmoji.kEmojiSystemSection, LFSConstants.LFSEmoji.kEmojiCustomSection]
         return sections
