@@ -55,6 +55,7 @@
 		433BC3E221C2396C00DA3C43 /* ic_edit_pallate@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 433BC3DF21C2396C00DA3C43 /* ic_edit_pallate@3x.png */; };
 		433BC3E321C2396C00DA3C43 /* ic_edit_pallate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 433BC3E021C2396C00DA3C43 /* ic_edit_pallate@2x.png */; };
 		433BC3E821C23AF900DA3C43 /* LFSCollectionViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BC3E721C23AF900DA3C43 /* LFSCollectionViewPresentable.swift */; };
+		435C4A2421DEFFEB0043018F /* IconID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435C4A2321DEFFEB0043018F /* IconID.swift */; };
 		4364F06121C7934C0063C82B /* LFSDrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4364F05F21C7934C0063C82B /* LFSDrawViewController.swift */; };
 		4364F06221C7934C0063C82B /* LFSDrawViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4364F06021C7934C0063C82B /* LFSDrawViewController.xib */; };
 		4364F06521C7938D0063C82B /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4364F06421C7938D0063C82B /* DrawView.swift */; };
@@ -442,6 +443,7 @@
 		433BC3DF21C2396C00DA3C43 /* ic_edit_pallate@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_edit_pallate@3x.png"; sourceTree = "<group>"; };
 		433BC3E021C2396C00DA3C43 /* ic_edit_pallate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_edit_pallate@2x.png"; sourceTree = "<group>"; };
 		433BC3E721C23AF900DA3C43 /* LFSCollectionViewPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSCollectionViewPresentable.swift; sourceTree = "<group>"; };
+		435C4A2321DEFFEB0043018F /* IconID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconID.swift; sourceTree = "<group>"; };
 		4364F05F21C7934C0063C82B /* LFSDrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFSDrawViewController.swift; sourceTree = "<group>"; };
 		4364F06021C7934C0063C82B /* LFSDrawViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LFSDrawViewController.xib; sourceTree = "<group>"; };
 		4364F06421C7938D0063C82B /* DrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
@@ -1281,6 +1283,7 @@
 				4372253821AE2BA300130213 /* LFSConstants.swift */,
 				43709E4921DDBAA10067CA5E /* NibID.swift */,
 				43709E4B21DDBBFB0067CA5E /* CollectionViewCellID.swift */,
+				435C4A2321DEFFEB0043018F /* IconID.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -2254,6 +2257,7 @@
 				433BC3CA21C2111700DA3C43 /* LFSEditLabelViewModel.swift in Sources */,
 				43D8BF8521B639860065B3EB /* CircularProgress.swift in Sources */,
 				437225DD21AE874200130213 /* LFSSnapViewModel.swift in Sources */,
+				435C4A2421DEFFEB0043018F /* IconID.swift in Sources */,
 				431264AC21C3A534003B679B /* DragLabel.swift in Sources */,
 				4364F06B21C79D160063C82B /* LFSDrawViewModelProtocols.swift in Sources */,
 				439C346E21CB38B300BDDC28 /* EmojiView.swift in Sources */,

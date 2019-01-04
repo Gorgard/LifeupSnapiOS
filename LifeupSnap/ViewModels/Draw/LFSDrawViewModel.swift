@@ -62,11 +62,11 @@ extension LFSDrawViewModel {
     internal func colorPallate() {
         if colorPallateViewAlpha == 0 {
             colorPallateViewAlpha = 1
-            changePallateButtonImage?(LFSPhotoModel.shared.imageBundle(named: "ic_edit_close", fromClass: LFSDrawViewModel.self)!) //changePallateButtonImage?(#imageLiteral(resourceName: "ic_edit_close.png"))
+            changePallateButtonImage?(LFSPhotoModel.shared.imageBundle(named: kIconEditClose, fromClass: LFSDrawViewModel.self)!)
         }
         else {
             colorPallateViewAlpha = 0
-            changePallateButtonImage?(LFSPhotoModel.shared.imageBundle(named: "ic_edit_pallate", fromClass: LFSDrawViewModel.self)!) //changePallateButtonImage?(#imageLiteral(resourceName: "ic_edit_pallate.png"))
+            changePallateButtonImage?(LFSPhotoModel.shared.imageBundle(named: kIconEditPallate, fromClass: LFSDrawViewModel.self)!)
         }
         
         openColorPallate?(colorPallateViewAlpha)

@@ -73,14 +73,8 @@ extension LFSSnapViewModel {
     
     internal func binding() {
         if !initialed {
-            if features.contains(.original) {
-                currentIndex = features.index(of: .original)!
-                feature = .original
-            }
-            else {
-                currentIndex = features.count - 1
-                feature = features[currentIndex]
-            }
+            currentIndex = features.contains(.original) ? features.index(of: .original)! : features.count - 1
+            feature = features.contains(.original) ? .original : features[currentIndex]
             
             initialed = true
         }
@@ -91,13 +85,13 @@ extension LFSSnapViewModel {
         
         receivedFeature?(currentIndex)
         
-        taskMainAfter(deadline: .now() + 1, { [unowned self] in
-            self.hiddenBlurView?(0)
-            self.enableSnapButton?(true)
+        taskMainAfter(deadline: .now() + 1, { [weak self] in
+            self?.hiddenBlurView?(0)
+            self?.enableSnapButton?(true)
         })
         
         changeSnapButtonColor?(feature.rawValue == CameraFeature.video.rawValue ? .red : .white)
-        changeImageSnapButton?(feature.rawValue == CameraFeature.boomerang.rawValue ? LFSPhotoModel.shared.imageBundle(named: "ic_main_infinity", fromClass: LFSEditLabelViewModel.self)! : nil) //changeImageSnapButton?(feature.rawValue == CameraFeature.boomerang.rawValue ? #imageLiteral(resourceName: "ic_main_infinity.png") : nil)
+        changeImageSnapButton?(feature.rawValue == CameraFeature.boomerang.rawValue ? LFSPhotoModel.shared.imageBundle(named: kIconMainInfinity, fromClass: LFSEditLabelViewModel.self)! : nil)
         changeSquareViewHeight?(feature.rawValue == CameraFeature.square.rawValue ? 60 : 0)
         
         if let camera = camera {
@@ -157,12 +151,7 @@ extension LFSSnapViewModel {
     }
     
     internal func flash() {
-        if Camera.flashMode == .off {
-            changeImageFlashButton?(LFSPhotoModel.shared.imageBundle(named: "ic_main_flash_on", fromClass: LFSSnapViewModel.self)!) //changeImageFlashButton?(#imageLiteral(resourceName: "ic_main_flash_on.png"))
-        }
-        else {
-            changeImageFlashButton?(LFSPhotoModel.shared.imageBundle(named: "ic_main_flash_off", fromClass: LFSSnapViewModel.self)!) //changeImageFlashButton?(#imageLiteral(resourceName: "ic_main_flash_off.png"))
-        }
+        changeImageFlashButton?(LFSPhotoModel.shared.imageBundle(named: Camera.flashMode == .off ? kIconMainFlashOn : kIconMainFlashOff, fromClass: LFSSnapViewModel.self)!)
         
         flashCamera()
     }
@@ -187,9 +176,9 @@ extension LFSSnapViewModel {
     }
     
     fileprivate func snapBoomerang() {
-        taskMain { [unowned self] in
-            self.changeSnapButtonRadius?(8, CGRect(x: 0, y: 0, width: 40, height: 40))
-            self.enableAllView?(false)
+        taskMain { [weak self] in
+            self?.changeSnapButtonRadius?(8, CGRect(x: 0, y: 0, width: 40, height: 40))
+            self?.enableAllView?(false)
         }
         
         startProgressBoomerang()
@@ -205,9 +194,9 @@ extension LFSSnapViewModel {
     }
     
     fileprivate func snapVideo() {
-        taskMain { [unowned self] in
-            self.changeSnapButtonRadius?(8, CGRect(x: 0, y: 0, width: 40, height: 40))
-            self.enableAllView?(false)
+        taskMain { [weak self] in
+            self?.changeSnapButtonRadius?(8, CGRect(x: 0, y: 0, width: 40, height: 40))
+            self?.enableAllView?(false)
         }
         
         startProgressVideo()
@@ -268,9 +257,10 @@ extension LFSSnapViewModel {
 //MARK: Manage Camera
 extension LFSSnapViewModel {
     internal func prepareCamera() {
-        camera.prepare(completion: { [unowned self] () -> Void in
-            try? self.camera.displayPreview()
-            self.addPreviewLayer(view: self.view)
+        camera.prepare(completion: { [weak self] () -> Void in
+            guard let _self = self else { return }
+            try? _self.camera.displayPreview()
+            _self.addPreviewLayer(view: _self.view)
         }, failure: { (error) -> Void in
             print(error?.localizedDescription ?? "")
         })
@@ -322,8 +312,8 @@ extension LFSSnapViewModel {
     }
     
     private func handleRecord(url: URL?) {
-        taskMain { [unowned self] in
-            self.hiddenLoadingView?(false)
+        taskMain { [weak self] in
+            self?.hiddenLoadingView?(false)
         }
         
         if camera.selfStop {
@@ -345,9 +335,10 @@ extension LFSSnapViewModel {
     }
     
     fileprivate func finishedSnapBoomerang() {
-        taskMain { [unowned self] in
-            self.changeSnapButtonRadius?(self.snapButtonBounds.size.height / 2, self.snapButtonBounds)
-            self.enableAllView?(true)
+        taskMain { [weak self] in
+            guard let _self = self else { return }
+            _self.changeSnapButtonRadius?(_self.snapButtonBounds.size.height / 2, _self.snapButtonBounds)
+            _self.enableAllView?(true)
         }
         
         removeCircularProgress()
@@ -359,9 +350,9 @@ extension LFSSnapViewModel {
         lfsEditViewController.editEvent = .video
         lfsEditViewController.baseDelegate = baseDelegate
         
-        taskMain { [unowned self] in
-            self.hiddenLoadingView?(true)
-            self.viewController?.present(lfsEditViewController, animated: true, completion: nil)
+        taskMain { [weak self] in
+            self?.hiddenLoadingView?(true)
+            self?.viewController?.present(lfsEditViewController, animated: true, completion: nil)
         }
     }
     
@@ -454,9 +445,10 @@ extension LFSSnapViewModel {
     }
     
     fileprivate func finishedSnapVideo() {
-        taskMain { [unowned self] in
-            self.changeSnapButtonRadius?(self.snapButtonBounds.size.height / 2, self.snapButtonBounds)
-            self.enableAllView?(true)
+        taskMain { [weak self] in
+            guard let _self = self else { return }
+            _self.changeSnapButtonRadius?(_self.snapButtonBounds.size.height / 2, _self.snapButtonBounds)
+            _self.enableAllView?(true)
         }
         
         removeCircularProgress()
@@ -468,9 +460,9 @@ extension LFSSnapViewModel {
         lfsEditViewController.editEvent = .video
         lfsEditViewController.baseDelegate = baseDelegate
         
-        taskMain { [unowned self] in
-            self.hiddenLoadingView?(true)
-            self.viewController?.present(lfsEditViewController, animated: true, completion: nil)
+        taskMain { [weak self] in
+            self?.hiddenLoadingView?(true)
+            self?.viewController?.present(lfsEditViewController, animated: true, completion: nil)
         }
     }
     
