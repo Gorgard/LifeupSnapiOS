@@ -17,12 +17,12 @@ beta 0.1.6 -> pod 'LifupSnap', '0.1.6'
 ```
 
 ## Screen Shots
-![Alt Text](https://drive.google.com/file/d/1IrkQK_N-PF4_dXJ4Y7F4O8WrtctlSoKV/view?usp=sharing)
-![Alt Text](https://drive.google.com/file/d/1T8ixMt8a0e9WnyJNc-O9SGXJyRUYsJU8/view?usp=sharing)
-![Alt Text](https://drive.google.com/file/d/10gMpEOnTaumI-2d_EH1XJ4-JvGUpqfu9/view?usp=sharing)
-![Alt Text](https://drive.google.com/file/d/1XjwRSMUAPU7zrqD-RdWDADedtIezdZFg/view?usp=sharing)
-![Alt Text](https://drive.google.com/file/d/1XwZOHR-lJPnA6681bQXQSzkj4m0aYO5l/view?usp=sharing)
-![Alt Text](https://drive.google.com/file/d/1wQW4Uf74Xiw27RemfdfhSb3W8BAGZGVZ/view?usp=sharing)
+![Alt Text](https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/1.PNG)
+![Alt Text](https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/2.PNG)
+![Alt Text](https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/3.PNG)
+![Alt Text](https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/4.PNG)
+![Alt Text](https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/5.PNG)
+![Alt Text](https://github.com/Gorgard/LifeupSnapiOS/blob/master/Screenshots/6.PNG)
 
 ## Features
 
