@@ -13,7 +13,7 @@ pod 'LifeupSnap'
 
 ## Version
 ```bash
-beta 0.1.4 -> pod 'LifupSnap', '0.1.4'
+beta 0.1.5 -> pod 'LifupSnap', '0.1.5'
 ```
 
 ## Screen Shots
